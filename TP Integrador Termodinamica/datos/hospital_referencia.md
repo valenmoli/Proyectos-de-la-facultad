@@ -6,6 +6,44 @@
 
 **Criterio (decisión D5 del PRD):** hospital real del AMBA, de la **misma magnitud** que el hospital tipo (10.000 a 50.000 m² y 60 a 300 camas), no igual. Pesa más que los datos estén documentados que la cercanía exacta al tamaño. Se usa para contrastar intensidades (kWh/m², W/m², m²/cama) del hospital tipo, no para reemplazarlo.
 
+## Decisión en curso: Favaloro o Nordelta (D7 del PRD)
+
+**Criterio acordado:** nos quedamos con el que tenga **más información relevante para el modelo**, y lo que falte **se estima** como supuesto declarado. Información relevante es la que fija el tamaño del edificio, las zonas críticas (que son el caso psicrométrico detallado) y el sistema térmico.
+
+**Estado: cifras de extractos de búsqueda, sin verificar.** Se confirman cuando se descarguen las fuentes de abajo.
+
+| Información que necesita el modelo | Favaloro (SAMIC, Rafael Castillo, La Matanza) | Nordelta (Swiss Medical, Tigre) |
+|---|---|---|
+| Ubicación en el AMBA | Sí, conurbano oeste | Sí, conurbano norte |
+| Estado y año | Inaugurado el 28 de julio de 2020 | Abierto en junio de 2025, 5 pisos y 2 subsuelos |
+| Superficie cubierta | **18.352 m²**, documento oficial de proyecto (Casa Rosada). Base clara | **24.000 m²** (nota de inicio de obra de 2018). Otra fuente dice **26.000**. Cifra de proyecto, sin total final |
+| Camas | **158** al inaugurar (144 de internación general + 14 de terapia intensiva), fuente oficial de la Provincia. El proyecto preveía 160 | **127 habitaciones** de internación clínico-quirúrgica y pediátrica, más terapia intensiva de **18 habitaciones individuales**. No está claro si las 18 están dentro de las 127 |
+| m² por cama (calculado) | 116 | 189 (con 127) o 165 (con 145) |
+| Quirófanos | Existen, **sin número**. Seis shock rooms, salas de obstetricia | **4 quirófanos** "inteligentes", **2 salas de procedimientos** y un centro quirúrgico de alta complejidad. Quirúrgico y terapia intensiva en el 2.º piso (según el proyecto de 2018) |
+| Terapia intensiva | 14 camas | 18 habitaciones, adultos y pediátrica, más unidad coronaria y hemodinamia |
+| Climatización y energía | **Nada encontrado** | Un extracto previo de Cronista habla de **recuperadores de calor que reutilizan más del 50 % de la energía del aire extraído**, vidrios de control solar y terrazas verdes. Esta búsqueda no lo reconfirmó. Sin chillers ni consumos |
+| Consumo energético | No | No |
+| Tipo de fuente | Documento oficial del Estado | Prensa y comunicados de empresas (es privado) |
+
+**Lectura:**
+- **Favaloro tiene los números básicos más firmes** (superficie y camas de fuentes oficiales), pero **nada sobre zonas críticas ni sistema térmico**.
+- **Nordelta tiene más información relevante para este trabajo**: cuenta quirófanos y habitaciones de terapia intensiva (lo que fija el caso psicrométrico detallado) y menciona recuperación de calor del aire de extracción, que es justo una de nuestras mejoras. Su punto débil es que la superficie y las camas son de proyecto o de prensa y hay dos valores para la superficie (24.000 y 26.000).
+- **Selección provisoria: Nordelta**, condicionada a confirmar superficie y camas. **Favaloro queda como respaldo.**
+- Ambos encierran el supuesto de 150 m²/cama del hospital tipo (116 y 165 a 189), y ambos son de la misma magnitud que 20.000 m².
+
+**Qué se estimaría** (supuestos declarados) en cualquiera de los dos: el tipo de planta térmica (enfriadora, calderas, unidades de tratamiento de aire), las renovaciones de aire y condiciones interiores por zona, las superficies de cada zona crítica, los horarios de uso y el consumo. El clima es el del AMBA. Lo que se calcula es el consumo (D6).
+
+**Fuentes para confirmar** (descargar y adjuntar; se verifican con el método de siempre):
+
+| Hospital | Documento | Qué confirma |
+|---|---|---|
+| Nordelta | [Cronista, apertura](https://www.cronista.com/negocios/swiss-medical-inauguro-un-centro-medico-con-tecnologia-de-ultima-generacion-en-nordelta) | Habitaciones, terapia intensiva, quirófanos, recuperadores de calor |
+| Nordelta | [La Nación, inicio de obra (2018)](https://www.lanacion.com.ar/economia/negocios/con-una-inversion-de-us80-millones-belocopitt-y-costantini-iniciaron-la-construccion-de-una-clinica-en-nordelta-nid2148786/) | 24.000 m² cubiertos, pisos y subsuelos |
+| Nordelta | [Comunicado de Dedalus (PDF)](https://www.dedalus.com/latam/wp-content/uploads/sites/23/2025/07/NP_Dedalus_Hospital-Nordelta-Swiss-Medical.pdf) | Apertura y equipamiento |
+| Nordelta | [Ficha de proyecto de Mapei](https://www.mapei.com/ca/fr-ca/projets/project-detail/clinica-swiss-medical-nordelta) | Las fichas de este proveedor suelen traer la superficie; hay que ver si esta la trae |
+| Favaloro | [Presentación oficial en Casa Rosada (PDF)](https://www.casarosada.gob.ar/pdf/Acto_Central_-_Hospital_Dr.pdf) | 18.352 m² cubiertos, 160 camas previstas |
+| Favaloro | [Gacetilla de la Provincia](https://gba.gob.ar/comunicacion_publica/gacetillas/kicillof_particip%C3%B3_de_la_inauguraci%C3%B3n_del_hospital_doctor_ren%C3%A9) | 144 + 14 camas al inaugurar |
+
 ## Resultado en una línea
 
 Hay buenos candidatos **de tamaño y geometría**. **No se encontró ningún hospital del AMBA de esta magnitud con consumo energético real ni datos de climatización publicados** (chillers, calderas, gas). Para eso hay tres pistas que requieren abrir documentos (sección "Pistas de energía").
