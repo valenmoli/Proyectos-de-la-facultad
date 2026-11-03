@@ -30,9 +30,10 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | # | Decisión | Origen |
 |---|----------|--------|
 | D1 | El proyecto es un **hospital tipo ubicado en Argentina**, parametrizado con el artículo de Hospitecnia y completado con fuentes locales. | Usuario, 2026-11-03 |
-| D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Supuesto mío, **a confirmar** |
+| D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Usuario, 2026-11-03 |
 | D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
-| D4 | Propuesta de hospital tipo: **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Mía, **a confirmar** |
+| D4 | Hospital tipo de **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Propuesta mía, confirmada por el usuario, 2026-11-03 |
+| D5 | Buscar un **hospital real del AMBA** de características parecidas (unos 20.000 m², unas 130 camas) como **referencia** para contrastar el hospital tipo. No lo reemplaza. | Usuario, 2026-11-03 |
 
 ### 0.2 Cómo se adapta el artículo a Argentina
 
@@ -164,7 +165,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 
 **Bloqueantes (sin esto no avanzo a M1):**
 1. **Resuelto:** versión completa del artículo recibida y transcripta.
-2. **Decidido:** hospital tipo en Argentina (D1). Falta confirmar la ciudad: asumo AMBA (Buenos Aires). ¿Es correcta? La cantidad de camas y la superficie las propongo yo desde los ratios del artículo en el hito M1, salvo que la cátedra fije una.
+2. **Resuelto:** hospital tipo en el AMBA, de unos 20.000 m² y unas 130 camas (D1, D2, D4).
 3. **Datos "de la consigna":** ¿el docente pasó otro documento con datos del edificio? ¿Está validado que usemos Hospitecnia como base?
 
 **Asumo lo siguiente salvo que me digas lo contrario:**
