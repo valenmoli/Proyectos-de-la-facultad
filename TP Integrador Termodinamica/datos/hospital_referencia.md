@@ -1,6 +1,6 @@
 # Hospital de referencia en el AMBA
 
-> **Actualización:** se recibieron los documentos de las pistas y se transcribieron en [`referencias_argentina.md`](referencias_argentina.md). El Cruce quedó leído del documento original, el informe de Health Care Without Harm trae **consumos reales de tres hospitales argentinos** (incluido el Garrahan, del AMBA) y el documento del Austral **no trae cifras de energía**. Lo que sigue en este archivo (la tabla de candidatos y las pistas) es el estado previo a esa lectura y se conserva como registro.
+> **Actualización:** se recibieron los documentos de las pistas y se transcribieron en [`referencias_argentina.md`](referencias_argentina.md). El Cruce quedó leído del documento original, el informe de Health Care Without Harm trae **consumos estimados por auditoría de tres hospitales argentinos** (no medidos) (incluido el Garrahan, del AMBA) y el documento del Austral **no trae cifras de energía**. Lo que sigue en este archivo (la tabla de candidatos y las pistas) es el estado previo a esa lectura y se conserva como registro.
 
 **Estado de la tabla de candidatos: SIN VERIFICAR**, salvo El Cruce (ver arriba). Las cifras salen de extractos de búsqueda web, no de abrir la fuente (los dominios están bloqueados desde el entorno). **No entran al modelo** hasta confirmarse con el documento original.
 
@@ -41,7 +41,7 @@ Es lo que más pesa para el contraste. Se necesita descargar los documentos, por
 
 ## Resultado de las pistas (actualizado)
 
-1. **Informe de Health Care Without Harm:** trae consumos reales (estimados) de Garrahan, CEMAR y Giordano, con kWh/m²·año, por cama y por paciente. Detalle en `referencias_argentina.md`, secciones 1 y 2.
+1. **Informe de Health Care Without Harm:** trae consumos estimados por los auditores (no medidos) de Garrahan, CEMAR y Giordano, con kWh/m²·año, por cama y por paciente. Detalle en `referencias_argentina.md`, secciones 1 y 2.
 2. **Nota de El Cruce:** confirma 22.000 m² cubiertos, 140 camas y 50 % de camas críticas (2010). No trae datos de climatización ni de energía.
 3. **Documento del Austral:** es un resumen del plan de sostenibilidad, sin kWh, gas, chillers, superficie ni camas. La pista queda cerrada.
 4. **Hospital Elizalde (cogeneración):** sin novedades; sigue sin combustible, potencia ni resultados.
