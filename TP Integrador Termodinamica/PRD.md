@@ -3,8 +3,10 @@
 **Diseño de un sistema energético eficiente para un edificio (hospital)**
 Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 
-> **Estado: BORRADOR v0.1 — para revisión. No hay nada construido todavía.**
+> **Estado: BORRADOR v0.2 — para revisión. No hay nada construido todavía.**
 > Los números técnicos que aparecen abajo son *pendientes de fuente*; no se fija ningún dato de diseño hasta resolver los bloqueos de la sección 0.
+>
+> **Cambios v0.1 → v0.2:** se recibió el PDF del artículo de Hospitecnia y se transcribió a [`datos/hospitecnia_datos.md`](datos/hospitecnia_datos.md). Se actualizan B2 y B4, se agregan B5 y B6, se amplía el rol de la caldera en la sección 2, se refuerza la Alt. B en la sección 3 y se agrega la pregunta 10. Se creó la estructura de carpetas (`datos/`, `calculo/`, `figuras/`, `informe/`, `presentacion/`).
 
 ---
 
@@ -13,9 +15,11 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | # | Hallazgo | Impacto |
 |---|----------|---------|
 | B1 | La consigna (PDF, 5 págs.) fue leída completa. | OK |
-| B2 | **El artículo de Hospitecnia no es accesible desde esta sesión** (el entorno bloquea el dominio `hospitecnia.com`). La búsqueda web tampoco lo devuelve. | No puedo extraer los datos del edificio. No los voy a reconstruir de memoria ni inventar. |
+| B2 | **Resuelto en parte.** El dominio sigue bloqueado en el entorno, pero se adjuntó el PDF. **El artículo está cortado por login** al final de la sección de ACS: falta lo que sigue y la bibliografía, así que las citas (1) a (15) no se pueden identificar. | Datos transcriptos en [`datos/hospitecnia_datos.md`](datos/hospitecnia_datos.md). Hay que decidir si alcanza o se consigue el texto completo. |
 | B3 | La consigna dice que "podrán utilizarse los datos proporcionados en la consigna", **pero el PDF no trae ningún dato del edificio** (ni superficie, ni camas, ni clima, ni consumos). | Posible documento faltante o dato que dio el docente aparte. Hay que confirmarlo. |
-| B4 | El artículo, por su título, es una **caracterización genérica** de consumos hospitalarios, no un edificio concreto. | Lo que vamos a diseñar es un *hospital tipo* parametrizado, salvo que ya haya un edificio real asignado. |
+| B4 | **Confirmado:** el artículo es una caracterización genérica (hospitales de España y algunos de Chile, Perú y Portugal), no un edificio concreto, y no trae clima ni consumos de Argentina. | Lo que vamos a diseñar es un *hospital tipo* parametrizado, salvo que ya haya un edificio real asignado. Los datos del artículo son órdenes de magnitud, no valores de diseño. |
+| B5 | El artículo tiene **cifras internamente inconsistentes** (gasóleo y gas de Madrid, Coímbra, porcentajes de Chile). Detalle y cálculo en la sección E de `datos/hospitecnia_datos.md`. | No se usan esas cifras. Si se cita alguna en el informe, se aclara la inconsistencia. |
+| B6 | **No trae** condiciones interiores y renovaciones de aire, clima de diseño, COP, rendimiento de caldera ni composición del combustible (sección F de `datos/hospitecnia_datos.md`). | Hacen falta fuentes complementarias para los cálculos de aire húmedo, refrigeración y combustión. Ver pregunta 10. |
 
 ## 1. Problema
 
@@ -39,7 +43,7 @@ Aire exterior ─► [Mezcla con retorno] ─► [Serpentina de enfriamiento y d
 
 - **Aire húmedo →** fija la carga frigorífica (sensible + latente) y el calor de recalentamiento.
 - **Refrigeración →** la carga de la serpentina es la capacidad del chiller; de ahí salen W_comp, COP, Q_H.
-- **Combustión →** la caldera aporta el recalentamiento (y ACS); de ahí salen consumo de gas, T de rocío de los gases, CO₂.
+- **Combustión →** la caldera aporta el recalentamiento, la calefacción de invierno y el ACS. Según el artículo, calefacción y ACS son la mayor parte del consumo térmico y el gas natural es el combustible dominante (73 % en España, 2011). De ahí salen consumo de gas, T de rocío de los gases, CO₂.
 - **Exergía →** une todo: dónde se destruye capacidad de hacer trabajo.
 - **El punto que lo hace un problema único (no cuatro):** el sistema enfría el aire para deshumidificar y luego lo recalienta con combustible, mientras el chiller *rechaza* al ambiente calor a ~40–55 °C que podría cubrir ese recalentamiento. Es una ineficiencia exergética visible (usar una llama a >1000 °C para subir aire unos pocos grados) y es la base natural de la mejora.
 
@@ -48,7 +52,7 @@ Aire exterior ─► [Mezcla con retorno] ─► [Serpentina de enfriamiento y d
 | | Propuesta | Por qué |
 |---|-----------|---------|
 | **Alt. A (base)** | Chiller + caldera a gas para recalentamiento y ACS | Configuración convencional; línea de base |
-| **Alt. B** | Chiller con **recuperación de calor del condensador** para recalentamiento; caldera de respaldo / ACS | Ataca la ineficiencia de la sección 2 |
+| **Alt. B** | Chiller con **recuperación de calor del condensador** para recalentamiento y precalentamiento de ACS; caldera de respaldo | Ataca la ineficiencia de la sección 2. El ACS es una demanda continua las 24 h (200 a 300 L/cama·día según el artículo) que puede absorber calor del condensador. *Hipótesis a verificar con el cálculo.* |
 | Opc. C | Caldera de condensación sobre A o B | Variante dentro del módulo de combustión |
 
 Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica; elegir 2–3 que se puedan **cuantificar** con el mismo modelo):
@@ -132,7 +136,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 ## 10. Preguntas abiertas
 
 **Bloqueantes (sin esto no avanzo a M1):**
-1. **Artículo:** ¿habilitás `hospitecnia.com` en la red del entorno (menú del entorno → Edit → Network access → Allowed domains) o me pegás el texto / PDF del artículo?
+1. **Artículo:** recibido (PDF de 15 págs.), pero cortado por login. ¿Tenés acceso al texto completo con suscripción, o lo damos por suficiente para esta fuente?
 2. **¿Hospital tipo o un hospital real?** Si es real: nombre, ubicación, camas / m². Si es tipo: ¿lo ubicamos en el AMBA (clima de Buenos Aires)?
 3. **Datos "de la consigna":** ¿el docente pasó otro documento con datos del edificio? ¿Está validado que usemos Hospitecnia como base?
 
@@ -145,3 +149,4 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 7. ¿Cuántos son en el equipo y quién expone?
 8. Libro y tablas de la cátedra (Çengel, Moran-Shapiro, otro) y si CoolProp es aceptable como fuente.
 9. Fecha de entrega y de exposición. ¿La memoria de cálculo cuenta dentro de las 8–12 págs.?
+10. **Fuentes complementarias** (B6): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. ¿Los da la cátedra o los busco yo (ASHRAE, IRAM, SMN, catálogos)? Si los busco, necesito que el entorno permita esos dominios.
