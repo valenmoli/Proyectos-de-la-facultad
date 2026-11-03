@@ -1,6 +1,8 @@
 # Hospital de referencia en el AMBA
 
-**Estado: candidatos SIN VERIFICAR.** Todas las cifras salen de extractos de búsqueda web. Ninguna se verificó abriendo la fuente (los dominios están bloqueados desde el entorno). **Ninguna entra al modelo** hasta confirmarse con el documento original.
+> **Actualización:** se recibieron los documentos de las pistas y se transcribieron en [`referencias_argentina.md`](referencias_argentina.md). El Cruce quedó leído del documento original, el informe de Health Care Without Harm trae **consumos reales de tres hospitales argentinos** (incluido el Garrahan, del AMBA) y el documento del Austral **no trae cifras de energía**. Lo que sigue en este archivo (la tabla de candidatos y las pistas) es el estado previo a esa lectura y se conserva como registro.
+
+**Estado de la tabla de candidatos: SIN VERIFICAR**, salvo El Cruce (ver arriba). Las cifras salen de extractos de búsqueda web, no de abrir la fuente (los dominios están bloqueados desde el entorno). **No entran al modelo** hasta confirmarse con el documento original.
 
 **Criterio (decisión D5 del PRD):** hospital real del AMBA, de la **misma magnitud** que el hospital tipo (10.000 a 50.000 m² y 60 a 300 camas), no igual. Pesa más que los datos estén documentados que la cercanía exacta al tamaño. Se usa para contrastar intensidades (kWh/m², W/m², m²/cama) del hospital tipo, no para reemplazarlo.
 
@@ -37,8 +39,11 @@ Es lo que más pesa para el contraste. Se necesita descargar los documentos, por
 | **Informe de Sostenibilidad 2024 del Hospital Universitario Austral** | Indicadores ambientales; el hospital dice haber aplicado criterios de eficiencia a la secuencia de chillers y contratar 60 % de energía solar. Las tablas no se pudieron leer. | [PDF](https://testhua.hospitalaustral.edu.ar/austral/wp-content/uploads/2025/06/Hospital-Universitario-Austral-Informe-Sostenibilidad-2024.pdf) |
 | **Hospital Pedro de Elizalde (CABA, 244 camas)** | En 2018 se le encargó una unidad de cogeneración compacta GG 50 (Sokratherm). No se encontró el combustible, la potencia eléctrica ni resultados, ni la superficie. Sería un caso real de combustión y cogeneración en un hospital porteño. | [Sokratherm](https://sokratherm.de/?p=4020) |
 
-## Qué hay que hacer para cerrar esto
+## Resultado de las pistas (actualizado)
 
-1. Descargar y adjuntar: el artículo de El Cruce de la Revista Argentina de Salud Pública, el informe de sostenibilidad del Austral y el informe final de Health Care Without Harm. Con eso se verifica con el mismo método que el artículo de Hospitecnia (dos lectores independientes y un auditor).
-2. Con El Cruce confirmado, se fija como referencia de tamaño y geometría. Si algún informe trae consumos reales, se agrega como referencia de intensidad.
-3. Si nada trae consumos reales, el contraste se hace solo con la banda del artículo (ver PRD sección 4) y se declara esa limitación en el informe.
+1. **Informe de Health Care Without Harm:** trae consumos reales (estimados) de Garrahan, CEMAR y Giordano, con kWh/m²·año, por cama y por paciente. Detalle en `referencias_argentina.md`, secciones 1 y 2.
+2. **Nota de El Cruce:** confirma 22.000 m² cubiertos, 140 camas y 50 % de camas críticas (2010). No trae datos de climatización ni de energía.
+3. **Documento del Austral:** es un resumen del plan de sostenibilidad, sin kWh, gas, chillers, superficie ni camas. La pista queda cerrada.
+4. **Hospital Elizalde (cogeneración):** sin novedades; sigue sin combustible, potencia ni resultados.
+
+Todavía no hay un hospital del AMBA de unos 20.000 m² con consumo real publicado. El informe del proyecto debe declarar esa limitación.

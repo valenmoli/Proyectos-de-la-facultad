@@ -3,8 +3,10 @@
 **Diseño de un sistema energético eficiente para un edificio (hospital)**
 Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 
-> **Estado: BORRADOR v0.4 — para revisión. No hay nada construido todavía.**
+> **Estado: BORRADOR v0.5 — para revisión. No hay nada construido todavía.**
 > Los números técnicos que aparecen abajo son *pendientes de fuente*; no se fija ningún dato de diseño hasta resolver los bloqueos de la sección 0.
+>
+> **Cambios v0.4 → v0.5:** se recibieron y transcribieron los documentos del hospital de referencia (`datos/referencias_argentina.md`): **consumos reales de tres hospitales argentinos** (informe HCWH, 2021), El Cruce leído del original, y la pista del Austral cerrada (no trae cifras de energía). Se actualizan D5 y los chequeos de la sección 4, se agrega respaldo local a las mejoras de la sección 3 y se cierra la pregunta 11.
 >
 > **Cambios v0.3 → v0.4:** se recibió y transcribió la **versión completa** del artículo (consumo eléctrico, tabla resumen con supuestos de los autores, contraste con 23 hospitales, bibliografía). Se actualizan B2, B5 y B6, se propone el tamaño del hospital tipo (D4), se corrige el argumento del ACS en la Alt. B (el ACS es una demanda chica frente al calor del condensador) y se agrega el contraste con la intensidad energética anual del artículo a los chequeos de la sección 4.
 >
@@ -33,7 +35,7 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Usuario, 2026-11-03 |
 | D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
 | D4 | Hospital tipo de **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Propuesta mía, confirmada por el usuario, 2026-11-03 |
-| D5 | Buscar un **hospital real del AMBA** como **referencia** para contrastar el hospital tipo. Tiene que ser de la **misma magnitud**, no igual: del orden de 10.000 a 50.000 m² y de 60 a 300 camas. Pesa más que tenga datos documentados (superficie, camas, climatización, consumos) que la cercanía exacta al tamaño. No reemplaza al hospital tipo. **Estado:** hay candidatos de tamaño en [`datos/hospital_referencia.md`](datos/hospital_referencia.md), todos sin verificar; el mejor documentado es El Cruce (Florencio Varela, 22.000 m² cubiertos, 140 camas en 2010). No se encontró ningún hospital del AMBA de esa magnitud con consumo real publicado. | Usuario, 2026-11-03 |
+| D5 | Buscar un **hospital real del AMBA** como **referencia** para contrastar el hospital tipo. Tiene que ser de la **misma magnitud**, no igual: del orden de 10.000 a 50.000 m² y de 60 a 300 camas. Pesa más que tenga datos documentados (superficie, camas, climatización, consumos) que la cercanía exacta al tamaño. No reemplaza al hospital tipo. **Estado:** **El Cruce** (Florencio Varela) leído del documento original: 22.000 m² cubiertos, 140 camas (2010), 157 m²/cama; es de alta complejidad. **Consumos reales** de tres hospitales argentinos en el informe HCWH 2021; el único del AMBA es el Garrahan (259 kWh/m²·año), pero es 6 veces más grande. Ninguno es un hospital del AMBA de unos 20.000 m² con consumo publicado. Detalle en [`datos/referencias_argentina.md`](datos/referencias_argentina.md); otros candidatos de tamaño, sin verificar, en [`datos/hospital_referencia.md`](datos/hospital_referencia.md). | Usuario, 2026-11-03 |
 
 ### 0.2 Cómo se adapta el artículo a Argentina
 
@@ -88,6 +90,8 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 3. Recuperación sensible/entálpica del aire de extracción mediante serpentinas de circuito cerrado (evita contaminación cruzada, que en hospital es restricción dura).
 4. Mayor temperatura de evaporación / menor *lift* del compresor.
 
+Respaldo local para las mejoras (informe HCWH 2021 sobre hospitales argentinos, `datos/referencias_argentina.md` sección 3): reemplazar splits por VRF con recuperación de calor podría ahorrar hasta 40 % de la energía (Giordano) y 26 % en un laboratorio (CEMAR); un precalentamiento solar de 300 L/día de agua a 50 °C ahorraría más del 80 % de la energía de ese uso. Son estimaciones de los auditores, no mediciones.
+
 ## 4. Criterios de éxito (trazabilidad consigna → entregable → chequeo)
 
 | Consigna | Qué exige | Dónde queda | Chequeo de aceptación |
@@ -107,7 +111,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 - **Combustión:** balance atómico C, H, O, N; T de rocío de los gases; PCS/PCI contra valor de referencia.
 - **Psicrometría:** Q_total = ṁ_a·Δh coincide con Q_sensible + Q_latente; humedades y φ en rango físico.
 - **Propiedades:** valores de CoolProp contrastados con 3 puntos de las tablas del libro de la cátedra.
-- **Contraste con la fuente (banda de plausibilidad, no validación puntual):** la intensidad energética anual del hospital tipo se compara con los 380 kWh/m²·año del resumen del artículo (mezcla calor útil con electricidad: en energía final son 394 a 400; hay que declarar la base, E-16) y con los 23 hospitales de `datos/hospitales_internacionales.csv` (120 a 900 kWh/m²·año). La potencia frigorífica y la de calefacción se comparan con 100 a 115 y 70 a 90 W/m², que son de España.
+- **Contraste con la fuente (banda de plausibilidad, no validación puntual):** la intensidad energética anual del hospital tipo se compara con los 380 kWh/m²·año del resumen del artículo (mezcla calor útil con electricidad: en energía final son 394 a 400; hay que declarar la base, E-16) y con los 23 hospitales de `datos/hospitales_internacionales.csv` (120 a 900 kWh/m²·año). La potencia frigorífica y la de calefacción se comparan con 100 a 115 y 70 a 90 W/m², que son de España. También con los tres hospitales argentinos auditados por HCWH: **163 a 259 kWh/m²·año** de energía final, estimada (n = 3, dos fuera del AMBA); el del AMBA, el Garrahan, da 259.
 
 ## 5. Alcance
 
@@ -178,4 +182,4 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 8. Libro y tablas de la cátedra (Çengel, Moran-Shapiro, otro) y si CoolProp es aceptable como fuente.
 9. Fecha de entrega y de exposición. ¿La memoria de cálculo cuenta dentro de las 8–12 págs.?
 10. **Fuentes complementarias** (B6, D3): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. Desde este entorno no puedo alcanzar las fuentes argentinas (sección 0.2). ¿Habilitás los dominios de la sección 0.2, o los pasa la cátedra, o seguimos con supuestos fundamentados y marcados como tales?
-11. **Documentos del hospital de referencia** (D5): ¿podés descargar y adjuntar el artículo de El Cruce (Revista Argentina de Salud Pública, 2010), el Informe de Sostenibilidad 2024 del Hospital Austral y el informe final de Health Care Without Harm sobre auditorías energéticas en Argentina, China y Filipinas? Los enlaces están en `datos/hospital_referencia.md`. Es la única vía para tener consumos reales de un hospital argentino.
+11. **Resuelto:** documentos del hospital de referencia recibidos y transcriptos (`datos/referencias_argentina.md`).
