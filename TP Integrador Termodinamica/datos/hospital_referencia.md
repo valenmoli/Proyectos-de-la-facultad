@@ -6,6 +6,8 @@
 
 **Criterio (decisión D5 del PRD):** hospital real del AMBA, de la **misma magnitud** que el hospital tipo (10.000 a 50.000 m² y 60 a 300 camas), no igual. Pesa más que los datos estén documentados que la cercanía exacta al tamaño. Se usa para contrastar intensidades (kWh/m², W/m², m²/cama) del hospital tipo, no para reemplazarlo.
 
+> **Actualización posterior:** se recibieron los documentos de Favaloro y Nordelta y se transcribieron en [`favaloro_nordelta.md`](favaloro_nordelta.md). **Cambia la selección:** ninguno de los documentos de Nordelta trae la superficie, y Favaloro resultó tener más datos firmes (superficie oficial, seis quirófanos, distribución por pisos). La selección provisoria pasa de Nordelta a **Favaloro**. La tabla de abajo es el estado previo a esa lectura y se conserva como registro.
+
 ## Decisión en curso: Favaloro o Nordelta (D7 del PRD)
 
 **Criterio acordado:** nos quedamos con el que tenga **más información relevante para el modelo**, y lo que falte **se estima** como supuesto declarado. Información relevante es la que fija el tamaño del edificio, las zonas críticas (que son el caso psicrométrico detallado) y el sistema térmico.
