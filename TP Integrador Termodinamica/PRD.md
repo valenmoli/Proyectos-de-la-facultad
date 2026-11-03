@@ -3,8 +3,10 @@
 **Diseño de un sistema energético eficiente para un edificio (hospital)**
 Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 
-> **Estado: BORRADOR v0.2 — para revisión. No hay nada construido todavía.**
+> **Estado: BORRADOR v0.3 — para revisión. No hay nada construido todavía.**
 > Los números técnicos que aparecen abajo son *pendientes de fuente*; no se fija ningún dato de diseño hasta resolver los bloqueos de la sección 0.
+>
+> **Cambios v0.2 → v0.3:** se registra la decisión de ubicar el hospital tipo en Argentina (secciones 0.1 y 0.2), se documenta el acceso a fuentes desde el entorno y se actualizan las preguntas 2 y 10.
 >
 > **Cambios v0.1 → v0.2:** se recibió el PDF del artículo de Hospitecnia y se transcribió a [`datos/hospitecnia_datos.md`](datos/hospitecnia_datos.md). Se actualizan B2 y B4, se agregan B5 y B6, se amplía el rol de la caldera en la sección 2, se refuerza la Alt. B en la sección 3 y se agrega la pregunta 10. Se creó la estructura de carpetas (`datos/`, `calculo/`, `figuras/`, `informe/`, `presentacion/`).
 
@@ -20,6 +22,27 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | B4 | **Confirmado:** el artículo es una caracterización genérica (hospitales de España y algunos de Chile, Perú y Portugal), no un edificio concreto, y no trae clima ni consumos de Argentina. | Lo que vamos a diseñar es un *hospital tipo* parametrizado, salvo que ya haya un edificio real asignado. Los datos del artículo son órdenes de magnitud, no valores de diseño. |
 | B5 | El artículo tiene **cifras internamente inconsistentes** (gasóleo y gas de Madrid, Coímbra, porcentajes de Chile). Detalle y cálculo en la sección E de `datos/hospitecnia_datos.md`. | No se usan esas cifras. Si se cita alguna en el informe, se aclara la inconsistencia. |
 | B6 | **No trae** condiciones interiores y renovaciones de aire, clima de diseño, COP, rendimiento de caldera ni composición del combustible (sección F de `datos/hospitecnia_datos.md`). | Hacen falta fuentes complementarias para los cálculos de aire húmedo, refrigeración y combustión. Ver pregunta 10. |
+
+### 0.1 Decisiones tomadas
+
+| # | Decisión | Origen |
+|---|----------|--------|
+| D1 | El proyecto es un **hospital tipo ubicado en Argentina**, parametrizado con el artículo de Hospitecnia y completado con fuentes locales. | Usuario, 2026-11-03 |
+| D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Supuesto mío, **a confirmar** |
+| D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
+
+### 0.2 Cómo se adapta el artículo a Argentina
+
+El artículo describe hospitales de España. Para no mezclar climas:
+
+- **Se conserva** lo que depende del uso hospitalario y no del clima: ACS por cama y su temperatura, superficie por cama, combustible dominante (gas natural), y los repartos por uso como **chequeo** de orden de magnitud.
+- **Se recalcula** lo que depende del clima. Las cargas de refrigeración y calefacción se obtienen con el modelo de aire húmedo y el clima de diseño local. Los **115 y 90 W/m² del artículo quedan como chequeo, no como entrada.** Motivos: el verano del AMBA es húmedo, con una carga latente importante que un ratio por m² de otro clima no captura, y calcular las cargas desde el balance es justamente lo que pide la Consigna 3 para aire húmedo.
+- **Se consigue localmente:** clima de diseño (verano e invierno) y estado muerto; condiciones interiores y renovaciones de aire por zona según la normativa aplicable; PCS y composición del gas natural de red; factor de emisión de la electricidad de red; refrigerantes disponibles y su regulación.
+- **Cuando no hay dato citable**, la consigna permite supuestos fundamentados. Cada uno se marca como *supuesto* en `datos/` con su justificación y se reemplaza por el dato citable si aparece.
+
+**Acceso a fuentes desde el entorno (probado el 2026-11-03):** solo responde PyPI y la API de GitHub. Los sitios argentinos probados (SMN, ENARGAS, argentina.gob.ar, Boletín Oficial, energía.gob.ar, IRAM) y NOAA están bloqueados, igual que Hospitecnia. La búsqueda web devuelve fragmentos sin los valores de diseño; ni siquiera pudo dar temperaturas de diseño de Buenos Aires con una fuente confiable. **Dominios que habría que habilitar para cumplir D3:** `ncei.noaa.gov` (datos de ingeniería de la estación Ezeiza), `smn.gob.ar`, `enargas.gob.ar`, `argentina.gob.ar`, `boletinoficial.gob.ar`, `energia.gob.ar`.
+
+**Pistas sin verificar (no usar hasta confirmar con la fuente):** un extracto de búsqueda indica que el límite máximo del PCS del gas natural en la regulación del ENARGAS pasó de 10.200 a 10.700 kcal/m³, y que 9.300 kcal/m³ se usa como referencia de facturación. No hay texto de la resolución a la vista.
 
 ## 1. Problema
 
@@ -137,7 +160,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 
 **Bloqueantes (sin esto no avanzo a M1):**
 1. **Artículo:** recibido (PDF de 15 págs.), pero cortado por login. ¿Tenés acceso al texto completo con suscripción, o lo damos por suficiente para esta fuente?
-2. **¿Hospital tipo o un hospital real?** Si es real: nombre, ubicación, camas / m². Si es tipo: ¿lo ubicamos en el AMBA (clima de Buenos Aires)?
+2. **Decidido:** hospital tipo en Argentina (D1). Falta confirmar la ciudad: asumo AMBA (Buenos Aires). ¿Es correcta? La cantidad de camas y la superficie las propongo yo desde los ratios del artículo en el hito M1, salvo que la cátedra fije una.
 3. **Datos "de la consigna":** ¿el docente pasó otro documento con datos del edificio? ¿Está validado que usemos Hospitecnia como base?
 
 **Asumo lo siguiente salvo que me digas lo contrario:**
@@ -149,4 +172,4 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 7. ¿Cuántos son en el equipo y quién expone?
 8. Libro y tablas de la cátedra (Çengel, Moran-Shapiro, otro) y si CoolProp es aceptable como fuente.
 9. Fecha de entrega y de exposición. ¿La memoria de cálculo cuenta dentro de las 8–12 págs.?
-10. **Fuentes complementarias** (B6): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. ¿Los da la cátedra o los busco yo (ASHRAE, IRAM, SMN, catálogos)? Si los busco, necesito que el entorno permita esos dominios.
+10. **Fuentes complementarias** (B6, D3): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. Desde este entorno no puedo alcanzar las fuentes argentinas (sección 0.2). ¿Habilitás los dominios de la sección 0.2, o los pasa la cátedra, o seguimos con supuestos fundamentados y marcados como tales?
