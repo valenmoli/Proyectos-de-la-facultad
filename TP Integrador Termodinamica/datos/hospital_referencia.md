@@ -1,0 +1,44 @@
+# Hospital de referencia en el AMBA
+
+**Estado: candidatos SIN VERIFICAR.** Todas las cifras salen de extractos de búsqueda web. Ninguna se verificó abriendo la fuente (los dominios están bloqueados desde el entorno). **Ninguna entra al modelo** hasta confirmarse con el documento original.
+
+**Criterio (decisión D5 del PRD):** hospital real del AMBA, de la **misma magnitud** que el hospital tipo (10.000 a 50.000 m² y 60 a 300 camas), no igual. Pesa más que los datos estén documentados que la cercanía exacta al tamaño. Se usa para contrastar intensidades (kWh/m², W/m², m²/cama) del hospital tipo, no para reemplazarlo.
+
+## Resultado en una línea
+
+Hay buenos candidatos **de tamaño y geometría**. **No se encontró ningún hospital del AMBA de esta magnitud con consumo energético real ni datos de climatización publicados** (chillers, calderas, gas). Para eso hay tres pistas que requieren abrir documentos (sección "Pistas de energía").
+
+## Candidatos de tamaño
+
+Ordenados por calidad de la documentación, no por cercanía a 20.000 m². "Base" indica si la fuente aclara que la superficie es cubierta o es de terreno.
+
+| Hospital | Dónde | Superficie | Base | Camas | Fuente (extracto) | Notas |
+|---|---|---|---|---|---|---|
+| **El Cruce** "Dr. Néstor C. Kirchner" (SAMIC, público) | Florencio Varela | **22.000 m²** sobre 47.000 m² de terreno | **Cubierta** (la fuente separa terreno de cubierta) | **140** (2010) | [Revista Argentina de Salud Pública, dic. 2010](https://rasp.msal.gov.ar/index.php/rasp/article/download/417/349/711) | El mejor documentado: unos 157 m²/cama, casi igual al supuesto de 150. Incluye 1.300 m² de espacios quirúrgicos. Cifras de 2010: después tuvo 171 camas (2015) y una ampliación de +88 camas (Edificio 7, primera etapa de 2.400 m²). Confirmado dos veces por extracto, no abriendo la página. |
+| Sanatorio Nordelta (Swiss Medical, privado) | Tigre | 24.000 m² (proyecto 2018); otra fuente dice 26.000 | Cubierta según [La Nación](https://www.lanacion.com.ar/economia/negocios/con-una-inversion-de-us80-millones-belocopitt-y-costantini-iniciaron-la-construccion-de-una-clinica-en-nordelta-nid2148786/) para los 24.000; los 26.000 no aclaran | 127 "habitaciones" (no está claro si son camas) | [Cronista](https://www.cronista.com/negocios/swiss-medical-inauguro-un-centro-medico-con-tecnologia-de-ultima-generacion-en-nordelta) | Terapia intensiva y quirófanos. Menciona recuperadores de calor que reutilizan más del 50 % de la energía del aire extraído. Sin datos de chillers, calderas ni consumo. |
+| Hospital Dr. René Favaloro (SAMIC) | Rafael Castillo, La Matanza | 18.352 m² (proyecto) | Cubierta según [Casa Rosada](https://www.casarosada.gob.ar/pdf/Acto_Central_-_Hospital_Dr.pdf) | 158 al inaugurar (144 + 14 de terapia intensiva), según [gba.gob.ar](https://gba.gob.ar/comunicacion_publica/gacetillas/kicillof_particip%C3%B3_de_la_inauguraci%C3%B3n_del_hospital_doctor_ren%C3%A9) | Documento oficial de proyecto | La superficie es de proyecto; no está verificado que coincida con la obra terminada. |
+| Hospital Municipal de Alta Complejidad para Adultos | Tigre | 14.800 m² (primera etapa) | Cubierta según [Perfil](https://www.perfil.com/noticias/empresas-y-protagonistas/julio-zamora-anuncio-el-hospital-municipal-mas-grande-de-la-region-14800-m-para-la-salud-en-tigre.phtml) | 150 | Prensa | Estaba en obra en 2023; no consta si está operando. |
+| Sanatorio Anchorena Itoiz (UPCN) | Avellaneda | 17.100 m² tras la ampliación | Cubierta según [Minutouno](https://www.minutouno.com/politica/alberto-fernandez/el-presidente-inauguro-un-nuevo-sanatorio-upcn-n5312073) | Sin total; la ampliación suma 84 + 10 | Prensa | Seis quirófanos centrales. |
+| Hospital del Bicentenario de Esteban Echeverría | Monte Grande | 22.332 m² | "Construcción" según [La Nación](https://www.lanacion.com.ar/buenos-aires/hospitales-del-bicentenario-los-prometio-el-gobierno-para-2011-y-aun-no-estan-terminados-nid1659104/); no aclarado | 150 previstas; 80 operando en 2020 | Prensa | Cifras de proyecto. |
+| Hospital Universitario Austral (privado) | Pilar (borde exterior del AMBA) | 36.000 m² en una página y 45.633 m² en otra, del mismo hospital | No aclarado | 220 a 256 (76 críticas), 15 quirófanos | [Hospital Austral](https://www.hospitalaustral.edu.ar/2025/09/el-hospital-universitario-austral-conmemoro-sus-25-anos-y-reafirmo-su-compromiso-con-la-salud-en-la-argentina/) | Está en el borde superior del rango y de la ciudad. Es el que más probablemente tenga datos de energía (ver abajo). |
+| Sanatorio Finochietto | Balvanera, CABA | 16.700 m² (ficha de un proveedor); otras notas dan más de 17.000 y 13.000 | No aclarado | "200" es una suma del buscador (157 habitaciones + 27 de UTI + 16 de neonatología), **no un dato declarado** | [Mapei](https://www.mapei.com/it/en/projects/detail/sanatorio-finochietto-5947) | Seis quirófanos. Las camas no son confiables. |
+| Hospital Alemán | Barrio Norte, CABA | Solo la Torre Juncal: 10.070 m² (otro texto, 11.000) | No aclarado | Torre: 104. Hospital: 246 ([IFC](https://disclosures.ifc.org/project-detail/SII/40682/hospital-aleman)), 264 (Wikipedia) o 200 (un proveedor) | Prensa e IFC | No hay superficie total del hospital. La torre tiene certificado EDGE de diseño con 29,05 % de ahorro de energía y sistema VRV (valores de diseño, no consumo). |
+| Hospital Británico | Barracas, CABA | El edificio central "ocupa 30.000 m²"; un masterplan de 2014 habla de 64.562 m² cubiertos y 345 camas | Contradictorio | Sin dato firme | [Sitio oficial](https://www.hospitalbritanico.org.ar/centros-medicos/ver/3) | Contrata energía renovable por 5.400 MWh/año para cubrir el 80 % de su demanda eléctrica ([Mercado](https://mercado.com.ar/gestion-sustentable/el-hospital-britanico-cubrira-el-80-de-su-demanda-electrica-con-energia-renovable)). Con la superficie contradictoria no se puede sacar una intensidad. |
+
+Descartados en la búsqueda: Hospital Italiano de Buenos Aires (78.000 m² y 750 a 825 camas, demasiado grande), Hospital Posadas (unos 82.000 m² y 520 camas), Garrahan (587 camas y unos 110.000 m², aunque tiene auditoría energética, ver abajo). Varios hospitales de CABA y del conurbano no tienen superficie publicada en lo que se encontró.
+
+## Pistas de energía (lo más valioso, y todo pendiente de abrir)
+
+Es lo que más pesa para el contraste. Se necesita descargar los documentos, porque desde el entorno no se pueden abrir.
+
+| Pista | Qué podría aportar | Enlace |
+|---|---|---|
+| **Informe final de Health Care Without Harm**, *Energy efficiency and cooling audits in health care facilities in Argentina, China and the Philippines* (2019 a 2021) | Auditorías energéticas con perfil de consumo, equipos de frío y refrigerantes. El Garrahan figura entre los hospitales argentinos auditados. Otro hospital argentino que se nombra, el Giordano de Albardón, es de San Juan, fuera del AMBA. El informe tiene una sección de Argentina. | [global.noharm.org](https://global.noharm.org/resources/energy-efficiency-and-cooling-audits-health-care-facilities-argentina-china-and) |
+| **Informe de Sostenibilidad 2024 del Hospital Universitario Austral** | Indicadores ambientales; el hospital dice haber aplicado criterios de eficiencia a la secuencia de chillers y contratar 60 % de energía solar. Las tablas no se pudieron leer. | [PDF](https://testhua.hospitalaustral.edu.ar/austral/wp-content/uploads/2025/06/Hospital-Universitario-Austral-Informe-Sostenibilidad-2024.pdf) |
+| **Hospital Pedro de Elizalde (CABA, 244 camas)** | En 2018 se le encargó una unidad de cogeneración compacta GG 50 (Sokratherm). No se encontró el combustible, la potencia eléctrica ni resultados, ni la superficie. Sería un caso real de combustión y cogeneración en un hospital porteño. | [Sokratherm](https://sokratherm.de/?p=4020) |
+
+## Qué hay que hacer para cerrar esto
+
+1. Descargar y adjuntar: el artículo de El Cruce de la Revista Argentina de Salud Pública, el informe de sostenibilidad del Austral y el informe final de Health Care Without Harm. Con eso se verifica con el mismo método que el artículo de Hospitecnia (dos lectores independientes y un auditor).
+2. Con El Cruce confirmado, se fija como referencia de tamaño y geometría. Si algún informe trae consumos reales, se agrega como referencia de intensidad.
+3. Si nada trae consumos reales, el contraste se hace solo con la banda del artículo (ver PRD sección 4) y se declara esa limitación en el informe.

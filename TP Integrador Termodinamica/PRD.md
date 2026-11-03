@@ -33,7 +33,7 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Usuario, 2026-11-03 |
 | D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
 | D4 | Hospital tipo de **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Propuesta mía, confirmada por el usuario, 2026-11-03 |
-| D5 | Buscar un **hospital real del AMBA** como **referencia** para contrastar el hospital tipo. Tiene que ser de la **misma magnitud**, no igual: del orden de 10.000 a 50.000 m² y de 60 a 300 camas. Pesa más que tenga datos documentados (superficie, camas, climatización, consumos) que la cercanía exacta al tamaño. No reemplaza al hospital tipo. | Usuario, 2026-11-03 |
+| D5 | Buscar un **hospital real del AMBA** como **referencia** para contrastar el hospital tipo. Tiene que ser de la **misma magnitud**, no igual: del orden de 10.000 a 50.000 m² y de 60 a 300 camas. Pesa más que tenga datos documentados (superficie, camas, climatización, consumos) que la cercanía exacta al tamaño. No reemplaza al hospital tipo. **Estado:** hay candidatos de tamaño en [`datos/hospital_referencia.md`](datos/hospital_referencia.md), todos sin verificar; el mejor documentado es El Cruce (Florencio Varela, 22.000 m² cubiertos, 140 camas en 2010). No se encontró ningún hospital del AMBA de esa magnitud con consumo real publicado. | Usuario, 2026-11-03 |
 
 ### 0.2 Cómo se adapta el artículo a Argentina
 
@@ -178,3 +178,4 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 8. Libro y tablas de la cátedra (Çengel, Moran-Shapiro, otro) y si CoolProp es aceptable como fuente.
 9. Fecha de entrega y de exposición. ¿La memoria de cálculo cuenta dentro de las 8–12 págs.?
 10. **Fuentes complementarias** (B6, D3): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. Desde este entorno no puedo alcanzar las fuentes argentinas (sección 0.2). ¿Habilitás los dominios de la sección 0.2, o los pasa la cátedra, o seguimos con supuestos fundamentados y marcados como tales?
+11. **Documentos del hospital de referencia** (D5): ¿podés descargar y adjuntar el artículo de El Cruce (Revista Argentina de Salud Pública, 2010), el Informe de Sostenibilidad 2024 del Hospital Austral y el informe final de Health Care Without Harm sobre auditorías energéticas en Argentina, China y Filipinas? Los enlaces están en `datos/hospital_referencia.md`. Es la única vía para tener consumos reales de un hospital argentino.
