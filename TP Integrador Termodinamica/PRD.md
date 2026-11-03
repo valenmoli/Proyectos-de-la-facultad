@@ -3,8 +3,10 @@
 **Diseño de un sistema energético eficiente para un edificio (hospital)**
 Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 
-> **Estado: BORRADOR v0.3 — para revisión. No hay nada construido todavía.**
+> **Estado: BORRADOR v0.4 — para revisión. No hay nada construido todavía.**
 > Los números técnicos que aparecen abajo son *pendientes de fuente*; no se fija ningún dato de diseño hasta resolver los bloqueos de la sección 0.
+>
+> **Cambios v0.3 → v0.4:** se recibió y transcribió la **versión completa** del artículo (consumo eléctrico, tabla resumen con supuestos de los autores, contraste con 23 hospitales, bibliografía). Se actualizan B2, B5 y B6, se propone el tamaño del hospital tipo (D4), se corrige el argumento del ACS en la Alt. B (el ACS es una demanda chica frente al calor del condensador) y se agrega el contraste con la intensidad energética anual del artículo a los chequeos de la sección 4.
 >
 > **Cambios v0.2 → v0.3:** se registra la decisión de ubicar el hospital tipo en Argentina (secciones 0.1 y 0.2), se documenta el acceso a fuentes desde el entorno y se actualizan las preguntas 2 y 10.
 >
@@ -17,11 +19,11 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | # | Hallazgo | Impacto |
 |---|----------|---------|
 | B1 | La consigna (PDF, 5 págs.) fue leída completa. | OK |
-| B2 | **Resuelto en parte.** El dominio sigue bloqueado en el entorno, pero se adjuntó el PDF. **El artículo está cortado por login** al final de la sección de ACS: falta lo que sigue y la bibliografía, así que las citas (1) a (15) no se pueden identificar. | Datos transcriptos en [`datos/hospitecnia_datos.md`](datos/hospitecnia_datos.md). Hay que decidir si alcanza o se consigue el texto completo. |
+| B2 | **Resuelto.** El dominio sigue bloqueado en el entorno, pero se adjuntó el PDF de la versión completa (el primero estaba cortado por login). Trae la bibliografía (1) a (16). Las fuentes primarias (manuales y trabajos españoles) no son accesibles desde el entorno. | Datos transcriptos en [`datos/hospitecnia_datos.md`](datos/hospitecnia_datos.md) y [`datos/hospitales_internacionales.csv`](datos/hospitales_internacionales.csv). La fuente citable es el artículo, nombrando la referencia primaria que él cita. |
 | B3 | La consigna dice que "podrán utilizarse los datos proporcionados en la consigna", **pero el PDF no trae ningún dato del edificio** (ni superficie, ni camas, ni clima, ni consumos). | Posible documento faltante o dato que dio el docente aparte. Hay que confirmarlo. |
 | B4 | **Confirmado:** el artículo es una caracterización genérica (hospitales de España y algunos de Chile, Perú y Portugal), no un edificio concreto, y no trae clima ni consumos de Argentina. | Lo que vamos a diseñar es un *hospital tipo* parametrizado, salvo que ya haya un edificio real asignado. Los datos del artículo son órdenes de magnitud, no valores de diseño. |
-| B5 | El artículo tiene **cifras internamente inconsistentes** (gasóleo y gas de Madrid, Coímbra, porcentajes de Chile). Detalle y cálculo en la sección E de `datos/hospitecnia_datos.md`. | No se usan esas cifras. Si se cita alguna en el informe, se aclara la inconsistencia. |
-| B6 | **No trae** condiciones interiores y renovaciones de aire, clima de diseño, COP, rendimiento de caldera ni composición del combustible (sección F de `datos/hospitecnia_datos.md`). | Hacen falta fuentes complementarias para los cálculos de aire húmedo, refrigeración y combustión. Ver pregunta 10. |
+| B5 | El artículo tiene **cifras internamente inconsistentes**: gas y gasóleo de Madrid, camas de Coímbra, totales y salto eléctrico de Navarra, porcentajes de Chile, consumo térmico por m² entre filas, y potencia y consumo de ACS. Son 14 casos (E-01 a E-14) con su cálculo en la sección E de `datos/hospitecnia_datos.md`. | No se usan esas cifras. Si se cita alguna en el informe, se aclara la inconsistencia. |
+| B6 | **No trae** condiciones interiores ni renovaciones de aire, clima de diseño, refrigerante ni composición del gas (sección F de `datos/hospitecnia_datos.md`). **Sí trae supuestos de conversión de los autores** (sección D4 de los datos): 150 m²/cama, caldera al 90 %, COP 4, 10,8 kWh/m³ de gas sin aclarar si es PCS o PCI, y 6,5 h/día equivalentes de refrigeración. | Hacen falta fuentes complementarias para aire húmedo, refrigeración y combustión. Ver pregunta 10. Los supuestos de los autores son un punto de partida a contrastar, no datos. |
 
 ### 0.1 Decisiones tomadas
 
@@ -30,19 +32,20 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | D1 | El proyecto es un **hospital tipo ubicado en Argentina**, parametrizado con el artículo de Hospitecnia y completado con fuentes locales. | Usuario, 2026-11-03 |
 | D2 | Ciudad de referencia: **AMBA (Buenos Aires)**. | Supuesto mío, **a confirmar** |
 | D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
+| D4 | Propuesta de hospital tipo: **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Mía, **a confirmar** |
 
 ### 0.2 Cómo se adapta el artículo a Argentina
 
 El artículo describe hospitales de España. Para no mezclar climas:
 
-- **Se conserva** lo que depende del uso hospitalario y no del clima: ACS por cama y su temperatura, superficie por cama, combustible dominante (gas natural), y los repartos por uso como **chequeo** de orden de magnitud.
+- **Se conserva** lo que depende del uso hospitalario y no del clima: ACS por cama y su temperatura, superficie por cama, combustible dominante (gas natural), y los repartos por uso y la intensidad anual (380 kWh/m²·año en el resumen del artículo; 23 hospitales internacionales entre 120 y 900, mediana 333) como **chequeo** de orden de magnitud. **El ACS es un caso aparte:** los ratios de diseño del artículo (200 a 300 L/cama·día) y sus casos medidos (50 a 55 L/cama·día) difieren de 4 a 6 veces (E-14), así que hay que elegir un valor y justificarlo.
 - **Se recalcula** lo que depende del clima. Las cargas de refrigeración y calefacción se obtienen con el modelo de aire húmedo y el clima de diseño local. Los **115 y 90 W/m² del artículo quedan como chequeo, no como entrada.** Motivos: el verano del AMBA es húmedo, con una carga latente importante que un ratio por m² de otro clima no captura, y calcular las cargas desde el balance es justamente lo que pide la Consigna 3 para aire húmedo.
 - **Se consigue localmente:** clima de diseño (verano e invierno) y estado muerto; condiciones interiores y renovaciones de aire por zona según la normativa aplicable; PCS y composición del gas natural de red; factor de emisión de la electricidad de red; refrigerantes disponibles y su regulación.
 - **Cuando no hay dato citable**, la consigna permite supuestos fundamentados. Cada uno se marca como *supuesto* en `datos/` con su justificación y se reemplaza por el dato citable si aparece.
 
 **Acceso a fuentes desde el entorno (probado el 2026-11-03):** solo responde PyPI y la API de GitHub. Los sitios argentinos probados (SMN, ENARGAS, argentina.gob.ar, Boletín Oficial, energía.gob.ar, IRAM) y NOAA están bloqueados, igual que Hospitecnia. La búsqueda web devuelve fragmentos sin los valores de diseño; ni siquiera pudo dar temperaturas de diseño de Buenos Aires con una fuente confiable. **Dominios que habría que habilitar para cumplir D3:** `ncei.noaa.gov` (datos de ingeniería de la estación Ezeiza), `smn.gob.ar`, `enargas.gob.ar`, `argentina.gob.ar`, `boletinoficial.gob.ar`, `energia.gob.ar`.
 
-**Pistas sin verificar (no usar hasta confirmar con la fuente):** un extracto de búsqueda indica que el límite máximo del PCS del gas natural en la regulación del ENARGAS pasó de 10.200 a 10.700 kcal/m³, y que 9.300 kcal/m³ se usa como referencia de facturación. No hay texto de la resolución a la vista.
+**Pistas sin verificar (no usar hasta confirmar con la fuente):** un extracto de búsqueda indica que el límite máximo del PCS del gas natural en la regulación del ENARGAS pasó de 10.200 a 10.700 kcal/m³, y que 9.300 kcal/m³ se usa como referencia de facturación. No hay texto de la resolución a la vista. Dato útil si se confirma: 9.300 kcal/m³ equivalen a 10,82 kWh/m³, casi exactamente los 10,8 kWh/m³ que usa el artículo; si el valor argentino resulta ser PCS, ese supuesto sería utilizable tal cual.
 
 ## 1. Problema
 
@@ -75,7 +78,7 @@ Aire exterior ─► [Mezcla con retorno] ─► [Serpentina de enfriamiento y d
 | | Propuesta | Por qué |
 |---|-----------|---------|
 | **Alt. A (base)** | Chiller + caldera a gas para recalentamiento y ACS | Configuración convencional; línea de base |
-| **Alt. B** | Chiller con **recuperación de calor del condensador** para recalentamiento y precalentamiento de ACS; caldera de respaldo | Ataca la ineficiencia de la sección 2. El ACS es una demanda continua las 24 h (200 a 300 L/cama·día según el artículo) que puede absorber calor del condensador. *Hipótesis a verificar con el cálculo.* |
+| **Alt. B** | Chiller con **recuperación de calor del condensador** para recalentamiento y precalentamiento de ACS; caldera de respaldo | Ataca la ineficiencia de la sección 2. **Cuidado con el ACS:** es una demanda continua pero chica frente al calor del condensador. Con 55 a 200 L/cama·día, unas 130 camas necesitan entre 16 y 58 kW medios de ACS (de 15 a 60 °C), contra unos 2.500 kW de calor de condensador si la refrigeración es de 2.000 kW (100 W/m² en 20.000 m²) con COP 4. Esos valores son los del artículo, no del hospital tipo. El sumidero principal tendría que ser el recalentamiento. *Hipótesis a verificar con el cálculo.* |
 | Opc. C | Caldera de condensación sobre A o B | Variante dentro del módulo de combustión |
 
 Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica; elegir 2–3 que se puedan **cuantificar** con el mismo modelo):
@@ -103,6 +106,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 - **Combustión:** balance atómico C, H, O, N; T de rocío de los gases; PCS/PCI contra valor de referencia.
 - **Psicrometría:** Q_total = ṁ_a·Δh coincide con Q_sensible + Q_latente; humedades y φ en rango físico.
 - **Propiedades:** valores de CoolProp contrastados con 3 puntos de las tablas del libro de la cátedra.
+- **Contraste con la fuente (banda de plausibilidad, no validación puntual):** la intensidad energética anual del hospital tipo se compara con los 380 kWh/m²·año del resumen del artículo y con los 23 hospitales de `datos/hospitales_internacionales.csv` (120 a 900 kWh/m²·año). La potencia frigorífica y la de calefacción se comparan con 100 a 115 y 70 a 90 W/m², que son de España.
 
 ## 5. Alcance
 
@@ -159,7 +163,7 @@ Mejoras candidatas (la consigna exige ≥ 2, explicadas desde la Termodinámica;
 ## 10. Preguntas abiertas
 
 **Bloqueantes (sin esto no avanzo a M1):**
-1. **Artículo:** recibido (PDF de 15 págs.), pero cortado por login. ¿Tenés acceso al texto completo con suscripción, o lo damos por suficiente para esta fuente?
+1. **Resuelto:** versión completa del artículo recibida y transcripta.
 2. **Decidido:** hospital tipo en Argentina (D1). Falta confirmar la ciudad: asumo AMBA (Buenos Aires). ¿Es correcta? La cantidad de camas y la superficie las propongo yo desde los ratios del artículo en el hito M1, salvo que la cátedra fije una.
 3. **Datos "de la consigna":** ¿el docente pasó otro documento con datos del edificio? ¿Está validado que usemos Hospitecnia como base?
 
