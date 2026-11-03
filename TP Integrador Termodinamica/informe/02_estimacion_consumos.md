@@ -45,7 +45,7 @@
 ## 4. Tres cosas que el resultado muestra
 
 1. **Los ventiladores son lo que más energía consume** (28 %), por encima del compresor. El sistema mueve grandes caudales de aire por las renovaciones que exige un hospital (20 en quirófanos, 6 a 8 en áreas críticas) y por las zonas grandes de internación y áreas generales. Es un efecto del tipo de sistema (todo aire), y es candidato a mejora.
-2. **El recalentamiento es casi la mitad del calor útil de la caldera** (511 de 1.044 MWh): se gasta frío para deshumidificar y después gas para devolver temperatura. Durante el año la enfriadora rechaza al ambiente 4.198 MWh, unas 8 veces más que el calor de recalentamiento. Eso es lo que la alternativa B (recuperación del calor del condensador) quiere aprovechar. **Dato a no perder:** en el punto de diseño de verano el recalentamiento es de solo 33 kW, porque con carga máxima el aire sale de la serpentina cerca de la temperatura que se necesita; el recalentamiento se concentra a carga parcial y de noche. Dimensionar la recuperación con el pico subestimaría el potencial.
+2. **El recalentamiento es casi la mitad del calor útil de la caldera** (511 de 1.044 MWh): se gasta frío para deshumidificar y después gas para devolver temperatura. Durante el año la enfriadora rechaza al ambiente 4.198 MWh, unas 8 veces más que el calor de recalentamiento. Eso es lo que la alternativa B (recuperación del calor del condensador) quiere aprovechar. **Dato a no perder:** en el punto de diseño de verano el recalentamiento es de solo 19 kW, porque con carga máxima el aire sale de la serpentina cerca de la temperatura que se necesita; el recalentamiento se concentra a carga parcial y de noche. Dimensionar la recuperación con el pico subestimaría el potencial.
 3. **El COP estacional de la planta (3,96) coincide casi exactamente con el COP 4 que supone el artículo de Hospitecnia.** Es una coincidencia de resultado, no un ajuste: el COP sale del ciclo y de las temperaturas de condensación del clima.
 
 ## 5. Contraste con las referencias
@@ -85,7 +85,7 @@ Tomadas de a una, las variaciones mueven el resultado entre 142 y 202 kWh/m² y 
 
 | Omisión | Efecto esperado sobre el consumo |
 |---|---|
-| Economizador (enfriamiento gratuito con aire exterior) | Baja unos 2,5 a 4 % |
+| Economizador (enfriamiento gratuito con aire exterior). Sin él, el 15 % del frío anual se entrega con el exterior por debajo de 18 °C | Baja unos 2,5 a 4 % |
 | Ventiladores de retorno y de extracción, y bombas de agua caliente | Sube unos 3 a 9 % |
 | Rendimiento de la caldera a carga parcial (se usa el de plena carga, 90 % sobre PCI) | Sube el gas 6 a 20 % |
 | Planta con torre de refrigeración en vez de condensación por aire | Baja unos 3 a 6 % |
@@ -93,13 +93,14 @@ Tomadas de a una, las variaciones mueven el resultado entre 142 y 202 kWh/m² y 
 | ACS de guardia, quirófanos, cocina y personal (solo se cuenta por cama) | Sube unos 2 a 14 % |
 | Cocina, lavandería, esterilización y vapor (fuera de la frontera) | No cambia este resultado, pero el gas total del hospital sería mucho mayor |
 | Clima de un año típico horario (se usan estados medios por mes) | Cambia en ±5 % con signo incierto |
+| Humidificación: la carga de diseño de invierno incluye 92 kW que el cálculo anual nunca usa, porque el promedio mensual de humedad oculta los días secos | Sube algo el consumo real (menos de 0,5 %) |
 
 ## 8. Verificación
 
 - **49 chequeos termodinámicos** (`python -m pytest calculo/tests`): primera ley, segunda ley (COP menor que el de Carnot), balance de átomos de la combustión, coincidencia de la psicrometría con CoolProp, y que la tabla de supuestos reproduzca cada valor. Comprueban la coherencia interna; no prueban que la física sea la correcta.
 - **Reimplementación independiente.** Dos agentes que no vieron el código reconstruyeron el cálculo desde cero solo con la especificación y la tabla de supuestos, uno con psychrolib y otro con CoolProp. En la primera versión coincidieron conmigo al 0,5 % o mejor en todas las magnitudes salvo una, donde el error era mío: la tabla de supuestos redondeaba a dos decimales y mostraba 0,03 en vez de 0,025 para los ventiladores del condensador. Quedó corregido y cubierto por un chequeo.
 - **Revisión adversarial.** Un tercer revisor leyó la especificación y los supuestos, y encontró una omisión física importante, **el calor de los ventiladores**, además de varias incoherencias menores. Se corrigió lo que correspondía y el resto está en la sección 7. Esa corrección redujo el consumo base de 181 a 165 kWh/m².
-- La segunda versión del modelo (con el calor del ventilador, la saturación del aire nocturno y la operación semanal) se vuelve a someter a reimplementación independiente.
+- **Segunda reimplementación independiente**, sobre la versión corregida, con aislamiento más estricto (cada agente en su propio directorio, sin ver el código ni los resultados). Uno usó psychrolib y coincidió exactamente con el código; el otro usó CoolProp para el aire húmedo y quedó **dentro de 0,24 % en las magnitudes globales y de 0,02 % en la energía final**. Los dos declararon no haber visto nada fuera de la especificación y la tabla de supuestos. Con eso el cálculo queda verificado respecto de la especificación; lo que sigue sin verificar son los **supuestos** de entrada (sección 6).
 
 ## 9. Pendientes
 

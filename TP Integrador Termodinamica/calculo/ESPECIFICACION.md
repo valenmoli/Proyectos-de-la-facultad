@@ -4,7 +4,7 @@ Documento autosuficiente para **reimplementar el cálculo desde cero**. Los valo
 
 Propiedades: aire húmedo con las fórmulas psicrométricas de ASHRAE Fundamentals (`psychrolib` en SI, o `CoolProp.HAPropsSI`); refrigerante y gases ideales con CoolProp. La diferencia entre librerías de aire húmedo es menor de 0,25 % en los resultados.
 
-**Historial:** v1 reimplementada de forma independiente por dos agentes, que coincidieron con el código al 0,5 % o mejor salvo un defecto de la tabla de supuestos (ya corregido). v2 (este documento) agrega el calor del ventilador, la saturación del aire exterior nocturno, la operación semanal y las convenciones de la sección 10.
+**Historial:** v1 fue reimplementada de forma independiente por dos agentes, que coincidieron con el código al 0,5 % o mejor salvo un defecto de la tabla de supuestos (ya corregido). v2 (este documento) agrega el calor del ventilador, la saturación del aire exterior nocturno, la operación semanal y las convenciones de la sección 10, y fue reimplementada por otros dos agentes con aislamiento estricto: uno coincidió exactamente con el código y el otro, con otra librería de aire húmedo, dentro de 0,24 % en las magnitudes globales y de 0,02 % en la energía final.
 
 ## 0. Frontera
 

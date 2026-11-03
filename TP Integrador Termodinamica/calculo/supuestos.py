@@ -161,8 +161,8 @@ def tabla_md():
             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for k, z in _ZONAS.items():
         out.append(
-            f"| {k} | {z['nombre']} | {z['ach_tot']} | {z['ach_oa']} | {z['q_s']:g} W/m2 | {z['q_l']:g} W/m2 | {z['f_dia']:g} | {z['f_noche']:g} | "
-            f"{z['t_ver']:g} C | {z['hr_ver']*100:g} % | {z['t_inv']:g} C | {z['hr_min']*100:g} % | {z['f_env']:g} | {z['dp_vent']:g} Pa | "
+            f"| {k} | {z['nombre']} | {_fmt(z['ach_tot'])} | {_fmt(z['ach_oa'])} | {_fmt(z['q_s'])} W/m2 | {_fmt(z['q_l'])} W/m2 | {_fmt(z['f_dia'])} | {_fmt(z['f_noche'])} | "
+            f"{_fmt(z['t_ver'])} C | {_fmt(round(z['hr_ver'] * 100, 6))} % | {_fmt(z['t_inv'])} C | {_fmt(round(z['hr_min'] * 100, 6))} % | {_fmt(z['f_env'])} | {_fmt(z['dp_vent'])} Pa | "
             f"{'si' if z['opera_noche'] else 'no'} | {_fmt(z['f_dias'])} | {_ZONAS_FUENTE[k]} |")
     out += ["", "**Clima mensual aproximado** (SUPUESTO, conocimiento general; reemplazar por datos del SMN):", "",
             "| Mes | " + " | ".join(MESES) + " |", "|---|" + "---|" * 12,
