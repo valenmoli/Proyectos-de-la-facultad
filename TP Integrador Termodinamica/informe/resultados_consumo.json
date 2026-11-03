@@ -1,0 +1,315 @@
+{
+ "E_elec_kWh": 1608762.1733253915,
+ "E_gas_PCS_kWh": 1711511.5449065922,
+ "E_gas_PCI_kWh": 1545209.2273543263,
+ "V_gas_m3": 160025.62812964604,
+ "E_total_kWh": 3320273.7182319835,
+ "i_total_cub": 180.9216280640793,
+ "i_total_cond": 212.8489741930345,
+ "Q_L_diseno_kW": 1812.8262649618152,
+ "Q_recal_verano_kW": 33.15005462617124,
+ "Q_caldera_invierno_kW": 770.5296373212615,
+ "W_comp_diseno_kW": 509.69408863422785,
+ "COP_diseno": 3.5566947025409883,
+ "T_cond_diseno": 46.0,
+ "acs_kW": 42.791191203703704,
+ "eta_caldera_PCI": 0.8998263399420978,
+ "PCS_kcal_m3": 9196.245948312953,
+ "PCS_kWh_m3": 10.695234037887966,
+ "PCI_kWh_m3": 9.656011011576613,
+ "T_rocio": 56.145363912982816,
+ "T_llama_adiabatica": 1848.0019150993328,
+ "elec": {
+  "compresor": 677629.9499460035,
+  "vent_condensador": 98425.32208319839,
+  "bombas": 65695.98523607846,
+  "ventiladores": 767010.9160601111,
+  "total": 1608762.1733253915
+ },
+ "q_util": {
+  "recal": 675721.559365052,
+  "cal": 339847.56918550364,
+  "hum": 0.0,
+  "acs": 374850.8349444445,
+  "total": 1390419.9634950003
+ },
+ "frio_entregado_kWh": 3300040.7303786925,
+ "Q_cond_kWh": 3937012.8833279363,
+ "zonas": {
+  "G1": {
+   "A": 252.0,
+   "m_sup": 5.04,
+   "m_oa": 1.008,
+   "Q_serp_diseno": 79.4831940293763,
+   "Q_recal_diseno": 31.2627318539809,
+   "Q_cal_invierno": 20.411677260355255,
+   "serp_kWh": 214228.98508760415,
+   "recal_kWh": 134569.94206727558,
+   "cal_kWh": 36374.59191811222,
+   "hum_kWh": 0.0,
+   "vent_kWh": 85848.00000000001
+  },
+  "G2": {
+   "A": 336.0,
+   "m_sup": 2.016,
+   "m_oa": 0.672,
+   "Q_serp_diseno": 41.193105604527446,
+   "Q_recal_diseno": 1.887322772190343,
+   "Q_cal_invierno": 16.385771523876333,
+   "serp_kWh": 130244.7040441302,
+   "recal_kWh": 21226.59123088909,
+   "cal_kWh": 0.0,
+   "hum_kWh": 0.0,
+   "vent_kWh": 24527.999999999996
+  },
+  "G3": {
+   "A": 4032.0,
+   "m_sup": 18.23692436723813,
+   "m_oa": 8.064,
+   "Q_serp_diseno": 472.54232591065335,
+   "Q_recal_diseno": 0.0,
+   "Q_cal_invierno": 211.25693511141557,
+   "serp_kWh": 903627.0985419994,
+   "recal_kWh": 222943.2610369464,
+   "cal_kWh": 155277.30472910524,
+   "hum_kWh": 0.0,
+   "vent_kWh": 199694.32182125756
+  },
+  "G4": {
+   "A": 3842.7199999999993,
+   "m_sup": 23.056319999999996,
+   "m_oa": 7.685439999999998,
+   "Q_serp_diseno": 505.76735721904765,
+   "Q_recal_diseno": 0.0,
+   "Q_cal_invierno": 201.2831220749441,
+   "serp_kWh": 976658.2838573047,
+   "recal_kWh": 211956.1245999107,
+   "cal_kWh": 148195.6725382862,
+   "hum_kWh": 0.0,
+   "vent_kWh": 280518.56
+  },
+  "G5": {
+   "A": 7136.48,
+   "m_sup": 32.22320260070386,
+   "m_oa": 7.13648,
+   "Q_serp_diseno": 713.8402821982105,
+   "Q_recal_diseno": 0.0,
+   "Q_cal_invierno": 229.32482109344753,
+   "serp_kWh": 1075281.658847654,
+   "recal_kWh": 85025.6404300303,
+   "cal_kWh": 0.0,
+   "hum_kWh": 0.0,
+   "vent_kWh": 176422.0342388536
+  }
+ },
+ "mensual": [
+  {
+   "mes": "ene",
+   "Q_L_kWh": 582773.6451520318,
+   "Q_cal_kWh": 156727.02766958668,
+   "W_comp_kWh": 129477.65831624123
+  },
+  {
+   "mes": "feb",
+   "Q_L_kWh": 502877.77606067073,
+   "Q_cal_kWh": 147173.66011671734,
+   "W_comp_kWh": 108194.10970513467
+  },
+  {
+   "mes": "mar",
+   "Q_L_kWh": 367859.3383767246,
+   "Q_cal_kWh": 61039.332224494254,
+   "W_comp_kWh": 80374.02061933193
+  },
+  {
+   "mes": "abr",
+   "Q_L_kWh": 256508.51281882406,
+   "Q_cal_kWh": 84689.97958466847,
+   "W_comp_kWh": 49636.10911853251
+  },
+  {
+   "mes": "may",
+   "Q_L_kWh": 134870.29150777136,
+   "Q_cal_kWh": 47583.751036575406,
+   "W_comp_kWh": 23453.04646778683
+  },
+  {
+   "mes": "jun",
+   "Q_L_kWh": 113216.53357987844,
+   "Q_cal_kWh": 67449.2070037299,
+   "W_comp_kWh": 19687.602015879365
+  },
+  {
+   "mes": "jul",
+   "Q_L_kWh": 107927.91553295976,
+   "Q_cal_kWh": 75286.25281157905,
+   "W_comp_kWh": 18767.946520083147
+  },
+  {
+   "mes": "ago",
+   "Q_L_kWh": 126062.0281963925,
+   "Q_cal_kWh": 63999.75246982744,
+   "W_comp_kWh": 21921.348074961996
+  },
+  {
+   "mes": "sep",
+   "Q_L_kWh": 123519.89886246543,
+   "Q_cal_kWh": 47135.650435261676,
+   "W_comp_kWh": 21479.28869532256
+  },
+  {
+   "mes": "oct",
+   "Q_L_kWh": 187367.25231869236,
+   "Q_cal_kWh": 35816.95079201086,
+   "W_comp_kWh": 35318.70511999948
+  },
+  {
+   "mes": "nov",
+   "Q_L_kWh": 289858.9161586381,
+   "Q_cal_kWh": 64171.48812625861,
+   "W_comp_kWh": 60719.53770289462
+  },
+  {
+   "mes": "dic",
+   "Q_L_kWh": 507198.62181364355,
+   "Q_cal_kWh": 164496.07627984602,
+   "W_comp_kWh": 108600.57758983501
+  }
+ ],
+ "sensibilidad": [
+  {
+   "nombre": "ACS por cama: 55 L/dia",
+   "E_total_kWh": 3112636.6756037334,
+   "delta": -0.06253612209381791
+  },
+  {
+   "nombre": "ACS por cama: 200 L/dia",
+   "E_total_kWh": 3781689.368516984,
+   "delta": 0.13896916020848432
+  },
+  {
+   "nombre": "Temperatura media mensual -2 K",
+   "E_total_kWh": 2874048.758106743,
+   "delta": -0.13439402832211417
+  },
+  {
+   "nombre": "Temperatura media mensual +2 K",
+   "E_total_kWh": 3776527.3139154026,
+   "delta": 0.13741445266336963
+  },
+  {
+   "nombre": "Humedad relativa media -8 puntos",
+   "E_total_kWh": 3011616.922703965,
+   "delta": -0.09296125010210766
+  },
+  {
+   "nombre": "Humedad relativa media +8 puntos",
+   "E_total_kWh": 3495852.4704076564,
+   "delta": 0.05288080654662624
+  },
+  {
+   "nombre": "Ganancias internas -30 %",
+   "E_total_kWh": 3367263.7564118337,
+   "delta": 0.014152459154744624
+  },
+  {
+   "nombre": "Ganancias internas +30 %",
+   "E_total_kWh": 3365181.785406862,
+   "delta": 0.013525411151581679
+  },
+  {
+   "nombre": "Conductancia de la envolvente -30 %",
+   "E_total_kWh": 3214867.8941505887,
+   "delta": -0.03174612487597032
+  },
+  {
+   "nombre": "Conductancia de la envolvente +30 %",
+   "E_total_kWh": 3425774.253383398,
+   "delta": 0.03177464995494187
+  },
+  {
+   "nombre": "Aire exterior minimo -25 %",
+   "E_total_kWh": 3204739.2340536183,
+   "delta": -0.034796674606660534
+  },
+  {
+   "nombre": "Aire exterior minimo +25 %",
+   "E_total_kWh": 3530302.024427552,
+   "delta": 0.06325632282732598
+  },
+  {
+   "nombre": "Quirofanos: 15 renovaciones totales",
+   "E_total_kWh": 3238729.1549014403,
+   "delta": -0.02455959063940216
+  },
+  {
+   "nombre": "Quirofanos: 25 renovaciones totales",
+   "E_total_kWh": 3401825.6660438366,
+   "delta": 0.02456181469739755
+  },
+  {
+   "nombre": "Rendimiento isentropico 0,65",
+   "E_total_kWh": 3394964.176330263,
+   "delta": 0.022495271304936667
+  },
+  {
+   "nombre": "Rendimiento isentropico 0,78",
+   "E_total_kWh": 3266923.391018927,
+   "delta": -0.01606805093209754
+  },
+  {
+   "nombre": "Exceso de aire 5 % (lambda 1,05)",
+   "E_total_kWh": 3308766.356402449,
+   "delta": -0.0034657871025350908
+  },
+  {
+   "nombre": "Exceso de aire 30 % (lambda 1,30)",
+   "E_total_kWh": 3337829.8581002215,
+   "delta": 0.00528755800217173
+  },
+  {
+   "nombre": "Gases de escape a 160 C",
+   "E_total_kWh": 3293969.179609627,
+   "delta": -0.007922400637608703
+  },
+  {
+   "nombre": "Gases de escape a 230 C",
+   "E_total_kWh": 3356952.4479604606,
+   "delta": 0.011046899394790914
+  },
+  {
+   "nombre": "Superficie climatizada 75 %",
+   "E_total_kWh": 3064569.3087786958,
+   "delta": -0.07701305107744191
+  },
+  {
+   "nombre": "Superficie climatizada 95 %",
+   "E_total_kWh": 3575978.1276852703,
+   "delta": 0.07701305107744164
+  },
+  {
+   "nombre": "Consultorios y administracion tambien funcionan 24 h",
+   "E_total_kWh": 4408321.7469109045,
+   "delta": 0.3276982926751886
+  },
+  {
+   "nombre": "Guardia, diagnostico y laboratorio: 20 % de las areas generales",
+   "E_total_kWh": 3033290.4890603814,
+   "delta": -0.08643360563791654
+  },
+  {
+   "nombre": "Guardia, diagnostico y laboratorio: 50 % de las areas generales",
+   "E_total_kWh": 3607256.947403584,
+   "delta": 0.0864336056379161
+  },
+  {
+   "nombre": "Humedad relativa de verano 5 puntos menos (todas las zonas)",
+   "E_total_kWh": 4079307.6762438277,
+   "delta": 0.22860583868248763
+  }
+ ],
+ "total_equivalente_edificio": {
+  "min": 247.83784666312235,
+  "max": 396.7579562808757
+ }
+}

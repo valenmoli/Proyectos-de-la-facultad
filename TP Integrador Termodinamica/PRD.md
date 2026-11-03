@@ -76,7 +76,7 @@ Aire exterior ─► [Mezcla con retorno] ─► [Serpentina de enfriamiento y d
 - **Refrigeración →** la carga de la serpentina es la capacidad del chiller; de ahí salen W_comp, COP, Q_H.
 - **Combustión →** la caldera aporta el recalentamiento, la calefacción de invierno y el ACS. Según el artículo, calefacción y ACS son la mayor parte del consumo térmico y el gas natural es el combustible dominante (73 % en España, 2011). De ahí salen consumo de gas, T de rocío de los gases, CO₂.
 - **Exergía →** une todo: dónde se destruye capacidad de hacer trabajo.
-- **El punto que lo hace un problema único (no cuatro):** el sistema enfría el aire para deshumidificar y luego lo recalienta con combustible, mientras el chiller *rechaza* al ambiente calor a ~40–55 °C que podría cubrir ese recalentamiento. Es una ineficiencia exergética visible (usar una llama a >1000 °C para subir aire unos pocos grados) y es la base natural de la mejora.
+- **El punto que lo hace un problema único (no cuatro):** el sistema enfría el aire para deshumidificar y luego lo recalienta con combustible, mientras el chiller *rechaza* al ambiente calor (condensación a 32–46 °C según el clima, descarga del compresor hasta ~65 °C en el modelo) que podría cubrir ese recalentamiento. Es una ineficiencia exergética visible (usar una llama a ~1.850 °C para subir aire unos pocos grados) y es la base natural de la mejora.
 
 ## 3. Alternativas y mejoras a evaluar (Consigna 4)
 
