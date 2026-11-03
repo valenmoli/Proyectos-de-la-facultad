@@ -36,6 +36,7 @@ Facultad de Ingeniería y Ciencias Agrarias · Ing. Civil · UCA
 | D3 | Las fuentes complementarias las busco yo (clima, normativa, gas natural, refrigerantes). | Interpretación de "una vez tengas esos datos"; **a confirmar** |
 | D4 | Hospital tipo de **unos 20.000 m² con 150 m²/cama (unas 130 camas)**, el "hospital de tamaño medio" del propio artículo. | Propuesta mía, confirmada por el usuario, 2026-11-03 |
 | D5 | Buscar un **hospital real del AMBA** como **referencia** para contrastar el hospital tipo. Tiene que ser de la **misma magnitud**, no igual: del orden de 10.000 a 50.000 m² y de 60 a 300 camas. Pesa más que tenga datos documentados (superficie, camas, climatización, consumos) que la cercanía exacta al tamaño. No reemplaza al hospital tipo. **Estado:** **El Cruce** (Florencio Varela) leído del documento original: 22.000 m² cubiertos, 140 camas (2010), 157 m²/cama; es de alta complejidad. **Consumos reales** de tres hospitales argentinos en el informe HCWH 2021; el único del AMBA es el Garrahan (259 kWh/m²·año), pero es 6 veces más grande. Ninguno es un hospital del AMBA de unos 20.000 m² con consumo publicado. Detalle en [`datos/referencias_argentina.md`](datos/referencias_argentina.md); otros candidatos de tamaño, sin verificar, en [`datos/hospital_referencia.md`](datos/hospital_referencia.md). | Usuario, 2026-11-03 |
+| D6 | **El consumo de energía se calcula, no se copia de las referencias.** Es un resultado del modelo: carga frigorífica, trabajo del compresor y electricidad del chiller, combustible de la caldera y energía anual. El artículo, el informe HCWH y los 23 hospitales solo **contrastan** el resultado. | Usuario, 2026-11-03; coincide con la Consigna 3 |
 
 ### 0.2 Cómo se adapta el artículo a Argentina
 
@@ -119,6 +120,7 @@ Respaldo local para las mejoras (informe HCWH 2021 sobre hospitales argentinos, 
 - Punto de diseño de verano (carga máxima) y, si alcanza, uno de invierno.
 - Planta térmica del edificio completa a nivel conceptual + **una zona crítica** (quirófano) como caso psicrométrico detallado.
 - Comparación Alt. A vs Alt. B con indicadores energéticos, exergéticos y de emisiones.
+- **Consumo anual de energía del sistema** (electricidad y combustible), calculado con un método simplificado a partir de los puntos de diseño y contrastado con las referencias (D6). Ver preguntas 12 y 13.
 
 **Fuera (por consigna o por decisión mía, a discutir)**
 - Proyecto ejecutivo, planos, presupuesto (la consigna lo excluye).
@@ -183,3 +185,5 @@ Respaldo local para las mejoras (informe HCWH 2021 sobre hospitales argentinos, 
 9. Fecha de entrega y de exposición. ¿La memoria de cálculo cuenta dentro de las 8–12 págs.?
 10. **Fuentes complementarias** (B6, D3): el artículo no trae condiciones de diseño del aire, normativa de ventilación, clima, COP ni rendimiento de caldera. Desde este entorno no puedo alcanzar las fuentes argentinas (sección 0.2). ¿Habilitás los dominios de la sección 0.2, o los pasa la cátedra, o seguimos con supuestos fundamentados y marcados como tales?
 11. **Resuelto:** documentos del hospital de referencia recibidos y transcriptos (`datos/referencias_argentina.md`).
+12. **Frontera del consumo calculado** (D6). Las referencias miden el edificio entero (iluminación, equipos médicos, cocina, lavandería), pero el TP modela el sistema térmico. Propuesta: **calculamos solo el sistema térmico** (frío, recalentamiento, calefacción, ACS y auxiliares como bombas y ventiladores) y lo comparamos con la parte de climatización y ACS de las referencias, que es la mitad aproximada del total. Alternativa: sumar el resto como un supuesto declarado y comparar totales, lo que agrega incertidumbre que no se calcula. ¿Cuál preferís?
+13. **Cómo pasar de los puntos de diseño al consumo anual.** El alcance excluye la simulación horaria. Propuesta: método simple de **3 a 5 condiciones climáticas ponderadas por horas al año** (verano pleno, verano suave, media estación, invierno), que necesita datos de frecuencia del clima del AMBA. Si no los conseguimos, se usa el método del artículo: **horas equivalentes a plena carga**, declaradas como supuesto (1.200 h para refrigeración y 1.556 h para calefacción en su tabla). ¿Estás de acuerdo con empezar por las horas equivalentes y pasar a las condiciones ponderadas si aparece el dato climático?
