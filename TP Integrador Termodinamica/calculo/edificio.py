@@ -3,7 +3,11 @@
 Cada zona se trata como un sistema de aire de caudal constante (CAV):
 
     aire exterior + aire de retorno -> mezcla -> serpentina de agua helada (enfria y deshumidifica)
-    -> recalentamiento -> (humidificacion con vapor en invierno) -> impulsion a la zona
+    -> recalentamiento -> ventilador de impulsion (aspira despues de la serpentina)
+    -> (humidificacion con vapor en invierno) -> impulsion a la zona
+
+El ventilador disipa su potencia como calor en la corriente de aire: la serpentina y el
+recalentador entregan el aire a T_sup menos el salto del ventilador.
 
 Todas las potencias en kW (positivas), temperaturas en C, humedades en kg/kg de aire seco.
 """
@@ -86,6 +90,11 @@ def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
     W_sup_max = max(W_set - term_lat, 1e-4)
     W_sup_min = max(W_min - term_lat, 1e-4)
 
+    # Calor del ventilador de impulsion (aspira despues de la serpentina y del recalentador)
+    calor_vent = P["f_calor_vent"] * caud[g]["P_vent_kW"]
+    dT_vent = calor_vent / (m_sup * ah.cp_ah(W_set))
+    T_obj = T_sup - dT_vent                           # temperatura a la que debe salir el tratamiento
+
     # Mezcla de aire exterior y retorno
     x = m_oa / m_sup
     h_mix = x * ah.entalpia(T_out, W_out) + (1 - x) * ah.entalpia(T_r, W_ret)
@@ -97,15 +106,17 @@ def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
     if W_mix > W_sup_max + 1e-9:                      # hay que deshumidificar
         W_c = W_sup_max
         T_c = ah.t_serpentina(W_c, P["HR_serp"], pres)
-        if T_c > T_sup:                               # la serpentina no puede salir mas caliente que la impulsion
-            T_c = T_sup
+        if T_c > T_obj:                               # la serpentina no puede salir mas caliente que el objetivo
+            T_c = T_obj
             W_c = min(W_sup_max, ah.w_desde_hr(T_c, P["HR_serp"], pres))
         if T_c >= T_mix:                              # no hay nada que enfriar
             T_c, W_c = T_mix, W_mix
         else:
             enfria = True
-    elif T_mix > T_sup + 1e-9:                        # solo enfriamiento sensible
-        T_c, W_c, enfria = T_sup, W_mix, True
+    elif T_mix > T_obj + 1e-9:                        # enfriamiento sensible
+        T_c = T_obj
+        W_c = min(W_mix, ah.w_desde_hr(T_c, P["HR_serp"], pres))
+        enfria = True
     else:
         T_c, W_c = T_mix, W_mix
 
@@ -119,8 +130,8 @@ def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
 
     # Recalentamiento o calefaccion
     Q_recal = Q_cal = 0.0
-    if T_c < T_sup - 1e-9:
-        calor = m_sup * ah.cp_ah(W_c) * (T_sup - T_c)
+    if T_c < T_obj - 1e-9:
+        calor = m_sup * ah.cp_ah(W_c) * (T_obj - T_c)
         if enfria:
             Q_recal = calor
         else:
@@ -133,6 +144,7 @@ def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
         h_vapor = 2676.0   # kJ/kg, vapor saturado a 101,3 kPa (propiedades del agua)
         Q_hum = m_sup * dW * (h_vapor - ah.h_agua_liquida(P["T_agua_red"]))
 
-    return dict(verano=verano, T_r=T_r, T_sup=T_sup, W_sup_max=W_sup_max, W_sup_min=W_sup_min, T_mix=T_mix, W_mix=W_mix,
+    return dict(verano=verano, T_r=T_r, T_sup=T_sup, T_obj=T_obj, dT_vent=dT_vent, calor_vent=calor_vent,
+                W_sup_max=W_sup_max, W_sup_min=W_sup_min, T_mix=T_mix, W_mix=W_mix,
                 h_mix=h_mix, T_c=T_c, W_c=W_c, enfria=enfria, Q_s_zona_kW=Q_s / 1000.0, Q_l_zona_kW=Q_l / 1000.0,
                 Q_coil=Q_coil, Q_coil_sens=Q_sens, Q_coil_lat=Q_lat, Q_recal=Q_recal, Q_cal=Q_cal, Q_hum=Q_hum)

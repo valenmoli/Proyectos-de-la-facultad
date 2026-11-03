@@ -20,7 +20,7 @@ _FILAS = [
     ("E1", "A_cub", "Superficie cubierta total", 18352.0, "m2", "DATO",
      "Presidencia de la Nacion, presentacion del Hospital Favaloro (datos/favaloro_nordelta.md, FA-03). Otra cifra: mas de 20.000 m2 (FA-04)"),
     ("E2", "f_acond", "Fraccion de la superficie cubierta que se climatiza", 0.85, "-", "SUPUESTO",
-     "Circulaciones, locales tecnicos, morgue y depositos no se climatizan; valor tipico de edificio hospitalario"),
+     "Se climatiza casi todo (las circulaciones reciben aire de transferencia); no se climatizan locales tecnicos, morgue ni depositos. Rango en la sensibilidad: 75 a 95 %"),
     ("E3", "camas_gen", "Camas de internacion general", 144, "camas", "DATO",
      "Gobierno de la Provincia de Buenos Aires, 28/07/2020 (FA-06). Se interpreta como parte del total del hospital"),
     ("E4", "camas_uti", "Camas de terapia intensiva", 14, "camas", "DATO", "Idem (FA-06)"),
@@ -50,7 +50,9 @@ _FILAS = [
     ("A3", "HR_serp", "Humedad relativa del aire a la salida de la serpentina", 0.95, "-", "CONSTANTE", "Serpentina de agua helada con aproximacion al saturado"),
     ("A4", "T_cambio_estacion", "Temperatura exterior bajo la cual rigen las consignas de invierno", 18.0, "C", "SUPUESTO", "Criterio de cambio de estacion"),
     ("A5", "eta_vent", "Rendimiento total de los ventiladores", 0.60, "-", "SUPUESTO", "Ventilador, motor y transmision"),
-    ("A6", "T_agua_red", "Temperatura del agua de red (para el vapor de humidificacion)", 15.0, "C", "SUPUESTO", "Aproximado"),
+    ("A6", "T_agua_red", "Temperatura del agua de red (vapor de humidificacion)", 17.0, "C", "SUPUESTO", "Igual que la del ACS (S3): media anual aproximada de Buenos Aires"),
+    ("A8", "f_calor_vent", "Fraccion de la potencia electrica del ventilador de impulsion que se disipa como calor en el aire", 1.0, "-", "CONSTANTE",
+     "Ventilador que aspira despues de la serpentina; con el motor fuera de la corriente seria de 0,85 a 0,95"),
     ("A7", "h_fg", "Calor latente de vaporizacion del agua (referencia de 0 C)", 2501.0, "kJ/kg", "CONSTANTE", "Propiedades del agua"),
     # Refrigeracion
     ("R1", "refrigerante", "Refrigerante de la enfriadora", "R134a", "-", "SUPUESTO", "Enfriadora de tornillo; HFC habitual, propiedades en CoolProp"),
@@ -63,7 +65,7 @@ _FILAS = [
     ("R8", "T_cond_min", "Temperatura minima de condensacion", 32.0, "C", "SUPUESTO", "Control de presion de descarga: el compresor de tornillo necesita una diferencia de presion minima"),
     ("R9", "f_vent_cond", "Potencia de ventiladores del condensador / calor rechazado", 0.025, "-", "SUPUESTO", "Valor tipico"),
     ("R10", "dT_aguahelada", "Salto de temperatura del agua helada", 5.0, "K", "SUPUESTO", "Agua helada 7/12 C"),
-    ("R11", "dP_bomba", "Altura de las bombas de agua helada", 250000.0, "Pa", "SUPUESTO", "Circuito primario y secundario en conjunto"),
+    ("R11", "dP_bomba", "Diferencia de presion de las bombas de agua helada", 250000.0, "Pa", "SUPUESTO", "Circuito primario y secundario en conjunto (equivale a unos 25 m de columna de agua)"),
     ("R12", "eta_bomba", "Rendimiento total de las bombas", 0.60, "-", "SUPUESTO", "Valor tipico"),
     # Combustion y caldera
     ("B1", "gas_CH4", "Gas natural: metano", 0.91, "fraccion molar", "SUPUESTO", "Composicion tipica; verificar con ENARGAS"),
@@ -73,7 +75,7 @@ _FILAS = [
     ("B5", "gas_CO2", "Gas natural: dioxido de carbono", 0.01, "fraccion molar", "SUPUESTO", "Idem"),
     ("B6", "lambda_aire", "Relacion de aire (1 = estequiometrico)", 1.15, "-", "SUPUESTO", "15 % de exceso de aire"),
     ("B7", "T_gases", "Temperatura de los gases de escape", 190.0, "C", "SUPUESTO", "Caldera sin condensacion"),
-    ("B8", "T_aire_comb", "Temperatura del aire y del gas de combustion", 15.0, "C", "SUPUESTO", "Sala de calderas"),
+    ("B8", "T_aire_comb", "Temperatura del aire de combustion", 15.0, "C", "SUPUESTO", "Sala de calderas. El gas se toma a 25 C, la referencia de las entalpias, y no aporta calor sensible"),
     ("B9", "f_rad", "Perdidas por radiacion y funcionamiento / calor liberado", 0.02, "-", "SUPUESTO", "Valor tipico"),
     ("B10", "T_ref_gas", "Temperatura de referencia del volumen de gas", 15.0, "C", "CONSTANTE", "m3 estandar a 15 C y 101,325 kPa"),
     # Agua caliente sanitaria
@@ -104,23 +106,34 @@ HR_MEDIA = [0.66, 0.70, 0.73, 0.75, 0.78, 0.79, 0.77, 0.73, 0.71, 0.70, 0.67, 0.
 # --------------------------------------------------------------------------------------
 _ZONAS = {
     "G1": dict(nombre="Quirofanos", ach_tot=20, ach_oa=4, q_s=60.0, q_l=10.0, f_dia=0.8, f_noche=0.0,
-               t_ver=22.0, hr_ver=0.55, t_inv=22.0, hr_min=0.30, f_env=0.0, dp_vent=1400.0, opera_noche=True),
+               t_ver=22.0, hr_ver=0.55, t_inv=22.0, hr_min=0.30, f_env=0.0, dp_vent=1800.0, opera_noche=True, f_dias=1.0),
     "G2": dict(nombre="Terapia intensiva", ach_tot=6, ach_oa=2, q_s=40.0, q_l=8.0, f_dia=1.0, f_noche=1.0,
-               t_ver=23.0, hr_ver=0.55, t_inv=23.0, hr_min=0.30, f_env=0.5, dp_vent=1000.0, opera_noche=True),
+               t_ver=23.0, hr_ver=0.55, t_inv=23.0, hr_min=0.30, f_env=0.5, dp_vent=1500.0, opera_noche=True, f_dias=1.0),
     "G3": dict(nombre="Internacion general", ach_tot=4, ach_oa=2, q_s=25.0, q_l=5.0, f_dia=0.9, f_noche=0.7,
-               t_ver=24.0, hr_ver=0.55, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=900.0, opera_noche=True),
-    "G4": dict(nombre="Guardia, diagnostico por imagenes y laboratorio (24 h)", ach_tot=6, ach_oa=2, q_s=35.0, q_l=8.0, f_dia=0.9, f_noche=0.5,
-               t_ver=24.0, hr_ver=0.60, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=1000.0, opera_noche=True),
+               t_ver=24.0, hr_ver=0.55, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=900.0, opera_noche=True, f_dias=1.0),
+    "G4": dict(nombre="Guardia, diagnostico por imagenes y laboratorio (24 h)", ach_tot=8, ach_oa=2, q_s=35.0, q_l=8.0, f_dia=0.9, f_noche=0.5,
+               t_ver=24.0, hr_ver=0.60, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=1000.0, opera_noche=True, f_dias=1.0),
     "G5": dict(nombre="Consultorios, administracion y docencia (de dia)", ach_tot=3, ach_oa=1, q_s=25.0, q_l=6.0, f_dia=0.9, f_noche=0.0,
-               t_ver=24.0, hr_ver=0.60, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=900.0, opera_noche=False),
+               t_ver=24.0, hr_ver=0.60, t_inv=22.0, hr_min=0.30, f_env=1.0, dp_vent=900.0, opera_noche=False, f_dias=5.0 / 7.0),
 }
 _ZONAS_FUENTE = {
-    "G1": "Condiciones y renovaciones de quirofano segun ASHRAE 170 (valores recordados, a verificar); HR de consigna 55 % = maximo 60 % menos 5 puntos de margen; ganancias y horarios: supuesto",
-    "G2": "Renovaciones de terapia intensiva segun ASHRAE 170 (valores recordados, a verificar); ganancias: supuesto",
+    "G1": "Condiciones y renovaciones de quirofano segun ASHRAE 170 (valores recordados, a verificar); HR de consigna 55 % = maximo 60 % menos 5 puntos de margen; presion del ventilador de 1.800 Pa por filtro HEPA, dos serpentinas y conductos; ganancias y horarios: supuesto",
+    "G2": "Renovaciones de terapia intensiva segun ASHRAE 170 (valores recordados, a verificar); presion del ventilador de 1.500 Pa (filtro HEPA); ganancias: supuesto",
     "G3": "Habitacion de internacion segun ASHRAE 170 (valores recordados, a verificar); ganancias: supuesto",
-    "G4": "Funciona las 24 h (la guardia atiende las 24 h segun la gacetilla provincial); renovaciones y ganancias: supuesto; HR de consigna 60 % (limite de confort)",
-    "G5": "Funcionan 12 h por dia (de dia); renovaciones y ganancias: supuesto; HR de consigna 60 % (limite de confort)",
+    "G4": "Funciona las 24 h (la guardia atiende las 24 h segun la gacetilla provincial). 8 renovaciones = promedio ponderado de sala de espera y triage (12, 25 % del area), shock (15, 5 %) e imagenes y laboratorio (6, 70 %), valores de ASHRAE 170 recordados; ganancias: supuesto; HR de consigna 60 % (limite de confort)",
+    "G5": "Funcionan 12 h por dia, de lunes a viernes (5/7 de los dias); renovaciones y ganancias: supuesto; HR de consigna 60 % (limite de confort)",
 }
+
+
+
+def _fmt(v):
+    """Formato sin perdida de cifras: coma decimal, sin separador de miles (6 cifras significativas)."""
+    if isinstance(v, float):
+        s = f"{v:.6g}"
+        if "e" in s:
+            s = f"{v:.12g}"
+        return s.replace(".", ",")
+    return str(v)
 
 
 def defaults():
@@ -141,18 +154,19 @@ def tabla_md():
     """Tabla Markdown de supuestos para el informe."""
     out = ["| ID | Parametro | Valor | Unidad | Estado | Fuente o justificacion |", "|---|---|---|---|---|---|"]
     for (i, _k, n, v, u, e, f) in _FILAS:
-        vs = f"{v:,.2f}".rstrip("0").rstrip(".") if isinstance(v, float) else str(v)
+        vs = _fmt(v)
         out.append(f"| {i} | {n} | {vs} | {u} | {e} | {f} |")
     out += ["", "**Zonas termicas** (cada una es un sistema de aire de caudal constante):", "",
-            "| Zona | Nombre | ACH total | ACH aire ext. | q sens. | q lat. | f dia | f noche | T ver | HR ver | T inv | HR min inv | f env | dP vent. | Opera de noche | Fuente |",
-            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+            "| Zona | Nombre | ACH total | ACH aire ext. | q sens. | q lat. | f dia | f noche | T ver | HR ver | T inv | HR min inv | f env | dP vent. | Opera de noche | f dias | Fuente |",
+            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for k, z in _ZONAS.items():
         out.append(
             f"| {k} | {z['nombre']} | {z['ach_tot']} | {z['ach_oa']} | {z['q_s']:g} W/m2 | {z['q_l']:g} W/m2 | {z['f_dia']:g} | {z['f_noche']:g} | "
             f"{z['t_ver']:g} C | {z['hr_ver']*100:g} % | {z['t_inv']:g} C | {z['hr_min']*100:g} % | {z['f_env']:g} | {z['dp_vent']:g} Pa | "
-            f"{'si' if z['opera_noche'] else 'no'} | {_ZONAS_FUENTE[k]} |")
+            f"{'si' if z['opera_noche'] else 'no'} | {_fmt(z['f_dias'])} | {_ZONAS_FUENTE[k]} |")
     out += ["", "**Clima mensual aproximado** (SUPUESTO, conocimiento general; reemplazar por datos del SMN):", "",
             "| Mes | " + " | ".join(MESES) + " |", "|---|" + "---|" * 12,
-            "| T media [C] | " + " | ".join(f"{t:g}" for t in T_MEDIA) + " |",
-            "| HR media [%] | " + " | ".join(f"{h*100:g}" for h in HR_MEDIA) + " |"]
+            "| Dias | " + " | ".join(str(d) for d in DIAS) + " |",
+            "| T media [C] | " + " | ".join(_fmt(t) for t in T_MEDIA) + " |",
+            "| HR media [%] | " + " | ".join(_fmt(round(h * 100, 6)) for h in HR_MEDIA) + " |"]
     return "\n".join(out)

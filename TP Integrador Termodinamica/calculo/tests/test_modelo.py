@@ -117,7 +117,8 @@ def test_balance_de_energia_del_aire(g, estado):
     dW = r["Q_hum"] / (m * (h_vapor - h_agua)) if r["Q_hum"] > 0 else 0.0
     W_final = r["W_c"] + dW
     cond = m * (r["W_mix"] - r["W_c"]) * ah.h_agua_liquida(r["T_c"]) if r["enfria"] else 0.0
-    h_sup_balance = r["h_mix"] - (r["Q_coil"] + cond) / m + (r["Q_recal"] + r["Q_cal"]) / m + r["Q_hum"] / m
+    h_sup_balance = (r["h_mix"] - (r["Q_coil"] + cond) / m + (r["Q_recal"] + r["Q_cal"]) / m
+                     + r["Q_hum"] / m + r["calor_vent"] / m)
     h_sup_estado = ah.entalpia(r["T_sup"], W_final)
     assert h_sup_balance == pytest.approx(h_sup_estado, abs=0.6)
     # La impulsion absorbe la carga sensible neta de la zona
@@ -188,3 +189,55 @@ def test_mas_acs_mas_gas():
     c2["P"]["L_cama_dia"] *= 2
     assert es.resumen(c2)["E_gas_PCS"] > es.resumen(C)["E_gas_PCS"]
     assert es.resumen(c2)["E_elec"] == pytest.approx(es.resumen(C)["E_elec"])   # el ACS no consume electricidad
+
+
+# ---------------------------------------------------------------- defectos encontrados por la verificacion independiente
+def _parse_tabla(md):
+    filas = {}
+    for linea in md.splitlines():
+        celdas = [x.strip() for x in linea.strip().strip("|").split("|")]
+        if len(celdas) == 6 and celdas[0] and celdas[0][0].isalpha() and celdas[0][1:].isdigit():
+            filas[celdas[0]] = celdas
+    return filas
+
+
+def test_la_tabla_de_supuestos_reproduce_cada_valor():
+    """La tabla es la entrada de una reimplementacion: no puede perder cifras (R9 mostraba 0,03 en vez de 0,025)."""
+    filas = _parse_tabla(supuestos.tabla_md())
+    n = 0
+    for (id_, clave, _nom, valor, _u, _e, _f) in supuestos.filas():
+        if isinstance(valor, (int, float)) and not isinstance(valor, bool):
+            leido = float(filas[id_][2].replace(",", "."))
+            assert leido == pytest.approx(valor, rel=1e-5), (id_, clave, filas[id_][2], valor)
+            n += 1
+    assert n > 40
+
+
+def test_la_tabla_incluye_los_dias_de_cada_mes():
+    assert "| Dias | 31 | 28 | 31 | 30 | 31 | 30 | 31 | 31 | 30 | 31 | 30 | 31 |" in supuestos.tabla_md()
+
+
+def test_la_humedad_exterior_no_supera_la_saturacion():
+    for i in range(12):
+        W = ah.w_desde_hr(C["clima"]["T"][i], C["clima"]["HR"][i])
+        for sgn in (+1, -1):
+            T = C["clima"]["T"][i] + sgn * P["rango_diario"] / 2
+            assert min(W, ah.w_desde_hr(T, 1.0)) <= ah.w_desde_hr(T, 1.0) + 1e-12
+            assert ah.hr_desde_w(T, min(W, ah.w_desde_hr(T, 1.0))) <= 1.0 + 1e-9
+
+
+def test_calor_del_ventilador_reduce_el_recalentamiento_y_sube_el_frio():
+    c0 = copy.deepcopy(C)
+    c0["P"]["f_calor_vent"] = 0.0
+    d_con, d_sin = es.diseno(C), es.diseno(c0)
+    assert d_con["Q_L"] > d_sin["Q_L"]                          # mas carga de serpentina al absorber el calor del ventilador
+    an_con, an_sin = es.anual(C), es.anual(c0)
+    assert an_con["q_recal"] + an_con["q_cal"] < an_sin["q_recal"] + an_sin["q_cal"]
+
+
+def test_la_zona_de_dias_habiles_consume_proporcionalmente():
+    c1 = copy.deepcopy(C)
+    c1["Z"]["G5"]["f_dias"] = 1.0
+    a0, a1 = es.anual(C), es.anual(c1)
+    assert a0["zonas"]["G5"]["vent"] == pytest.approx(a1["zonas"]["G5"]["vent"] * C["Z"]["G5"]["f_dias"])
+    assert a0["zonas"]["G5"]["serp"] == pytest.approx(a1["zonas"]["G5"]["serp"] * C["Z"]["G5"]["f_dias"])

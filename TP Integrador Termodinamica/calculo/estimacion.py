@@ -88,16 +88,18 @@ def anual(c):
                 if mitad == "noche" and not z["opera_noche"]:
                     continue
                 f_int = z["f_dia"] if mitad == "dia" else z["f_noche"]
-                r = ed.proceso(c, g, caud, T_out, W_m, f_int, q_sol)
-                zon[g]["serp"] += r["Q_coil"] * horas
-                zon[g]["serp_sens"] += r["Q_coil_sens"] * horas
-                zon[g]["serp_lat"] += r["Q_coil_lat"] * horas
-                zon[g]["recal"] += r["Q_recal"] * horas
-                zon[g]["cal"] += r["Q_cal"] * horas
-                zon[g]["hum"] += r["Q_hum"] * horas
-                zon[g]["vent"] += caud[g]["P_vent_kW"] * horas
-                Q_L += r["Q_coil"]
-                fila["Q_cal"] += (r["Q_recal"] + r["Q_cal"] + r["Q_hum"]) * horas
+                W_est = min(W_m, ah.w_desde_hr(T_out, 1.0, P["presion"]))   # la humedad no supera la saturacion
+                r = ed.proceso(c, g, caud, T_out, W_est, f_int, q_sol)
+                fd = z["f_dias"]                                              # fraccion de los dias en que opera la zona
+                zon[g]["serp"] += r["Q_coil"] * horas * fd
+                zon[g]["serp_sens"] += r["Q_coil_sens"] * horas * fd
+                zon[g]["serp_lat"] += r["Q_coil_lat"] * horas * fd
+                zon[g]["recal"] += r["Q_recal"] * horas * fd
+                zon[g]["cal"] += r["Q_cal"] * horas * fd
+                zon[g]["hum"] += r["Q_hum"] * horas * fd
+                zon[g]["vent"] += caud[g]["P_vent_kW"] * horas * fd
+                Q_L += r["Q_coil"] * fd
+                fila["Q_cal"] += (r["Q_recal"] + r["Q_cal"] + r["Q_hum"]) * horas * fd
             p = _planta(c, Q_L, T_out)
             pl["comp"] += p["W_comp"] * horas
             pl["cond"] += p["W_cond"] * horas
@@ -179,6 +181,12 @@ def sensibilidad(c0, variaciones=None):
         ("Exceso de aire 30 % (lambda 1,30)", lambda c: c["P"].__setitem__("lambda_aire", 1.30)),
         ("Gases de escape a 160 C", lambda c: c["P"].__setitem__("T_gases", 160.0)),
         ("Gases de escape a 230 C", lambda c: c["P"].__setitem__("T_gases", 230.0)),
+        ("Humedad maxima de verano 60 % en quirofanos, terapia intensiva e internacion",
+         lambda c: [c["Z"][g].__setitem__("hr_ver", 0.60) for g in ("G1", "G2", "G3")]),
+        ("Ventiladores: presion +30 % (proxy de ventiladores de retorno)", lambda c: escalar_zonas(c, "dp_vent", 1.3)),
+        ("Caldera con perdidas de ciclado (f_rad 10 %)", lambda c: c["P"].__setitem__("f_rad", 0.10)),
+        ("Ventilador sin calor en el aire (sin calor de ventilador)", lambda c: c["P"].__setitem__("f_calor_vent", 0.0)),
+        ("Consultorios y administracion de lunes a sabado (6/7)", lambda c: c["Z"]["G5"].__setitem__("f_dias", 6.0 / 7.0)),
         ("Superficie climatizada 75 %", lambda c: c["P"].__setitem__("f_acond", 0.75)),
         ("Superficie climatizada 95 %", lambda c: c["P"].__setitem__("f_acond", 0.95)),
         ("Consultorios y administracion tambien funcionan 24 h", lambda c: c["Z"]["G5"].__setitem__("opera_noche", True)),
