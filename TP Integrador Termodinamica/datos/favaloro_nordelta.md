@@ -71,7 +71,7 @@ Criterio acordado (D7): el que tenga **más información relevante para el model
 - La única fila donde Nordelta supera a Favaloro es la climatización, y es un dato **cualitativo de prensa** sin equipos ni potencias; el modelo calcula esa parte de todos modos.
 - Si se incluyera la superficie de Nordelta de la nota de La Nación de 2018 (24.000 m²), que **no está entre los documentos recibidos** y es una cifra de proyecto de un extracto de búsqueda, Nordelta empataría también en esa fila. **La selección depende de haber excluido esa cifra no verificada.** Si se consigue y se confirma, se reabre.
 
-**Selección: Favaloro, como juicio de ponderación y no como resultado de un conteo.** Es provisoria.
+**Selección: Favaloro, como juicio de ponderación y no como resultado de un conteo.** Confirmada por el usuario el 2026-11-03. Se reabriría solo si se confirmara la superficie de Nordelta y el usuario lo pidiera.
 
 **Salvedades de Favaloro (declaradas):**
 - Dos cifras de superficie (18.352 m² y más de 20.000 m² de construcción). Se toma 18.352 m² como superficie cubierta y se declara el rango.
