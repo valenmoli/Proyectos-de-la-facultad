@@ -31,7 +31,7 @@ ul, ol { margin: 0 0 6pt; padding-left: 20pt; }
 li { margin-bottom: 2pt; }
 code { font-family: "DejaVu Sans Mono", monospace; font-size: 8.3pt; background: #f4f3f0; padding: 0 2pt; border-radius: 2pt; }
 
-table { border-collapse: collapse; width: 100%; font-size: 8.5pt; line-height: 1.22; margin: 3pt 0 9pt; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 8.5pt; line-height: 1.22; margin: 3pt 0 9pt; break-inside: avoid; }
 div[data-custom-style="Largo"] table { break-inside: auto; }
 caption { caption-side: top; text-align: left; font-weight: bold; font-size: 9pt; margin: 6pt 0 3pt; break-after: avoid; }
 thead th { background: #eef3fa; text-align: left; font-weight: bold; padding: 3pt 4pt; border-top: 1pt solid #52514e; border-bottom: .75pt solid #52514e; vertical-align: bottom; }

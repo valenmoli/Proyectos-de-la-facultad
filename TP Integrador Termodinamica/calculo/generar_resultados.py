@@ -33,7 +33,7 @@ REF = dict(
     INT=dict(media=387, mediana=333, minimo=120, maximo=900),
     # participacion de climatizacion + ventilacion + ACS en el consumo total, segun distribuciones citadas por Hospitecnia
     PART=[("Hospitecnia (10): 45 % climatizacion + 20 % ACS", 0.65),
-          ("BID (13): 51 % climatizacion + 12 % ventilacion y bombas + 6 % ACS", 0.69),
+          ("Banco de Desarrollo de America Latina (13): 51 % climatizacion + 12 % ventilacion y bombas + 6 % ACS", 0.69),
           ("Hospital de Madrid (5): 40 % calefaccion + 20 % refrigeracion + 6 % ventilacion + 7 % ACS", 0.73),
           ("Chile (11): 36 % termico x (54 % climatizacion + 30 % agua caliente) + 64 % electrico x (21 % climatizacion + 3 % ACS)",
            0.36 * (0.54 + 0.30) + 0.64 * (0.21 + 0.03))],

@@ -5,6 +5,7 @@ Escribe PNG en ../figuras/. Paleta de la guia de visualizacion: azul = electrici
 """
 import json
 import os
+import textwrap
 
 import matplotlib
 
@@ -265,24 +266,24 @@ def fig_sensibilidad():
     with open(os.path.join(RAIZ, "informe", "resultados_consumo.json"), encoding="utf-8") as f:
         S = json.load(f)["sensibilidad"]
     S = sorted(S, key=lambda s: -abs(s["delta"]))[:12][::-1]
-    fig, ax = plt.subplots(figsize=(7.2, 4.4))
+    fig, ax = plt.subplots(figsize=(7.4, 5.6))
     for i, s in enumerate(S):
         col = NARANJA if s["delta"] > 0 else AZUL
         ax.barh(i, s["delta"] * 100, color=col, height=0.6)
         ha = "left" if s["delta"] > 0 else "right"
         ax.text(s["delta"] * 100 + (0.7 if s["delta"] > 0 else -0.7), i, f"{'+' if s['delta'] > 0 else '−'}{coma(abs(s['delta']) * 100, 1)} %",
-                va="center", ha=ha, fontsize=8, color=INK)
+                va="center", ha=ha, fontsize=8.5, color=INK)
     ax.axvline(0, color=INK2, lw=0.8)
     ax.set_yticks(range(len(S)))
-    ax.set_yticklabels([NOMBRES_SENS.get(s["nombre"], s["nombre"]) for s in S], fontsize=7.5)
-    ax.set_xlim(-30, 34)
+    ax.set_yticklabels([textwrap.fill(NOMBRES_SENS.get(s["nombre"], s["nombre"]), 44) for s in S], fontsize=8.5)
+    ax.set_xlim(-24, 30)
     ax.set_xlabel("Variación de la energía final anual respecto del caso base [%]")
     ax.grid(axis="x", color=GRID, lw=0.6)
     ax.set_axisbelow(True)
     ax.spines["left"].set_visible(False)
     ax.tick_params(axis="y", length=0)
     from matplotlib.patches import Patch
-    ax.legend(handles=[Patch(color=NARANJA, label="Aumenta el consumo"), Patch(color=AZUL, label="Reduce el consumo")], frameon=False, fontsize=8, loc="lower right")
+    ax.legend(handles=[Patch(color=NARANJA, label="Aumenta el consumo"), Patch(color=AZUL, label="Reduce el consumo")], frameon=False, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.45, -0.13), ncol=2)
     return _guardar(fig, "fig06_sensibilidad.png")
 
 

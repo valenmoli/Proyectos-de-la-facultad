@@ -65,6 +65,9 @@ ANEXO = [
 ]
 
 
+ANEXO.sort(key=lambda x: ("ECARBS".index(x[0][0]), int(x[0][1:])))
+
+
 def _fmt_valor(v):
     if isinstance(v, str):
         return v
@@ -205,6 +208,9 @@ def valores():
     dias = c["clima"]["dias"]
     V["T_media_anual"] = n(sum(t * d for t, d in zip(c["clima"]["T"], dias)) / sum(dias))
     V["ach_G3_real"] = n(caud["G3"]["m_sup"] / P["rho_aire"] * 3600 / (A["G3"] * P["h_techo"]), 1)
+    V["Q_cal_inv_aire"] = n(sum(d["Q_cal"] for d in R["diseno"]["invierno"].values()))
+    V["ach_G3_min"] = n(c["Z"]["G3"]["ach_tot"])
+    V["ach_G5_min"] = n(c["Z"]["G5"]["ach_tot"])
     V["Q_hum_inv"] = n(sum(d["Q_hum"] for d in R["diseno"]["invierno"].values()))
     for clave, nom in (("hr5", "Humedad relativa de verano 5 puntos menos (todas las zonas)"), ("g5_24h", "Consultorios y administracion tambien funcionan 24 h"),
                        ("fan", "Ventilador sin calor en el aire (sin calor de ventilador)"), ("acs200", "ACS por cama: 200 L/dia"),
@@ -221,6 +227,13 @@ def valores():
         el2 = es.resumen(c2)["anual"]["elec"]
         V["vent_" + clave] = n(el2["ventiladores"] / 1e3)
         V["comp_" + clave] = n(el2["compresor"] / 1e3)
+        if clave == "dp80":
+            R2 = es.resumen(c2)
+            k2 = R2["E_gas_PCS"] / R2["anual"]["q_util_total"]
+            V["recal_gas_dp80"] = n(R2["anual"]["q_recal"] * k2 / 1e3)
+            V["ahorro_dp80_MWh"] = n((R["E_total"] - R2["E_total"]) / 1e3)
+            V["ahorro_dp80"] = n((R["E_total"] - R2["E_total"]) / R["E_total"] * 100, 1)
+            V["ahorro_vent_MWh"] = n((elec["ventiladores"] - el2["ventiladores"]) / 1e3)
     V["dT_dia"] = n(P["rango_diario"] / 2, 1)
     V["dT_cond"] = n(P["dT_cond"])
     V["T_cond_min"] = n(P["T_cond_min"])
@@ -300,7 +313,10 @@ def valores():
     V["m_ref"] = n(d["Q_L"] / cic["q_L"], 1)
     from CoolProp.CoolProp import PropsSI
     h_gsat = PropsSI("H", "P", cic["P_c"], "Q", 1, P["refrigerante"]) / 1e3
+    h_fsat = PropsSI("H", "P", cic["P_c"], "Q", 0, P["refrigerante"]) / 1e3
     V["frac_desrec"] = n((cic["h2"] - h_gsat) / cic["q_H"] * 100)
+    V["frac_cond"] = n((h_gsat - h_fsat) / cic["q_H"] * 100)
+    V["eta_is"] = n(P["eta_is"], 2)
     V["T_ev"] = n(P["T_ev"])
     V["T2_ref"] = n(cic["T2"])
 
@@ -344,7 +360,7 @@ def valores():
                              "Edificio completo. La conversión a energía final es un cálculo propio"),
                             ("**Este modelo, solo sistema térmico**", "18.352 m²", f"**{n(R['i_total_cub'])}**", f"Equivale a {n(J['total_equivalente_edificio']['min'])} a {n(J['total_equivalente_edificio']['max'])} para el edificio completo")],
                            (26, 22, 18, 34))
-    nom_part = ["Distribución citada en el artículo (ref. 10)", "BID (ref. 13)", "Hospital de Madrid (ref. 5)", "Chile (ref. 11)"]
+    nom_part = ["Distribución citada en el artículo (ref. 10) [H]", "Banco de Desarrollo de América Latina (ref. 13) [H]", "Hospital de Madrid (ref. 5) [H]", "Chile (ref. 11) [H]"]
     comp_part = ["45 % climatización + 20 % ACS", "51 % climatización + 12 % ventilación y bombas + 6 % ACS",
                  "40 % calefacción + 20 % refrigeración + 6 % ventilación + 7 % ACS",
                  "36 % térmico × (54 % climatización + 30 % agua caliente) + 64 % eléctrico × (21 % climatización + 3 % ACS)"]
@@ -408,6 +424,11 @@ def render(V, T):
         return v
 
     out = re.sub(r"\{\{(\w+)\}\}", sub, s)
+    partes = re.split(r"(\$\$.*?\$\$|\$[^$\n]*?\$)", out, flags=re.S)
+    unidades = r"(%|°C|K|kW|kWh|MWh|kg|kJ|kPa|Pa|m²|m³|kcal|kmol|h|L)(?![A-Za-záéíóúñÁÉÍÓÚÑ])"
+    for i in range(0, len(partes), 2):
+        partes[i] = re.sub(r"(\d) " + unidades, "\\1\u00a0\\2", partes[i])
+    out = "".join(partes)
     sin_usar = sorted((set(V) | set(T)) - usados)
     if sin_usar:
         print("aviso: valores calculados que la plantilla no usa:", ", ".join(sin_usar))

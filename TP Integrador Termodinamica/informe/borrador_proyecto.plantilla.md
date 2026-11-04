@@ -131,13 +131,13 @@ donde $h_f = 4\text{,}186\,T_c$ es la entalpía del condensado y la parte sensib
 
 $$\dot Q_{rec} = \dot m_a\,c_{p,ah}\,(T_{obj} - T_c), \qquad T_{obj} = T_{imp} - \frac{\dot W_{vent}}{\dot m_a\,c_{p,ah}}, \qquad c_{p,ah} = 1\text{,}006 + 1\text{,}86\,\omega$$
 
-El estado de impulsión sale del balance de la zona. Con la actividad $f_{act}$, la fracción de envolvente expuesta $f_{env}$, la conductancia $UA$ ({{UA}} W/(m² K)) y la ganancia solar $q_{sol}$:
+El estado de impulsión sale del balance de la zona. Con la actividad $f_{act}$, la fracción de envolvente expuesta $f_{env}$, la conductancia $U$ por m² de piso expuesto ({{UA}} W/(m² K)) y la ganancia solar $q_{sol}$ (en W/m², como las ganancias internas de plena actividad $q_s$ y $q_l$):
 
-$$\dot Q_s = A\left[q_s\,f_{act} + f_{env}\,\big(UA\,(T_{ext} - T_r) + q_{sol}\big)\right], \qquad \dot Q_l = A\,q_l\,f_{act}$$
+$$\dot Q_s = A\left[q_s\,f_{act} + f_{env}\,\big(U\,(T_{ext} - T_r) + q_{sol}\big)\right], \qquad \dot Q_l = A\,q_l\,f_{act}$$
 
 $$T_{imp} = T_r - \frac{\dot Q_s}{\dot m_a\,c_{p,ah}}, \qquad \omega_{imp} = \omega_r - \frac{\dot Q_l}{\dot m_a\,h_{fg}}, \qquad \dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}}$$
 
-con $T_{imp}$ limitada entre 13 y 35 °C, $h_{fg} = 2501$ kJ/kg, $\eta_{vent} = {{eta_vent_m}}$ y $\rho = 1\text{,}2$ kg/m³. La serpentina lleva el aire a $\omega_c = \omega_{imp}$ con la temperatura de salida que corresponde a la saturación parcial indicada; si esa temperatura supera $T_{obj}$, enfría hasta $T_{obj}$. El caudal de impulsión es el mayor entre el que fijan las renovaciones y el que pide la carga sensible, y el de aire exterior se fija en valor absoluto. En invierno, si el aire sale más seco que la humedad mínima de la zona, se humidifica con vapor.
+con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la zona (el retorno está en ese estado), $\dot V = \dot m_a/\rho$ y las cargas pasadas a kW al dividir por $\dot m_a\,c_{p,ah}$; $T_{imp}$ queda limitada entre 13 y 35 °C, $h_{fg} = 2501$ kJ/kg, $\eta_{vent} = {{eta_vent_m}}$ y $\rho = 1\text{,}2$ kg/m³. La serpentina lleva el aire a $\omega_c = \omega_{imp}$ con la temperatura de salida que corresponde a la saturación parcial indicada; si esa temperatura supera $T_{obj}$, enfría hasta $T_{obj}$. El caudal de impulsión es el mayor entre el que fijan las renovaciones y el que pide la carga sensible, y el de aire exterior se fija en valor absoluto. En invierno, si el aire sale más seco que la humedad mínima de la zona, se humidifica con vapor.
 
 ## 4.3 Refrigeración
 
@@ -153,7 +153,7 @@ El rendimiento del motor es $\eta_{mot} = {{eta_motor_m}}$ y el COP de Carnot us
 
 ## 4.4 Combustión
 
-La reacción por kmol de gas natural, con relación de aire $\lambda$ = {{lambda_m}} (el oxígeno estequiométrico es $a_{st}$ = {{o2_st_m}} kmol y el real, $\lambda\,a_{st}$), es
+La reacción por kmol de gas natural, con relación de aire $\lambda$ = {{lambda}} (el oxígeno estequiométrico es $a_{st}$ = {{o2_st}} kmol y el real, $\lambda\,a_{st}$; coeficientes en kmol, redondeados a tres decimales), es
 
 $${{gas_CH4_m}}\,\text{CH}_4 + {{gas_C2H6_m}}\,\text{C}_2\text{H}_6 + {{gas_C3H8_m}}\,\text{C}_3\text{H}_8 + {{gas_N2_m}}\,\text{N}_2 + {{gas_CO2_m}}\,\text{CO}_2 + {{o2_reac_m}}\left(\text{O}_2 + \tfrac{79}{21}\,\text{N}_2\right) \rightarrow {{co2_prod_m}}\,\text{CO}_2 + {{h2o_prod_m}}\,\text{H}_2\text{O} + {{n2_prod_m}}\,\text{N}_2 + {{o2_prod_m}}\,\text{O}_2$$
 
@@ -171,7 +171,7 @@ con $L$ = {{L_cama}} L/(cama día), $N_{camas}$ = {{camas_tot}}, $T_{ACS}$ = {{T
 
 ## 4.5 Consumo anual
 
-Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno ($T_i + {{dT_dia_m}}$ K) y uno nocturno ($T_i - {{dT_dia_m}}$ K), con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ {{T_cambio}} °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral (tabla 9). En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
+Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + {{dT_dia_m}}\,\text{K})$ y uno nocturno $(T_i - {{dT_dia_m}}\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ {{T_cambio}} °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral (tabla 9). En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
 
 ## 4.6 Exergía
 
@@ -211,7 +211,7 @@ Con la suma de las serpentinas, la capacidad frigorífica de diseño es **{{Q_L_
 
 Table: Tabla 6. Estados del ciclo de refrigeración. Las diferencias de una décima entre valores se deben al redondeo.
 
-El efecto frigorífico es {{q_L_ref}} kJ/kg, el trabajo de compresión {{w_ref}} kJ/kg y el calor rechazado {{q_H_ref}} kJ/kg. El COP sobre el eje es {{cop_eje}} y sobre la potencia eléctrica {{cop_elec}}, contra {{cop_carnot}} del ciclo de Carnot entre las mismas temperaturas, que es el límite de la Segunda Ley: **el COP eléctrico es el {{eta_carnot}} % del de Carnot** ({{eta_carnot_eje}} % si se cuenta sobre el eje). La potencia eléctrica del compresor al diseño es {{W_comp_dis}} kW y el caudal de refrigerante, {{m_ref}} kg/s. El compresor descarga a {{T2_ref}} °C, pero el calor del sobrecalentamiento de la descarga es solo el {{frac_desrec}} % del calor rechazado; el resto sale a la temperatura de condensación. Es el nivel de temperatura que se podría aprovechar.
+El efecto frigorífico es {{q_L_ref}} kJ/kg, el trabajo de compresión {{w_ref}} kJ/kg y el calor rechazado {{q_H_ref}} kJ/kg. El COP sobre el eje es {{cop_eje}} y sobre la potencia eléctrica {{cop_elec}}, contra {{cop_carnot}} del ciclo de Carnot entre las mismas temperaturas, que es el límite de la Segunda Ley: **el COP eléctrico es el {{eta_carnot}} % del de Carnot** ({{eta_carnot_eje}} % si se cuenta sobre el eje). La potencia eléctrica del compresor al diseño es {{W_comp_dis}} kW y el caudal de refrigerante, {{m_ref}} kg/s. El compresor descarga a {{T2_ref}} °C, pero el calor del sobrecalentamiento de la descarga es solo el {{frac_desrec}} % del calor rechazado en el diseño; alrededor del {{frac_cond}} % se cede condensando a {{T_cond_dis}} °C y el resto, subenfriando. El nivel de temperatura aprovechable es sobre todo el de condensación ({{T_cond_min}} a {{T_cond_dis}} °C).
 
 ## 5.3 Combustión y caldera
 
@@ -230,7 +230,7 @@ Por kmol de gas natural y con {{exceso}} % de exceso de aire, la reacción consu
 
 Table: Tabla 7. Combustión del gas natural y rendimiento de la caldera.
 
-La carga de la caldera en el aire es de {{Q_cal_inv}} kW en el día de diseño de invierno, más {{acs_kW}} kW medios de ACS (el modelo no calcula el pico de ACS).
+La carga de la caldera en el aire es de {{Q_cal_inv}} kW en el día de diseño de invierno ({{Q_cal_inv_aire}} kW de calefacción y {{Q_hum_inv}} kW de vapor de humidificación), más {{acs_kW}} kW medios de ACS (el modelo no calcula el pico de ACS).
 
 ## 5.4 Consumo anual
 
@@ -260,9 +260,9 @@ Table: Tabla 9. Sensibilidad de la energía final anual (caso base: {{E_total_MW
 
 ![Figura 6. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=14.5cm}
 
-Tomadas de a una, las variaciones mueven la intensidad entre {{sens_min}} y {{sens_max}} kWh/m² y año. **Eso no es un intervalo de confianza**: las variaciones se combinan y los supuestos no son independientes. Una revisión externa del modelo estimó la incertidumbre global en alrededor de ±15 a 20 %; es una estimación del revisor, no un cálculo de este modelo. La sensibilidad indica qué conviene reemplazar primero por datos citables: la humedad de consigna de verano (5 puntos menos: {{s_hr5}} %), los horarios de las zonas (consultorios 24 h: {{s_g5_24h}} %), el calor del ventilador (sin él: {{s_fan}} %), el ACS por cama (200 L: {{s_acs200}} %), la temperatura media (±2 K: {{s_tp2}} % y {{s_tm2}} %) y la temperatura de cambio de estación (21 °C: {{s_est21}} %; 15 °C: {{s_est15}} %). Las ganancias internas y la conductancia de la envolvente, en cambio, mueven menos de 3 % con ±30 %.
+Tomadas de a una, las variaciones mueven la intensidad entre {{sens_min}} y {{sens_max}} kWh/m² y año. **Eso no es un intervalo de confianza**: las variaciones se combinan y los supuestos no son independientes. Una revisión externa del modelo estimó la incertidumbre global en alrededor de ±15 a 20 %; es una estimación del revisor, no un cálculo de este modelo. La sensibilidad indica qué conviene reemplazar primero por datos citables: la humedad de consigna de verano (5 puntos menos: {{s_hr5}} %), los horarios de las zonas (consultorios 24 h: {{s_g5_24h}} %), el calor del ventilador (sin él: {{s_fan}} %), el ACS por cama (200 L: {{s_acs200}} %), la temperatura media (±2 K: {{s_tp2}} % y {{s_tm2}} %) y la temperatura de cambio de estación (21 °C: {{s_est21}} %; el caso de 15 °C, {{s_est15}} %, está en `informe/resultados_consumo.md`). Las ganancias internas y la conductancia de la envolvente, en cambio, mueven menos de 3 % con ±30 %.
 
-El orden entre ventiladores y compresor no es robusto: con 20 % menos de presión de ventilador los ventiladores consumen {{vent_dp80}} MWh y el compresor, {{comp_dp80}} MWh; con un rendimiento de ventilador de 0,75, {{vent_eta75}} y {{comp_eta75}} MWh. En esos dos casos el compresor pasa a ser el primer consumo.
+El orden entre ventiladores y compresor no es robusto: con 20 % menos de presión de ventilador los ventiladores consumen {{vent_dp80}} MWh y el compresor, {{comp_dp80}} MWh; con un rendimiento de ventilador de 0,75, {{vent_eta75}} y {{comp_eta75}} MWh. Las dos variaciones son equivalentes, porque la potencia del ventilador depende de $\Delta p/\eta$. En ambas el compresor supera a los ventiladores, pero sin el calor que el ventilador cedía al aire el gas de recalentamiento sube a {{recal_gas_dp80}} MWh y pasa a ser el primer uso: el ahorro neto es de {{ahorro_dp80}} % ({{ahorro_dp80_MWh}} MWh) y no los {{ahorro_vent_MWh}} MWh de electricidad de los ventiladores.
 
 ::: {custom-style="Pendiente"}
 **Pendiente: 5.6 Análisis exergético.** Falta calcular la destrucción de exergía en la serpentina y la enfriadora (compresor, condensador, válvula), en el recalentador y la caldera, y en los ventiladores, con su eficiencia exergética y un diagrama de flujo de exergía (Grassmann). La hipótesis a poner a prueba: calentar aire unos pocos grados con una llama de {{T_llama}} °C destruye casi toda la exergía del combustible.
@@ -284,9 +284,9 @@ El orden entre ventiladores y compresor no es robusto: con 20 % menos de presió
 |---|---|---|
 | Recuperación del calor del condensador (alternativa B) | Aprovechar calor que hoy se rechaza a {{T_cond_min}} a {{T_cond_anual_max}} °C (hasta {{T2_ref}} °C en la descarga del compresor, en el diseño), en lugar de quemar gas en una llama adiabática teórica de {{T_llama}} °C | Gas evitado y trabajo extra del compresor |
 | Control del exceso de aire o caldera de condensación | Menos pérdida en los gases de escape y recuperación del calor latente del agua formada (la temperatura de rocío es {{T_rocio}} °C; solo condensa si el retorno de agua está por debajo de unos 55 °C) | Rendimiento de la caldera y gas ahorrado |
-| Recuperación de calor del aire de extracción con serpentinas de circuito cerrado | Precalentar o preenfriar el aire exterior con el aire que sale, sin mezclarlos (en un hospital la contaminación cruzada es una restricción dura) | Reducción de la carga de serpentina y de recalentamiento |
-| Mayor temperatura de evaporación | Menor salto de presión del compresor, menos trabajo | Reducción de la electricidad del compresor |
-| Reducción de la presión y del caudal de los ventiladores en zonas no críticas | Los ventiladores son el {{pct_vent}} % de la energía y la potencia crece con el caudal y la presión | Electricidad de ventiladores |
+| Recuperación de calor del aire de extracción con serpentinas de circuito cerrado | Precalentar o preenfriar el aire exterior con el aire que sale, sin mezclarlos (en un hospital la contaminación cruzada es una restricción dura) | Reducción de la carga sensible de la serpentina y de la calefacción de invierno; no reduce el recalentamiento, que depende de la salida de la serpentina |
+| Mayor temperatura de evaporación | Menor salto de presión del compresor, menos trabajo; limitada por la temperatura de salida de la serpentina que exige la deshumidificación | Reducción de la electricidad del compresor |
+| Reducción de la presión y del caudal de los ventiladores en zonas no críticas | Los ventiladores son el {{pct_vent}} % de la energía y la potencia crece con el caudal y la presión | Electricidad de ventiladores, descontando el gas de recalentamiento que sube al haber menos calor de ventilador |
 
 Table: Tabla 10. Mejoras candidatas.
 
@@ -296,13 +296,13 @@ El informe de HCWH sobre hospitales argentinos aporta estimaciones locales de ah
 
 ## 7.1 Tres cosas que el resultado muestra
 
-1. **Los ventiladores son lo que más energía consume** ({{pct_vent}} %, {{MWh_vent}} MWh), por encima del compresor ({{pct_comp}} %). Es un efecto del tipo de sistema (todo aire), de las renovaciones que exige un hospital en quirófanos y áreas críticas ({{ach_G1}}, {{ach_G2}} y {{ach_G4}} por hora) y, en internación y consultorios, de la carga sensible, que fija {{ach_G3_real}} renovaciones por hora, más que el mínimo normativo. **El orden depende de la presión y el rendimiento supuestos de los ventiladores** (sección 5.5).
+1. **Los ventiladores son lo que más energía consume** ({{pct_vent}} %, {{MWh_vent}} MWh), por encima del compresor ({{pct_comp}} %). Es un efecto del tipo de sistema (todo aire), de las renovaciones que exige un hospital en quirófanos y áreas críticas ({{ach_G1}}, {{ach_G2}} y {{ach_G4}} por hora) y, en internación y consultorios, de la carga sensible, que fija {{ach_G3_real}} renovaciones por hora, más que el mínimo supuesto ({{ach_G3_min}} en internación según ASHRAE 170 recordado; {{ach_G5_min}} en consultorios, sin norma). **El orden depende de la presión y el rendimiento supuestos de los ventiladores** (sección 5.5).
 2. **El recalentamiento es casi la mitad del calor útil de la caldera** ({{q_recal_MWh}} de {{q_total_MWh}} MWh). La enfriadora rechaza al ambiente {{Q_cond_MWh}} MWh por año, unas {{Q_cond_sobre_recal}} veces el calor de recalentamiento: el calor existe, falta ver si coincide en el tiempo y en temperatura.
 3. **El COP estacional de la planta ({{COP_planta}}) coincide casi exactamente con el COP 4 que supone el artículo de Hospitecnia [H].** Es una coincidencia de resultado, no un ajuste: el COP sale del ciclo y de las temperaturas de condensación del clima.
 
 ## 7.2 Contraste con las referencias
 
-Las referencias miden el edificio completo y este resultado solo el sistema térmico. Para compararlas se estima el consumo total equivalente dividiendo por la fracción que el sistema térmico representa del total. **Esas fracciones las calculó el equipo** sumando porcentajes sueltos de cuatro repartos del artículo [H] (tabla 11); el artículo no las da como tales, y el reparto de Chile que sirve de base suma 103 % en el artículo. El total equivalente queda entre {{eq_min}} y {{eq_max}} kWh/m² y año.
+Las referencias miden el edificio completo y este resultado solo el sistema térmico. Para compararlas se estima el consumo total equivalente dividiendo por la fracción que el sistema térmico representa del total. **Esas fracciones las calculó el equipo** sumando porcentajes sueltos de cuatro repartos del artículo [H] (tabla 11); el artículo no las da como tales, y el reparto eléctrico de Chile, del que se toman el 21 % y el 3 %, suma 103 % en el artículo. El total equivalente queda entre {{eq_min}} y {{eq_max}} kWh/m² y año.
 
 {{tabla_part}}
 
@@ -312,7 +312,7 @@ Table: Tabla 11. Fracción del sistema térmico y consumo total equivalente.
 
 Table: Tabla 12. Intensidad energética del modelo y de las referencias.
 
-El total equivalente del edificio completo ({{eq_min}} a {{eq_max}} kWh/m²) queda por encima de CEMAR ({{ref_cemar}}) y de Giordano ({{ref_giordano}}), solapa con Garrahan ({{ref_garrahan}}) en su extremo bajo, contiene la mediana internacional ({{ref_med}}) y queda por debajo del modelo español ({{ref_es_min}} a {{ref_es_max}}). El valor del solo sistema térmico ({{i_cub}}) es menor que los totales de Garrahan y CEMAR y apenas mayor que el de Giordano, como corresponde a una parte del total. Los hospitales argentinos auditados tienen otro perfil (tamaños de 4.970 a 120.000 m², uno pediátrico, uno ambulatorio) y sus consumos son estimaciones por auditoría con equipos viejos e ineficientes y, en áreas especiales, sistemas que no permiten el recambio de aire requerido [A, p. 22]. **Esta comparación es una banda de plausibilidad, no una validación**: son tres hospitales estimados, dos fuera del AMBA, y la fracción del sistema térmico varía entre {{part_min}} y {{part_max}} % según el reparto.
+Según la tabla 12, el total equivalente del edificio completo ({{eq_min}} a {{eq_max}} kWh/m²) queda por encima de CEMAR ({{ref_cemar}}) y de Giordano ({{ref_giordano}}), solapa con Garrahan ({{ref_garrahan}}) en su extremo bajo, contiene la mediana internacional ({{ref_med}}) y queda por debajo del modelo español ({{ref_es_min}} a {{ref_es_max}}). El valor del solo sistema térmico ({{i_cub}}) es menor que los totales de Garrahan y CEMAR y apenas mayor que el de Giordano, como corresponde a una parte del total. Los hospitales argentinos auditados tienen otro perfil (tamaños de 4.970 a 120.000 m², uno pediátrico, uno ambulatorio) y sus consumos son estimaciones por auditoría con equipos viejos e ineficientes y, en áreas especiales, sistemas que no permiten el recambio de aire requerido [A, pp. 22 a 23]. **Esta comparación es una banda de plausibilidad, no una validación**: son tres hospitales estimados, dos fuera del AMBA, y la fracción del sistema térmico varía entre {{part_min}} y {{part_max}} % según el reparto.
 
 ## 7.3 Qué no incluye el modelo y hacia dónde empujaría
 
@@ -323,7 +323,7 @@ El total equivalente del edificio completo ({{eq_min}} a {{eq_max}} kWh/m²) que
 | Rendimiento de la caldera a carga parcial (se usa el de plena carga, 90 % sobre PCI) | Sube el gas 6 a 20 % |
 | Planta con torre de refrigeración en vez de condensación por aire | Baja unos 3 a 6 % |
 | Diversidad de cargas dentro de una zona (cada zona es un solo local) | Sube unos 2 a 6 % |
-| ACS de guardia, quirófanos, cocina y personal (solo se cuenta por cama) | Sube unos 2 a 14 % |
+| ACS de guardia, quirófanos y personal (solo se cuenta por cama) | Sube unos 2 a 14 % |
 | Clima de un año típico horario (se usan estados medios por mes) | Cambia en ±5 %, con signo incierto |
 | Humidificación de invierno: el cálculo anual con estados medios no la usa y el día de diseño pide {{Q_hum_inv}} kW | Sube algo el consumo real (menos de 0,5 %) |
 | Curva de carga parcial de la enfriadora (el COP no depende de la carga) y evaporación fija | No estimado |
@@ -338,11 +338,11 @@ Cocina, lavandería, esterilización y vapor quedan fuera de la frontera: no cam
 **Pendiente.** Las respuestas siguen las cinco preguntas de la Consigna 5. Las preguntas 1, 3 y 4 quedan abiertas hasta tener la exergía, la alternativa B y las mejoras cuantificadas.
 :::
 
-1. **¿La alternativa seleccionada satisface los requerimientos?** La alternativa A (enfriadora, caldera y aire de caudal constante con recalentamiento) entrega las condiciones de consigna de las cinco zonas por construcción del modelo: capacidad frigorífica de {{Q_L_dis}} kW, {{Q_cal_inv}} kW de calefacción del aire en invierno y {{acs_kW}} kW medios de ACS. Lo que no se verificó es que equipos reales entreguen esas capacidades. En desempeño consume {{E_total_MWh}} MWh por año ({{i_cub}} kWh/m²), que para el edificio completo equivale a {{eq_min}} a {{eq_max}} kWh/m² y está dentro del rango de las referencias. Si es suficientemente eficiente depende de la comparación con B y de la exergía (pendiente).
-2. **¿Cuáles son las principales variables que condicionan su desempeño?** Según la sensibilidad: la humedad de consigna de verano (5 puntos menos: {{s_hr5}} %), los horarios de las zonas (consultorios 24 h: {{s_g5_24h}} %), el calor del ventilador (sin él: {{s_fan}} %), el ACS por cama (200 L: {{s_acs200}} %), la temperatura media (±2 K: {{s_tp2}} % y {{s_tm2}} %) y la temperatura de cambio de estación (21 °C: {{s_est21}} %). Termodinámicamente, el COP de la enfriadora depende de la temperatura de condensación: {{cop_elec}} al diseño y {{COP_est_comp}} en el año.
-3. **¿Qué procesos presentan mayores pérdidas de energía o destrucción de exergía?** En energía: los ventiladores ({{pct_vent}} % de la energía final, que termina como calor en el aire), el compresor ({{pct_comp}} %), el gas del recalentamiento ({{pct_recal_gas}} %), el calor que el condensador rechaza al ambiente ({{Q_cond_MWh}} MWh por año, unas {{Q_cond_sobre_recal}} veces el calor de recalentamiento) y la pérdida de los gases de la caldera ({{q_gases}} % del PCI). La destrucción de exergía por equipo está **pendiente**.
+1. **¿La alternativa seleccionada satisface los requerimientos?** La alternativa A (enfriadora, caldera y aire de caudal constante con recalentamiento) entrega las condiciones de consigna de las cinco zonas por construcción del modelo: capacidad frigorífica de {{Q_L_dis}} kW, carga de la caldera en el aire de {{Q_cal_inv}} kW en el día de diseño de invierno ({{Q_cal_inv_aire}} kW de calefacción y {{Q_hum_inv}} kW de humidificación) y {{acs_kW}} kW medios de ACS (el pico no se calculó). Lo que se verifica es la capacidad de diseño por balance de energía, no que haya equipos que la entreguen. En desempeño consume {{E_total_MWh}} MWh por año ({{i_cub}} kWh/m²); para el edificio completo equivale a {{eq_min}} a {{eq_max}} kWh/m², compatible con la banda de las referencias (es una banda de plausibilidad, no una validación; sección 7.2). Si es suficientemente eficiente depende de la comparación con B y de la exergía (pendiente).
+2. **¿Cuáles son las principales variables que condicionan su desempeño?** Según la sensibilidad: la humedad de consigna de verano (5 puntos menos: {{s_hr5}} %), los horarios de las zonas (consultorios 24 h: {{s_g5_24h}} %), el calor del ventilador (sin él: {{s_fan}} %), el ACS por cama (200 L: {{s_acs200}} %) y la temperatura media (±2 K: {{s_tp2}} % y {{s_tm2}} %). Los parámetros de los equipos (rendimiento isentrópico del compresor, exceso de aire, temperatura de los gases de escape) mueven menos de 3 % cada uno; el COP depende sobre todo de la temperatura de condensación ({{cop_elec}} al diseño y {{COP_est_comp}} en el año). La temperatura de cambio de estación (21 °C: {{s_est21}} %) es una convención del método de estados medios, no una propiedad del sistema.
+3. **¿Qué procesos presentan mayores pérdidas de energía o destrucción de exergía?** Los mayores consumos son los ventiladores ({{pct_vent}} % de la energía final), el compresor ({{pct_comp}} %) y el gas del recalentamiento ({{pct_recal_gas}} %); el orden entre los dos primeros depende de la presión y el rendimiento supuestos de los ventiladores (sección 5.5). Las pérdidas propiamente dichas son el calor que el condensador rechaza al ambiente ({{Q_cond_MWh}} MWh por año, unas {{Q_cond_sobre_recal}} veces el calor de recalentamiento), los gases de escape de la caldera ({{q_gases}} % del PCI, más {{f_rad}} % de radiación) y la irreversibilidad del compresor (rendimiento isentrópico {{eta_is}}). La destrucción de exergía por equipo está **pendiente**.
 4. **¿Qué modificaciones permitirían mejorar el aprovechamiento de los recursos?** Recuperar el calor del condensador para el recalentamiento (cota superior del ahorro de gas: {{MWh_recal_gas}} MWh por año, {{pct_recal_gas}} % de la energía final), recuperar calor del aire de extracción, controlar el exceso de aire o pasar a una caldera de condensación (los gases salen a {{T_gases}} °C, por encima del rocío de {{T_rocio}} °C), subir la temperatura de evaporación y reducir la presión de los ventiladores en zonas no críticas. **Pendiente de cuantificar.**
-5. **¿Qué limitaciones presenta el análisis y qué información adicional haría falta?** El resultado se mueve entre {{sens_min}} y {{sens_max}} kWh/m² y año con un supuesto por vez, y la incertidumbre global se estima en ±15 a 20 %. Faltan datos citables de clima (SMN), de condiciones y renovaciones (ASHRAE 170 o la norma argentina), de ACS y de horarios; los consumos y las instalaciones del hospital real (ninguno publicado); las curvas de carga parcial de los equipos; y los efectos omitidos de la tabla 13 (economizador, ventiladores de retorno y extracción, caldera a carga parcial, humidificación de invierno). Después, la composición del gas y los demás supuestos.
+5. **¿Qué limitaciones presenta el análisis y qué información adicional haría falta?** El resultado se mueve entre {{sens_min}} y {{sens_max}} kWh/m² y año con un supuesto por vez, y un revisor externo estimó la incertidumbre global en ±15 a 20 %. Faltan datos citables de clima (SMN), de condiciones y renovaciones (ASHRAE 170 o la norma argentina), de ACS y de horarios; los consumos y las instalaciones del hospital real (ninguno publicado); las curvas de carga parcial de los equipos; y los efectos omitidos de la tabla 13 (economizador, ventiladores de retorno y extracción, caldera a carga parcial, humidificación de invierno) y la regla de cambio de estación, un umbral sin histéresis en un método de estados medios. Después, la composición del gas y los demás supuestos.
 
 # Anexo A. Supuestos principales
 
@@ -356,7 +356,7 @@ Table: Tabla A1. Parámetros principales del modelo.
 
 {{tabla_anexo_zonas}}
 
-Table: Tabla A2. Parámetros de las zonas (todos supuestos; las renovaciones están en la tabla 2). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche..
+Table: Tabla A2. Parámetros de las zonas (todos supuestos; las renovaciones están en la tabla 2). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche.
 
 {{tabla_anexo_clima}}
 

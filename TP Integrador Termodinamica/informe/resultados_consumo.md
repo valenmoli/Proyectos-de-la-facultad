@@ -125,7 +125,7 @@ Las referencias miden el edificio completo (iluminacion, equipos medicos, cocina
 | Participacion del sistema termico en el total | Fraccion | Total equivalente [kWh/m2 y anio] |
 |---|---|---|
 | Hospitecnia (10): 45 % climatizacion + 20 % ACS | 65 % | 253 |
-| BID (13): 51 % climatizacion + 12 % ventilacion y bombas + 6 % ACS | 69 % | 239 |
+| Banco de Desarrollo de America Latina (13): 51 % climatizacion + 12 % ventilacion y bombas + 6 % ACS | 69 % | 239 |
 | Hospital de Madrid (5): 40 % calefaccion + 20 % refrigeracion + 6 % ventilacion + 7 % ACS | 73 % | 226 |
 | Chile (11): 36 % termico x (54 % climatizacion + 30 % agua caliente) + 64 % electrico x (21 % climatizacion + 3 % ACS) | 46 % | 361 |
 

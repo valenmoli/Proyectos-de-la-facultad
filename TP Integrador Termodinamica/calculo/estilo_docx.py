@@ -196,6 +196,9 @@ def aplicar(ruta):
         s.left_margin = s.right_margin = Cm(2.2)
         s.top_margin, s.bottom_margin = Cm(2.0), Cm(2.0)
     _estilos(doc)
+    for p in doc.paragraphs:
+        if p.style.name == "Heading 1" and p.text.startswith("Anexo A"):
+            p.paragraph_format.page_break_before = True
     _tablas(doc)
     _pie(doc)
     doc.save(ruta)
