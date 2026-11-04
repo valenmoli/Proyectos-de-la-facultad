@@ -56,7 +56,7 @@ Los cuatro contenidos se usan sobre **una sola cadena de equipos**, y cada uno r
 | **Combustión** | Gas natural con exceso de aire: reacción, poder calorífico, rendimiento de la caldera, temperatura de llama | Consumo de gas para recalentar, calefaccionar y producir ACS | Al balance de energía y a la exergía |
 | **Exergía** | Dónde se destruye capacidad de hacer trabajo, con el estado muerto en las condiciones exteriores | Destrucción de exergía por equipo y eficiencia exergética | A la comparación de alternativas y mejoras |
 
-**El hilo conductor** es el recalentamiento: el sistema enfría para deshumidificar y luego recalienta quemando gas, mientras la enfriadora **rechaza al ambiente** calor que podría cubrir parte de ese recalentamiento: el refrigerante condensa a 32 a 46 °C según el clima y sale del compresor hasta unos 65 °C, suficiente para llevar aire de unos 13 °C a 20 °C. Es una ineficiencia que se cuantifica con la Primera Ley (energía) y se explica con la Segunda (calentar aire unos pocos grados con una llama que supera los 1.800 °C destruye casi toda la exergía del combustible).
+**El hilo conductor** es el recalentamiento: el sistema enfría para deshumidificar y luego recalienta quemando gas, mientras la enfriadora **rechaza al ambiente** calor que podría cubrir parte de ese recalentamiento: el refrigerante condensa a 32 a 46 °C según el clima (46 °C en el punto de diseño de verano) y sale del compresor hasta unos 65 °C, suficiente para llevar aire de unos 13 °C a 20 °C. Es una ineficiencia que se cuantifica con la Primera Ley (energía) y se explica con la Segunda (calentar aire unos pocos grados con una llama que supera los 1.800 °C destruye casi toda la exergía del combustible).
 
 ## 5. Esquema conceptual
 

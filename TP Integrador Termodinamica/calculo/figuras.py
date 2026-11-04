@@ -19,6 +19,7 @@ from . import edificio as ed
 from . import estimacion as es
 from . import refrigeracion as rf
 from . import supuestos
+from .nombres import NOMBRES_SENS
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SALIDA = os.path.join(RAIZ, "figuras")
@@ -273,7 +274,7 @@ def fig_sensibilidad():
                 va="center", ha=ha, fontsize=8, color=INK)
     ax.axvline(0, color=INK2, lw=0.8)
     ax.set_yticks(range(len(S)))
-    ax.set_yticklabels([s["nombre"] for s in S], fontsize=7.5)
+    ax.set_yticklabels([NOMBRES_SENS.get(s["nombre"], s["nombre"]) for s in S], fontsize=7.5)
     ax.set_xlim(-30, 34)
     ax.set_xlabel("Variación de la energía final anual respecto del caso base [%]")
     ax.grid(axis="x", color=GRID, lw=0.6)

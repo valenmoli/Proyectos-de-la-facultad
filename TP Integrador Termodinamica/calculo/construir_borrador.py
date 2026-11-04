@@ -20,6 +20,7 @@ from . import combustion as cb
 from . import edificio as ed
 from . import estimacion as es
 from . import generar_resultados as gr
+from .nombres import NOMBRES_SENS
 from . import refrigeracion as rf
 from . import supuestos
 
@@ -35,23 +36,6 @@ CSS = os.path.join(INFORME, "estilo_borrador.css")
 def n(x, nd=0):
     return gr.n(x, nd)
 
-
-# nombres de la sensibilidad con tildes (el modelo los escribe sin tildes)
-NOMBRES_SENS = {
-    "Humedad relativa de verano 5 puntos menos (todas las zonas)": "Humedad máxima de verano 5 puntos menor en todas las zonas",
-    "Consultorios y administracion tambien funcionan 24 h": "Consultorios y administración funcionan también las 24 h",
-    "Ventilador sin calor en el aire (sin calor de ventilador)": "Sin calor del ventilador en el aire",
-    "ACS por cama: 200 L/dia": "ACS de 200 L por cama y día (en vez de 100)",
-    "ACS por cama: 55 L/dia": "ACS de 55 L por cama y día",
-    "Temperatura media mensual +2 K": "Temperatura media mensual +2 K",
-    "Temperatura media mensual -2 K": "Temperatura media mensual −2 K",
-    "Guardia, diagnostico y laboratorio: 50 % de las areas generales": "Guardia, diagnóstico y laboratorio: 50 % de las áreas generales",
-    "Guardia, diagnostico y laboratorio: 20 % de las areas generales": "Guardia, diagnóstico y laboratorio: 20 % de las áreas generales",
-    "Humedad relativa media -8 puntos": "Humedad relativa media del clima −8 puntos",
-    "Superficie climatizada 95 %": "Superficie climatizada 95 % de la cubierta",
-    "Superficie climatizada 75 %": "Superficie climatizada 75 % de la cubierta",
-    "Humedad maxima de verano 60 % en quirofanos, terapia intensiva e internacion": "Humedad máxima de verano 60 % en quirófanos, terapia intensiva e internación",
-}
 
 # supuestos principales para el anexo: id -> (nombre con tildes, unidad con simbolos)
 ANEXO = [
@@ -77,6 +61,8 @@ ANEXO = [
 def _fmt_valor(v):
     if isinstance(v, str):
         return v
+    if abs(v) >= 1000:
+        return n(v)
     return supuestos._fmt(v)
 
 
@@ -122,10 +108,12 @@ def valores():
         z = Z[g]
         m3h = caud[g]["m_sup"] / P["rho_aire"] * 3600
         m3h_oa = caud[g]["m_oa"] / P["rho_aire"] * 3600
+        ach_real = m3h / (A[g] * P["h_techo"])
         filas.append((nombres[g], n(A[g]), f"{n(z['t_ver'])} °C; {n(z['hr_ver'] * 100)} %", f"{n(z['ach_tot'])} / {n(z['ach_oa'])}",
-                      n(m3h), n(m3h_oa), operacion[g]))
-    T["tabla_zonas"] = tabla(["Zona", "Superficie [m²]", "Consigna de verano", "Renovaciones totales / de aire exterior [1/h]",
-                              "Caudal de impulsión [m³/h]", "Aire exterior [m³/h]", "Funcionamiento"], filas, (22, 9, 12, 14, 11, 10, 18))
+                      n(m3h), n(ach_real, 1), n(m3h_oa), operacion[g]))
+    T["tabla_zonas"] = tabla(["Zona", "Superficie [m²]", "Consigna de verano", "Renovaciones mínimas, totales / de aire exterior [1/h]",
+                              "Caudal de impulsión [m³/h]", "Renovaciones resultantes [1/h]", "Aire exterior [m³/h]", "Funcionamiento"],
+                             filas, (20, 8, 11, 14, 10, 10, 9, 18))
     V["m_sup_G1"] = n(caud["G1"]["m_sup"], 2)
     V["m3h_G1"] = n(caud["G1"]["m_sup"] / P["rho_aire"] * 3600)
 
@@ -183,6 +171,15 @@ def valores():
     V["calor_ene"] = n(mes["ene"]["Q_cal"] / 1e3)
     V["calor_dic"] = n(mes["dic"]["Q_cal"] / 1e3)
     V["calor_jul"] = n(mes["jul"]["Q_cal"] / 1e3)
+    V["T_cond_anual_max"] = n(max(P["T_cond_min"], max(c["clima"]["T"]) + P["rango_diario"] / 2 + P["dT_cond"]))
+    sin_fan = [s for s in J["sensibilidad"] if "calor de ventilador" in s["nombre"]]
+    V["sin_fan_i"] = n(sin_fan[0]["E_total_kWh"] / P["A_cub"])
+    V["ref_garrahan"] = n(gr.REF["AR"][0][1])
+    V["ref_cemar"] = n(gr.REF["AR"][1][1])
+    V["ref_giordano"] = n(gr.REF["AR"][2][1])
+    V["ref_med"] = n(gr.REF["INT"]["mediana"])
+    V["ref_es_min"] = n(gr.REF["ES_final"][0])
+    V["ref_es_max"] = n(gr.REF["ES_final"][1])
     V["dT_dia"] = n(P["rango_diario"] / 2, 1)
     V["dT_cond"] = n(P["dT_cond"])
     V["T_cond_min"] = n(P["T_cond_min"])
@@ -258,6 +255,7 @@ def valores():
     V["cop_elec"] = n(cic["cop_elec"], 2)
     V["cop_carnot"] = n(cic["cop_carnot"], 2)
     V["eta_carnot"] = n(cic["cop_elec"] / cic["cop_carnot"] * 100)
+    V["eta_carnot_eje"] = n(cic["cop_comp"] / cic["cop_carnot"] * 100)
     V["m_ref"] = n(d["Q_L"] / cic["q_L"], 1)
     V["T_ev"] = n(P["T_ev"])
     V["T2_ref"] = n(cic["T2"])
@@ -307,6 +305,18 @@ def valores():
         filas_anexo.append((i, nom, _fmt_valor(v), uni, e))
     T["tabla_anexo"] = tabla(["ID", "Parámetro", "Valor", "Unidad", "Estado"], filas_anexo, (6, 58, 12, 12, 12))
     estados = [e for (*_x, e, _f) in supuestos._FILAS]
+    filas_z = []
+    for g in ("G1", "G2", "G3", "G4", "G5"):
+        z = Z[g]
+        filas_z.append((nombres[g], f"{n(z['q_s'])} / {n(z['q_l'])}", f"{n(z['f_dia'], 1)} / {n(z['f_noche'], 1)}",
+                        f"{n(z['t_inv'])} °C; {n(z['hr_min'] * 100)} %", n(z["f_env"], 1), n(z["dp_vent"]), n(z["f_dias"] * 7)))
+    T["tabla_anexo_zonas"] = tabla(["Zona", "Ganancias internas sensible / latente [W/m²]", "Actividad de día / de noche",
+                                    "Consigna de invierno (T; HR mínima)", "Fracción de envolvente expuesta", "Presión del ventilador [Pa]",
+                                    "Días por semana"], filas_z, (26, 16, 12, 16, 10, 10, 10))
+    cl = c["clima"]
+    cab_cl = ["Mes"] + list(cl["meses"])
+    T["tabla_anexo_clima"] = tabla(cab_cl, [["Días"] + [n(d) for d in cl["dias"]], ["T media [°C]"] + [n(t, 1) for t in cl["T"]],
+                                            ["HR media [%]"] + [n(h * 100) for h in cl["HR"]]], (14,) + (7,) * 12)
     V["n_filas"] = n(len(estados))
     V["n_dato"] = n(estados.count("DATO"))
     V["n_supuesto"] = n(estados.count("SUPUESTO"))
