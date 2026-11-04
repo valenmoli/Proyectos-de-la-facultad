@@ -13,4 +13,6 @@ Markdown con ecuaciones, convertido con pandoc a DOCX (ecuaciones nativas de Wor
 Si la memoria de cálculo cuenta dentro de las 8 a 12 páginas (pregunta 9 del [PRD](../PRD.md)).
 
 ## Estado
-Vacío.
+- `01_planteamiento.md` (Consigna 1) y `02_estimacion_consumos.md` (consumos): borradores v0.1.
+- `borrador_proyecto.plantilla.md` es el texto del informe con marcadores `{{valor}}`; `python -m calculo.construir_borrador` lo completa con los números del modelo y escribe `borrador_proyecto.md`, `.docx` y `.pdf`. **No editar el `.md` generado: se edita la plantilla.**
+- Faltan: exergía, alternativa B, mejoras, memoria de cálculo y presentación.

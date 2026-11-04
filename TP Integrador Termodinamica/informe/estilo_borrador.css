@@ -1,0 +1,53 @@
+/* Estilo del PDF del borrador (HTML con MathML impreso con Chromium). El DOCX se formatea en calculo/estilo_docx.py. */
+@page {
+  size: A4;
+  margin: 20mm 22mm 22mm 22mm;
+  @bottom-center {
+    content: "Borrador v0.1 · TP Integrador de Termodinámica 2026 · Página " counter(page);
+    font: 8pt Carlito, Calibri, sans-serif;
+    color: #52514e;
+  }
+}
+html { font-size: 10.5pt; }
+body {
+  font-family: Carlito, Calibri, "Liberation Sans", sans-serif;
+  line-height: 1.34;
+  color: #0b0b0b;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  hyphens: manual;
+}
+p { margin: 0 0 6pt; }
+h1, h2, h3 { color: #1f3a5f; font-weight: bold; break-after: avoid; }
+h1 { font-size: 15pt; margin: 17pt 0 6pt; }
+h2 { font-size: 12pt; margin: 12pt 0 4pt; }
+h3 { font-size: 10.5pt; margin: 9pt 0 3pt; }
+header#title-block-header { margin-bottom: 10pt; }
+header#title-block-header h1.title { font-size: 22pt; line-height: 1.15; margin: 0 0 6pt; }
+header#title-block-header .subtitle { font-size: 12.5pt; color: #52514e; margin: 0 0 8pt; }
+header#title-block-header .author, header#title-block-header .date { font-size: 10.5pt; color: #52514e; margin: 0 0 2pt; }
+ul, ol { margin: 0 0 6pt; padding-left: 20pt; }
+li { margin-bottom: 2pt; }
+code { font-family: "DejaVu Sans Mono", monospace; font-size: 8.3pt; background: #f4f3f0; padding: 0 2pt; border-radius: 2pt; }
+
+table { border-collapse: collapse; width: 100%; font-size: 8.5pt; line-height: 1.22; margin: 3pt 0 9pt; break-inside: avoid; }
+div[data-custom-style="Largo"] table { break-inside: auto; }
+caption { caption-side: top; text-align: left; font-weight: bold; font-size: 9pt; margin: 6pt 0 3pt; break-after: avoid; }
+thead th { background: #eef3fa; text-align: left; font-weight: bold; padding: 3pt 4pt; border-top: 1pt solid #52514e; border-bottom: .75pt solid #52514e; vertical-align: bottom; }
+thead { display: table-header-group; }
+tbody td { padding: 2.5pt 4pt; border-bottom: .5pt solid #d9d8d3; vertical-align: top; text-align: left; }
+tbody tr:last-child td { border-bottom: 1pt solid #52514e; }
+tr { break-inside: avoid; }
+th[style], td[style] { text-align: left !important; }
+
+figure { margin: 6pt 0 10pt; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; height: auto; }
+figcaption { font-style: italic; font-size: 8.5pt; color: #52514e; margin-top: 3pt; text-align: center; }
+
+div[data-custom-style="Pendiente"], div[data-custom-style="Nota"] { padding: 6pt 9pt 1pt; margin: 8pt 0; border-left: 3pt solid; break-inside: avoid; }
+div[data-custom-style="Pendiente"] { background: #fdefe3; border-color: #eb6834; }
+div[data-custom-style="Nota"] { background: #e8f1fc; border-color: #2a78d6; font-size: 9.5pt; }
+
+math { font-family: "Caladea", "STIX Two Math", "Latin Modern Math", "DejaVu Serif", serif; font-size: 1.04em; }
+math[display="block"] { display: block; margin: 7pt 0; break-inside: avoid; }

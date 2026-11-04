@@ -101,7 +101,7 @@ La **exergía** se evalúa sobre estos mismos sistemas, con el estado muerto en 
 4. El refrigerante realiza un ciclo ideal de compresión de vapor, con compresor adiabático de rendimiento isentrópico constante, expansión isoentálpica y sin pérdidas de presión en los intercambiadores.
 5. Combustión completa del gas natural, gases ideales y sin disociación; el aire tiene 21 % de O₂ y 79 % de N₂.
 6. Los gases de escape salen a 190 °C, sin condensar.
-7. No se calcula el calor del ventilador en la corriente de aire ni las pérdidas de distribución de calor y frío (salvo el factor de las de ACS).
+7. El ventilador de impulsión aspira después de la serpentina y toda su potencia eléctrica se disipa como calor en el aire. No se calculan las pérdidas de distribución de calor y frío (salvo el factor de las de ACS).
 8. Frontera: solo el sistema térmico y sus auxiliares. No se incluyen iluminación, equipos médicos, cocina ni lavandería.
 
 **Datos y supuestos:** todos están en [`supuestos.md`](supuestos.md) con su estado (**dato**, **supuesto** o **constante**) y su fuente. Los supuestos sin fuente citable, que son los que más pesan, son: el clima mensual y de diseño, las condiciones y renovaciones por zona (ASHRAE 170 recordado), las ganancias internas, la conductancia de la envolvente, la composición del gas y los rendimientos del compresor y de los ventiladores.
@@ -117,6 +117,6 @@ Mejoras candidatas (la consigna pide al menos dos, explicadas desde la Termodin�
 
 ## 8. Estado y pendientes
 
-- **Hecho:** el modelo del sistema A, la estimación del consumo anual con sensibilidad y los chequeos termodinámicos. Falta la verificación independiente del modelo (en curso).
+- **Hecho:** el modelo del sistema A, la estimación del consumo anual con sensibilidad y los chequeos termodinámicos. El modelo fue verificado de forma independiente (dos reimplementaciones y una revisión adversarial; ver [`02_estimacion_consumos.md`](02_estimacion_consumos.md), sección 8). Quedan sin verificar los supuestos de entrada.
 - **Falta:** el análisis exergético, la alternativa B y las mejoras, los diagramas (P-h, carta psicrométrica, diagrama de flujo de exergía), el informe y la presentación.
 - **Para confirmar con la cátedra o con fuentes:** clima del SMN, valores de ASHRAE 170, composición del gas del ENARGAS y la frontera del consumo (preguntas 12 y 13 del PRD).

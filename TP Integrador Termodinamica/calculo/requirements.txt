@@ -4,3 +4,4 @@ CoolProp
 psychrolib
 matplotlib
 pytest
+python-docx
