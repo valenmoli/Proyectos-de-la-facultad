@@ -32,7 +32,7 @@ Estado: **DATO** = leido de un documento recibido; **SUPUESTO** = fundamentado p
 | A4 | Temperatura exterior bajo la cual rigen las consignas de invierno | 18 | C | SUPUESTO | Criterio de cambio de estacion |
 | A5 | Rendimiento total de los ventiladores | 0,6 | - | SUPUESTO | Ventilador, motor y transmision |
 | A6 | Temperatura del agua de red (vapor de humidificacion) | 17 | C | SUPUESTO | Igual que la del ACS (S3): media anual aproximada de Buenos Aires |
-| A8 | Fraccion de la potencia electrica del ventilador de impulsion que se disipa como calor en el aire | 1 | - | CONSTANTE | Ventilador que aspira despues de la serpentina; con el motor fuera de la corriente seria de 0,85 a 0,95 |
+| A8 | Fraccion de la potencia electrica del ventilador de impulsion que se disipa como calor en el aire | 1 | - | SUPUESTO | Ventilador que aspira despues de la serpentina; con el motor fuera de la corriente seria de 0,85 a 0,95 |
 | A7 | Calor latente de vaporizacion del agua (referencia de 0 C) | 2501 | kJ/kg | CONSTANTE | Propiedades del agua |
 | R1 | Refrigerante de la enfriadora | R134a | - | SUPUESTO | Enfriadora de tornillo; HFC habitual, propiedades en CoolProp |
 | R2 | Temperatura de evaporacion | 3 | C | SUPUESTO | Agua helada 7/12 C con aproximacion del evaporador |

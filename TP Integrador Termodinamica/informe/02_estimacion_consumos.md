@@ -64,22 +64,23 @@ El total equivalente (226 a 361) queda por encima de CEMAR (211) y de Giordano (
 
 ## 6. Qué tan seguro es el número
 
-Cada fila cambia un supuesto y deja los demás en su valor base (3.021 MWh, 165 kWh/m²). **Las diez variaciones que más mueven el resultado:**
+Cada fila cambia un supuesto y deja los demás en su valor base (3.021 MWh, 165 kWh/m²). **Las variaciones que más mueven el resultado:**
 
 | Variación | Diferencia |
 |---|---|
-| Humedad máxima de verano 5 puntos menor en todas las zonas | +22,7 % |
+| Humedad de consigna de verano 5 puntos menor en todas las zonas | +22,7 % |
 | Consultorios y administración funcionan también las 24 h | +20,6 % |
 | Sin calor del ventilador en el aire (lo que omitía la versión anterior) | +18,3 % |
 | Agua caliente de 200 L por cama y día (en vez de 100) | +15,3 % |
 | Temperatura media mensual +2 K o −2 K | +14,6 % / −13,7 % |
+| Temperatura de cambio de estación (consignas de invierno) a 21 °C o a 15 °C en vez de 18 °C | −14,3 % / +7,0 % |
 | La guardia y el diagnóstico ocupan el 50 % o el 20 % de las áreas generales | +12,8 % / −12,8 % |
 | Humedad relativa media del clima −8 puntos | −8,2 % |
 | Superficie climatizada 95 % o 75 % | +8,0 % / −8,0 % |
 | Agua caliente de 55 L por cama y día | −6,9 % |
-| Humedad máxima de 60 % en quirófanos, terapia intensiva e internación | −6,0 % |
+| Humedad de consigna de 60 % en quirófanos, terapia intensiva e internación | −6,0 % |
 
-Tomadas de a una, las variaciones mueven el resultado entre 142 y 202 kWh/m² y año. **Eso no es un intervalo de confianza**: las variaciones se combinan y los supuestos no son independientes. Una revisión externa del modelo estimó la incertidumbre global en alrededor de ±15 a 20 %, dominada por la humedad de consigna, los horarios, el aire exterior, el ACS y el clima. Esos cinco puntos son los que más conviene reemplazar por datos citables.
+Tomadas de a una, las variaciones mueven el resultado entre 141 y 202 kWh/m² y año. **Eso no es un intervalo de confianza**: las variaciones se combinan y los supuestos no son independientes. Una revisión externa del modelo estimó la incertidumbre global en alrededor de ±15 a 20 %, atribuida por el revisor a la humedad de consigna, los horarios, el aire exterior, el ACS y el clima (la sensibilidad de arriba no respalda el aire exterior: ±25 % mueve +5,3 % y −3,0 %). Conviene reemplazar primero por datos citables lo que más pesa en la tabla: la humedad de consigna, los horarios, el calor del ventilador, el ACS, la temperatura media y la temperatura de cambio de estación. Las ganancias internas y la conductancia de la envolvente mueven menos de 3 % con ±30 %.
 
 ## 7. Qué no incluye el modelo y hacia dónde empujaría
 

@@ -51,3 +51,5 @@ div[data-custom-style="Nota"] { background: #e8f1fc; border-color: #2a78d6; font
 
 math { font-family: "Caladea", "STIX Two Math", "Latin Modern Math", "DejaVu Serif", serif; font-size: 1.04em; }
 math[display="block"] { display: block; margin: 7pt 0; break-inside: avoid; }
+
+h1[id^="anexo-a"] { break-before: page; }

@@ -194,6 +194,10 @@ def sensibilidad(c0, variaciones=None):
         ("Guardia, diagnostico y laboratorio: 50 % de las areas generales", lambda c: c["P"].__setitem__("f_g4_24h", 0.50)),
         ("Humedad relativa de verano 5 puntos menos (todas las zonas)",
          lambda c: [z.__setitem__("hr_ver", z["hr_ver"] - 0.05) for z in c["Z"].values()]),
+        ("Cambio de estacion a 15 C (consignas de invierno bajo 15 C)", lambda c: c["P"].__setitem__("T_cambio_estacion", 15.0)),
+        ("Cambio de estacion a 21 C (consignas de invierno bajo 21 C)", lambda c: c["P"].__setitem__("T_cambio_estacion", 21.0)),
+        ("Ventiladores: presion -20 %", lambda c: escalar_zonas(c, "dp_vent", 0.8)),
+        ("Ventiladores: rendimiento total 0,75", lambda c: c["P"].__setitem__("eta_vent", 0.75)),
     ]
     filas = []
     for nombre, f in V:

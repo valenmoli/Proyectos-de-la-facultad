@@ -151,6 +151,8 @@ def _tablas(doc):
                         shd.set(qn(k), v)
                     tcpr.append(shd)
                 for p in celda.paragraphs:
+                    if len(tbl.rows) <= 14 and i < len(tbl.rows) - 1:
+                        p.paragraph_format.keep_with_next = True
                     p.paragraph_format.space_after = Pt(0)
                     p.paragraph_format.space_before = Pt(0)
                     p.paragraph_format.line_spacing = 1.0
@@ -173,14 +175,17 @@ def _pie(doc):
     r2 = p.add_run()
     r2.font.size = Pt(8)
     r2.font.color.rgb = TINTA2
-    for tipo, txt in (("begin", None), (None, "PAGE"), ("end", None)):
+    for tipo, txt in (("begin", None), (None, "PAGE"), ("separate", None), (None, "\u200b1"), ("end", None)):
         if tipo:
             e = OxmlElement("w:fldChar")
             e.set(qn("w:fldCharType"), tipo)
-        else:
+        elif txt == "PAGE":
             e = OxmlElement("w:instrText")
             e.set(qn("xml:space"), "preserve")
             e.text = txt
+        else:
+            e = OxmlElement("w:t")
+            e.text = "1"
         r2._r.append(e)
 
 

@@ -331,6 +331,26 @@
    "nombre": "Humedad relativa de verano 5 puntos menos (todas las zonas)",
    "E_total_kWh": 3706278.941702254,
    "delta": 0.22671277741513587
+  },
+  {
+   "nombre": "Cambio de estacion a 15 C (consignas de invierno bajo 15 C)",
+   "E_total_kWh": 3231307.738263824,
+   "delta": 0.0695057098071701
+  },
+  {
+   "nombre": "Cambio de estacion a 21 C (consignas de invierno bajo 21 C)",
+   "E_total_kWh": 2588896.366436889,
+   "delta": -0.14312109205328089
+  },
+  {
+   "nombre": "Ventiladores: presion -20 %",
+   "E_total_kWh": 2944489.8767974516,
+   "delta": -0.025425929442326217
+  },
+  {
+   "nombre": "Ventiladores: rendimiento total 0,75",
+   "E_total_kWh": 2944489.8767974516,
+   "delta": -0.025425929442326217
   }
  ],
  "total_equivalente_edificio": {

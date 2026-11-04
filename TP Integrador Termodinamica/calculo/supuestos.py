@@ -51,7 +51,7 @@ _FILAS = [
     ("A4", "T_cambio_estacion", "Temperatura exterior bajo la cual rigen las consignas de invierno", 18.0, "C", "SUPUESTO", "Criterio de cambio de estacion"),
     ("A5", "eta_vent", "Rendimiento total de los ventiladores", 0.60, "-", "SUPUESTO", "Ventilador, motor y transmision"),
     ("A6", "T_agua_red", "Temperatura del agua de red (vapor de humidificacion)", 17.0, "C", "SUPUESTO", "Igual que la del ACS (S3): media anual aproximada de Buenos Aires"),
-    ("A8", "f_calor_vent", "Fraccion de la potencia electrica del ventilador de impulsion que se disipa como calor en el aire", 1.0, "-", "CONSTANTE",
+    ("A8", "f_calor_vent", "Fraccion de la potencia electrica del ventilador de impulsion que se disipa como calor en el aire", 1.0, "-", "SUPUESTO",
      "Ventilador que aspira despues de la serpentina; con el motor fuera de la corriente seria de 0,85 a 0,95"),
     ("A7", "h_fg", "Calor latente de vaporizacion del agua (referencia de 0 C)", 2501.0, "kJ/kg", "CONSTANTE", "Propiedades del agua"),
     # Refrigeracion

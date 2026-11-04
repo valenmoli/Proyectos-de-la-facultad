@@ -152,12 +152,14 @@ Cada fila cambia un supuesto y deja los demas en su valor base (3.021 MWh/anio, 
 | Ventilador sin calor en el aire (sin calor de ventilador) | 3.574 | +18,3 % |
 | ACS por cama: 200 L/dia | 3.483 | +15,3 % |
 | Temperatura media mensual +2 K | 3.463 | +14,6 % |
+| Cambio de estacion a 21 C (consignas de invierno bajo 21 C) | 2.589 | -14,3 % |
 | Temperatura media mensual -2 K | 2.608 | -13,7 % |
 | Guardia, diagnostico y laboratorio: 50 % de las areas generales | 3.409 | +12,8 % |
 | Guardia, diagnostico y laboratorio: 20 % de las areas generales | 2.633 | -12,8 % |
 | Humedad relativa media -8 puntos | 2.773 | -8,2 % |
 | Superficie climatizada 95 % | 3.263 | +8,0 % |
 | Superficie climatizada 75 % | 2.780 | -8,0 % |
+| Cambio de estacion a 15 C (consignas de invierno bajo 15 C) | 3.231 | +7,0 % |
 | ACS por cama: 55 L/dia | 2.814 | -6,9 % |
 | Humedad maxima de verano 60 % en quirofanos, terapia intensiva e internacion | 2.841 | -6,0 % |
 | Aire exterior minimo +25 % | 3.180 | +5,3 % |
@@ -167,6 +169,8 @@ Cada fila cambia un supuesto y deja los demas en su valor base (3.021 MWh/anio, 
 | Aire exterior minimo -25 % | 2.929 | -3,0 % |
 | Conductancia de la envolvente +30 % | 3.102 | +2,7 % |
 | Rendimiento isentropico 0,65 | 3.100 | +2,6 % |
+| Ventiladores: presion -20 % | 2.944 | -2,5 % |
+| Ventiladores: rendimiento total 0,75 | 2.944 | -2,5 % |
 | Conductancia de la envolvente -30 % | 2.945 | -2,5 % |
 | Quirofanos: 25 renovaciones totales | 3.094 | +2,4 % |
 | Consultorios y administracion de lunes a sabado (6/7) | 3.091 | +2,3 % |
@@ -179,7 +183,7 @@ Cada fila cambia un supuesto y deja los demas en su valor base (3.021 MWh/anio, 
 | Exceso de aire 30 % (lambda 1,30) | 3.034 | +0,4 % |
 | Exceso de aire 5 % (lambda 1,05) | 3.013 | -0,3 % |
 
-Cada variacion por separado mueve el resultado entre 142 y 202 kWh/m2 y anio.
+Cada variacion por separado mueve el resultado entre 141 y 202 kWh/m2 y anio.
 
 ## 10. Chequeos termodinamicos
 

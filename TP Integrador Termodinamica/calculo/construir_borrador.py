@@ -7,6 +7,7 @@ Escribe: informe/borrador_proyecto.md, .docx (ecuaciones nativas de Word) y .pdf
 La plantilla usa {{nombre}} para un valor ya formateado (coma decimal, punto de miles) y {{nombre_m}} para el
 mismo valor dentro de una ecuacion LaTeX. Si falta un valor, el script se detiene.
 """
+import copy
 import json
 import os
 import re
@@ -41,18 +42,24 @@ def n(x, nd=0):
 ANEXO = [
     ("E1", "Superficie cubierta total", "m²"), ("E2", "Fracción de la superficie cubierta que se climatiza", "–"),
     ("E3", "Camas de internación general", "camas"), ("E4", "Camas de terapia intensiva", "camas"),
-    ("E5", "Cantidad de quirófanos", "–"), ("E10", "Conductancia de la envolvente por m² de piso expuesto", "W/(m² K)"),
+    ("E5", "Cantidad de quirófanos", "–"), ("E6", "Superficie por quirófano", "m²"),
+    ("E7", "Superficie por cama de terapia intensiva", "m²/cama"), ("E8", "Superficie por cama de internación general", "m²/cama"),
+    ("E9", "Altura libre de los locales", "m"), ("E10", "Conductancia de la envolvente por m² de piso expuesto", "W/(m² K)"),
     ("E14", "Fracción de las áreas generales que funciona las 24 h", "–"),
     ("C1", "Temperatura de bulbo seco de diseño, verano", "°C"), ("C2", "Temperatura de bulbo húmedo coincidente, verano", "°C"),
     ("C3", "Temperatura de bulbo seco de diseño, invierno", "°C"), ("C4", "Humedad relativa de diseño, invierno", "–"),
     ("C6", "Amplitud diaria de temperatura", "K"),
-    ("A1", "Temperatura mínima del aire de impulsión", "°C"), ("A3", "Humedad relativa a la salida de la serpentina", "–"),
+    ("A1", "Temperatura mínima del aire de impulsión", "°C"), ("A2", "Temperatura máxima del aire de impulsión", "°C"),
+    ("A4", "Temperatura exterior bajo la cual rigen las consignas de invierno", "°C"), ("A7", "Calor latente de vaporización del agua", "kJ/kg"),
+    ("A3", "Humedad relativa a la salida de la serpentina", "–"),
     ("A5", "Rendimiento total de los ventiladores", "–"), ("A8", "Fracción de la potencia del ventilador que se disipa como calor en el aire", "–"),
     ("R1", "Refrigerante", "–"), ("R2", "Temperatura de evaporación", "°C"), ("R5", "Rendimiento isentrópico del compresor", "–"),
     ("R6", "Rendimiento del motor del compresor", "–"), ("R7", "Diferencia entre condensación y temperatura exterior", "K"),
-    ("R8", "Temperatura mínima de condensación", "°C"),
+    ("R8", "Temperatura mínima de condensación", "°C"), ("R9", "Potencia de ventiladores del condensador / calor rechazado", "–"),
+    ("R10", "Salto de temperatura del agua helada", "K"), ("R11", "Diferencia de presión de las bombas de agua helada", "Pa"),
+    ("R12", "Rendimiento total de las bombas", "–"),
     ("B1", "Gas natural: metano (fracción molar)", "–"), ("B6", "Relación de aire (1 = estequiométrico)", "–"),
-    ("B7", "Temperatura de los gases de escape", "°C"),
+    ("B7", "Temperatura de los gases de escape", "°C"), ("B9", "Pérdidas por radiación y funcionamiento / calor liberado", "–"),
     ("S1", "Consumo de ACS por cama y día", "L/(cama día)"), ("S2", "Temperatura del ACS", "°C"),
     ("S3", "Temperatura del agua fría de entrada", "°C"), ("S4", "Factor por pérdidas de acumulación y recirculación", "–"),
 ]
@@ -145,7 +152,7 @@ def valores():
             ("Calefacción del aire", an["q_cal"] * k, "Gas"),
             ("Ventiladores del condensador", elec["vent_condensador"], "Electricidad"),
             ("Bombas de agua helada", elec["bombas"], "Electricidad")]
-    T["tabla_usos"] = tabla(["Uso final", "Energético", "MWh/año", "% del total", "kWh/m²·año"],
+    T["tabla_usos"] = tabla(["Uso final", "Energético", "MWh/año", "% del total", "kWh/m² y año"],
                             [(u, e, n(v / 1e3), n(v / R["E_total"] * 100, 1) + " %", n(v / P["A_cub"], 1)) for u, v, e in usos]
                             + [("**Total**", "", f"**{n(R['E_total'] / 1e3)}**", "100 %", f"**{n(R['i_total_cub'], 1)}**")], (44, 14, 12, 12, 12))
     V["MWh_vent"] = n(elec["ventiladores"] / 1e3)
@@ -180,6 +187,40 @@ def valores():
     V["ref_med"] = n(gr.REF["INT"]["mediana"])
     V["ref_es_min"] = n(gr.REF["ES_final"][0])
     V["ref_es_max"] = n(gr.REF["ES_final"][1])
+    V["a_or"] = n(P["a_or"])
+    V["a_uti"] = n(P["a_uti_cama"])
+    V["a_gen"] = n(P["a_gen_cama"])
+    V["h_techo"] = n(P["h_techo"])
+    V["eta_vent"] = n(P["eta_vent"], 2)
+    V["eta_motor"] = n(P["eta_motor"], 2)
+    V["eta_bomba"] = n(P["eta_bomba"], 2)
+    V["UA"] = n(P["UA_m2"], 1)
+    V["T_cambio"] = n(P["T_cambio_estacion"])
+    V["f_rad"] = n(P["f_rad"] * 100, 1)
+    V["T_aire_comb"] = n(P["T_aire_comb"])
+    V["L_cama"] = n(P["L_cama_dia"])
+    V["T_acs"] = n(P["T_acs"])
+    V["T_red"] = n(P["T_agua_fria"])
+    V["f_perd"] = n(P["f_perd_acs"], 1)
+    dias = c["clima"]["dias"]
+    V["T_media_anual"] = n(sum(t * d for t, d in zip(c["clima"]["T"], dias)) / sum(dias))
+    V["ach_G3_real"] = n(caud["G3"]["m_sup"] / P["rho_aire"] * 3600 / (A["G3"] * P["h_techo"]), 1)
+    V["Q_hum_inv"] = n(sum(d["Q_hum"] for d in R["diseno"]["invierno"].values()))
+    for clave, nom in (("hr5", "Humedad relativa de verano 5 puntos menos (todas las zonas)"), ("g5_24h", "Consultorios y administracion tambien funcionan 24 h"),
+                       ("fan", "Ventilador sin calor en el aire (sin calor de ventilador)"), ("acs200", "ACS por cama: 200 L/dia"),
+                       ("tp2", "Temperatura media mensual +2 K"), ("tm2", "Temperatura media mensual -2 K"),
+                       ("est21", "Cambio de estacion a 21 C (consignas de invierno bajo 21 C)"), ("est15", "Cambio de estacion a 15 C (consignas de invierno bajo 15 C)")):
+        d_ = [s["delta"] for s in J["sensibilidad"] if s["nombre"] == nom]
+        if len(d_) != 1:
+            sys.exit(f"falta la sensibilidad '{nom}': correr python -m calculo.generar_resultados")
+        V["s_" + clave] = ("+" if d_[0] > 0 else "−") + n(abs(d_[0]) * 100, 1)
+    for clave, mod in (("dp80", lambda c2: [z.__setitem__("dp_vent", z["dp_vent"] * 0.8) for z in c2["Z"].values()]),
+                       ("eta75", lambda c2: c2["P"].__setitem__("eta_vent", 0.75))):
+        c2 = copy.deepcopy(c)
+        mod(c2)
+        el2 = es.resumen(c2)["anual"]["elec"]
+        V["vent_" + clave] = n(el2["ventiladores"] / 1e3)
+        V["comp_" + clave] = n(el2["compresor"] / 1e3)
     V["dT_dia"] = n(P["rango_diario"] / 2, 1)
     V["dT_cond"] = n(P["dT_cond"])
     V["T_cond_min"] = n(P["T_cond_min"])
@@ -193,7 +234,7 @@ def valores():
     V["ach_G2"] = n(c["Z"]["G2"]["ach_tot"])
     V["ach_G4"] = n(c["Z"]["G4"]["ach_tot"])
     fr = [x[1] for x in gr.REF["PART"]]
-    V["part_min"] = n(min(fr) * 100)
+    V["part_min"] = n(min(fr) * 100, 1)
     V["part_max"] = n(max(fr) * 100)
     V["eq_min"] = n(J["total_equivalente_edificio"]["min"])
     V["eq_max"] = n(J["total_equivalente_edificio"]["max"])
@@ -257,6 +298,9 @@ def valores():
     V["eta_carnot"] = n(cic["cop_elec"] / cic["cop_carnot"] * 100)
     V["eta_carnot_eje"] = n(cic["cop_comp"] / cic["cop_carnot"] * 100)
     V["m_ref"] = n(d["Q_L"] / cic["q_L"], 1)
+    from CoolProp.CoolProp import PropsSI
+    h_gsat = PropsSI("H", "P", cic["P_c"], "Q", 1, P["refrigerante"]) / 1e3
+    V["frac_desrec"] = n((cic["h2"] - h_gsat) / cic["q_H"] * 100)
     V["T_ev"] = n(P["T_ev"])
     V["T2_ref"] = n(cic["T2"])
 
@@ -264,6 +308,8 @@ def valores():
     cal = cb.caldera(P)
     pc, bal = cal["pc"], cal["balance"]
     prod, reac = bal["productos"], bal["reactivos"]
+    bal_o2_st = bal["o2_estequiometrico"]
+    V["o2_st"] = n(bal_o2_st, 3)
     V["o2_reac"] = n(reac["O2"], 3)
     V["n2_aire"] = n(reac["N2_aire"], 3)
     V["co2_prod"] = n(prod["CO2"], 3)
@@ -288,14 +334,23 @@ def valores():
 
     # ---- referencias
     ref = gr.REF
-    T["tabla_ref"] = tabla(["Referencia", "kWh/m²·año", "Observación"],
-                           [("Garrahan (CABA), HCWH 2021", n(ref["AR"][0][1]), "Edificio completo, estimado por auditoría"),
-                            ("CEMAR (Rosario), HCWH 2021", n(ref["AR"][1][1]), "Edificio completo, estimado por auditoría"),
-                            ("Giordano (San Juan), HCWH 2021", n(ref["AR"][2][1]), "Edificio completo, estimado por auditoría"),
-                            ("23 hospitales internacionales (Hospitecnia)", f"mediana {n(ref['INT']['mediana'])}; rango {n(ref['INT']['minimo'])} a {n(ref['INT']['maximo'])}", "Edificio completo"),
-                            ("Modelo español del artículo (Hospitecnia)", f"{n(ref['ES_final'][0])} a {n(ref['ES_final'][1])}", "Energía final, edificio completo"),
-                            ("**Este modelo, solo sistema térmico**", f"**{n(R['i_total_cub'])}**", f"Equivale a {n(J['total_equivalente_edificio']['min'])} a {n(J['total_equivalente_edificio']['max'])} para el edificio completo")],
-                           (40, 26, 34))
+    T["tabla_ref"] = tabla(["Referencia", "Perfil", "kWh/m² y año", "Observación"],
+                           [("Garrahan (CABA), HCWH 2021 [A]", "Pediátrico de alta complejidad; 120.000 m²", n(ref["AR"][0][1]), "Edificio completo, estimado por auditoría"),
+                            ("CEMAR (Rosario), HCWH 2021 [A]", "Ambulatorio, media complejidad; casi 20.000 m²", n(ref["AR"][1][1]), "Edificio completo, estimado por auditoría"),
+                            ("Giordano (San Juan), HCWH 2021 [A]", "Media complejidad; 4.970 m²", n(ref["AR"][2][1]), "Edificio completo, estimado por auditoría"),
+                            ("23 hospitales internacionales [H]", "Superficie media 77.522 m²", f"mediana {n(ref['INT']['mediana'])}; rango {n(ref['INT']['minimo'])} a {n(ref['INT']['maximo'])}",
+                             f"Edificio completo. La mediana es un cálculo propio con los 23 valores; el artículo da el promedio ({n(ref['INT']['media'])})"),
+                            ("Modelo español del artículo [H]", "Hospital medio de unos 20.000 m²", f"{n(ref['ES_util'])} (calor útil más electricidad); {n(ref['ES_final'][0])} a {n(ref['ES_final'][1])} en energía final",
+                             "Edificio completo. La conversión a energía final es un cálculo propio"),
+                            ("**Este modelo, solo sistema térmico**", "18.352 m²", f"**{n(R['i_total_cub'])}**", f"Equivale a {n(J['total_equivalente_edificio']['min'])} a {n(J['total_equivalente_edificio']['max'])} para el edificio completo")],
+                           (26, 22, 18, 34))
+    nom_part = ["Distribución citada en el artículo (ref. 10)", "BID (ref. 13)", "Hospital de Madrid (ref. 5)", "Chile (ref. 11)"]
+    comp_part = ["45 % climatización + 20 % ACS", "51 % climatización + 12 % ventilación y bombas + 6 % ACS",
+                 "40 % calefacción + 20 % refrigeración + 6 % ventilación + 7 % ACS",
+                 "36 % térmico × (54 % climatización + 30 % agua caliente) + 64 % eléctrico × (21 % climatización + 3 % ACS)"]
+    T["tabla_part"] = tabla(["Reparto del artículo", "Cómo se armó la fracción (cálculo propio)", "Fracción del sistema térmico", "Total equivalente [kWh/m² y año]"],
+                            [(nom_part[k], comp_part[k], n(f * 100, 1) + " %", n(R["i_total_cub"] / f)) for k, (_nm, f) in enumerate(ref["PART"])],
+                            (24, 44, 14, 18))
 
     # ---- anexo: supuestos principales
     base = {i: (v, e) for (i, _k, _n, v, _u, e, _f) in supuestos._FILAS}
@@ -314,9 +369,15 @@ def valores():
                                     "Consigna de invierno (T; HR mínima)", "Fracción de envolvente expuesta", "Presión del ventilador [Pa]",
                                     "Días por semana"], filas_z, (26, 16, 12, 16, 10, 10, 10))
     cl = c["clima"]
-    cab_cl = ["Mes"] + list(cl["meses"])
-    T["tabla_anexo_clima"] = tabla(cab_cl, [["Días"] + [n(d) for d in cl["dias"]], ["T media [°C]"] + [n(t, 1) for t in cl["T"]],
-                                            ["HR media [%]"] + [n(h * 100) for h in cl["HR"]]], (14,) + (7,) * 12)
+    filas_cl = []
+    for k in (0, 6):
+        sl = slice(k, k + 6)
+        if k == 6:
+            filas_cl.append(["**Mes**"] + [f"**{m}**" for m in cl["meses"][sl]])
+        filas_cl.append(["Días"] + [n(d) for d in cl["dias"][sl]])
+        filas_cl.append(["T media [°C]"] + [n(t, 1) for t in cl["T"][sl]])
+        filas_cl.append(["HR media [%]"] + [n(h * 100) for h in cl["HR"][sl]])
+    T["tabla_anexo_clima"] = tabla(["Mes"] + list(cl["meses"][:6]), filas_cl, (24,) + (12,) * 6)
     V["n_filas"] = n(len(estados))
     V["n_dato"] = n(estados.count("DATO"))
     V["n_supuesto"] = n(estados.count("SUPUESTO"))
