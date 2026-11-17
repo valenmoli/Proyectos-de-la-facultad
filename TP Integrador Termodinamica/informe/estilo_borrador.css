@@ -1,14 +1,14 @@
 /* Estilo del PDF del borrador (HTML con MathML impreso con Chromium). El DOCX se formatea en calculo/estilo_docx.py. */
 @page {
   size: A4;
-  margin: 20mm 22mm 22mm 22mm;
+  margin: 18mm 20mm 20mm 20mm;
   @bottom-center {
-    content: "Borrador v0.2 · TP Integrador de Termodinámica 2026 · Página " counter(page);
+    content: "Borrador v0.3 · TP Integrador de Termodinámica 2026 · Página " counter(page);
     font: 8pt Carlito, Calibri, sans-serif;
     color: #52514e;
   }
 }
-html { font-size: 10.5pt; }
+html { font-size: 10pt; }
 body {
   font-family: Carlito, Calibri, "Liberation Sans", sans-serif;
   line-height: 1.34;

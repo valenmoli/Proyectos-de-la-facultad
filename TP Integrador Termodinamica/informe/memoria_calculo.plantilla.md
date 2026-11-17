@@ -48,6 +48,8 @@ con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la
 
 Table: Tabla M1. Estados del aire en el quirófano (A a F). Las diferencias de una décima entre valores se deben al redondeo.
 
+![Figura M0. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=13cm}
+
 # 3. Refrigeración
 
 Para el ciclo con entalpías $h_1$ a $h_4$ (estados de la tabla M2), por kg de refrigerante:
@@ -63,6 +65,8 @@ El rendimiento del motor es $\eta_{mot} = {{eta_motor_m}}$ y el COP de Carnot us
 {{tabla_ciclo}}
 
 Table: Tabla M2. Estados del ciclo de refrigeración al punto de diseño de verano. Las diferencias de una décima entre valores se deben al redondeo.
+
+![Figura M0b. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=12cm}
 
 # 4. Combustión
 
@@ -159,6 +163,10 @@ La tabla M8 muestra {{n_anexo}} de los {{n_filas}} parámetros escalares; las ta
 
 Table: Tabla M8. Parámetros principales del modelo.
 :::
+
+{{tabla_zonas_memoria}}
+
+Table: Tabla M9a. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento.
 
 {{tabla_anexo_zonas}}
 

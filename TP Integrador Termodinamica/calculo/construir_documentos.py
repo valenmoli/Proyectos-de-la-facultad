@@ -156,6 +156,36 @@ def valores_nuevos(V, T):
     m = re.search(r"(\d+) passed", out)
     V["n_tests"] = m.group(1) if m else "?"
 
+    T["tabla_zonas_memoria"] = T["tabla_zonas"]          # la tabla completa (con renovaciones minimas) va a la memoria
+    # ---- tablas compactas del informe
+    T["tabla_datos_edificio"] = tabla(["Dato", "Valor", "Cómo lo obtuvimos", "Respaldo"], [
+        ("Superficie cubierta", f"{V['A_cub']} m²", "Cifra oficial de Presidencia; el intendente habló de «más de 20.000 m²» sin aclarar si es cubierta", "Visto [F1, F2]"),
+        ("Camas", f"{V['camas_gen']} + {V['camas_uti']} = {V['camas_tot']}", "La gacetilla las atribuye a cuidados progresivos; las tomamos como el total (Presidencia prevé 160 de internación)", "Visto [F2, F1]; interpretación nuestra"),
+        ("Quirófanos", V["n_or"], "Cifra de programa", "Visto [F1]"),
+        ("Niveles", f"3 de {V['A_nivel']} m²", "Presidencia lista tres pisos (1.º guardia, consultorios y diagnóstico; 2.º internación, quirófanos y áreas críticas; 3.º administración y docencia); suponemos tres iguales", "Visto [F1] y propio"),
+        ("Superficie climatizada", f"{V['f_acond']} % ({V['A_cond']} m²)", "Casi todo; se excluyen locales técnicos, morgue y depósitos", "Propio"),
+        ("Quirófano", f"{V['a_or']} m²", "FGI: al menos 400 ft² (37,2 m²) libres con 6,1 m de lado; sumamos equipamiento fijo (unos 6,5 × 6,5 m)", "Cita (FGI) y propio"),
+        ("Terapia intensiva", f"{V['a_uti']} m² por cama", "Res. 748/2014: al menos 9 m² por cama de paciente; × 2,7 por apoyo y circulación", "Cita (Res. 748/2014) y propio"),
+        ("Internación general", f"{V['a_gen']} m² por cama", f"Estimación nuestra (habitaciones con baño, office, circulaciones); sin referencia: ±6 m² cambian la energía ±{V['sens_a_gen']} %", "Propio"),
+        ("Guardia, imágenes y laboratorio", f"{V['f_g4_pct']} % de las áreas generales, 24 h", "Guardia 24 h según la gacetilla, más imágenes y laboratorio; el resto funciona 12 h de lunes a viernes", "Visto [F2] y propio"),
+        ("Altura libre", f"{V['h_techo']} m", "Convención de diseño", "Propio"),
+    ], (16, 17, 49, 18))
+    T["tabla_decisiones"] = tabla(["Decisión", "Alternativas", "Elegimos y por qué", "Respaldo"], [
+        ("Tipo de sistema de aire", "Todo aire con recalentamiento; splits o VRF; fancoils con aire exterior aparte",
+         "Todo aire de caudal constante: las zonas críticas necesitan filtrado, muchas renovaciones y control de humedad y de presiones, que un split no da. La auditoría de HCWH encontró en hospitales argentinos splits instalados «porque el aire central no alcanzaba»", "Propio; [A] visto"),
+        ("Producción de frío", "Enfriadora por aire o por agua con torre", "Por aire: sin torre no hay consumo de agua, tratamiento ni riesgo de legionela; el COP es algo menor", "Propio"),
+        ("Redundancia", "Sin reserva o N+1", "N+1 (2+1 enfriadoras, 2 calderas al 100 %): un hospital no puede parar la climatización de quirófanos y terapia", "Propio"),
+        ("Combustible y base", "Gas, electricidad o gasoil; caldera o recuperación de calor", "Gas natural (hay red en el AMBA y es el combustible dominante en el artículo [H]); caldera como base (A) y recuperación como alternativa B para medir cuánto se gana", "Propio; [H] visto"),
+    ], (16, 22, 46, 16))
+    cz = c["Z"]
+    nom = {"G1": "G1 Quirófanos", "G2": "G2 Terapia intensiva", "G3": "G3 Internación", "G4": "G4 Guardia, imágenes, laboratorio", "G5": "G5 Consultorios y administración"}
+    oper = {"G1": "Continuo", "G2": "Continuo", "G3": "Continuo", "G4": "24 h", "G5": "12 h, lunes a viernes"}
+    filas_z = []
+    for g in ("G1", "G2", "G3", "G4", "G5"):
+        z = cz[g]
+        m3h = caud[g]["m_sup"] / P["rho_aire"] * 3600
+        filas_z.append((nom[g], n(A[g]), f"{n(z['t_ver'])} °C; {n(z['hr_ver'] * 100)} %", n(m3h), n(m3h / (A[g] * P["h_techo"]), 1), oper[g]))
+    T["tabla_zonas"] = tabla(["Zona", "Superficie [m²]", "Consigna de verano", "Caudal de impulsión [m³/h]", "Renovaciones resultantes [1/h]", "Funcionamiento"], filas_z, (30, 11, 15, 15, 15, 14))
     # ---- tablas
     nombres = {"B": ("Alternativa B: recuperar el calor del condensador",
                      "Aprovecha el calor que se rechaza a {T_cond_min} a {T_cond_anual_max} °C (hasta {T_cond_rec} °C cuando recupera) en vez de quemar gas en una llama de {T_llama} °C; cuesta trabajo extra del compresor"),

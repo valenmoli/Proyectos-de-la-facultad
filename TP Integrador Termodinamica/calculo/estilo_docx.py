@@ -169,7 +169,7 @@ def _pie(doc):
     p = sec.footer.paragraphs[0] if sec.footer.paragraphs else sec.footer.add_paragraph()
     p.text = ""
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("Borrador v0.2 · TP Integrador de Termodinámica 2026 · Página ")
+    r = p.add_run("Borrador v0.3 · TP Integrador de Termodinámica 2026 · Página ")
     r.font.size = Pt(8)
     r.font.color.rgb = TINTA2
     r2 = p.add_run()

@@ -167,17 +167,6 @@ def _ex_fisica_mezcla(n, T_C, T0_C):
     return sum(v * _ex_fisica_especie(e, T_C, T0_C) for e, v in n.items() if v > 0.0)
 
 
-@functools.lru_cache(maxsize=32)
-def _llama_adiabatica(Tair, Tgas, comp):
-    P = dict(comp)
-    return cb.temperatura_llama_adiabatica(P)
-
-
-def _clave_comb(P):
-    return tuple(sorted((k, P[k]) for k in ("gas_CH4", "gas_C2H6", "gas_C3H8", "gas_N2", "gas_CO2", "lambda_aire",
-                                          "T_aire_comb", "T_gases", "f_rad", "T_ref_gas")))
-
-
 def caldera_por_kmol(P, T0):
     """Balance exergetico de la caldera por kmol de combustible [kJ/kmol] con T0 en C.
 
@@ -401,7 +390,6 @@ def analisis(c, T_out, W_out, f_int_por_zona, q_sol, f_dias_activos=True, T0=Non
             L_plume = m_a * (et(T_ao) - et(T_out))
         else:
             m_a = 0.0
-        eta_m = P["eta_motor"]
         filas["motor"] = ("Motor eléctrico del compresor", "frio", W_comp, W_eje, 0.0, W_comp - W_eje)
         filas["compresor"] = ("Compresor (compresión real)", "frio", W_eje, m_r * (psi(rc["h2"], s2) - psi(rc["h1"], s1)), 0.0, D_comp)
         filas["condensador"] = ("Condensador por aire", "frio", F_cond, 0.0, L_plume, F_cond - L_plume)
@@ -501,7 +489,10 @@ def analisis(c, T_out, W_out, f_int_por_zona, q_sol, f_dias_activos=True, T0=Non
     cierre = X_in - (P_total + L_total + D_total)
     glob = dict(X_elec=X_elec, X_comb=X_comb, X_in=X_in, P_aire=P_aire, P_acs=P_acs, P_total=P_total, L_total=L_total,
                 D_total=D_total, cierre_abs=cierre, cierre_rel=abs(cierre) / X_in if X_in > 0 else 0.0,
-                eta_global=P_total / X_in if X_in > 0 else None)
+                # el producto del aire (X_impulsion - X_retorno - X_exterior) solo es una medida de servicio si es > 0;
+                # si no, la eficiencia global no esta bien definida y se informa solo la razon de referencia
+                eta_global=P_total / X_in if (X_in > 0 and P_aire > 0) else None,
+                eta_global_ref=P_total / X_in if X_in > 0 else None, producto_aire_bien_definido=P_aire > 0)
     grupos = {gname: sum(f["X_dest"] for f in tabla if GRUPOS_DEST[f["clave"]] == gname) for gname in ORDEN_GRUPOS}
 
     # ---- caldera y ACS (detalle)
@@ -522,8 +513,10 @@ def analisis(c, T_out, W_out, f_int_por_zona, q_sol, f_dias_activos=True, T0=Non
         ver["cierre_enfriadora_rel"] = abs(W_comp - (X_frio + L_plume + D_enf)) / W_comp
     estado = dict(T_out=T_out, W_out=W_out, T0=T0, W0=W0, HR_out=ah.hr_desde_w(T_out, W_out, P0), HR0=ah.hr_desde_w(T0, W0, P0),
                   q_sol=q_sol, f_int=dict(f_int_por_zona), f_dias_activos=f_dias_activos, P0=P0)
-    return dict(estado=estado, tabla=tabla, **{"global": glob}, perdidas=perdidas, destruccion_grupos=grupos, enfriadora=enf,
-                caldera=cald, acs=acs, zonas=zonas, verificaciones=ver)
+    res = dict(estado=estado, tabla=tabla, perdidas=perdidas, destruccion_grupos=grupos, enfriadora=enf, caldera=cald,
+               acs=acs, zonas=zonas, verificaciones=ver)
+    res["global"] = glob
+    return res
 
 
 # --------------------------------------------------------------------------------------
@@ -613,7 +606,9 @@ def tabla_texto(res):
                    f"{eta:>8}{_n(f['particip_dest'] * 100, 1):>7}")
     out.append(f"Entrada: electricidad {_n(g['X_elec'])} kW + combustible {_n(g['X_comb'])} kW = {_n(g['X_in'])} kW")
     out.append(f"Útil: aire {_n(g['P_aire'])} + ACS {_n(g['P_acs'], 2)} kW; pérdidas {_n(g['L_total'])} kW; destrucción {_n(g['D_total'])} kW; "
-               f"cierre {g['cierre_rel']:.1e}; eficiencia global {_n(g['eta_global'] * 100, 1)} %")
+               f"cierre {g['cierre_rel']:.1e}; eficiencia global "
+               + (f"{_n(g['eta_global'] * 100, 1)} %" if g["eta_global"] is not None else
+                  f"no definida (producto del aire <= 0; razón de referencia {_n(g['eta_global_ref'] * 100, 1)} %)"))
     return "\n".join(out)
 
 
@@ -626,7 +621,8 @@ def main():
         print()
     print("== Sensibilidad al estado muerto (verano pico) ==")
     for s in sensibilidad_T0(c):
-        print(f"T0 {_n(s['T0'])} °C: D {_n(s['D_total'])} kW, P {_n(s['P_total'])} kW, eta global {_n(s['eta_global'] * 100, 1)} %, "
+        eg = "no definida" if s["eta_global"] is None else f"{_n(s['eta_global'] * 100, 1)} %"
+        print(f"T0 {_n(s['T0'])} °C: D {_n(s['D_total'])} kW, P {_n(s['P_total'])} kW, eta global {eg}, "
               f"enfriadora {_n(s['eta_enfriadora'] * 100, 1)} %, caldera {_n(s['eta_caldera'] * 100, 1)} %")
 
 
