@@ -26,35 +26,35 @@ from . import refrigeracion as rf
 
 # id, clave, nombre, valor, unidad, estado, justificacion
 PARAMETROS = [
-    ("M1", "T_agua_rec", "Temperatura del agua caliente del recuperador de calor del condensador", 45.0, "C", "SUPUESTO",
+    ("PM1", "T_agua_rec", "Temperatura del agua caliente del recuperador de calor del condensador", 45.0, "C", "SUPUESTO",
      "Serpentina de recalentamiento que lleva aire de unos 13 C a 17-19 C: alcanza con agua tibia. Un caso de hospital con enfriadoras de "
      "recuperacion de calor usa agua a 115 F (46 C) en lugar de 180 F de caldera (Trane, caso Baylor Scott & White, via busqueda web)"),
-    ("M2", "pinch_rec", "Diferencia minima entre la condensacion y el agua caliente del recuperador", 5.0, "K", "SUPUESTO",
+    ("PM2", "pinch_rec", "Diferencia minima entre la condensacion y el agua caliente del recuperador", 5.0, "K", "SUPUESTO",
      "Intercambiador de placas tipico"),
-    ("M3", "T_gases_cond", "Temperatura de los gases de escape de la caldera de condensacion", 45.0, "C", "SUPUESTO",
+    ("PM3", "T_gases_cond", "Temperatura de los gases de escape de la caldera de condensacion", 45.0, "C", "SUPUESTO",
      "Agua de retorno a 40 C y 5 K de aproximacion; por debajo del rocio de los gases (unos 56 C)"),
-    ("M4", "A_solar", "Superficie de colectores solares para el ACS", 300.0, "m2", "SUPUESTO",
+    ("PM4", "A_solar", "Superficie de colectores solares para el ACS", 300.0, "m2", "SUPUESTO",
      "Unos 5 % de la azotea (6.117 m2 por nivel); tamano que no produce excedentes en verano"),
-    ("M5", "eta_solar", "Rendimiento medio anual de los colectores solares (sobre irradiacion horizontal)", 0.40, "-", "SUPUESTO",
+    ("PM5", "eta_solar", "Rendimiento medio anual de los colectores solares (sobre irradiacion horizontal)", 0.40, "-", "SUPUESTO",
      "Colector plano a 40-60 C con perdidas opticas y termicas; sin dato de catalogo"),
-    ("M6", "GHI_anual", "Irradiacion global horizontal anual", 1700.0, "kWh/m2 anio", "FUENTE SECUNDARIA",
+    ("PM6", "GHI_anual", "Irradiacion global horizontal anual", 1700.0, "kWh/m2 anio", "FUENTE SECUNDARIA",
      "Global Solar Atlas, informe de un punto de la provincia de Buenos Aires a unos 300 km (coordenadas -37,16 -59,06), via busqueda web: "
      "es una cota alta para la ciudad; a confirmar con globalsolaratlas.info para las coordenadas del hospital"),
-    ("M7", "lat", "Latitud del hospital", -34.7, "grados", "SUPUESTO", "La Matanza, Buenos Aires"),
-    ("M8", "kWp_fv", "Potencia fotovoltaica instalada", 250.0, "kWp", "SUPUESTO",
+    ("PM7", "lat", "Latitud del hospital", -34.7, "grados", "SUPUESTO", "La Matanza, Buenos Aires"),
+    ("PM8", "kWp_fv", "Potencia fotovoltaica instalada", 250.0, "kWp", "SUPUESTO",
      "Unos 1.250 m2 de paneles (5 m2/kWp) sobre una azotea de 6.117 m2 con equipos"),
-    ("M9", "PR_fv", "Relacion de rendimiento (performance ratio) de la instalacion fotovoltaica", 0.80, "-", "SUPUESTO",
+    ("PM9", "PR_fv", "Relacion de rendimiento (performance ratio) de la instalacion fotovoltaica", 0.80, "-", "SUPUESTO",
      "Valor habitual de instalaciones nuevas (0,75 a 0,85); sin dato propio"),
-    ("M10", "eps_rec", "Efectividad del recuperador de calor del aire de extraccion con circuito de agua", 0.50, "-", "FUENTE SECUNDARIA",
+    ("PM10", "eps_rec", "Efectividad del recuperador de calor del aire de extraccion con circuito de agua", 0.50, "-", "FUENTE SECUNDARIA",
      "Una comparacion de un fabricante da 45 a 55 % para circuitos de agua con aislacion total entre corrientes (via busqueda web)"),
-    ("M11", "dp_rec", "Caida de presion adicional del recuperador (cada lado)", 250.0, "Pa", "SUPUESTO", "Serpentina de 4 filas en cada corriente"),
-    ("M12", "f_dp_vent", "Factor sobre la presion de los ventiladores en la mejora de ventiladores", 0.8, "-", "SUPUESTO",
+    ("PM11", "dp_rec", "Caida de presion adicional del recuperador (cada lado)", 250.0, "Pa", "SUPUESTO", "Serpentina de 4 filas en cada corriente"),
+    ("PM12", "f_dp_vent", "Factor sobre la presion de los ventiladores en la mejora de ventiladores", 0.8, "-", "SUPUESTO",
      "Filtros y conductos de menor perdida, ventiladores de velocidad variable"),
-    ("M13", "ef_elec", "Factor de emision de la electricidad de la red", 0.38, "tCO2/MWh", "FUENTE SECUNDARIA",
+    ("PM13", "ef_elec", "Factor de emision de la electricidad de la red", 0.38, "tCO2/MWh", "FUENTE SECUNDARIA",
      "Meta de CAMMESA de 380 kg CO2e/MWh para 2023 (perfil de DitchCarbon, via busqueda web); es una meta y no un dato medido. "
      "Otras citas de busquedas: 0,288 t/MWh (Climate Transparency, datos de 2021, via Carbon Footprint) y unos 0,40 t/MWh (Ember, 2022). "
      "La Secretaria de Energia publica la serie oficial en datos.gob.ar: reemplazar"),
-    ("M14", "desrec_min_T", "Temperatura minima de descarga del compresor para recuperar calor sin subir la condensacion", 50.0, "C", "SUPUESTO",
+    ("PM14", "desrec_min_T", "Temperatura minima de descarga del compresor para recuperar calor sin subir la condensacion", 50.0, "C", "SUPUESTO",
      "Agua a 45 C mas 5 K de aproximacion"),
 ]
 
@@ -140,6 +140,13 @@ def anual_variante(c0, opc=None):
     f_sim = rec.get("f", 1.0) if isinstance(rec, dict) else 1.0   # fraccion de la demanda que coincide con el calor disponible
     ext = opc.get("rec_extraccion")
     eps_rec = opc.get("eps_rec", parametro("eps_rec"))
+    bypass = opc.get("bypass", True)                # el recuperador tiene compuertas de bypass del lado del aire
+    f_or = opc.get("or_setback")                    # factor de caudal del quirofano de noche (None = sin setback)
+    caud_noche = copy.deepcopy(caud)
+    if f_or:
+        for k_ in ("m_sup", "m_oa", "V_sup_m3h"):
+            caud_noche["G1"][k_] *= f_or
+        caud_noche["G1"]["P_vent_kW"] *= f_or ** 3   # leyes de los ventiladores: la potencia varia con el cubo del caudal
     dp_rec = opc.get("dp_rec", parametro("dp_rec"))
     H_mes, _Kt = irradiacion_mensual(parametro("lat"), parametro("GHI_anual"))
 
@@ -163,7 +170,8 @@ def anual_variante(c0, opc=None):
                     continue
                 f_int = z["f_dia"] if mitad == "dia" else z["f_noche"]
                 W_est = min(W_m, ah.w_desde_hr(T_out, 1.0, P["presion"]))
-                r = ed.proceso(c, g, caud, T_out, W_est, f_int, q_sol)
+                cd = caud_noche if (f_or and mitad == "noche") else caud
+                r = ed.proceso(c, g, cd, T_out, W_est, f_int, q_sol)
                 if ext:
                     # el recuperador tiene bypass: solo trabaja si baja el costo de energia del estado (serpentina con un
                     # COP de referencia de 4 y calor de caldera con el rendimiento base) mas la potencia de ventiladores extra
@@ -173,7 +181,7 @@ def anual_variante(c0, opc=None):
                     p_extra = 2.0 * V_oa * dp_rec / 1000.0 / P["eta_vent"]
                     costo0 = r["Q_coil"] / 4.0 + (r["Q_recal"] + r["Q_cal"]) / eta_base
                     costo1 = r1["Q_coil"] / 4.0 + (r1["Q_recal"] + r1["Q_cal"]) / eta_base + p_extra
-                    if costo1 < costo0:
+                    if costo1 < costo0 or not bypass:
                         r = r1
                         extra_vent += p_extra * horas * z["f_dias"]
                 fd = z["f_dias"]
@@ -181,7 +189,7 @@ def anual_variante(c0, opc=None):
                 zon[g]["recal"] += r["Q_recal"] * horas * fd
                 zon[g]["cal"] += r["Q_cal"] * horas * fd
                 zon[g]["hum"] += r["Q_hum"] * horas * fd
-                zon[g]["vent"] += caud[g]["P_vent_kW"] * horas * fd
+                zon[g]["vent"] += cd[g]["P_vent_kW"] * horas * fd
                 Q_L += r["Q_coil"] * fd
                 demanda += (r["Q_recal"] + r["Q_cal"]) * fd
             p = es._planta(c, Q_L, T_out)
@@ -264,8 +272,9 @@ VARIANTES = [
     ("M3", "Recuperador de calor del aire de extracción", {"rec_extraccion": True}),
     ("M4", "Ventiladores con 20 % menos de presión", {"dp_vent": 0.8}),
     ("M5", "Paneles fotovoltaicos", {"fv": True}),
-    ("P", "Paquete: B + M1 + M2 + M3 + M4 + M5",
-     {"rec_cond": True, "caldera_cond": True, "solar_acs": True, "rec_extraccion": True, "dp_vent": 0.8, "fv": True}),
+    ("M6", "Quirófanos con el caudal al 50 % de noche", {"or_setback": 0.5}),
+    ("P", "Paquete: B + M1 a M6",
+     {"rec_cond": True, "caldera_cond": True, "solar_acs": True, "rec_extraccion": True, "dp_vent": 0.8, "fv": True, "or_setback": 0.5}),
 ]
 
 

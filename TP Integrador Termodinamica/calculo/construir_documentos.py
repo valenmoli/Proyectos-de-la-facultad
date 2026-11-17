@@ -99,10 +99,26 @@ def valores_nuevos(V, T):
     # ---- mejoras y emisiones
     base, filas = mj.comparar(c)
     por = {f["clave"]: f for f in filas}
-    for k in ("B", "M1", "M2", "M3", "M4", "M5", "P"):
+    for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "P"):
         V["dE_" + k] = pm(por[k]["d_E"])
         V["dC_" + k] = pm(por[k]["d_co2"])
     bdet = por["B"]["detalle"]
+    V["extra_elec_B"] = n((bdet["E_elec"] - base["E_elec"]) / 1e3)
+    V["d_comp_B"] = n((bdet["elec"]["compresor"] - base["elec"]["compresor"]) / 1e3)
+    V["d_vcond_B"] = n(-(bdet["elec"]["vent_condensador"] - base["elec"]["vent_condensador"]) / 1e3)
+    ahorro = lambda k: base["E_total"] - por[k]["E_total"]
+    V["sum_ind_MWh"] = n(sum(ahorro(k) for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6")) / 1e3)
+    V["pkg_MWh"] = n(ahorro("P") / 1e3)
+    E_B = por["B"]["E_total"]
+    V["m1_solo"] = n(ahorro("M1") / 1e3)
+    V["m1_con_b"] = n((E_B - mj.anual_variante(c, {"rec_cond": True, "caldera_cond": True})["E_total"]) / 1e3)
+    V["m4_solo"] = n(ahorro("M4") / 1e3)
+    V["m4_con_b"] = n((E_B - mj.anual_variante(c, {"rec_cond": True, "dp_vent": 0.8})["E_total"]) / 1e3)
+    sb = mj.anual_variante(c, {"rec_extraccion": True, "bypass": False})
+    V["dE_M3_sinbp"] = pm(sb["E_total"] / base["E_total"] - 1)
+    V["dC_M3_sinbp"] = pm(sb["co2_t"] / base["co2_t"] - 1)
+    V["fv_MWh_1500"] = n(min(mj.parametro("kWp_fv") * 1500.0 * mj.parametro("PR_fv"), base["E_elec"]) / 1e3)
+    V["s_T26"] = "−" + pm(_fila_variacion(c, lambda c2: [c2["Z"][g].__setitem__("t_ver", 26.0) for g in ("G3", "G4", "G5")]))
     V["rec_MWh"] = n(bdet["q_rec_cond"] / 1e3)
     V["rec_horas"] = n(bdet["horas_rec"])
     V["ahorro_gas_B"] = n((base["E_PCS"] - bdet["E_PCS"]) / 1e3)
@@ -158,6 +174,15 @@ def valores_nuevos(V, T):
 
     T["tabla_zonas_memoria"] = T["tabla_zonas"]          # la tabla completa (con renovaciones minimas) va a la memoria
     # ---- tablas compactas del informe
+    sj = lambda nombre: pm(_sens(J, nombre))
+    T["tabla_param_modelo"] = tabla(["Parámetro", "Valor", "Por qué", "Peso en la energía"], [
+        ("Ventiladores: presión y rendimiento", f"900 a 1.800 Pa; {V['eta_vent']}", "1.800 Pa en quirófanos por filtro HEPA, dos serpentinas y conductos; todo el calor del ventilador va al aire", f"presión +30 %: +{sj('Ventiladores: presion +30 % (proxy de ventiladores de retorno)')} %; sin el calor del ventilador: +{sj('Ventilador sin calor en el aire (sin calor de ventilador)')} %"),
+        ("Enfriadora: evaporación y rendimiento isentrópico", f"{V['T_ev']} °C (agua 7/12 °C); {n(P['eta_is'], 2)}", "Aproximación habitual del evaporador; rendimiento típico de un tornillo", f"0,65: +{sj('Rendimiento isentropico 0,65')} %; 0,78: −{sj('Rendimiento isentropico 0,78')} %"),
+        ("Condensación", f"exterior + {V['dT_cond']} K, mínimo {V['T_cond_min']} °C", "Condensador por aire; el mínimo lo pide el control de la presión de descarga", "incluido en el COP"),
+        ("Caldera: exceso de aire y gases de escape", f"{V['exceso']} %; {V['T_gases']} °C; 2 % de pérdidas", "Caldera sin condensación habitual", f"gases a 230 °C: +{sj('Gases de escape a 230 C')} %; exceso de 30 %: +{sj('Exceso de aire 30 % (lambda 1,30)')} %"),
+        ("Ganancias internas por m²", "60, 40, 25, 35 y 25 W/m² (G1 a G5)", "Actividad típica de cada zona, sin dato propio", f"±30 %: menos de {sj('Ganancias internas -30 %')} %"),
+        ("Cambio de estación", f"{V['T_cambio']} °C", "Umbral entre consignas de verano e invierno, sin histéresis", f"21 °C: −{sj('Cambio de estacion a 21 C (consignas de invierno bajo 21 C)')} %"),
+    ], (22, 22, 32, 24))
     T["tabla_datos_edificio"] = tabla(["Dato", "Valor", "Cómo lo obtuvimos", "Respaldo"], [
         ("Superficie cubierta", f"{V['A_cub']} m²", "Cifra oficial de Presidencia; el intendente habló de «más de 20.000 m²» sin aclarar si es cubierta", "Visto [F1, F2]"),
         ("Camas", f"{V['camas_gen']} + {V['camas_uti']} = {V['camas_tot']}", "La gacetilla las atribuye a cuidados progresivos; las tomamos como el total (Presidencia prevé 160 de internación)", "Visto [F2, F1]; interpretación nuestra"),
@@ -188,30 +213,31 @@ def valores_nuevos(V, T):
     T["tabla_zonas"] = tabla(["Zona", "Superficie [m²]", "Consigna de verano", "Caudal de impulsión [m³/h]", "Renovaciones resultantes [1/h]", "Funcionamiento"], filas_z, (30, 11, 15, 15, 15, 14))
     # ---- tablas
     nombres = {"B": ("Alternativa B: recuperar el calor del condensador",
-                     "Aprovecha el calor que se rechaza a {T_cond_min} a {T_cond_anual_max} °C (hasta {T_cond_rec} °C cuando recupera) en vez de quemar gas en una llama de {T_llama} °C; cuesta trabajo extra del compresor"),
+                     "Aprovecha el calor que se rechaza a {T_cond_min} a {T_cond_anual_max} °C (hasta {T_cond_rec} °C cuando recupera) en vez de quemar gas con una llama adiabática teórica de {T_llama} °C; cuesta trabajo extra del compresor"),
                "M1": ("M1. Caldera de condensación",
-                      "Los gases salen a {T_gases_cond} °C, por debajo del rocío ({T_rocio} °C): condensa el {frac_cond_cald} % del agua formada y recupera su calor latente; el rendimiento sobre PCS pasa de {eta_PCS_base} a {eta_cond_PCS} %"),
+                      "Los gases salen a {T_gases_cond} °C, por debajo del rocío ({T_rocio} °C): condensa el {frac_cond_cald} % del agua formada y recupera su calor latente; el rendimiento sobre PCS pasa de {eta_PCS_base} a {eta_cond_PCS} %. Supone un circuito de 50/40 °C para el aire; con agua de retorno a 60 °C no condensa"),
                "M2": ("M2. Solar térmico para el ACS",
                       "{A_solar} m² de colectores cubren el {solar_frac} % del calor del ACS, una demanda constante de {acs_kW} kW medios que el sol atiende bien"),
                "M3": ("M3. Recuperador del aire de extracción",
-                      "Precalienta o preenfría el aire exterior con el que sale, sin mezclar las corrientes (circuito de agua, efectividad {eps_rec}); solo trabaja cuando conviene (bypass)"),
+                      "Precalienta o preenfría el aire exterior con el que sale, sin mezclar las corrientes (circuito de agua, efectividad {eps_rec}). Supone compuertas de bypass para trabajar solo cuando conviene (a confirmar); sin ellas el ahorro es de {dE_M3_sinbp} % en energía y las emisiones {dC_M3_sinbp} %"),
                "M4": ("M4. Ventiladores con 20 % menos de presión",
                       "La potencia del ventilador es proporcional a la presión; pero el calor que ya no cede al aire hay que reponerlo con gas, por eso el ahorro neto es chico"),
                "M5": ("M5. Fotovoltaica de {kWp} kWp",
-                      "Produce {fv_MWh} MWh por año ({fv_yield} kWh por kWp) que descuentan electricidad de la red; no depende del resto del sistema"),
-               "P": ("Paquete B + M1 a M5", "Combinación de todas; no es la suma, porque las medidas se pisan")}
+                      "Produce {fv_MWh} MWh por año ({fv_yield} kWh por kWp) que descuentan electricidad de la red. La irradiación de 1.700 kWh/m² es una cita de un punto a unos 300 km (cota alta); con 1.500 serían {fv_MWh_1500} MWh"),
+               "M6": ("M6. Quirófanos al 50 % de noche", "El quirófano no tiene actividad de noche: con la mitad del caudal la potencia del ventilador baja al cubo (leyes de los ventiladores) y hay menos aire que enfriar y recalentar. El adendo de ASHRAE 170 recomienda una evaluación de riesgo antes de ajustar la ventilación de un quirófano"),
+               "P": ("Paquete B + M1 a M6", "Combinación de todas; el aporte de cada una depende de las demás")}
     filas = []
-    for k in ("B", "M5", "M2", "M3", "M1", "M4", "P"):
+    for k in ("B", "M5", "M2", "M3", "M1", "M6", "M4", "P"):
         f = por[k]
         nm, porque = nombres[k]
         filas.append((nm.format(**V), porque.format(**V),
                       f"−{n(-f['d_E'] * 100, 1)} % ({n((base['E_total'] - f['E_total']) / 1e3)} MWh)",
                       f"−{n(-f['d_co2'] * 100, 1)} % ({n(base['co2_t'] - f['co2_t'])} t)"))
     T["tabla_mejoras"] = tabla(["Medida", "Por qué ahorra", "Energía final", "CO₂"], filas, (20, 48, 16, 16))
-    det = [base_fila(base)] + [por[k] for k in ("B", "M1", "M2", "M3", "M4", "M5", "P")]
+    det = [base_fila(base)] + [por[k] for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "P")]
     nom_det = {"A": "A. Caso base", "B": "B. Recuperación del condensador", "M1": "M1. Caldera de condensación", "M2": "M2. Solar térmico para el ACS",
-               "M3": "M3. Recuperador del aire de extracción", "M4": "M4. Ventiladores, 20 % menos de presión", "M5": "M5. Fotovoltaica",
-               "P": "Paquete B + M1 a M5"}
+               "M3": "M3. Recuperador del aire de extracción", "M4": "M4. Ventiladores, 20 % menos de presión", "M5": "M5. Fotovoltaica", "M6": "M6. Quirófanos al 50 % de noche",
+               "P": "Paquete B + M1 a M6"}
     T["tabla_mejoras_detalle"] = tabla(
         ["Variante", "Energía final [MWh]", "Electricidad [MWh]", "Gas (PCS) [MWh]", "CO₂ [t]", "Energía", "CO₂"],
         [(nom_det[f["clave"]], n(f["E_total"] / 1e3), n(f["E_elec"] / 1e3), n(f["E_PCS"] / 1e3), n(f["co2_t"]),
@@ -233,6 +259,17 @@ def valores_nuevos(V, T):
 def base_fila(base):
     return dict(clave="A", nombre="Alternativa A: caso base", E_total=base["E_total"], E_elec=base["E_elec"], E_PCS=base["E_PCS"],
                 co2_t=base["co2_t"], d_E=0.0, d_co2=0.0)
+
+
+def renumerar_memoria(texto):
+    """Numera las tablas (M1, M2...) y las figuras de la memoria por orden de aparicion y corrige las remisiones."""
+    for palabra, patron in (("Tabla", r"^Table: Tabla M(\w+?)\."), ("Figura", r"^!\[Figura M(\w+?)\.")):
+        orden = re.findall(patron, texto, flags=re.M)
+        nuevos = {v: str(i + 1) for i, v in enumerate(orden)}
+        texto = re.sub(r"(" + palabra + r"|" + palabra.lower() + r") M(\w+?)\b(?!\w)",
+                       lambda m: f"{m.group(1)} @@{nuevos.get(m.group(2), m.group(2))}", texto)
+        texto = texto.replace(palabra + " @@", palabra + " M").replace(palabra.lower() + " @@", palabra.lower() + " M")
+    return texto
 
 
 def render(plantilla, salida, V, T, extra=None):
@@ -264,6 +301,8 @@ def render(plantilla, salida, V, T, extra=None):
     for i in range(0, len(partes), 2):
         partes[i] = re.sub(r"(\d) " + unidades, "\\1\u00a0\\2", partes[i])
     out = "".join(partes)
+    if plantilla.startswith("memoria"):
+        out = renumerar_memoria(out)
     md = os.path.join(INFORME, salida + ".md")
     with open(md, "w", encoding="utf-8") as f:
         f.write(out)

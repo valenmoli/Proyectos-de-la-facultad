@@ -96,7 +96,7 @@ def test_factor_de_co2_del_gas_coincide_con_el_valor_de_referencia():
 def test_el_paquete_ahorra_mas_que_cualquier_medida_sola():
     base, filas = mj.comparar(C)
     d = {f["clave"]: f["d_E"] for f in filas}
-    assert d["P"] < min(d[k] for k in ("B", "M1", "M2", "M3", "M4", "M5"))
+    assert d["P"] < min(d[k] for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6"))
     assert d["P"] > -1.0                                            # no se puede ahorrar mas del 100 %
 
 
@@ -112,3 +112,17 @@ def test_los_parametros_nuevos_tienen_estado():
     for fila in mj.PARAMETROS:
         assert fila[5] in ("DATO", "SUPUESTO", "FUENTE SECUNDARIA", "PROPIO")
         assert len(fila[6]) > 10
+
+
+def test_setback_del_quirofano_ahorra_y_no_cambia_el_dia():
+    r = mj.anual_variante(C, {"or_setback": 0.5})
+    assert r["E_total"] < BASE["E_total"]
+    assert r["elec"]["ventiladores"] < BASE["elec"]["ventiladores"]
+    # con factor 1 es el caso base
+    assert mj.anual_variante(C, {"or_setback": 1.0})["E_total"] == pytest.approx(BASE["E_total"], rel=1e-12)
+
+
+def test_recuperador_sin_bypass_ahorra_menos_que_con_bypass():
+    con = mj.anual_variante(C, {"rec_extraccion": True})["E_total"]
+    sin = mj.anual_variante(C, {"rec_extraccion": True, "bypass": False})["E_total"]
+    assert sin > con

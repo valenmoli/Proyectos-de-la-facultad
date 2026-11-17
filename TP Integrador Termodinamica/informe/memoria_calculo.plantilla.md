@@ -1,6 +1,6 @@
 ---
 title: "Memoria de cálculo"
-subtitle: "TP Integrador de Termodinámica 2026 · Sistema térmico de un hospital del AMBA · Borrador v0.2"
+subtitle: "TP Integrador de Termodinámica 2026 · Sistema térmico de un hospital del AMBA · Borrador v0.3"
 author: "[Integrantes del equipo: a completar]"
 date: "Facultad de Ingeniería y Ciencias Agrarias · Ingeniería Civil · UCA · Noviembre de 2026"
 lang: es-AR
@@ -154,7 +154,11 @@ Table: Tabla M7. Parámetros de las mejoras y su respaldo.
 
 {{seccion_equipos_memoria}}
 
-# Anexo. Datos de entrada
+# Anexo A. Verificación del cálculo
+
+**{{n_tests}} chequeos** (`python -m pytest calculo/tests`): primera ley, segunda ley (COP menor que el de Carnot, destrucción de exergía no negativa), balance de átomos de la combustión, psicrometría contra CoolProp, reproducción de la tabla de supuestos y que las mejoras den el caso base cuando no se activan. El cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Los chequeos comprueban la coherencia interna, no que la física sea correcta. El núcleo del modelo se reimplementó de forma independiente a partir de nuestra propia especificación (coincidencia dentro de 0,24 %), lo que comprueba la transcripción del método y no su validez; las mejoras, la exergía y los equipos recibieron revisiones internas independientes pero **no** se reimplementaron. Sigue **sin verificar** lo propio y lo recordado.
+
+# Anexo B. Datos de entrada
 
 La tabla M8 muestra {{n_anexo}} de los {{n_filas}} parámetros escalares; las tablas M9 y M10, las zonas y el clima. Estado de cada uno: **DATO** (leído de un documento recibido: E1, E3, E4 y E5 son del hospital base y S2 viene del artículo [H]), **SUPUESTO** (fundamentado pero sin fuente citable todavía) o **CONSTANTE** (convención de diseño o propiedad física). La tabla completa, con la justificación de cada uno, está en `informe/supuestos.md`.
 
@@ -170,7 +174,7 @@ Table: Tabla M9a. Zonas, consignas de verano, renovaciones mínimas (totales / d
 
 {{tabla_anexo_zonas}}
 
-Table: Tabla M9. Parámetros de las zonas (todos supuestos; las renovaciones están en el informe). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche.
+Table: Tabla M9. Parámetros de las zonas (todos supuestos; las renovaciones mínimas están en la tabla anterior). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche.
 
 {{tabla_anexo_clima}}
 

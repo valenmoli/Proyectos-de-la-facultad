@@ -105,8 +105,8 @@ def fig_mejoras(c):
         ax.text(-f["d_E"] * 100 + 0.6, i - h / 2, f"{coma(-f['d_E'] * 100, 1)} %", va="center", fontsize=7.5, color=INK)
         ax.text(-f["d_co2"] * 100 + 0.6, i + h / 2, f"{coma(-f['d_co2'] * 100, 1)} %", va="center", fontsize=7.5, color=INK)
     nombres = {"B": "B. Recuperar el calor\ndel condensador", "M1": "M1. Caldera de condensación", "M2": "M2. Solar térmico para el ACS",
-               "M3": "M3. Recuperador del\naire de extracción", "M4": "M4. Ventiladores con 20 %\nmenos de presión", "M5": "M5. Fotovoltaica de 250 kWp",
-               "P": "Paquete B + M1 a M5"}
+               "M3": "M3. Recuperador del\naire de extracción", "M4": "M4. Ventiladores con 20 %\nmenos de presión", "M5": "M5. Fotovoltaica de 250 kWp", "M6": "M6. Quirófanos al 50 % de noche",
+               "P": "Paquete B + M1 a M6"}
     ax.set_yticks(y)
     ax.set_yticklabels([nombres[f["clave"]] for f in orden], fontsize=8)
     ax.invert_yaxis()
