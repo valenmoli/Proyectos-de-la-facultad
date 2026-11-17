@@ -12,7 +12,8 @@ Representación gráfica (hitos **M2** a **M5**, Consignas 2 y 4).
 | `fig05_perfil_mensual.png` | Frío y calor del aire por mes | `calculo/figuras.py` |
 | `fig06_sensibilidad.png` | Sensibilidad de la energía final | `calculo/figuras.py` |
 | `fig07_exergia.png` | Reparto de la exergía de entrada y destrucción por equipo | `calculo/figuras_exergia.py` |
-| `fig08_plano_zonas.png` | Zonas, superficies y ubicación de equipos | `calculo/figuras_plano.py` |
+| `fig08_plano_zonas.png` | Corte esquemático con zonas, superficies y equipos (3 enfriadoras en servicio + 1 de reserva) y planta de cubierta | `calculo/figuras_plano.py` |
+| `fig11_planta_tipo.png` | Planta tipo a escala del 1.er y 2.º piso: zonas con superficie proporcional a sus m², núcleo técnico, shafts y UTAs críticas | `calculo/figuras_plano.py` |
 | `fig09_mejoras.png` | Reducción de energía y de CO₂ de la alternativa B y las mejoras | `calculo/figuras_mejoras.py` |
 | `fig10_carta_givoni.png` | Carta psicrométrica con la zona de confort de Givoni, el clima y las consignas | `calculo/figuras_mejoras.py` |
 

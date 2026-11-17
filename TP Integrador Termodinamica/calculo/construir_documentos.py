@@ -199,7 +199,7 @@ def valores_nuevos(V, T):
         ("Tipo de sistema de aire", "Todo aire con recalentamiento; splits o VRF; fancoils con aire exterior aparte",
          "Todo aire de caudal constante: las zonas críticas necesitan filtrado, muchas renovaciones y control de humedad y de presiones, que un split no da. La auditoría de HCWH encontró en hospitales argentinos splits instalados «porque el aire central no alcanzaba»", "Propio; [A] visto"),
         ("Producción de frío", "Enfriadora por aire o por agua con torre", "Por aire: sin torre no hay consumo de agua, tratamiento ni riesgo de legionela; el COP es algo menor", "Propio"),
-        ("Redundancia", "Sin reserva o N+1", "N+1 (2+1 enfriadoras, 2 calderas al 100 %): un hospital no puede parar la climatización de quirófanos y terapia", "Propio"),
+        ("Redundancia", "Sin reserva o N+1", "N+1 en la producción de frío y de calor (3+1 enfriadoras, 2 calderas al 100 %): un hospital no puede parar la climatización de quirófanos y terapia. Las UTAs no tienen reserva (una por quirófano): queda abierto", "Propio"),
         ("Combustible y base", "Gas, electricidad o gasoil; caldera o recuperación de calor", "Gas natural (hay red en el AMBA y es el combustible dominante en el artículo [H]); caldera como base (A) y recuperación como alternativa B para medir cuánto se gana", "Propio; [H] visto"),
     ], (16, 22, 46, 16))
     cz = c["Z"]
@@ -338,6 +338,7 @@ def secciones_agentes(V, T, c):
         inf, mem, vv = texto_equipos.redactar(c, V, T)
         V.update(vv)
         extra_inf["<<EQUIPOS>>"], extra_mem["{{seccion_equipos_memoria}}"] = inf, mem
+        extra_inf["<<CUMPLE_ENF>>"] = vv.get("_cumple_enf", "")
     except ImportError:
         pass
     return extra_inf, extra_mem

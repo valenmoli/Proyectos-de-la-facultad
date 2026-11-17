@@ -7,13 +7,14 @@ Este modulo NO cambia el modelo termico: toma de el las cargas de diseno (Q_L, c
 caudales de aire por zona) y de ahi dimensiona y ubica los equipos:
 
   1. niveles       superficie de cada zona por nivel (3 niveles de igual superficie bruta)
-  2. enfriadoras   configuracion N+1 con un ejemplo de catalogo (FUENTE SECUNDARIA) y su margen
+  2. enfriadoras   configuracion 3 en servicio + 1 de reserva con un ejemplo de catalogo (FUENTE SECUNDARIA) y su margen
   3. calderas      carga de diseno, 2 x 100 % y alternativa de condensacion en cascada 3+1
   4. utas          cantidad, caudal y nivel de cada unidad de tratamiento de aire
   5. hidraulica    agua helada (caudal y diametro DN), gas y chimenea
   6. shafts        areas de los shafts verticales de aire
   7. azotea        huella y carga de las enfriadoras sobre la losa
   8. matriz        decision enfriadoras en azotea o en patio tecnico a nivel
+  9. planta_tipo   geometria (en metros) de la planta tipo: zonas, nucleo tecnico, UTAs criticas y accesos
 
 Todo numero que no sale del modelo esta en SUPUESTOS con su estado (DATO / SUPUESTO / FUENTE SECUNDARIA /
 RECORDADO / CONSTANTE) para volcarlo a una tabla (tabla_supuestos_md()).
@@ -48,9 +49,27 @@ _FILAS = [
      "Como FA-08 no menciona planta baja, el 1.er piso se toma a nivel de calle; el anexo de calderas se apoya en ese nivel"),
     ("Q4", "aspecto_planta", "Relacion largo/ancho de la planta rectangular equivalente (solo para la figura)", 4.0 / 3.0, "-", "SUPUESTO",
      "Esquema de la planta de cubierta con la misma superficie que un nivel; no hay planos del edificio real"),
+    ("Q5", "orientacion", "Orientacion de las plantas dibujadas", "norte arriba", "-", "SUPUESTO",
+     "Sin plano de implantación: se dibuja el norte hacia arriba solo para ubicar el dibujo. El modelo térmico no distingue orientaciones (una sola radiación pico para toda la envolvente)"),
+    ("Q6", "calle", "Lado de la calle (frente y accesos)", "sur", "-", "SUPUESTO",
+     "Sin plano de implantación: la calle se supone al sur. Del lado de la calle van los accesos, el núcleo técnico, el anexo de calderas y el izaje de las enfriadoras"),
+    ("Q7", "nucleo_planta", "Ubicacion del nucleo tecnico en planta", "esquina sudeste, mismo lugar en cada nivel", "-", "SUPUESTO",
+     "Los locales técnicos, la morgue y los depósitos de cada nivel (superficie no climatizada: 918 m2) se agrupan en un bloque en el borde sur, del lado de la calle, para acortar el "
+     "recorrido del agua helada desde las enfriadoras de la azotea y de los conductos de las zonas críticas; los shafts se apilan en él. Sus dimensiones salen de la superficie y de "
+     "la columna este (Q8). La morgue y los depósitos no tienen m2 propios: están dentro de esos 918 m2"),
+    ("Q8", "distribucion_planta", "Distribucion de las zonas dentro de la planta tipo", "franjas; ver planta_tipo()", "-", "SUPUESTO",
+     "Zonas como rectángulos de superficie exactamente proporcional a sus m2, por franjas. 2.º piso: columna este con núcleo, G1 y G2 contiguos al núcleo (conducto corto desde las UTAs "
+     "del cuarto técnico) y administración; internación G3 en dos alas (sur y norte) de igual superficie. 1.er piso: franja sur con consultorios (ingreso) y núcleo, y G4 en L con el acceso de guardia "
+     "en el sudoeste. Sin planos del edificio real"),
+    ("Q9", "circulacion", "Circulacion (pasillos y halls)", "dentro de la superficie climatizada de cada zona", "-", "SUPUESTO",
+     "No se le asigna superficie propia ni queda un hueco en el dibujo: las áreas de zona del modelo ya la incluyen"),
     # Enfriadoras
-    ("Q10", "n_serv", "Enfriadoras en servicio", 2, "unidades", "SUPUESTO", "Configuracion N+1: 2 en servicio"),
-    ("Q11", "n_res", "Enfriadoras de reserva", 1, "unidades", "SUPUESTO", "Configuracion N+1: 1 de reserva, 3 unidades iguales"),
+    ("Q10", "n_serv", "Enfriadoras en servicio", 3, "unidades", "SUPUESTO",
+     "N = 3 de una configuración N+1. Con la 30XA 1002 (988 kW) dos en servicio dan 1.976 kW y no alcanzan los 1.987 kW de diseño (faltan 11,2 kW, 0,6 %); con tres cada una trabaja al 67 % "
+     "de su capacidad nominal en el diseño. Queda sobredimensionada respecto del pico: la opción más ajustada es 2+1 con una unidad de al menos 994 kW, y la 30XA 1102 no está verificada"),
+    ("Q11", "n_res", "Enfriadoras de reserva", 1, "unidades", "SUPUESTO",
+     "1 de reserva, 4 unidades iguales. Con una parada quedan 3 x 988 = 2.964 kW para 1.987 kW de diseño (margen +49 %). El margen cubre el calor de las bombas de agua helada "
+     "(que la carga de diseño no incluye) y la diferencia entre los 34 °C de diseño y los 35 °C del catálogo"),
     ("Q12", "modelo_enf", "Enfriadora de ejemplo", "Carrier AquaForce 30XA 1002", "-", "FUENTE SECUNDARIA",
      "Busqueda web sobre catalogos de Carrier; no se pudo abrir el catalogo. Enfriadora de tornillo condensada por aire"),
     ("Q13", "cap_enf", "Capacidad nominal de la enfriadora de ejemplo", 988.0, "kW", "FUENTE SECUNDARIA",
@@ -211,45 +230,70 @@ def niveles(c, p=None):
 # 2. Enfriadoras
 # --------------------------------------------------------------------------------------
 def enfriadoras(c, p=None, d=None):
-    """Configuracion N+1 de enfriadoras iguales y comparacion con la enfriadora de ejemplo."""
+    """Configuracion N+1 de enfriadoras iguales (por defecto 3 en servicio + 1 de reserva) y comparacion con la enfriadora de ejemplo.
+
+    cap_servicio es la capacidad de las unidades en servicio (N x cap); cap_una_parada es la que queda si cualquiera de las
+    n_total unidades esta parada. Con n_res = 1 las dos coinciden.
+    """
     p = p or parametros()
     d = d or es.diseno(c)
     P = c["P"]
     Q_L = d["Q_L"]
+    W_bomba = d["planta"]["W_bomba"]
     n_serv, n_res = int(p["n_serv"]), int(p["n_res"])
+    n_tot = n_serv + n_res
     cap_u, pot_u = p["cap_enf"], p["pot_enf"]
-    req_u = Q_L / n_serv                                  # capacidad minima por unidad
+    req_u = Q_L / n_serv                                  # capacidad minima por unidad en servicio
     cap_serv = n_serv * cap_u
+    cap_parada = (n_tot - 1) * cap_u                      # con una unidad cualquiera parada
     margen = cap_serv - Q_L
     cumple = cap_serv >= Q_L
     faltante = max(0.0, Q_L - cap_serv)
     req_u_margen = Q_L * (1.0 + p["margen_diseno"]) / n_serv
-    # Alternativa: mas unidades en servicio con la misma enfriadora
+    # Menor cantidad de unidades en servicio con esta misma unidad
     n_serv_min = _techo(Q_L / cap_u)
-    # Alternativa: 3 en servicio + 1 de reserva con una unidad menor
-    req_u_3 = Q_L / 3.0
-    salida = None
-    if not cumple:
+    # Alternativa mas ajustada: 2 en servicio + 1 de reserva (tres unidades)
+    n2 = 2
+    cap_2 = n2 * cap_u
+    alt_2mas1 = dict(n_serv=n2, n_res=1, n_total=n2 + 1, cap_servicio=cap_2, margen_kW=cap_2 - Q_L, faltante_kW=max(0.0, Q_L - cap_2),
+                     faltante_rel=max(0.0, Q_L - cap_2) / Q_L, cumple=cap_2 >= Q_L, req_unidad=Q_L / n2, req_unidad_redondeada=_techo(Q_L / n2),
+                     req_unidad_con_margen=Q_L * (1.0 + p["margen_diseno"]) / n2)
+    # Con n_serv unidades en servicio, mas la reserva funcionando a carga parcial
+    carga_rel = (Q_L / n_serv) / cap_u
+    if cumple:
         salida = (
-            f"Con 2 unidades en servicio la 30XA 1002 cubre {coma(cap_serv)} kW de {coma(Q_L, 1)} kW "
-            f"(faltan {coma(faltante, 1)} kW, {coma(faltante / Q_L * 100, 1)} %). Es un faltante chico, dentro de la incertidumbre de los supuestos "
-            f"del modelo, pero no cumple. Salidas: (1) elegir el tamaño siguiente de la familia, 30XA 1102, y verificar en el catálogo que su "
-            f"capacidad a 35 °C y 12/7 °C sea al menos {coma(req_u, 1)} kW ({coma(req_u_margen)} kW si se quiere {coma(p['margen_diseno'] * 100)} % de margen); "
-            f"su capacidad no está verificada acá. (2) 3 unidades en servicio + 1 de reserva, cada una de al menos {coma(req_u_3, 1)} kW (tamaño no "
-            f"verificado). (3) Pedir la capacidad de la 30XA 1002 a 34 °C, la temperatura de diseño del modelo: sería algo mayor que a 35 °C, "
-            f"pero no hay cifra verificada."
+            f"Con {n_serv} unidades en servicio + {n_res} de reserva ({n_tot} iguales) la 30XA 1002 da {coma(cap_serv)} kW con una unidad parada, contra "
+            f"{coma(Q_L, 1)} kW de carga de diseño (margen +{coma(margen, 1)} kW, +{coma(margen / Q_L * 100)} %): cumple, con cada unidad en servicio al "
+            f"{coma(carga_rel * 100)} % de su capacidad nominal. Queda sobredimensionada respecto del pico: el margen cubre el calor de las bombas de agua helada "
+            f"(hasta {coma(W_bomba, 1)} kW, no incluido en la carga) y la diferencia entre los {coma(P['T_bs_ver'])} °C de diseño y los {coma(p['T_aire_cat'])} °C del catálogo. "
+            f"Alternativas: (1) {alt_2mas1['n_serv']} en servicio + 1 de reserva con la misma unidad da {coma(alt_2mas1['cap_servicio'])} kW de {coma(Q_L, 1)} kW: "
+            f"faltan {coma(alt_2mas1['faltante_kW'], 1)} kW ({coma(alt_2mas1['faltante_rel'] * 100, 1)} %) y no cumple. (2) La opción más ajustada es 2+1 con una unidad de "
+            f"al menos {coma(alt_2mas1['req_unidad_redondeada'])} kW ({coma(alt_2mas1['req_unidad'], 1)} kW sin margen; {coma(alt_2mas1['req_unidad_con_margen'])} kW si se quiere "
+            f"{coma(p['margen_diseno'] * 100)} % de margen): sería el tamaño siguiente de la familia, 30XA 1102, cuya capacidad no está verificada acá. (3) Pedir la capacidad de la "
+            f"30XA 1002 a {coma(P['T_bs_ver'])} °C, la temperatura de diseño del modelo: sería algo mayor que a {coma(p['T_aire_cat'])} °C y podría acercar la 2+1, pero no hay cifra verificada."
+        )
+    else:
+        salida = (
+            f"Con {n_serv} unidades en servicio la 30XA 1002 cubre {coma(cap_serv)} kW de {coma(Q_L, 1)} kW "
+            f"(faltan {coma(faltante, 1)} kW, {coma(faltante / Q_L * 100, 1)} %). Salidas: (1) pasar a {n_serv_min} unidades en servicio + {n_res} de reserva con esta misma unidad. "
+            f"(2) Elegir un tamaño mayor de la familia (30XA 1102, no verificada) con al menos {coma(req_u, 1)} kW por unidad ({coma(req_u_margen)} kW si se quiere "
+            f"{coma(p['margen_diseno'] * 100)} % de margen). (3) Pedir la capacidad de la 30XA 1002 a {coma(P['T_bs_ver'])} °C, la temperatura de diseño del modelo: "
+            f"sería algo mayor que a {coma(p['T_aire_cat'])} °C, pero no hay cifra verificada."
         )
     return dict(
-        Q_L=Q_L, n_serv=n_serv, n_res=n_res, n_total=n_serv + n_res, modelo=p["modelo_enf"],
+        Q_L=Q_L, n_serv=n_serv, n_res=n_res, n_total=n_tot, modelo=p["modelo_enf"],
         cap_unidad=cap_u, pot_unidad=pot_u, cap_servicio=cap_serv, req_unidad=req_u,
         req_unidad_con_margen=req_u_margen, margen_kW=margen, margen_rel=margen / Q_L, cumple=cumple,
-        faltante_kW=faltante, n_serv_minimo_con_esta_unidad=n_serv_min, req_unidad_3_en_servicio=req_u_3,
-        carga_por_unidad_kW=Q_L / n_serv, carga_relativa_unidad=(Q_L / n_serv) / cap_u,
+        faltante_kW=faltante, n_serv_minimo_con_esta_unidad=n_serv_min, req_unidad_3_en_servicio=Q_L / 3.0,
+        cap_una_parada=cap_parada, margen_una_parada_kW=cap_parada - Q_L, margen_una_parada_rel=(cap_parada - Q_L) / Q_L,
+        cumple_con_una_parada=cap_parada >= Q_L,
+        carga_por_unidad_kW=Q_L / n_serv, carga_relativa_unidad=carga_rel, carga_relativa_todas=Q_L / (n_tot * cap_u),
+        alt_2mas1=alt_2mas1,
         m_w_unidad=cap_u / (ah.CP_W * P["dT_aguahelada"]), salida=salida,
-        calor_bombas_max_kW=d["planta"]["W_bomba"],
+        calor_bombas_max_kW=W_bomba, cubre_con_bombas=cap_parada >= Q_L + W_bomba, margen_con_bombas_kW=cap_parada - (Q_L + W_bomba),
         nota_bombas=(f"Q_L es la suma de las serpentinas: no incluye el calor de las bombas de agua helada, que el modelo cuenta solo como "
-                     f"electricidad ({coma(d['planta']['W_bomba'], 1)} kW). Si se disipara todo en el agua, la carga de las enfriadoras subiria hasta "
-                     f"{coma(Q_L + d['planta']['W_bomba'], 1)} kW."),
+                     f"electricidad ({coma(W_bomba, 1)} kW). Si se disipara todo en el agua, la carga de las enfriadoras subiria hasta "
+                     f"{coma(Q_L + W_bomba, 1)} kW."),
     )
 
 
@@ -402,8 +446,10 @@ def hidraulica(c, p=None, d=None):
     Q_L = d["Q_L"]
     m_w = Q_L / (ah.CP_W * P["dT_aguahelada"])
     principal = _tramo(m_w, p)
-    ramal = _tramo(m_w / int(p["n_serv"]), p)
-    return dict(Q_L=Q_L, dT=P["dT_aguahelada"], m_w=m_w, principal=principal, ramal_enfriadora=ramal)
+    ramal = _tramo(m_w / int(p["n_serv"]), p)                       # caudal de diseno repartido entre las unidades en servicio
+    ramal_nominal = _tramo(p["cap_enf"] / (ah.CP_W * P["dT_aguahelada"]), p)   # si una unidad trabajara a su capacidad nominal
+    return dict(Q_L=Q_L, dT=P["dT_aguahelada"], m_w=m_w, principal=principal, ramal_enfriadora=ramal,
+                ramal_a_capacidad_nominal=ramal_nominal)
 
 
 # --------------------------------------------------------------------------------------
@@ -461,6 +507,7 @@ def shafts(c, p=None, d=None, u=None):
 # 7. Azotea: huella y carga
 # --------------------------------------------------------------------------------------
 def azotea(c, p=None):
+    """Huella y carga de las enfriadoras (todas las unidades, incluida la de reserva) sobre la losa de cubierta."""
     p = p or parametros()
     n = int(p["n_serv"]) + int(p["n_res"])
     A_unidad = p["huella_L"] * p["huella_W"]
@@ -484,7 +531,7 @@ MATRIZ_UBICACION = [
     ("estructura", "Carga estructural", 0.15, 2, 5,
      "La azotea exige losa y vigas para equipos (ver carga en kN/m2). A nivel el suelo la absorbe sin problema"),
     ("izaje", "Izaje y montaje", 0.15, 2, 4,
-     "Unidades de 14 m y 12 t a unos 15 m de altura: grua movil grande y corte de calle. A nivel basta una grua menor para descargar del camion"),
+     "Cuatro unidades de 14 m y 12 t a unos 15 m de altura: grua movil grande y corte de calle. A nivel basta una grua menor para descargar del camion"),
     ("canerias", "Recorrido de cañerías hacia las UTAs", 0.15, 4, 2,
      "11 de las 18 UTAs estan en cubierta: las canierias horizontales son cortas. Desde un patio a nivel habria que subir todo el agua helada por el nucleo tecnico"),
     ("mantenimiento", "Acceso para mantenimiento", 0.15, 3, 4,
@@ -528,6 +575,78 @@ UBICACION = {
 
 
 # --------------------------------------------------------------------------------------
+# 9. Planta tipo: geometria en metros (para la figura 11 y para comprobar que las areas cierran)
+# --------------------------------------------------------------------------------------
+def _area_rects(rects):
+    return sum((x1 - x0) * (y1 - y0) for (x0, y0, x1, y1) in rects)
+
+
+def planta_tipo(c, p=None, niv=None, sh=None, ut=None):
+    """Planta tipo del 1.er y del 2.º piso como rectangulos de superficie exactamente proporcional a los m2 del modelo.
+
+    Rectangulo equivalente de relacion largo/ancho Q4 con la superficie bruta de un nivel (x hacia el este, y hacia el norte, origen en la
+    esquina sudoeste; la calle esta al sur, Q5 y Q6). Se arma por franjas, con cortes que dependen solo de las superficies:
+      columna este (ancho wE)   2.º piso: nucleo tecnico (sur) + G1 y G2 contiguos al nucleo + G5 administracion (norte)
+                                1.er piso: el mismo nucleo, con los consultorios G5 pegados a su oeste
+      resto (oeste)             2.º piso: G3 internacion en dos alas (sur y norte) de igual superficie
+                                1.er piso: G4 en L (franja norte completa + pie en el sudoeste, con el acceso de guardia)
+    El nucleo tecnico (superficie no climatizada de cada nivel: locales tecnicos, morgue y depositos) ocupa el mismo lugar en los dos pisos.
+    Cada bloque es {id, zona, nombre, rects: [(x0, y0, x1, y1)], area_modelo, area_dibujada}.
+    """
+    p = p or parametros()
+    niv = niv or niveles(c, p)
+    sh = sh or shafts(c, p)
+    ut = ut or utas(c, p, None, niv)
+    A = niv["bruta_nivel"]
+    Wm = math.sqrt(A * p["aspecto_planta"])
+    Hm = A / Wm
+    por = {nv["nivel"]: {g: a for g, a, _t in nv["zonas"]} for nv in niv["niveles"]}
+    n1, n2 = por[1], por[2]
+    if set(n1) != {"G4", "G5"} or set(n2) != {"G1", "G2", "G3", "G5"}:
+        raise NotImplementedError("La planta tipo esta definida para la asignacion de zonas por defecto")
+    a_nc = niv["niveles"][0]["no_clim"]
+    wE = (a_nc + n2["G1"] + n2["G2"] + n2["G5"]) / Hm            # ancho de la columna este
+    dc = a_nc / wE                                                # profundidad del nucleo
+    xE = Wm - wE
+    nucleo_r = (xE, 0.0, Wm, dc)
+
+    def bloque(id_, zona, nombre, rects, area_modelo):
+        return dict(id=id_, zona=zona, nombre=nombre, rects=rects, area_modelo=area_modelo, area_dibujada=_area_rects(rects))
+
+    nucleo = bloque("NUCLEO", None, "Núcleo técnico", [nucleo_r], a_nc)
+
+    # 1.er piso
+    w5 = n1["G5"] / dc
+    pie = xE - w5                                                 # ancho del pie de G4 en el sudoeste
+    if dc >= Hm or pie < -1e-9:
+        raise ValueError("Las superficies no entran en la planta tipo del 1.er piso")
+    g4_rects = [(0.0, dc, Wm, Hm)] + ([(0.0, 0.0, pie, dc)] if pie > 1e-9 else [])
+    bl1 = [bloque("G4", "G4", "Guardia, diagnóstico y laboratorio", g4_rects, n1["G4"]),
+           bloque("G5", "G5", "Consultorios", [(pie, 0.0, xE, dc)], n1["G5"]), dict(nucleo)]
+    nivel1 = dict(nivel=1, nombre=NOMBRES_NIVEL[1], bloques=bl1, ingreso_x=pie + w5 / 2.0, acceso_guardia_x=pie / 2.0, ancho_pie_g4=pie)
+
+    # 2.º piso
+    dcr = (n2["G1"] + n2["G2"]) / wE                              # profundidad del bloque critico
+    w1 = n2["G1"] / dcr
+    y_g5 = dc + dcr
+    if y_g5 >= Hm:
+        raise ValueError("Las superficies no entran en la planta tipo del 2.º piso")
+    bl2 = [bloque("G1", "G1", "Quirófanos", [(xE, dc, xE + w1, y_g5)], n2["G1"]),
+           bloque("G2", "G2", "Terapia intensiva", [(xE + w1, dc, Wm, y_g5)], n2["G2"]),
+           bloque("G3-sur", "G3", "Internación, ala sur", [(0.0, 0.0, xE, Hm / 2.0)], n2["G3"] / 2.0),
+           bloque("G3-norte", "G3", "Internación, ala norte", [(0.0, Hm / 2.0, xE, Hm)], n2["G3"] / 2.0),
+           bloque("G5", "G5", "Administración", [(xE, y_g5, Wm, Hm)], n2["G5"]), dict(nucleo)]
+    nivel2 = dict(nivel=2, nombre=NOMBRES_NIVEL[2], bloques=bl2,
+                  utas_criticas=dict(G1=ut["por_zona"]["G1"]["n"], G2=ut["por_zona"]["G2"]["n"]), x_g1_g2=xE + w1)
+
+    nuc = dict(x0=xE, y0=0.0, x1=Wm, y1=dc, ancho=wE, prof=dc, area=a_nc, n_shafts=sh["n_shafts_agrupados"],
+               area_shaft=p["area_shaft"], area_shafts=sh["n_shafts_agrupados"] * p["area_shaft"],
+               area_vertical_neta=sh["A_vertical_total"])
+    return dict(W=Wm, H=Hm, A_nivel=A, aspecto=p["aspecto_planta"], wE=wE, dc=dc, xE=xE, nucleo=nuc, niveles={1: nivel1, 2: nivel2},
+                nota_3er_piso="El 3.er piso es todo G5 (administración y docencia) sobre el mismo núcleo técnico.")
+
+
+# --------------------------------------------------------------------------------------
 # Resumen
 # --------------------------------------------------------------------------------------
 def resumen_equipos(c, p=None):
@@ -535,10 +654,11 @@ def resumen_equipos(c, p=None):
     d = es.diseno(c)
     niv = niveles(c, p)
     ut = utas(c, p, d, niv)
+    sh = shafts(c, p, d, ut)
     return dict(
         p=p, diseno=d, niveles=niv, enfriadoras=enfriadoras(c, p, d), cop=comparacion_cop(c, p, d),
-        calderas=calderas(c, p, d), utas=ut, hidraulica=hidraulica(c, p, d), shafts=shafts(c, p, d, ut),
-        azotea=azotea(c, p), matriz=matriz_ubicacion(),
+        calderas=calderas(c, p, d), utas=ut, hidraulica=hidraulica(c, p, d), shafts=sh,
+        azotea=azotea(c, p), matriz=matriz_ubicacion(), planta=planta_tipo(c, p, niv, sh, ut),
     )
 
 
@@ -552,7 +672,8 @@ def main():
         zs = "; ".join(f"{g} {coma(a)} m2" for g, a, _t in nv["zonas"])
         print(f"  {nv['nombre']}: {zs}; no climatizada {coma(nv['no_clim'])} m2")
     print(f"Enfriadoras: Q_L {coma(enf['Q_L'], 1)} kW; {enf['n_serv']}+{enf['n_res']} de {enf['modelo']} "
-          f"({coma(enf['cap_unidad'])} kW): servicio {coma(enf['cap_servicio'])} kW, margen {coma(enf['margen_kW'], 1)} kW")
+          f"({coma(enf['cap_unidad'])} kW): servicio {coma(enf['cap_servicio'])} kW, con una parada {coma(enf['cap_una_parada'])} kW, "
+          f"margen {coma(enf['margen_kW'], 1)} kW ({coma(enf['margen_rel'] * 100, 1)} %), carga por unidad {coma(enf['carga_relativa_unidad'] * 100, 1)} %")
     if enf["salida"]:
         print("  ", enf["salida"])
     print("  ", cop["texto"])
@@ -563,11 +684,14 @@ def main():
     for g, r in ut["por_zona"].items():
         print(f"  {g}: {r['n']} x {coma(r['caudal_unidad'])} m3/h, {r['ubicacion']}")
     print(f"Agua helada: {coma(hid['m_w'], 1)} kg/s, DN {hid['principal']['DN']} (v = {coma(hid['principal']['v_real'], 2)} m/s); "
-          f"ramal DN {hid['ramal_enfriadora']['DN']}")
+          f"ramal por enfriadora DN {hid['ramal_enfriadora']['DN']} (v = {coma(hid['ramal_enfriadora']['v_real'], 2)} m/s)")
     print(f"Shafts: impulsión {coma(sh['A_imp_total'], 1)} m2, retorno {coma(sh['A_ret_total'], 1)} m2; verticales {coma(sh['A_vertical_total'], 1)} m2 "
           f"-> {sh['n_shafts_por_area']} shafts de {coma(R['p']['area_shaft'], 1)} m2")
-    print(f"Azotea: {coma(az['A_unidad'])} m2 por unidad, carga {coma(az['q_kN_m2'], 2)} kN/m2 ({coma(az['q_sobre_ref'], 2)} veces la referencia)")
+    print(f"Azotea: {az['n_unidades']} unidades de {coma(az['A_unidad'])} m2 = {coma(az['A_total'])} m2, carga {coma(az['q_kN_m2'], 2)} kN/m2 ({coma(az['q_sobre_ref'], 2)} veces la referencia)")
     print(f"Matriz: azotea {coma(mx['base']['azotea'], 2)} / patio {coma(mx['base']['patio'], 2)} -> {mx['ganador']}")
+    pl = R["planta"]
+    print(f"Planta tipo: {coma(pl['W'], 1)} x {coma(pl['H'], 1)} m; nucleo {coma(pl['nucleo']['ancho'], 1)} x {coma(pl['nucleo']['prof'], 1)} m, "
+          f"{pl['nucleo']['n_shafts']} shafts de {coma(pl['nucleo']['area_shaft'], 1)} m2")
 
 
 if __name__ == "__main__":

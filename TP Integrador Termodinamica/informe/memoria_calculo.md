@@ -1,6 +1,6 @@
 ---
 title: "Memoria de cálculo"
-subtitle: "TP Integrador de Termodinámica 2026 · Sistema térmico de un hospital del AMBA · Borrador v0.2"
+subtitle: "TP Integrador de Termodinámica 2026 · Sistema térmico de un hospital del AMBA · Borrador v0.3"
 author: "[Integrantes del equipo: a completar]"
 date: "Facultad de Ingeniería y Ciencias Agrarias · Ingeniería Civil · UCA · Noviembre de 2026"
 lang: es-AR
@@ -55,7 +55,7 @@ con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la
 
 Table: Tabla M1. Estados del aire en el quirófano (A a F). Las diferencias de una décima entre valores se deben al redondeo.
 
-![Figura M0. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=13cm}
+![Figura M1. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=13cm}
 
 # 3. Refrigeración
 
@@ -79,7 +79,7 @@ El rendimiento del motor es $\eta_{mot} = 0\text{,}94$ y el COP de Carnot usa te
 
 Table: Tabla M2. Estados del ciclo de refrigeración al punto de diseño de verano. Las diferencias de una décima entre valores se deben al redondeo.
 
-![Figura M0b. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=12cm}
+![Figura M2. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=12cm}
 
 # 4. Combustión
 
@@ -123,7 +123,7 @@ con $L$ = 100 L/(cama día), $N_{camas}$ = 158, $T_{ACS}$ = 60 °C, $T_{red}$ 
 
 Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + 4\text{,}5\,\text{K})$ y uno nocturno $(T_i - 4\text{,}5\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ 18 °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral. En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
 
-![Figura M1. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=14cm}
+![Figura M3. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=14cm}
 
 | Uso final | Energético | MWh/año | % del total | kWh/m² y año |
 |--------------------------------------------|--------------|------------|------------|------------|
@@ -159,7 +159,7 @@ La energía final suma electricidad y gas (PCS) kWh a kWh, sin ponderar por ener
 
 Table: Tabla M5. Las 12 variaciones que más mueven la energía final (caso base: 3.021 MWh).
 
-![Figura M2. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=14.5cm}
+![Figura M4. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=14.5cm}
 
 # 7. Alternativa B y mejoras: modelo
 
@@ -182,26 +182,27 @@ Todas las variantes se calculan con `calculo/mejoras.py`, que repite el cálculo
 | M3. Recuperador del aire de extracción | 2.867 | 1.764 | 1.103 | 872 | −5,1 % | −2,5 % |
 | M4. Ventiladores, 20 % menos de presión | 2.944 | 1.547 | 1.398 | 843 | −2,5 % | −5,8 % |
 | M5. Fotovoltaica | 2.681 | 1.396 | 1.285 | 765 | −11,3 % | −14,4 % |
-| Paquete B + M1 a M5 | 1.568 | 1.307 | 261 | 544 | −48,1 % | −39,2 % |
+| M6. Quirófanos al 50 % de noche | 2.962 | 1.680 | 1.282 | 873 | −2,0 % | −2,4 % |
+| Paquete B + M1 a M6 | 1.522 | 1.259 | 263 | 526 | −49,6 % | −41,2 % |
 
 Table: Tabla M6. Resultados de cada variante respecto de la alternativa A.
 
 | ID | Parámetro | Valor | Unidad | Nivel | Respaldo |
 |-----|----------------------------|--------|---------|------------|--------------------------------------|
-| M1 | Temperatura del agua caliente del recuperador de calor del condensador | 45 | C | SUPUESTO | Serpentina de recalentamiento que lleva aire de unos 13 C a 17-19 C: alcanza con agua tibia. Un caso de hospital con enfriadoras de recuperacion de calor usa agua a 115 F (46 C) en lugar de 180 F de caldera (Trane, caso Baylor Scott & White, via busqueda web) |
-| M2 | Diferencia minima entre la condensacion y el agua caliente del recuperador | 5 | K | SUPUESTO | Intercambiador de placas tipico |
-| M3 | Temperatura de los gases de escape de la caldera de condensacion | 45 | C | SUPUESTO | Agua de retorno a 40 C y 5 K de aproximacion; por debajo del rocio de los gases (unos 56 C) |
-| M4 | Superficie de colectores solares para el ACS | 300 | m2 | SUPUESTO | Unos 5 % de la azotea (6.117 m2 por nivel); tamano que no produce excedentes en verano |
-| M5 | Rendimiento medio anual de los colectores solares (sobre irradiacion horizontal) | 0,4 | - | SUPUESTO | Colector plano a 40-60 C con perdidas opticas y termicas; sin dato de catalogo |
-| M6 | Irradiacion global horizontal anual | 1700 | kWh/m2 anio | FUENTE SECUNDARIA | Global Solar Atlas, informe de un punto de la provincia de Buenos Aires a unos 300 km (coordenadas -37,16 -59,06), via busqueda web: es una cota alta para la ciudad; a confirmar con globalsolaratlas.info para las coordenadas del hospital |
-| M7 | Latitud del hospital | -34,7 | grados | SUPUESTO | La Matanza, Buenos Aires |
-| M8 | Potencia fotovoltaica instalada | 250 | kWp | SUPUESTO | Unos 1.250 m2 de paneles (5 m2/kWp) sobre una azotea de 6.117 m2 con equipos |
-| M9 | Relacion de rendimiento (performance ratio) de la instalacion fotovoltaica | 0,8 | - | SUPUESTO | Valor habitual de instalaciones nuevas (0,75 a 0,85); sin dato propio |
-| M10 | Efectividad del recuperador de calor del aire de extraccion con circuito de agua | 0,5 | - | FUENTE SECUNDARIA | Una comparacion de un fabricante da 45 a 55 % para circuitos de agua con aislacion total entre corrientes (via busqueda web) |
-| M11 | Caida de presion adicional del recuperador (cada lado) | 250 | Pa | SUPUESTO | Serpentina de 4 filas en cada corriente |
-| M12 | Factor sobre la presion de los ventiladores en la mejora de ventiladores | 0,8 | - | SUPUESTO | Filtros y conductos de menor perdida, ventiladores de velocidad variable |
-| M13 | Factor de emision de la electricidad de la red | 0,38 | tCO2/MWh | FUENTE SECUNDARIA | Meta de CAMMESA de 380 kg CO2e/MWh para 2023 (perfil de DitchCarbon, via busqueda web); es una meta y no un dato medido. Otras citas de busquedas: 0,288 t/MWh (Climate Transparency, datos de 2021, via Carbon Footprint) y unos 0,40 t/MWh (Ember, 2022). La Secretaria de Energia publica la serie oficial en datos.gob.ar: reemplazar |
-| M14 | Temperatura minima de descarga del compresor para recuperar calor sin subir la condensacion | 50 | C | SUPUESTO | Agua a 45 C mas 5 K de aproximacion |
+| PM1 | Temperatura del agua caliente del recuperador de calor del condensador | 45 | C | SUPUESTO | Serpentina de recalentamiento que lleva aire de unos 13 C a 17-19 C: alcanza con agua tibia. Un caso de hospital con enfriadoras de recuperacion de calor usa agua a 115 F (46 C) en lugar de 180 F de caldera (Trane, caso Baylor Scott & White, via busqueda web) |
+| PM2 | Diferencia minima entre la condensacion y el agua caliente del recuperador | 5 | K | SUPUESTO | Intercambiador de placas tipico |
+| PM3 | Temperatura de los gases de escape de la caldera de condensacion | 45 | C | SUPUESTO | Agua de retorno a 40 C y 5 K de aproximacion; por debajo del rocio de los gases (unos 56 C) |
+| PM4 | Superficie de colectores solares para el ACS | 300 | m2 | SUPUESTO | Unos 5 % de la azotea (6.117 m2 por nivel); tamano que no produce excedentes en verano |
+| PM5 | Rendimiento medio anual de los colectores solares (sobre irradiacion horizontal) | 0,4 | - | SUPUESTO | Colector plano a 40-60 C con perdidas opticas y termicas; sin dato de catalogo |
+| PM6 | Irradiacion global horizontal anual | 1700 | kWh/m2 anio | FUENTE SECUNDARIA | Global Solar Atlas, informe de un punto de la provincia de Buenos Aires a unos 300 km (coordenadas -37,16 -59,06), via busqueda web: es una cota alta para la ciudad; a confirmar con globalsolaratlas.info para las coordenadas del hospital |
+| PM7 | Latitud del hospital | -34,7 | grados | SUPUESTO | La Matanza, Buenos Aires |
+| PM8 | Potencia fotovoltaica instalada | 250 | kWp | SUPUESTO | Unos 1.250 m2 de paneles (5 m2/kWp) sobre una azotea de 6.117 m2 con equipos |
+| PM9 | Relacion de rendimiento (performance ratio) de la instalacion fotovoltaica | 0,8 | - | SUPUESTO | Valor habitual de instalaciones nuevas (0,75 a 0,85); sin dato propio |
+| PM10 | Efectividad del recuperador de calor del aire de extraccion con circuito de agua | 0,5 | - | FUENTE SECUNDARIA | Una comparacion de un fabricante da 45 a 55 % para circuitos de agua con aislacion total entre corrientes (via busqueda web) |
+| PM11 | Caida de presion adicional del recuperador (cada lado) | 250 | Pa | SUPUESTO | Serpentina de 4 filas en cada corriente |
+| PM12 | Factor sobre la presion de los ventiladores en la mejora de ventiladores | 0,8 | - | SUPUESTO | Filtros y conductos de menor perdida, ventiladores de velocidad variable |
+| PM13 | Factor de emision de la electricidad de la red | 0,38 | tCO2/MWh | FUENTE SECUNDARIA | Meta de CAMMESA de 380 kg CO2e/MWh para 2023 (perfil de DitchCarbon, via busqueda web); es una meta y no un dato medido. Otras citas de busquedas: 0,288 t/MWh (Climate Transparency, datos de 2021, via Carbon Footprint) y unos 0,40 t/MWh (Ember, 2022). La Secretaria de Energia publica la serie oficial en datos.gob.ar: reemplazar |
+| PM14 | Temperatura minima de descarga del compresor para recuperar calor sin subir la condensacion | 50 | C | SUPUESTO | Agua a 45 C mas 5 K de aproximacion |
 
 Table: Tabla M7. Parámetros de las mejoras y su respaldo.
 
@@ -213,7 +214,7 @@ Para cada equipo se plantea el esquema combustible–producto–pérdida, $\dot 
 
 $$\dot X = \dot m\,[(h - h_0) - T_0\,(s - s_0)], \qquad \dot X_Q = \dot Q\,\left(1 - \frac{T_0}{T}\right), \qquad \dot X_D = T_0\,\dot S_{gen}$$
 
-Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría casi al doble). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **recordadas, a cotejar con el libro de la cátedra**.
+Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría un 50 % (de 62 a 93 kW)). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **recordadas, a cotejar con el libro de la cátedra**.
 
 **Eficiencias.** Enfriadora: producto = exergía del frío, $\dot Q_L\,(T_0/T_{cw} - 1)$ con $T_{cw}$ la temperatura media logarítmica del agua helada (9,5 °C); caldera: producto = exergía del calor entregado al agua a 80/60 °C. Para el recalentador y el aire el producto puede ser negativo (se calienta aire que está por debajo del estado muerto): ahí solo se informa la destrucción.
 
@@ -231,10 +232,10 @@ Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gas
 | Destruida en: Caldera y ACS | 65 | 7,6 | 303 | 55,1 |
 | **Destruida en total** | **731** | **85,6** | **525** | **95,4** |
 
-Table: Tabla M14a. Reparto de la exergía de entrada en los dos casos analizados.
+Table: Tabla M8. Reparto de la exergía de entrada en los dos casos analizados.
 
 
-**Verano pico** (exterior a 34,0 °C; entrada 854 kW: 784 de electricidad y 71 de gas). Cierre del balance global: error relativo menor que $10^{-12}$.
+**Verano pico** (exterior a 34,0 °C; entrada 854 kW: 784 de electricidad y 71 de gas). Cierre del balance global: error relativo menor que $10^{-12}$ (es un cierre contable; la verificación física es $D = T_0 \dot S_{gen}$ en la serpentina, el compresor y la válvula).
 
 | Equipo | F [kW] | P [kW] | L [kW] | D [kW] | % de D | η exergética |
 |----------------------------------|---------|---------|---------|---------|---------|-------------|
@@ -255,7 +256,7 @@ Table: Tabla M14a. Reparto de la exergía de entrada en los dos casos analizados
 | Caldera de gas natural (combustión y transferencia) | 70,8 | 6,4 | 2,8 | 61,6 | 8,4 | 9,1 % |
 | Calentamiento de ACS (intercambiador y acumulación) | 4,5 | 0,4 | 0,8 | 3,3 | 0,4 | 9,5 % |
 
-Table: Tabla M15. Balance exergético por equipo, verano pico.
+Table: Tabla M9. Balance exergético por equipo, verano pico.
 
 **Máximo recalentamiento del año** (diciembre, noche; exterior a 18,9 °C; entrada 550 kW: 188 de electricidad y 363 de gas).
 
@@ -278,19 +279,19 @@ Table: Tabla M15. Balance exergético por equipo, verano pico.
 | Caldera de gas natural (combustión y transferencia) | 362,7 | 46,8 | 15,9 | 300,0 | 57,1 | 12,9 % |
 | Calentamiento de ACS (intercambiador y acumulación) | 6,4 | 2,0 | 1,2 | 3,1 | 0,6 | 31,8 % |
 
-Table: Tabla M16. Balance exergético por equipo, máximo recalentamiento.
+Table: Tabla M10. Balance exergético por equipo, máximo recalentamiento.
 
 ## 8.3 Sensibilidad al estado muerto
 
 Repetición del verano pico con otros estados muertos (el aire exterior queda fijo en 34 °C; la humedad de referencia a $T_0 \neq 34$ °C es la del aire a $T_0$ con la humedad relativa media anual):
 
-| T0 [°C] | D total [kW] | P total [kW] | L total [kW] | η global | η enfriadora | η caldera |
+| T0 [°C] | D total [kW] | P total [kW] | L total [kW] | η global | η planta de frío (compresor, ventiladores del condensador y bombas) | η caldera |
 |----------|--------------|--------------|--------------|--------------|----------------|--------------|
 | 34,0 | 731 | 63,2 | 60 | 7,4 % | 26,1 % | 9,1 % |
 | 25,0 | 714 | 25,2 | 115 | 3,0 % | 16,5 % | 11,4 % |
 | 17,5 | 700 | -20,8 | 176 | no definida | 8,5 % | 13,3 % |
 
-Table: Tabla M17. Sensibilidad al estado muerto. Con $T_0$ menor que el aire tratado, el producto del aire pasa a ser negativo y la eficiencia global deja de estar definida.
+Table: Tabla M11. Sensibilidad al estado muerto. Con $T_0$ menor que el aire tratado, el producto del aire pasa a ser negativo y la eficiencia global deja de estar definida.
 
 ## 8.4 Supuestos y convenciones
 
@@ -305,7 +306,7 @@ Table: Tabla M17. Sensibilidad al estado muerto. Con $T_0$ menor que el aire tra
 
 ## 9.1 Enfriadoras
 
-Carga de diseño $\dot Q_L$ = 1.987,2 kW; con 2 unidades en servicio cada una debe dar $\dot Q_L/2$ = 993,6 kW. La Carrier AquaForce 30XA 1002 da 988 kW nominales a 35 °C de aire exterior y agua 12/7 °C, con 288,2 kW de compresores (cita; no se abrió el catálogo). Margen $= 2 \cdot 988 - 1.987,2$ = −11,2 kW (0,6 %). Con el calor de las bombas (39,6 kW) la carga sería 2.027 kW y el faltante, 50,8 kW (2,6 %).
+Carga de diseño $\dot Q_L$ = 1.987,2 kW. Con 3 unidades en servicio cada una debe dar $\dot Q_L/3$ = 662,4 kW. La Carrier AquaForce 30XA 1002 da 988 kW nominales a 35 °C de aire exterior y agua 12/7 °C, con 288,2 kW de compresores (cita; no se abrió el catálogo). Con una unidad parada quedan $3 \cdot 988$ = 2.964 kW: margen +976,8 kW (+49 %), con cada unidad en servicio al 67,0 % de su capacidad nominal. Con el calor de las bombas (39,6 kW, que la carga no incluye) la carga sería 2.027 kW y todavía sobran 937,2 kW. La configuración 2+1 con la misma unidad da 1.976 kW y no cumple (faltan 11,2 kW, 0,6 %); necesitaría una unidad de al menos 994 kW, que no verificamos.
 
 COP de catálogo (compresores solos, 35 °C de aire): 3,43. COP del modelo (compresor solo, 34 °C de aire exterior, condensación a 46 °C): 3,56, 3,7 % por encima. Al mismo aire de 35 °C (condensación a 47 °C) el modelo da 3,45, 0,7 % respecto del catálogo: el 82 % de la diferencia viene de comparar 34 °C con 35 °C. Esa coincidencia a 35 °C no valida el modelo: η_is = 0,72 y η_motor = 0,94 son supuestos, el catálogo incluye pérdidas de aceite, economizador y variador que el modelo no tiene, y la pendiente del COP con la temperatura de la máquina real no está verificada. Ninguno de los dos COP incluye ventiladores del condensador ni bombas.
 
@@ -336,11 +337,11 @@ Carga de diseño $= 649 + 86$ = 734 kW (calefacción y humidificación de invie
 | UTA-G5-3 | G5 | 24.167 | cubierta | no |
 | UTA-G5-4 | G5 | 24.167 | cubierta | no |
 
-Table: Tabla M11. Unidades de tratamiento de aire (criterio: una por quirófano y hasta 25.000 m³/h por unidad en las demás zonas).
+Table: Tabla M12. Unidades de tratamiento de aire (criterio: una por quirófano y hasta 25.000 m³/h por unidad en las demás zonas).
 
 ## 9.4 Hidráulica y conductos
 
-Caudal de agua helada $\dot m_w = \dot Q_L/(c_p \Delta T)$ = 94,9 kg/s (342 m³/h). Diámetro para 2,0 m/s: $D = \sqrt{4\dot V/(\pi v)}$ = 246 mm, por lo que DN 250 con una velocidad real de 1,93 m/s; el ramal por enfriadora, DN 200 (1,51 m/s).
+Caudal de agua helada $\dot m_w = \dot Q_L/(c_p \Delta T)$ = 94,9 kg/s (342 m³/h). Diámetro para 2,0 m/s: $D = \sqrt{4\dot V/(\pi v)}$ = 246 mm, por lo que DN 250 con una velocidad real de 1,93 m/s; el ramal por enfriadora (un tercio del caudal, 114 m³/h), DN 150 (1,79 m/s); si una unidad trabajara a su capacidad nominal el caudal sería mayor y convendría DN 200.
 
 | Zona | Impulsión [m³/h] | A impulsión [m²] | A retorno [m²] | Shaft vertical [m²] | Shafts | Modo |
 |-------|------------|------------|-----------|------------|-------|---------------------------------------|
@@ -351,22 +352,22 @@ Caudal de agua helada $\dot m_w = \dot Q_L/(c_p \Delta T)$ = 94,9 kg/s (342 m�
 | G5 | 96.670 | 4,48 | 4,18 | 8,66 | 5 | UTA en cubierta: el shaft lleva impulsión y retorno |
 | Total | 264.774 | 12,26 | 10,62 | 21,51 | 14 |  |
 
-Table: Tabla M12. Shafts de aire (impulsión a 6 m/s y retorno a 5 m/s; para las zonas con la UTA en su nivel el shaft vertical lleva solo aire exterior y extracción).
+Table: Tabla M13. Shafts de aire (impulsión a 6 m/s y retorno a 5 m/s; para las zonas con la UTA en su nivel el shaft vertical lleva solo aire exterior y extracción).
 
 ## 9.5 Azotea y ubicación
 
-Huella de 14 × 3,5 = 49 m² por unidad (147 m² en total, 2,4 % de la cubierta). Carga media $q = 12 \cdot 9{,}81 / 49$ = 2,40 kN/m² contra 2,0 kN/m² de referencia (recordada).
+Huella de 14 × 3,5 = 49 m² por unidad, 4 unidades (196 m² en total, 3,2 % de la cubierta). Carga media $q = 12 \cdot 9{,}81 / 49$ = 2,40 kN/m² contra 2,0 kN/m² de referencia (supuesta; rango recordado de 1 a 5 kN/m², sin consultar la norma).
 
 | Criterio | Peso | Azotea (1 a 5) | Patio (1 a 5) | Razón |
 |--------------------|-------|---------|---------|-------------------------------------------------------|
 | Aire libre para el condensador | 20 % | 5 | 2 | En azotea el aire circula sin obstaculos. Un patio tecnico rodeado por el edificio recircula el aire caliente de descarga |
 | Ruido hacia internación y terapia intensiva | 20 % | 3 | 2 | En azotea el ruido queda arriba del 3.er piso (administracion y docencia), separado de la internacion por una losa. En el patio a nivel el equipo queda frente a ventanas del 1.er y 2.º piso |
 | Carga estructural | 15 % | 2 | 5 | La azotea exige losa y vigas para equipos (ver carga en kN/m2). A nivel el suelo la absorbe sin problema |
-| Izaje y montaje | 15 % | 2 | 4 | Unidades de 14 m y 12 t a unos 15 m de altura: grua movil grande y corte de calle. A nivel basta una grua menor para descargar del camion |
+| Izaje y montaje | 15 % | 2 | 4 | Cuatro unidades de 14 m y 12 t a unos 15 m de altura: grua movil grande y corte de calle. A nivel basta una grua menor para descargar del camion |
 | Recorrido de cañerías hacia las UTAs | 15 % | 4 | 2 | 11 de las 18 UTAs estan en cubierta: las canierias horizontales son cortas. Desde un patio a nivel habria que subir todo el agua helada por el nucleo tecnico |
 | Acceso para mantenimiento | 15 % | 3 | 4 | Azotea: acceso por escalera o montacargas, proteccion contra caidas, sin camion. Patio: acceso directo, reemplazo de componentes mas facil |
 
-Table: Tabla M13. Matriz de decisión entre azotea y patio a nivel. Puntaje ponderado: azotea 3,25, patio 3,05; con pesos iguales 3,17 en ambos; con estructura e izaje al doble, azotea 2,96 y patio 3,38.
+Table: Tabla M14. Matriz de decisión entre azotea y patio a nivel. Puntaje ponderado: azotea 3,25, patio 3,05; con pesos iguales 3,17 en ambos; con estructura e izaje al doble, azotea 2,96 y patio 3,38.
 
 ## 9.6 Supuestos de la selección de equipos
 
@@ -377,8 +378,13 @@ Table: Tabla M13. Matriz de decisión entre azotea y patio a nivel. Puntaje pond
 | Q2 | Superficie bruta de cada nivel | iguales (A_cub / n) | - | SUPUESTO | Sin planos: cada nivel recibe la misma superficie bruta (6.117 m2) y la misma superficie climatizada (5.200 m2) |
 | Q3 | El 1.er nivel esta a nivel de calle | 1.er nivel | - | SUPUESTO | Como FA-08 no menciona planta baja, el 1.er piso se toma a nivel de calle; el anexo de calderas se apoya en ese nivel |
 | Q4 | Relacion largo/ancho de la planta rectangular equivalente (solo para la figura) | 1,33333 | - | SUPUESTO | Esquema de la planta de cubierta con la misma superficie que un nivel; no hay planos del edificio real |
-| Q10 | Enfriadoras en servicio | 2 | unidades | SUPUESTO | Configuracion N+1: 2 en servicio |
-| Q11 | Enfriadoras de reserva | 1 | unidades | SUPUESTO | Configuracion N+1: 1 de reserva, 3 unidades iguales |
+| Q5 | Orientacion de las plantas dibujadas | norte arriba | - | SUPUESTO | Sin plano de implantación: se dibuja el norte hacia arriba solo para ubicar el dibujo. El modelo térmico no distingue orientaciones (una sola radiación pico para toda la envolvente) |
+| Q6 | Lado de la calle (frente y accesos) | sur | - | SUPUESTO | Sin plano de implantación: la calle se supone al sur. Del lado de la calle van los accesos, el núcleo técnico, el anexo de calderas y el izaje de las enfriadoras |
+| Q7 | Ubicacion del nucleo tecnico en planta | esquina sudeste, mismo lugar en cada nivel | - | SUPUESTO | Los locales técnicos, la morgue y los depósitos de cada nivel (superficie no climatizada: 918 m2) se agrupan en un bloque en el borde sur, del lado de la calle, para acortar el recorrido del agua helada desde las enfriadoras de la azotea y de los conductos de las zonas críticas; los shafts se apilan en él. Sus dimensiones salen de la superficie y de la columna este (Q8). La morgue y los depósitos no tienen m2 propios: están dentro de esos 918 m2 |
+| Q8 | Distribucion de las zonas dentro de la planta tipo | franjas; ver planta_tipo() | - | SUPUESTO | Zonas como rectángulos de superficie exactamente proporcional a sus m2, por franjas. 2.º piso: columna este con núcleo, G1 y G2 contiguos al núcleo (conducto corto desde las UTAs del cuarto técnico) y administración; internación G3 en dos alas (sur y norte) de igual superficie. 1.er piso: franja sur con consultorios (ingreso) y núcleo, y G4 en L con el acceso de guardia en el sudoeste. Sin planos del edificio real |
+| Q9 | Circulacion (pasillos y halls) | dentro de la superficie climatizada de cada zona | - | SUPUESTO | No se le asigna superficie propia ni queda un hueco en el dibujo: las áreas de zona del modelo ya la incluyen |
+| Q10 | Enfriadoras en servicio | 3 | unidades | SUPUESTO | N = 3 de una configuración N+1. Con la 30XA 1002 (988 kW) dos en servicio dan 1.976 kW y no alcanzan los 1.987 kW de diseño (faltan 11,2 kW, 0,6 %); con tres cada una trabaja al 67 % de su capacidad nominal en el diseño. Queda sobredimensionada respecto del pico: la opción más ajustada es 2+1 con una unidad de al menos 994 kW, y la 30XA 1102 no está verificada |
+| Q11 | Enfriadoras de reserva | 1 | unidades | SUPUESTO | 1 de reserva, 4 unidades iguales. Con una parada quedan 3 x 988 = 2.964 kW para 1.987 kW de diseño (margen +49 %). El margen cubre el calor de las bombas de agua helada (que la carga de diseño no incluye) y la diferencia entre los 34 °C de diseño y los 35 °C del catálogo |
 | Q12 | Enfriadora de ejemplo | Carrier AquaForce 30XA 1002 | - | FUENTE SECUNDARIA | Busqueda web sobre catalogos de Carrier; no se pudo abrir el catalogo. Enfriadora de tornillo condensada por aire |
 | Q13 | Capacidad nominal de la enfriadora de ejemplo | 988 | kW | FUENTE SECUNDARIA | Idem Q12. Con aire exterior a 35 C y agua helada 12/7 C |
 | Q14 | Potencia absorbida por los compresores de la enfriadora de ejemplo | 288,2 | kW | FUENTE SECUNDARIA | Idem Q12, mismas condiciones nominales. Solo compresores |
@@ -414,13 +420,17 @@ Table: Tabla M13. Matriz de decisión entre azotea y patio a nivel. Puntaje pond
 | Q57 | Area de un shaft tipo | 2 | m2 | SUPUESTO | Orden de magnitud para contar shafts; es area neta de conducto: el shaft real ocupa mas (aislacion, compuertas cortafuego, acceso) |
 | Q60 | Pesos y puntajes de la matriz de decision azotea / patio a nivel | ver MATRIZ_UBICACION | - | SUPUESTO | Juicio de ingenieria, sin ensayo ni calculo de ruido; el resultado se muestra con su sensibilidad a los pesos |
 
-Table: Tabla M14. Supuestos nuevos de la selección y ubicación de equipos, con su estado.
+Table: Tabla M15. Supuestos nuevos de la selección y ubicación de equipos, con su estado.
 :::
 
 
-# Anexo. Datos de entrada
+# Anexo A. Verificación del cálculo
 
-La tabla M8 muestra 41 de los 54 parámetros escalares; las tablas M9 y M10, las zonas y el clima. Estado de cada uno: **DATO** (leído de un documento recibido: E1, E3, E4 y E5 son del hospital base y S2 viene del artículo [H]), **SUPUESTO** (fundamentado pero sin fuente citable todavía) o **CONSTANTE** (convención de diseño o propiedad física). La tabla completa, con la justificación de cada uno, está en `informe/supuestos.md`.
+**140 chequeos** (`python -m pytest calculo/tests`): primera ley, segunda ley (COP menor que el de Carnot, destrucción de exergía no negativa), balance de átomos de la combustión, psicrometría contra CoolProp, reproducción de la tabla de supuestos y que las mejoras den el caso base cuando no se activan. El cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Los chequeos comprueban la coherencia interna, no que la física sea correcta. El núcleo del modelo se reimplementó de forma independiente a partir de nuestra propia especificación (coincidencia dentro de 0,24 %), lo que comprueba la transcripción del método y no su validez; las mejoras, la exergía y los equipos recibieron revisiones internas independientes pero **no** se reimplementaron. Sigue **sin verificar** lo propio y lo recordado.
+
+# Anexo B. Datos de entrada
+
+La tabla M16 muestra 41 de los 54 parámetros escalares; las tablas M9 y M10, las zonas y el clima. Estado de cada uno: **DATO** (leído de un documento recibido: E1, E3, E4 y E5 son del hospital base y S2 viene del artículo [H]), **SUPUESTO** (fundamentado pero sin fuente citable todavía) o **CONSTANTE** (convención de diseño o propiedad física). La tabla completa, con la justificación de cada uno, está en `informe/supuestos.md`.
 
 ::: {custom-style="Largo"}
 | ID | Parámetro | Valor | Unidad | Estado |
@@ -467,7 +477,7 @@ La tabla M8 muestra 41 de los 54 parámetros escalares; las tablas M9 y M10, las
 | S3 | Temperatura del agua fría de entrada | 17 | °C | SUPUESTO |
 | S4 | Factor por pérdidas de acumulación y recirculación | 1,3 | – | SUPUESTO |
 
-Table: Tabla M8. Parámetros principales del modelo.
+Table: Tabla M16. Parámetros principales del modelo.
 :::
 
 | Zona | Superficie [m²] | Consigna de verano | Renovaciones mínimas, totales / de aire exterior [1/h] | Caudal de impulsión [m³/h] | Renovaciones resultantes [1/h] | Aire exterior [m³/h] | Funcionamiento |
@@ -478,7 +488,7 @@ Table: Tabla M8. Parámetros principales del modelo.
 | G4 Guardia, imágenes y laboratorio | 3.843 | 24 °C; 60 % | 8 / 2 | 92.225 | 8,0 | 23.056 | 24 h |
 | G5 Consultorios, administración y docencia | 7.136 | 24 °C; 60 % | 3 / 1 | 96.670 | 4,5 | 21.409 | 12 h, lunes a viernes |
 
-Table: Tabla M9a. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento.
+Table: Tabla M17. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento.
 
 | Zona | Ganancias internas sensible / latente [W/m²] | Actividad de día / de noche | Consigna de invierno (T; HR mínima) | Fracción de envolvente expuesta | Presión del ventilador [Pa] | Días por semana |
 |--------------------------|----------------|------------|----------------|----------|----------|----------|
@@ -488,7 +498,7 @@ Table: Tabla M9a. Zonas, consignas de verano, renovaciones mínimas (totales / d
 | G4 Guardia, imágenes y laboratorio | 35 / 8 | 0,9 / 0,5 | 22 °C; 30 % | 1,0 | 1.000 | 7 |
 | G5 Consultorios, administración y docencia | 25 / 6 | 0,9 / 0,0 | 22 °C; 30 % | 1,0 | 900 | 5 |
 
-Table: Tabla M9. Parámetros de las zonas (todos supuestos; las renovaciones están en el informe). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche.
+Table: Tabla M18. Parámetros de las zonas (todos supuestos; las renovaciones mínimas están en la tabla anterior). La actividad es la fracción de la ganancia interna de plena actividad que hay de día y de noche.
 
 | Mes | ene | feb | mar | abr | may | jun |
 |------------------------|------------|------------|------------|------------|------------|------------|
@@ -500,4 +510,4 @@ Table: Tabla M9. Parámetros de las zonas (todos supuestos; las renovaciones est
 | T media [°C] | 10,9 | 12,3 | 14,2 | 17,6 | 20,6 | 23,4 |
 | HR media [%] | 77 | 73 | 71 | 70 | 67 | 65 |
 
-Table: Tabla M10. Clima mensual aproximado, en dos semestres (supuesto de conocimiento general, a reemplazar con datos del SMN).
+Table: Tabla M19. Clima mensual aproximado, en dos semestres (supuesto de conocimiento general, a reemplazar con datos del SMN).
