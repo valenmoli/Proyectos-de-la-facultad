@@ -3,7 +3,7 @@
   size: A4;
   margin: 20mm 22mm 22mm 22mm;
   @bottom-center {
-    content: "Borrador v0.1 · TP Integrador de Termodinámica 2026 · Página " counter(page);
+    content: "Borrador v0.2 · TP Integrador de Termodinámica 2026 · Página " counter(page);
     font: 8pt Carlito, Calibri, sans-serif;
     color: #52514e;
   }

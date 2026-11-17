@@ -62,10 +62,12 @@ def caudales(c):
     return out
 
 
-def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
+def proceso(c, g, caud, T_out, W_out, f_int, q_sol, T_oa=None):
     """Tratamiento del aire de la zona g para un estado exterior y una actividad dados.
 
     Devuelve las cargas de la serpentina, el recalentamiento, la calefaccion y la humidificacion [kW].
+    T_oa: temperatura con que el aire exterior entra a la mezcla si hay recuperador de calor del aire de extraccion
+    (None = sin recuperador; el resto del calculo usa siempre la temperatura exterior real T_out).
     """
     P, z = c["P"], c["Z"][g]
     pres = P["presion"]
@@ -97,7 +99,7 @@ def proceso(c, g, caud, T_out, W_out, f_int, q_sol):
 
     # Mezcla de aire exterior y retorno
     x = m_oa / m_sup
-    h_mix = x * ah.entalpia(T_out, W_out) + (1 - x) * ah.entalpia(T_r, W_ret)
+    h_mix = x * ah.entalpia(T_out if T_oa is None else T_oa, W_out) + (1 - x) * ah.entalpia(T_r, W_ret)
     W_mix = x * W_out + (1 - x) * W_ret
     T_mix = ah.t_desde_entalpia(h_mix, W_mix)
 
