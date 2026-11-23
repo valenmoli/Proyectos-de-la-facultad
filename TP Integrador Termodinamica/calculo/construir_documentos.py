@@ -341,6 +341,21 @@ def secciones_agentes(V, T, c):
         extra_inf["<<CUMPLE_ENF>>"] = vv.get("_cumple_enf", "")
     except ImportError:
         pass
+    from . import referencias
+    V.update(referencias.valores_ref())
+    T["lista_referencias"] = referencias.lista_referencias()
+    try:
+        from . import memoria_extra
+        T.update(memoria_extra.tablas_memoria(c, V, T))
+        V.update(memoria_extra.valores_memoria(c, V, T))
+    except ImportError:
+        pass
+    try:
+        from . import informe_extra
+        T.update(informe_extra.tablas_informe(c, V, T))
+        V.update(informe_extra.valores_informe(c, V, T))
+    except ImportError:
+        pass
     return extra_inf, extra_mem
 
 
@@ -350,7 +365,10 @@ def main():
     c = supuestos.defaults()
     extra_inf, extra_mem = secciones_agentes(V, T, c)
     pdf = "--sin-pdf" not in sys.argv
+    solo = next((x.split("=", 1)[1] for x in sys.argv if x.startswith("--solo=")), None)   # --solo=informe | --solo=memoria
     for (plantilla, salida), extra in zip(DOCS, (extra_inf, extra_mem)):
+        if solo and not salida.startswith(solo):
+            continue
         render(plantilla, salida, V, T, extra)
         a_docx_pdf(salida, pdf)
         print("escrito:", salida)
