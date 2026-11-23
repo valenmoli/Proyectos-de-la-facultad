@@ -525,17 +525,17 @@ def azotea(c, p=None):
 # (clave, criterio, peso, puntaje azotea, puntaje patio, justificacion). Puntajes 1 (malo) a 5 (bueno).
 MATRIZ_UBICACION = [
     ("aire", "Aire libre para el condensador", 0.20, 5, 2,
-     "En azotea el aire circula sin obstaculos. Un patio tecnico rodeado por el edificio recircula el aire caliente de descarga"),
+     "En azotea el aire circula sin obstáculos. Un patio técnico rodeado por el edificio recircula el aire caliente de descarga"),
     ("ruido", "Ruido hacia internación y terapia intensiva", 0.20, 3, 2,
-     "En azotea el ruido queda arriba del 3.er piso (administracion y docencia), separado de la internacion por una losa. En el patio a nivel el equipo queda frente a ventanas del 1.er y 2.º piso"),
+     "En azotea el ruido queda arriba del 3.er piso (administración y docencia), separado de la internación por una losa. En el patio a nivel el equipo queda frente a ventanas del 1.er y 2.º piso"),
     ("estructura", "Carga estructural", 0.15, 2, 5,
-     "La azotea exige losa y vigas para equipos (ver carga en kN/m2). A nivel el suelo la absorbe sin problema"),
+     "La azotea exige losa y vigas para equipos (ver la carga en kN/m²). A nivel el suelo la absorbe sin problema"),
     ("izaje", "Izaje y montaje", 0.15, 2, 4,
-     "Cuatro unidades de 14 m y 12 t a unos 15 m de altura: grua movil grande y corte de calle. A nivel basta una grua menor para descargar del camion"),
+     "Cuatro unidades de 14 m y 12 t a unos 15 m de altura: grúa móvil grande y corte de calle. A nivel basta una grúa menor para descargar del camión"),
     ("canerias", "Recorrido de cañerías hacia las UTAs", 0.15, 4, 2,
-     "11 de las 18 UTAs estan en cubierta: las canierias horizontales son cortas. Desde un patio a nivel habria que subir todo el agua helada por el nucleo tecnico"),
+     "11 de las 18 UTAs están en cubierta: las cañerías horizontales son cortas. Desde un patio a nivel habría que subir todo el agua helada por el núcleo técnico"),
     ("mantenimiento", "Acceso para mantenimiento", 0.15, 3, 4,
-     "Azotea: acceso por escalera o montacargas, proteccion contra caidas, sin camion. Patio: acceso directo, reemplazo de componentes mas facil"),
+     "Azotea: acceso por escalera o montacargas, protección contra caídas, sin camión. Patio: acceso directo, reemplazo de componentes más fácil"),
 ]
 UBICACIONES = ("azotea", "patio a nivel")
 

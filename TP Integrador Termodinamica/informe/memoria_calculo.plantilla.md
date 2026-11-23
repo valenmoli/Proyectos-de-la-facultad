@@ -37,7 +37,7 @@ Anexos: A, cifras del informe y dónde se calculan; B, verificación del cálcul
 
 El sistema térmico se divide en cuatro sistemas de estudio, cada uno un volumen de control en régimen permanente en cada estado considerado. La tabla Msist da sus límites y los flujos que los cruzan; la figura Mesq los muestra en conjunto (las letras A a F son los estados del aire de la tabla Mpsicro).
 
-![Figura Mesq. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=12cm}
+![Figura Mesq. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=11.5cm}
 
 {{tabla_sistemas}}
 
@@ -111,7 +111,7 @@ con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la
 
 $$\dot V = {{mx_g1_ach_m}} \cdot {{mx_g1_A_m}} \cdot {{mx_g1_h_m}} = {{mx_g1_V_m}}\ \text{m}^3/\text{h} = {{mx_g1_Vs_m}}\ \text{m}^3/\text{s}, \qquad \dot m_a = \rho\,\dot V = 1\text{,}2 \cdot {{mx_g1_Vs_m}} = {{mx_g1_ma_m}}\ \text{kg/s}$$
 
-El aire exterior son {{mx_g1_ach_oa}} de las {{mx_g1_ach}} renovaciones: $\dot m_{ae}$ = {{mx_g1_mae_m}} kg/s y $x_{ae} = \dot m_{ae}/\dot m_a$ = {{mx_g1_xae_m}}. El caudal que pediría solo la carga sensible, $\dot m_{sens} = \dot Q_s/[c_{p,ah}\,(T_r - 13)]$ = {{mx_g1_Qs_m}}/[{{mx_g1_cpr_m}} · ({{mx_g1_Tr_m}} − 13)] = {{mx_g1_msens_m}} kg/s, es menor: **en el quirófano manda la norma, no la carga térmica**.
+El aire exterior son {{mx_g1_ach_oa}} de las {{mx_g1_ach}} renovaciones: $\dot m_{ae}$ = {{mx_g1_mae}} kg/s y $x_{ae} = \dot m_{ae}/\dot m_a$ = {{mx_g1_xae}}. El caudal que pediría solo la carga sensible es $\dot m_{sens} = \dot Q_s/[c_{p,ah}\,(T_r - 13)] = {{mx_g1_Qs_m}}/[{{mx_g1_cpr_m}}\,({{mx_g1_Tr_m}} - 13)] = {{mx_g1_msens_m}}\ \text{kg/s}$ ({{mx_g1_msens_V}} m³/h, {{mx_g1_msens_ach}} renovaciones por hora), {{mx_g1_ratio}} veces menos que las {{mx_g1_ach}} de la norma: **en el quirófano manda la norma, no la carga térmica**.
 
 **2. Estados del aire** (tabla Mpsicro). El exterior (A) y el retorno (B, en el estado de consigna) se mezclan (C):
 
@@ -133,27 +133,27 @@ $$\dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}} = \frac{ {{mx_g1_Vs_m}} \
 
 $$T_{obj} = T_{imp} - \Delta T_{vent} = {{mx_g1_Timp3_m}} - {{mx_g1_dTvent_m}} = {{mx_g1_Tobj_m}}\ °\text{C}$$
 
-**5. Serpentina.** La serpentina lleva el aire a $\omega_c$ = {{mx_g1_Wc_m}} g/kg; con 95 % de humedad relativa a la salida resulta $T_c$ = {{mx_g1_Tc_m}} °C, $h_c$ = {{mx_g1_hc_m}} kJ/kg y $h_f = 4\text{,}186 \cdot {{mx_g1_Tc_m}}$ = {{mx_g1_hf_m}} kJ/kg. Se condensan $\dot m_{cond}$ = {{mx_g1_ma_m}} · ({{mx_g1_Wmez_m}} − {{mx_g1_Wc_m}}) · 10⁻³ = {{mx_g1_mcond_gs_m}} g/s ({{mx_g1_mcond_h_m}} kg/h).
+**5. Serpentina.** La serpentina lleva el aire a $\omega_c$ = {{mx_g1_Wc}} g/kg; con 95 % de humedad relativa a la salida resulta $T_c$ = {{mx_g1_Tc2}} °C y $h_c$ = {{mx_g1_hc}} kJ/kg, y el condensado sale a esa temperatura: $h_f = 4\text{,}186 \cdot {{mx_g1_Tc_m}} = {{mx_g1_hf_m}}$ kJ/kg. Se condensan $\dot m_{cond} = {{mx_g1_ma_m}} \cdot ({{mx_g1_Wmez_m}} - {{mx_g1_Wc_m}}) \cdot 10^{-3} = {{mx_g1_mcond_gs_m}}$ g/s ({{mx_g1_mcond_h}} kg/h).
 
 $$\dot Q_{serp} = {{mx_g1_ma_m}}\,\big[({{mx_g1_hmez_m}} - {{mx_g1_hc_m}}) - {{mx_g1_dWk_m}} \cdot {{mx_g1_hf_m}}\big] = {{mx_g1_ma_m}} \cdot {{mx_g1_corchete_m}} = {{mx_g1_Qserp_m}}\ \text{kW}$$
 
 $$\dot Q_{lat} = {{mx_g1_ma_m}} \cdot {{mx_g1_dWk_m}} \cdot 2501 = {{mx_g1_Qlat_m}}\ \text{kW}, \qquad \dot Q_{sens} = {{mx_g1_Qserp_m}} - {{mx_g1_Qlat_m}} = {{mx_g1_Qsens_m}}\ \text{kW}$$
 
-**6. Recalentador.** Con $c_{p,ah}$ = 1,006 + 1,86 · {{mx_g1_Wc_k_m}} = {{mx_g1_cpc_m}} kJ/(kg K):
+**6. Recalentador.** Con $c_{p,ah} = 1\text{,}006 + 1\text{,}86 \cdot {{mx_g1_Wc_k_m}} = {{mx_g1_cpc_m}}$ kJ/(kg K):
 
 $$\dot Q_{rec} = \dot m_a\,c_{p,ah}\,(T_{obj} - T_c) = {{mx_g1_ma_m}} \cdot {{mx_g1_cpc_m}} \cdot ({{mx_g1_Tobj_m}} - {{mx_g1_Tc_m}}) = {{mx_g1_ma_m}} \cdot {{mx_g1_cpc_m}} \cdot {{mx_g1_dTobj_m}} = {{mx_g1_Qrec_m}}\ \text{kW}$$
 
-El aire sale del recalentador a {{mx_g1_Tobj}} °C, el ventilador lo calienta {{mx_g1_dTvent}} K y se impulsa a {{mx_g1_Timp}} °C con {{mx_g1_hr_imp}} % de humedad relativa.
+El aire sale del recalentador a {{mx_g1_Tobj2}} °C, el ventilador lo calienta {{mx_g1_dTvent2}} K y se impulsa a {{mx_g1_Timp}} °C con {{mx_g1_hr_imp}} % de humedad relativa.
 
 {{tabla_psicro_m}}
 
 Table: Tabla Mpsicro. Estados del aire en el quirófano (A a F), verano pico, con las cifras necesarias para repetir a mano las cuentas de este apartado.
 
-![Figura Mpsicro. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=11cm}
+![Figura Mpsicro. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=9.5cm}
 
 ## 3.3 Cargas de diseño de verano por zona
 
-La misma cuenta, con $f_{act}$ = 1 y $q_{sol}$ = {{mx_q_sol_pico}} W/m², da la carga de cada zona (tabla Mcargas). En G2 a G5 la envolvente expuesta ($f_{env}$ = 0,5 en G2 y 1 en las demás) suma conducción y sol: $\dot Q_s = A\,[q_s + f_{env}\,(U\,(T_{ext} - T_r) + q_{sol})]$. Solo G1 recalienta en el punto de diseño: en las demás zonas la serpentina sale a la temperatura que pide la impulsión y no hace falta devolverle calor. La carga frigorífica de diseño es la suma de las serpentinas:
+La misma cuenta, con $f_{act}$ = 1 y $q_{sol}$ = {{mx_q_sol_pico}} W/m², da la carga de cada zona (tabla Mcargas). En G2 a G5 la envolvente expuesta ($f_{env}$ = 0,5 en G2 y 1 en las demás) suma conducción y sol: $\dot Q_s = A\,[q_s + f_{env}\,(U\,(T_{ext} - T_r) + q_{sol})]$. Solo G1 recalienta en el punto de diseño: en las demás zonas el aire sale de la serpentina a $T_{obj}$ (el calor del ventilador alcanza para llegar a la temperatura de impulsión) y no hace falta recalentar. La carga frigorífica de diseño es la suma de las serpentinas:
 
 $$\dot Q_L = \sum_{zona} \dot Q_{serp} = {{mx_cargas_suma_m}} = {{mx_QL_m}}\ \text{kW}\quad({{mx_QL_wm2}}\ \text{W/m}^2\text{ cubierto})$$
 
@@ -179,7 +179,7 @@ $$\dot m_w = \frac{\dot Q_L}{c_p\,\Delta T}, \qquad \dot W_{bomba} = \frac{\dot 
 
 ## 4.2 Caso resuelto: punto de diseño de verano
 
-Con $\dot Q_L$ = {{mx_QL_m}} kW, $T_{ev}$ = {{T_ev}} °C ({{mx_cic_pev_m}} kPa) y $T_{cond}$ = máx({{T_ext_ver}} + {{dT_cond}}; {{T_cond_min}}) = {{mx_cic_Tcond_m}} °C ({{mx_cic_pc_m}} kPa). El estado 2 sale de $h_2 = h_1 + (h_{2s} - h_1)/\eta_{is}$ = {{mx_cic_h1_m}} + ({{mx_cic_h2s_m}} − {{mx_cic_h1_m}})/{{eta_is_m}} = {{mx_cic_h2_m}} kJ/kg.
+Con $\dot Q_L$ = {{mx_QL}} kW, $T_{ev}$ = {{T_ev}} °C ({{mx_cic_pev}} kPa) y $T_{cond}$ = máx({{T_ext_ver}} + {{dT_cond}}; {{T_cond_min}}) = {{mx_cic_Tcond}} °C ({{mx_cic_pc}} kPa). El estado 2 sale de $h_2 = h_1 + (h_{2s} - h_1)/\eta_{is} = {{mx_cic_h1_m}} + ({{mx_cic_h2s_m}} - {{mx_cic_h1_m}})/{{eta_is_m}} = {{mx_cic_h2_m}}$ kJ/kg.
 
 {{tabla_ciclo_m}}
 
@@ -191,15 +191,17 @@ $$q_H = h_2 - h_3 = {{mx_cic_h2_m}} - {{mx_cic_h3_m}} = {{mx_cic_qH_m}}\ \text{k
 
 $$COP_{eje} = \frac{ {{mx_cic_qL_m}} }{ {{mx_cic_w_m}} } = {{mx_cic_copeje_m}}, \qquad COP_{el} = {{mx_cic_copeje_m}} \cdot {{eta_motor_m}} = {{mx_cic_copel_m}}, \qquad COP_{Carnot} = \frac{ {{mx_cic_Tev_K_m}} }{ {{mx_cic_Tc_K_m}} - {{mx_cic_Tev_K_m}} } = {{mx_cic_carnot_m}}$$
 
-El COP eléctrico es el {{mx_cic_etaII_m}} % del de Carnot. Con ellos:
+El COP eléctrico es el {{mx_cic_etaII}} % del de Carnot. Con ellos:
 
 $$\dot W_{comp} = \frac{ {{mx_QL_m}} }{ {{mx_cic_copel_m}} } = {{mx_cic_Wcomp_m}}\ \text{kW}, \qquad \dot m_{ref} = \frac{ {{mx_QL_m}} }{ {{mx_cic_qL_m}} } = {{mx_cic_mref_m}}\ \text{kg/s}$$
 
 $$\dot Q_{cond} = {{mx_QL_m}} + {{eta_motor_m}} \cdot {{mx_cic_Wcomp_m}} = {{mx_cic_Qcond_m}}\ \text{kW} \quad (= {{mx_cic_mref_m}} \cdot {{mx_cic_qH_m}}\ \text{kW})$$
 
-Auxiliares: $\dot W_{cond}$ = 0,025 · {{mx_cic_Qcond_m}} = {{mx_cic_Wcond_m}} kW; $\dot m_w$ = {{mx_QL_m}}/(4,186 · {{dT_ah}}) = {{mx_cic_mw_m}} kg/s; $\dot W_{bomba}$ = ({{mx_cic_mw_m}}/1.000) · {{dP_bomba}}/{{eta_bomba}} = {{mx_cic_Wbomba_m}} kW.
+Auxiliares:
 
-![Figura Mph. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=10.5cm}
+$$\dot W_{cond} = 0\text{,}025 \cdot {{mx_cic_Qcond_m}} = {{mx_cic_Wcond_m}}\ \text{kW}, \qquad \dot m_w = \frac{ {{mx_QL_m}} }{4\text{,}186 \cdot {{dT_ah_m}} } = {{mx_cic_mw_m}}\ \text{kg/s}, \qquad \dot W_{bomba} = \frac{ {{mx_cic_mw_m}} }{1.000} \cdot \frac{ {{dP_bomba_m}} }{ {{eta_bomba_m}} } = {{mx_cic_Wbomba_m}}\ \text{kW}$$
+
+![Figura Mph. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=9.5cm}
 
 # 5. Combustión: reacción, poder calorífico, rendimiento y consumo de gas {#sec-combustion}
 
@@ -217,9 +219,9 @@ $$PCI = \sum_i y_i\,PCI_i = {{mx_pci_suma_m}} = {{mx_pci_m}}\ \text{kJ/kmol}$$
 
 {{tabla_pci}}
 
-Table: Tabla Mpci. Poder calorífico inferior de la mezcla: $PCI_i$ de cada componente con las entalpías de formación de la tabla Mprop; los inertes (N₂ y CO₂) no aportan.
+Table: Tabla Mpci. Poder calorífico inferior y superior de la mezcla: $PCI_i$ y $PCS_i$ de cada componente con las entalpías de formación de la tabla Mprop; los inertes (N₂ y CO₂) no aportan.
 
-El volumen molar a 15 °C y 101,325 kPa es $v = R\,T/P$ = 8,3145 · 288,15/101,325 = {{mx_vmolar_m}} m³/kmol, de modo que
+El volumen molar a 15 °C y 101,325 kPa es $v = R\,T/P = 8\text{,}3145 \cdot 288\text{,}15/101\text{,}325 = {{mx_vmolar_m}}$ m³/kmol, de modo que
 
 $$PCI = \frac{ {{mx_pci_m}} }{ {{mx_vmolar_m}} } = {{mx_pci_m3_m}}\ \text{kJ/m}^3 = {{PCI_kWh_m}}\ \text{kWh/m}^3, \qquad PCS = \frac{ {{mx_pcs_m}} }{ {{mx_vmolar_m}} } = {{mx_pcs_m3_m}}\ \text{kJ/m}^3 = {{PCS_kWh_m}}\ \text{kWh/m}^3 = {{PCS_kcal_m}}\ \text{kcal/m}^3$$
 
@@ -259,7 +261,7 @@ La **temperatura de llama adiabática** (combustión completa, sin disociación)
 | Gas por kWh de calor útil | {{gas_m3_kWh}} m³ |
 | Emisión de CO₂ del gas, de la reacción | {{co2_gas_kg}} kg por kWh de PCI ({{co2_gas_GJ}} kg/GJ) |
 
-Table: Tabla Mcomb. Combustión del gas natural y rendimiento de la caldera. El rocío sale de la presión parcial del agua, $y_{H_2O}\,P$ = {{mx_pv_m}} kPa; el CO₂ del gas, de {{co2_prod_m}} kmol de CO₂ por kmol de gas: $1\text{,}050 \cdot 44\text{,}01/({{mx_pci_m}}/3.600)$ kg por kWh de PCI.
+Table: Tabla Mcomb. Combustión del gas natural y rendimiento de la caldera. El rocío sale de la presión parcial del agua, $y_{H_2O}\,P$ = {{mx_pv}} kPa; el CO₂ del gas, de {{co2_prod}} kmol de CO₂ por kmol de gas a 44,01 kg/kmol, con {{mx_pci}} kJ/kmol de PCI (3.600 kJ por kWh).
 
 ## 5.3 Caldera de condensación
 
@@ -281,9 +283,9 @@ con $L$ = {{L_cama}} L/(cama día), $N_{camas}$ = {{camas_tot}}, $T_{ACS}$ = {{T
 
 ## 6.2 Método anual y consumo por uso final
 
-Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + {{dT_dia}}\,\text{K})$ y uno nocturno $(T_i - {{dT_dia}}\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ {{T_cambio}} °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral. En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
+Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + {{dT_dia_m}}\,\text{K})$ y uno nocturno $(T_i - {{dT_dia_m}}\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ {{T_cambio}} °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral. En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
 
-![Figura Mmes. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=12.5cm}
+![Figura Mmes. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=11cm}
 
 {{tabla_usos}}
 
@@ -297,23 +299,23 @@ Con los resultados anuales del cálculo anterior (en MWh):
 
 $$Q_{util} = Q_{rec} + Q_{cal} + Q_{hum} + Q_{ACS} = {{mx_q_rec_m}} + {{mx_q_cal_m}} + {{mx_q_hum_m}} + {{mx_q_acs_m}} = {{mx_q_tot_m}}\ \text{MWh}$$
 
-El recalentamiento es el {{mx_pct_rec_m}} % del calor útil de la caldera. El gas y la electricidad son
+El recalentamiento es el {{mx_pct_rec}} % del calor útil de la caldera. El gas y la electricidad son
 
-$$E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI} = \frac{ {{mx_q_tot_m}} }{ {{mx_eta_m}} } \cdot {{PCS_PCI_m}} = {{mx_Egas_m}}\ \text{MWh} = {{mx_Vgas_m}}\ \text{m}^3, \qquad E_{elec} = {{mx_e_comp_m}} + {{mx_e_cond_m}} + {{mx_e_bomb_m}} + {{mx_e_vent_m}} = {{mx_Eelec_m}}\ \text{MWh}$$
+$$E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI} = \frac{ {{mx_q_tot_m}} }{ {{mx_eta_m}} } \cdot {{mx_pcs_pci_m}} = {{mx_Egas_m}}\ \text{MWh} = {{mx_Vgas_m}}\ \text{m}^3, \qquad E_{elec} = {{mx_e_comp_m}} + {{mx_e_cond_m}} + {{mx_e_bomb_m}} + {{mx_e_vent_m}} = {{mx_Eelec_m}}\ \text{MWh}$$
 
-con los usos finales de la tabla Musos (compresor, ventiladores del condensador, bombas y ventiladores de las unidades). La energía final es $E$ = {{mx_Eelec_m}} + {{mx_Egas_m}} = {{mx_Etot_m}} MWh, que sobre los {{A_cub}} m² cubiertos son {{mx_Etot_i_m}} kWh/m².
+con los usos finales de la tabla Musos (compresor, ventiladores del condensador, bombas y ventiladores de las unidades). La energía final es $E$ = {{mx_Eelec}} + {{mx_Egas}} = {{mx_Etot}} MWh, que sobre los {{A_cub}} m² cubiertos son {{mx_Etot_i}} kWh/m².
 
 El **frío entregado** y el **calor rechazado por el condensador** salen de sumar los estados del año (cada uno con su COP y su temperatura de condensación). Como $\dot Q_{cond,i} = \dot Q_{L,i} + \eta_{mot}\,\dot W_{comp,i}$ en cada estado, la suma conserva la misma relación:
 
-$$Q_L = \sum_i \dot Q_{L,i}\,h_i = {{mx_frio_m}}\ \text{MWh}\quad({{mx_EFLH_m}}\ \text{h equivalentes a plena carga: } {{mx_frio_m}}/{{mx_QL_m}}\ \text{kW})$$
+$$Q_L = \sum_i \dot Q_{L,i}\,h_i = {{mx_frio_m}}\ \text{MWh}\quad\left({{mx_EFLH_m}}\ \text{h equivalentes a plena carga: } \frac{ {{mx_frio_m}}\ \text{MWh} }{ {{mx_QL_m}}\ \text{kW} }\right)$$
 
-$$Q_{cond} = \sum_i \big(\dot Q_{L,i} + \eta_{mot}\,\dot W_{comp,i}\big)\,h_i = Q_L + \eta_{mot}\,W_{comp} = {{mx_frio_m}} + {{eta_motor_m}} \cdot {{mx_e_comp_m}} = {{mx_Qcond_m}}\ \text{MWh}$$
+$$Q_{cond} = \sum_i \big(\dot Q_{L,i} + \eta_{mot}\,\dot W_{comp,i}\big)\,h_i = Q_L + \eta_{mot}\,W_{comp} = {{mx_frio2_m}} + {{eta_motor_m}} \cdot {{mx_e_comp2_m}} = {{mx_Qcond2_m}}\ \text{MWh}$$
 
-Es {{mx_cond_sobre_rec_m}} veces el calor de recalentamiento: hoy se tira al ambiente. Los COP anuales son
+Son unos {{mx_Qcond}} MWh, {{mx_cond_sobre_rec}} veces el calor de recalentamiento: hoy se tira al ambiente. Los COP anuales son
 
-$$COP_{compresor} = \frac{Q_L}{W_{comp}} = \frac{ {{mx_frio_m}} }{ {{mx_e_comp_m}} } = {{mx_cop_comp_m}}, \qquad COP_{planta} = \frac{Q_L}{W_{comp} + W_{cond} + W_{bomba}} = \frac{ {{mx_frio_m}} }{ {{mx_e_comp_m}} + {{mx_e_cond_m}} + {{mx_e_bomb_m}} } = {{mx_cop_planta_m}}$$
+$$COP_{compresor} = \frac{Q_L}{W_{comp}} = \frac{ {{mx_frio2_m}} }{ {{mx_e_comp2_m}} } = {{mx_cop_comp_m}}, \qquad COP_{planta} = \frac{Q_L}{W_{comp} + W_{cond} + W_{bomba}} = \frac{ {{mx_frio2_m}} }{ {{mx_e_comp2_m}} + {{mx_e_cond2_m}} + {{mx_e_bomb2_m}} } = {{mx_cop_planta_m}}$$
 
-El COP anual del compresor es mayor que el de diseño ({{mx_cic_copel}}) porque la mayor parte del año se condensa a menos de {{mx_cic_Tcond}} °C: entre {{T_cond_min}} y {{T_cond_anual_max}} °C en los estados medios del año.
+El COP anual del compresor es mayor que el de diseño ({{mx_cic_copel2}}) porque la mayor parte del año se condensa a menos de {{mx_cic_Tcond}} °C: entre {{T_cond_min}} y {{T_cond_anual_max}} °C en los estados medios del año.
 
 # 7. Sensibilidad {#sec-sensibilidad}
 
@@ -323,7 +325,7 @@ El COP anual del compresor es mayor que el de diseño ({{mx_cic_copel}}) porque 
 
 Table: Tabla Msens. Las 12 variaciones que más mueven la energía final (caso base: {{E_total_MWh}} MWh). Cada una cambia un supuesto y deja los demás en su valor base; con todas las variaciones del modelo, la intensidad queda entre {{sens_min}} y {{sens_max}} kWh/m² y año, que no es un intervalo de confianza.
 
-![Figura Msens. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=12.5cm}
+![Figura Msens. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=11cm}
 
 ## 7.2 Qué pasa si nos equivocamos con los m²
 
@@ -337,6 +339,12 @@ Las superficies por unidad son supuestos sin referencia directa. Cambiar la supe
 Table: Tabla Mparam. Otros parámetros del modelo que mueven el resultado, su motivo y su peso en la energía final (todos supuestos; el motivo figura en la columna «Por qué»).
 :::
 
+## 7.4 Otras variaciones
+
+{{tabla_otras_variaciones}}
+
+Table: Tabla Mvar. Otras variaciones respecto del caso base ({{E_total_MWh}} MWh por año), un supuesto por vez.
+
 # 8. Alternativa B y mejoras {#sec-mejoras}
 
 ## 8.1 Modelo
@@ -345,12 +353,12 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 
 - **B, recuperación del calor del condensador.** En cada estado con demanda de recalentamiento y calefacción $\dot Q_{dem}$ y frío en marcha, se elige el mejor entre tres modos: (1) sin recuperar; (2) solo el sobrecalentamiento de la descarga del compresor, sin cambiar la condensación; (3) un condensador de recuperación que condensa a $T_{cond,rec} = T_{agua} + \Delta T_{min}$ = {{T_cond_rec}} °C, con el compresor funcionando a esa presión. El criterio es el mayor ahorro neto en energía final: $\dot Q_{rec}/\eta_{cald} - \Delta\dot W_{comp} - \Delta\dot W_{vent.cond}$. El calor recuperado es $\dot Q_{rec} = \min(f\,\dot Q_{dem},\ \dot Q_{cond})$ con $f$ la fracción de la demanda que coincide con el calor disponible ($f$ = 1 en el caso central; se prueba 0,75 y 0,5).
 - **M1, caldera de condensación:** aplica a la calefacción y el recalentamiento del aire (agua a 50/40 °C); el ACS y el vapor se dejan con el rendimiento base.
-- **M2, solar térmico para el ACS:** el calor útil mensual es $A\,\eta_{col}\,H_m\,d_m$ con $H_m$ la irradiación horizontal diaria media del mes, que se calcula con la irradiación extraterrestre de Duffie y Beckman (latitud {{lat}}°) y un índice de claridad único, $K_t$ = {{Kt}}, calibrado para que la suma anual sea {{GHI}} kWh/m². Nunca se usa más calor solar que la demanda del mes.
-- **M3, recuperador de calor del aire de extracción** con circuito de agua (sin mezcla de corrientes): el aire exterior entra a la mezcla a $T_{oa} = T_{ext} + \varepsilon\,(T_r - T_{ext})$ con $\varepsilon$ = {{eps_rec}}; tiene bypass y trabaja solo en los estados en que baja el costo de energía, y suma la potencia de ventiladores por su caída de presión.
+- **M2, solar térmico para el ACS:** el calor útil mensual es $A\,\eta_{col}\,H_m\,d_m$ con $H_m$ la irradiación horizontal diaria media del mes, que se calcula con la irradiación extraterrestre de Duffie y Beckman (latitud {{lat}}°) y un índice de claridad único, $K_t$ = {{Kt}}, calibrado para que la suma anual sea {{GHI}} kWh/m². Nunca se usa más calor solar que la demanda del mes. Con {{A_solar}} m² y $\eta_{col}$ = {{mx_eta_solar}} se cubre el {{solar_frac}} % del calor del ACS ({{mx_solar_MWh}} de {{mx_acs_MWh}} MWh por año).
+- **M3, recuperador de calor del aire de extracción** con circuito de agua (sin mezcla de corrientes): el aire exterior entra a la mezcla a $T_{oa} = T_{ext} + \varepsilon\,(T_r - T_{ext})$ con $\varepsilon$ = {{eps_rec}}; tiene bypass y trabaja solo en los estados en que baja el costo de energía, y suma la potencia de ventiladores por su caída de presión. Sin compuertas de bypass, el recuperador trabajaría siempre: la energía cambia {{mx_M3_sinbp_dE}} y las emisiones, {{mx_M3_sinbp_dC}}.
 - **M4, ventiladores:** la presión de diseño de cada zona se multiplica por 0,8; el calor que el ventilador ya no cede al aire lo repone la caldera.
-- **M5, fotovoltaica:** energía anual $= kWp \cdot GHI \cdot PR$, descontada de la electricidad del sistema.
+- **M5, fotovoltaica:** energía anual $= kWp \cdot GHI \cdot PR = {{kWp_m}} \cdot {{GHI_m}} \cdot {{mx_PR_m}}$ = {{mx_fv_MWh}} MWh ({{fv_yield}} kWh por kWp), descontada de la electricidad del sistema; con 1.500 kWh/m² serían {{mx_fv_MWh1500}} MWh.
 - **M6, quirófanos al 50 % de noche:** el caudal de G1 en la mitad nocturna se multiplica por 0,5 y la potencia del ventilador, por $0\text{,}5^3$ (leyes de los ventiladores).
-- **Emisiones:** CO₂ del gas = energía de PCI por el factor de la reacción ({{co2_gas_kg}} kg/kWh); CO₂ de la electricidad = energía por el factor de la red ({{ef_elec}} t/MWh, meta de CAMMESA para 2023 {{R_cammesa}}; con 0,29 y 0,40 t/MWh el paquete reduce las emisiones {{dC_P_lo}} y {{dC_P_hi}} %).
+- **Emisiones:** CO₂ del gas = energía de PCI por el factor de la reacción ({{co2_gas_kg}} kg/kWh de PCI, {{mx_co2_gas_pcs}} kg/kWh de PCS); CO₂ de la electricidad = energía por el factor de la red ({{ef_elec}} t/MWh, meta de CAMMESA para 2023 {{R_cammesa}}; con 0,29 y 0,40 t/MWh el paquete reduce las emisiones {{dC_P_lo}} y {{dC_P_hi}} %). En el caso base: {{mx_Epci_anual}} MWh de PCI · {{mx_co2_gas_kg4}} = {{mx_co2_gas_t}} t del gas y {{mx_Eelec}} MWh · {{ef_elec}} = {{mx_co2_elec_t}} t de la electricidad, {{mx_co2_tot_t}} t en total.
 
 ## 8.2 Resultados
 
@@ -358,7 +366,7 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 
 Table: Tabla Mmejoras. Resultados de cada variante respecto de la alternativa A.
 
-![Figura Mmej. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=11.5cm}
+![Figura Mmej. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=10cm}
 
 **Alternativa B.** Recupera {{rec_MWh}} MWh por año de calor del condensador, en {{rec_horas}} h; ahorra {{ahorro_gas_B}} MWh de gas (PCS) y gasta {{extra_elec_B}} MWh más de electricidad ({{d_comp_B}} más en el compresor, que condensa más caliente cuando recupera, y {{d_vcond_B}} menos en los ventiladores del condensador): la energía baja {{dE_B}} % y las emisiones, {{dC_B}} %. El modelo supone que calor y demanda coinciden dentro de cada estado; con coincidencia de 75 % o 50 % el ahorro baja a {{dE_B75}} % y {{dE_B50}} %, que es el rango realista.
 
@@ -402,7 +410,7 @@ Table: Tabla Mcifras. Cifras del informe técnico y dónde se calculan.
 
 # Anexo C. Datos de entrada {#anexo-c-datos}
 
-La tabla Manexo da todos los parámetros escalares del modelo con su unidad y su respaldo (marcas [n] y «supuesto», como se explica al inicio); las tablas Mzonas, Mzonas2 y Mclima, las zonas y el clima.
+La tabla Manexo da todos los parámetros escalares del modelo con su unidad y su respaldo (marcas [n] y «supuesto», como se explica al inicio); la tabla Mzonas, las zonas con sus renovaciones y caudales; la tabla Mzonas2, los demás parámetros de cada zona, y la tabla Mclima, el clima mensual.
 
 ::: {custom-style="Largo"}
 {{tabla_parametros_m}}
@@ -412,7 +420,9 @@ Table: Tabla Manexo. Parámetros escalares del modelo.
 
 {{tabla_zonas_memoria}}
 
-Table: Tabla Mzonas. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento. {{mx_resp_zonas}}
+Table: Tabla Mzonas. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento.
+
+{{mx_resp_zonas}}
 
 {{tabla_anexo_zonas}}
 
@@ -420,7 +430,9 @@ Table: Tabla Mzonas2. Parámetros de las zonas (supuestos: actividad típica de 
 
 {{tabla_anexo_clima}}
 
-Table: Tabla Mclima. Clima mensual aproximado, en dos semestres (supuesto: valores de conocimiento general, sin datos horarios). Contraste con las normales 1991-2020 de Buenos Aires {{R_smn}}: enero {{T_ene_smn}} °C, julio {{T_jul_smn}} °C y diciembre {{T_dic_smn}} °C contra {{T_ene}}, {{T_jul}} y {{T_dic}} °C del modelo; humedad relativa media anual de {{HR_smn}} % contra {{HR_media}} %.
+Table: Tabla Mclima. Clima mensual aproximado, en dos semestres (supuesto: valores de conocimiento general, sin datos horarios).
+
+Contraste con las normales 1991-2020 de Buenos Aires {{R_smn}}: enero {{T_ene_smn}} °C, julio {{T_jul_smn}} °C y diciembre {{T_dic_smn}} °C contra {{T_ene}}, {{T_jul}} y {{T_dic}} °C del modelo; humedad relativa media anual de {{HR_smn}} % contra {{HR_media}} %.
 
 # Anexo D. Referencias {#anexo-d-referencias}
 

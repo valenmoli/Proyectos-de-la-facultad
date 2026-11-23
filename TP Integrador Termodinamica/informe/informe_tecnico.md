@@ -151,7 +151,7 @@ La enfriadora vence esos 1.987 kW. El R134a evapora a 3 °C (agua helada 12/7�
 
 Table: Tabla 6. Estados del ciclo de R134a al punto de diseño de verano.
 
-$$q_L=h_1-h_4=145\text{,}50\ \mathrm{kJ/kg}\qquad w=h_2-h_1=38\text{,}45\ \mathrm{kJ/kg}\qquad COP=\frac{q_L}{w/\eta_{mot}}=3\text{,}56\qquad \dot W=\frac{\dot Q_L}{COP}=559\ \mathrm{kW}$$
+$$q_L=h_1-h_4=145\text{,}50\ \mathrm{kJ/kg}\qquad w=h_2-h_1=38\text{,}45\ \mathrm{kJ/kg}\qquad COP=\frac{q_L}{w/\eta_{mot}}=3\text{,}557\qquad \dot W=\frac{\dot Q_L}{COP}=559\ \mathrm{kW}$$
 
 $$\dot Q_{cond}=\dot Q_L+\eta_{mot}\,\dot W=1\,987+0\text{,}94\cdot 559=2\,512\ \mathrm{kW}$$
 
@@ -250,7 +250,7 @@ Cada mejora se evaluó con el mismo modelo, una por vez; la tabla ordena por aho
 
 Table: Tabla 8. Mejoras respecto de A (3.021 MWh y 895 t de CO₂ por año).
 
-Las medidas casi se suman en el total (sueltas ahorran 1.520 MWh y el paquete 1.500 MWh), pero con B la caldera de condensación ahorra 24 MWh en vez de 94: el aporte de cada una **depende de las demás**. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 y la Enmienda de Kigali obliga a reducir los HFC [16]\*; con el mismo ciclo, el R1234ze(E) da el mismo COP (3,55 contra 3,56) con un compresor 35 % más grande y es ligeramente inflamable, lo que pesa en un hospital. Aislar la envolvente 30 % o reducir las ganancias internas 30 % ahorran menos de 3 %: el consumo está en el aire, no en la envolvente.
+Las medidas casi se suman en el total (sueltas ahorran 1.520 MWh y el paquete 1.500 MWh), pero con B la caldera de condensación ahorra 24 MWh en vez de 94: el aporte de cada una **depende de las demás**. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 (valor de uso corriente; supuesto) y la Enmienda de Kigali obliga a reducir los HFC [16]\*; con el mismo ciclo, el R1234ze(E) da el mismo COP (3,55 contra 3,56) con un compresor 35 % más grande y es ligeramente inflamable (clase A2L; supuesto), lo que pesa en un hospital. Aislar la envolvente 30 % baja la energía solo 2,5 %, y reducir las ganancias internas 30 % no ahorra: la sube 0,7 %, porque con menos calor interno hay más recalentamiento. El consumo está en el aire, no en la envolvente.
 
 ## 8.3 Discusión
 
@@ -303,4 +303,4 @@ Las medidas casi se suman en el total (sueltas ahorran 1.520 MWh y el paquete 1
 
 [17] CoolProp y psychrolib: propiedades del refrigerante, de los gases y del aire húmedo (código).
 
-\* Fuente conocida por un extracto de búsqueda (no se pudo abrir el original): se cotejó el dato citado, no el documento completo; conviene verificarla antes de entregar.
+\* Fuente conocida por un extracto (no se accedió al documento completo): el dato citado se tomó de ese extracto.

@@ -164,7 +164,7 @@ Cada mejora se evaluó con el mismo modelo, una por vez; la tabla ordena por aho
 
 Table: Tabla 8. Mejoras respecto de A ({{E_total_MWh}} MWh y {{co2_t}} t de CO₂ por año).
 
-Las medidas casi se suman en el total (sueltas ahorran {{sum_ind_MWh}} MWh y el paquete {{pkg_MWh}} MWh), pero con B la caldera de condensación ahorra {{m1_con_b}} MWh en vez de {{m1_solo}}: el aporte de cada una **depende de las demás**. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 y la Enmienda de Kigali obliga a reducir los HFC {{R_kigali}}; con el mismo ciclo, el R1234ze(E) da el mismo COP ({{cop_ze}} contra {{cop_134}}) con un compresor {{mas_compresor}} % más grande y es ligeramente inflamable, lo que pesa en un hospital. Aislar la envolvente 30 % o reducir las ganancias internas 30 % ahorran menos de 3 %: el consumo está en el aire, no en la envolvente.
+Las medidas casi se suman en el total (sueltas ahorran {{sum_ind_MWh}} MWh y el paquete {{pkg_MWh}} MWh), pero con B la caldera de condensación ahorra {{m1_con_b}} MWh en vez de {{m1_solo}}: el aporte de cada una **depende de las demás**. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 (valor de uso corriente; supuesto) y la Enmienda de Kigali obliga a reducir los HFC {{R_kigali}}; con el mismo ciclo, el R1234ze(E) da el mismo COP ({{cop_ze}} contra {{cop_134}}) con un compresor {{mas_compresor}} % más grande y es ligeramente inflamable (clase A2L; supuesto), lo que pesa en un hospital. Aislar la envolvente 30 % baja la energía solo {{s_ua30}} %, y reducir las ganancias internas 30 % no ahorra: la sube {{s_gi30}} %, porque con menos calor interno hay más recalentamiento. El consumo está en el aire, no en la envolvente.
 
 ## 8.3 Discusión
 

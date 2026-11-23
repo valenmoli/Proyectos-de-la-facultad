@@ -42,5 +42,4 @@ def valores_ref():
 
 def lista_referencias():
     lineas = [f"[{_NUM[c]}]{'\\*' if s else ''} {t}" for c, t, s in REFERENCIAS]
-    return "\n\n".join(lineas) + ("\n\n\\* Fuente conocida por un extracto de búsqueda (no se pudo abrir el original): se cotejó el dato citado, "
-                                  "no el documento completo; conviene verificarla antes de entregar.")
+    return "\n\n".join(lineas) + ("\n\n\\* Fuente conocida por un extracto (no se accedió al documento completo): el dato citado se tomó de ese extracto.")
