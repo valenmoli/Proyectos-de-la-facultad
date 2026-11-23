@@ -132,9 +132,44 @@ def fig_exergia(estados=None, c=None):
     return _guardar(fig, "fig07_exergia.png")
 
 
+def fig_exergia_resumen(estados=None, c=None):
+    """Version compacta para el informe: dos barras apiladas (verano pico y maximo recalentamiento), sin tabla.
+    Escribe ../figuras/fig07b_exergia_resumen.png y devuelve la ruta."""
+    if estados is None:
+        c = c or supuestos.defaults()
+        estados = xg.estados_de_analisis(c)
+    casos = [("verano_pico", "Verano pico"), ("max_recalentamiento", "Máximo recalentamiento (diciembre, de noche)")]
+    fig, ax = plt.subplots(figsize=(7.6, 2.9))
+    for i, (clave, titulo) in enumerate(casos):
+        e = estados[clave]
+        v, x_in = _valores(e["resultado"])
+        y = 1.0 - i
+        izq = 0.0
+        for k, _nom, col, tcol in CAT:
+            w = max(v[k], 0.0) / x_in * 100.0
+            ax.barh(y, w, left=izq, height=0.5, color=col, edgecolor="white", lw=1.2)
+            if w >= UMBRAL_ROTULO:
+                ax.text(izq + w / 2, y, coma(w, 0) + " %", ha="center", va="center", fontsize=8, color=tcol)
+            izq += w
+        ax.text(0.0, y + 0.36, f"{titulo}: entran {coma(x_in, 0)} kW de exergía", fontsize=8.5, fontweight="bold", color=INK, ha="left", va="bottom")
+    ax.set_xlim(0, 100)
+    ax.set_ylim(-0.45, 1.75)
+    ax.set_yticks([])
+    for sp in ("left",):
+        ax.spines[sp].set_visible(False)
+    ax.set_xlabel("Porcentaje de la exergía que entra (electricidad + gas) [%]", fontsize=8)
+    ax.grid(axis="x", color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    handles = [plt.Rectangle((0, 0), 1, 1, fc=col, ec="none") for _k, _n, col, _t in CAT]
+    ax.legend(handles, [nom for _k, nom, _c, _t in CAT], loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=2, fontsize=7.2, frameon=False,
+              columnspacing=1.2, handlelength=1.1)
+    return _guardar(fig, "fig07b_exergia_resumen.png")
+
+
 def main():
     ruta = fig_exergia()
     print("escrita:", os.path.relpath(ruta, RAIZ))
+    print("escrita:", os.path.relpath(fig_exergia_resumen(), RAIZ))
 
 
 if __name__ == "__main__":

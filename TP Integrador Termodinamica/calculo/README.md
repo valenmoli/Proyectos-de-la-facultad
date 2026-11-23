@@ -16,7 +16,7 @@ Motor de cálculo en Python (hito **M3**, Consigna 3). Es la **única fuente de 
 | `supuestos` | Tabla de entradas con su estado (dato, supuesto o constante) |
 | `generar_resultados` | Escribe `informe/supuestos.md`, `informe/resultados_consumo.md` y `.json` |
 | `figuras`, `figuras_mejoras`, `figuras_exergia`, `figuras_plano` | Generan las figuras de `figuras/` |
-| `construir_documentos`, `texto_equipos`, `texto_exergia`, `estilo_docx` | Arman el informe técnico y la memoria de cálculo (`.md`, `.docx` con ecuaciones nativas y `.pdf`) desde las plantillas y el modelo |
+| `construir_documentos`, `informe_extra`, `memoria_extra`, `referencias`, `texto_equipos`, `texto_exergia`, `estilo_docx` | Arman el informe técnico y la memoria de cálculo (`.md`, `.docx` con ecuaciones nativas y `.pdf`) desde las plantillas y el modelo |
 | `tests/` | Chequeos termodinámicos (1.ª ley, 2.ª ley, balance atómico, psicrometría, exergía, equipos, mejoras) |
 
 ## Uso (desde la carpeta del proyecto)
@@ -26,6 +26,7 @@ python -m pytest calculo/tests
 python -m calculo.generar_resultados     # tablas y JSON del informe
 python -m calculo.figuras                # figuras 1 a 6 (también figuras_mejoras, figuras_exergia, figuras_plano)
 python -m calculo.construir_documentos   # informe técnico y memoria de cálculo (necesita pandoc y Chromium para el PDF)
+python -m calculo.construir_documentos --solo=informe   # o --solo=memoria; con --sin-pdf no genera el PDF
 ```
 
 ## Estado

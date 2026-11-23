@@ -107,7 +107,16 @@ def fig_esquema():
     caja(8.00, 1.45, 1.35, 1.15, "ACS\n60 °C", NARANJA_CLARO)
     flecha((7.20, 2.0), (8.00, 2.0), color=NARANJA)
     rotulo(7.60, 2.12, "$Q_{ACS}$", color=NARANJA, va="bottom", fs=8.5)
-    rotulo(5.2, 0.28, "Azul: circuito de frío y electricidad.   Naranja: circuito de calor y gas.", fs=7.5)
+    # estados del aire (los mismos A a F de la carta psicrometrica del quirofano)
+    for letra, x in (("A", 0.675), ("C", 2.275), ("D", 3.95), ("E", 5.625), ("F", 7.3), ("B", 9.35)):
+        yy = y0 + h + 0.20 if letra != "B" else 5.45
+        ax.text(x, yy if letra != "B" else yy + 0.17, letra, ha="center", va="center", fontsize=8, fontweight="bold", color=INK,
+                bbox=dict(boxstyle="circle,pad=0.18", fc="white", ec=INK2, lw=0.8))
+    # alternativa B: el calor del condensador, a 45 C, hacia el recalentador en lugar de la caldera
+    ax.plot([5.05, 5.38], [2.30, 2.30], color=AQUA, lw=1.6, ls=(0, (4, 2)))
+    flecha((5.38, 2.30), (5.38, y0), color=AQUA, lw=1.6)
+    ax.text(5.43, 3.05, "B", fontsize=9, fontweight="bold", color=AQUA, ha="left", va="center")
+    rotulo(5.2, 0.28, "Azul: circuito de frío y electricidad.   Naranja: circuito de calor y gas.   Verde discontinuo: alternativa B (calor del condensador a 45 °C).", fs=7)
     return _guardar(fig, "fig01_esquema_sistema.png")
 
 

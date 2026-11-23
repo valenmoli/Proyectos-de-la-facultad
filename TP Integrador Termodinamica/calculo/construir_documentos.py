@@ -168,9 +168,13 @@ def valores_nuevos(V, T):
     V["cop_catalogo"] = n(988.0 / 288.2, 2)
 
     # tests
-    out = subprocess.run([sys.executable, "-m", "pytest", "calculo/tests", "-q", "-p", "no:cacheprovider"], cwd=RAIZ, capture_output=True, text=True).stdout
-    m = re.search(r"(\d+) passed", out)
-    V["n_tests"] = m.group(1) if m else "?"
+    if os.environ.get("TP_EN_TESTS"):            # dentro de pytest no se vuelve a lanzar pytest (seria recursivo)
+        V["n_tests"] = "?"
+    else:
+        out = subprocess.run([sys.executable, "-m", "pytest", "calculo/tests", "-q", "-p", "no:cacheprovider"], cwd=RAIZ, capture_output=True, text=True,
+                             env={**os.environ, "TP_EN_TESTS": "1"}).stdout
+        m = re.search(r"(\d+) passed", out)
+        V["n_tests"] = m.group(1) if m else "?"
 
     T["tabla_zonas_memoria"] = T["tabla_zonas"]          # la tabla completa (con renovaciones minimas) va a la memoria
     # ---- tablas compactas del informe
@@ -352,8 +356,8 @@ def secciones_agentes(V, T, c):
         pass
     try:
         from . import informe_extra
-        T.update(informe_extra.tablas_informe(c, V, T))
         V.update(informe_extra.valores_informe(c, V, T))
+        T.update(informe_extra.tablas_informe(c, V, T))
     except ImportError:
         pass
     return extra_inf, extra_mem
