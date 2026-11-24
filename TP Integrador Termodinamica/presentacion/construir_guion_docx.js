@@ -30,7 +30,19 @@ function runs(text, o = {}) {
   const out = [];
   const re = /(\*\*[^*]+\*\*|\[[^\]]{4,}\])/g;
   let last = 0, m;
-  const push = (t, extra = {}) => { if (t) out.push(new TextRun({ ...base, ...extra, text: t })); };
+  const push = (t, extra = {}) => {
+    if (!t) return;
+    // X_y -> subíndice real (Q_L, W_eje, T_0...)
+    const partes = t.split(/([A-Za-zηψωṁ]+_[A-Za-z0-9]+)/g);
+    partes.forEach(seg => {
+      if (!seg) return;
+      const m = /^([A-Za-zηψωṁ]+)_([A-Za-z0-9]+)$/.exec(seg);
+      if (m) {
+        out.push(new TextRun({ ...base, ...extra, text: m[1] }));
+        out.push(new TextRun({ ...base, ...extra, text: m[2], subScript: true }));
+      } else out.push(new TextRun({ ...base, ...extra, text: seg }));
+    });
+  };
   while ((m = re.exec(text))) {
     push(text.slice(last, m.index));
     const tok = m[0];
@@ -174,7 +186,7 @@ const children = [];
 // tabla de resumen de las tres diapositivas, después de la portada (se inserta tras el título)
 const resumen = [
   ["10", "B: recalentar con el calor que hoy tira el condensador", "Informe entregado (V2, verano húmedo). La hicieron tus compañeros."],
-  ["11", "Mejoras de sustentabilidad, en tres familias", "Cálculo anual aparte, de nuestro trabajo. No es del informe entregado."],
+  ["11", "Mejoras de sustentabilidad, en tres familias", "Sección 4.5 del informe (Tabla 16): estimación anual aparte."],
   ["12", "Respuestas a la consigna 5", "Informe entregado. La hicieron tus compañeros."],
 ];
 const resumenTbl = new Table({
@@ -224,6 +236,8 @@ while (i < lines.length) {
       if (ms[1] === "10") children.push(callout("**Cómo leerlo.** El texto grande es lo que se dice en voz alta. Lo **[sombreado entre corchetes]** se puede cortar si falta tiempo. En negrita van las cifras clave.", { bar: GREEN, fill: "E6F2EC" }));
     } else if (h === "Si te preguntan") {
       children.push(h1("Si te preguntan", true));
+    } else if (h === "Glosario") {
+      children.push(h1("Glosario", true));
     } else if (h === "Diapositiva 12") {
       children.push(...banner("12", "Respuestas a la consigna 5", TIEMPOS[12]));
     } else if (h.startsWith("Lo que se contradice")) {
@@ -246,8 +260,11 @@ while (i < lines.length) {
       if (!cells.every(c => /^-+$/.test(c))) rows.push(cells);
       i++;
     }
-    const widths = [2300, 3669, 3669];
-    children.push(mdTable(rows, widths, [NAVY, NAVY, ORANGE_D]));
+    let widths, fills;
+    if (rows[0][0] === "Tema") { widths = [2300, 3669, 3669]; fills = [NAVY, NAVY, ORANGE_D]; }
+    else if (rows[0].length === 3) { widths = [1500, 5538, 2600]; fills = [NAVY, NAVY, NAVY]; }
+    else { widths = [2300, 7338]; fills = [NAVY, NAVY]; }
+    children.push(mdTable(rows, widths, fills));
     children.push(new Paragraph({ spacing: { before: 0, after: 120 }, children: [] }));
     continue;
   }
@@ -255,7 +272,7 @@ while (i < lines.length) {
   const inSlide = /^Diapositiva \d+/.test(section) || section === "Diapositiva 12";
 
   // grupo de Q&A: línea que es solo **...**
-  if (/^\*\*[^*]+\*\*$/.test(l.trim()) && section === "Si te preguntan") {
+  if (/^\*\*[^*]+\*\*$/.test(l.trim()) && (section === "Si te preguntan" || section === "Glosario")) {
     children.push(h2(l.trim().slice(2, -2))); i++; continue;
   }
   // indicación escénica

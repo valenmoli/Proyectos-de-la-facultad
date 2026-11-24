@@ -3,25 +3,25 @@
 **Borrador para que lo revises.** Es para las tres diapositivas tal como las vas a presentar:
 
 - **10**: «B: recalentar con el calor que hoy tira el condensador» (la de tus compañeros, con las cifras del informe entregado: V2, verano húmedo).
-- **11**: «Mejoras de sustentabilidad, en tres familias» (la primera que armamos, con un **cálculo anual aparte** de nuestro trabajo; **no es del informe entregado**).
+- **11**: «Mejoras de sustentabilidad, en tres familias» (la primera que armamos; en el informe es la **sección 4.5**, con la Tabla 16: una estimación anual aparte).
 - **12**: «Respuestas a la consigna 5» (la de tus compañeros, con las cifras del informe).
 
-El informe entregado calcula **tres estados de diseño** (V1 pico de verano, 33,9 °C; V2 día húmedo de verano, 25,9 °C y 16,8 g/kg; I invierno, 1,1 °C) y no un consumo anual.
+El informe entregado calcula **tres estados de diseño** (V1 pico de verano, 33,9 °C; V2 día húmedo de verano, 25,9 °C y 16,8 g/kg; I invierno, 1,1 °C) y no un consumo anual; la sección 4.5 agrega una estimación anual aparte.
 
 ## Lo que se contradice entre tus tres diapositivas (leer antes de exponer)
 
 La 11 usa **otra base** que la 10 y la 12, y puestas una al lado de la otra parecen decir cosas distintas:
 
-| Tema | Diapositivas 10 y 12 (informe: estados de diseño) | Diapositiva 11 (estimación anual propia) |
+| Tema | Diapositivas 10 y 12 (informe: estados de diseño) | Diapositiva 11 (sección 4.5: estimación anual aparte) |
 |---|---|---|
 | Alternativa B | −95 % de gas en V2 (agua a 35 °C) | −18,0 % de la energía del año (agua a 45 °C; es un techo) |
 | Recuperador de aire | −46 % de gas en invierno | −5,1 % de la energía del año |
 | Caldera de condensación | −10 % de gas en invierno | −3,1 % de la energía del año |
 | Bomba de calor | Está (43 % de eficiencia exergética) | No está |
 | Qué falta | «Una simulación anual con clima horario» | Cifras anuales (clima mensual aproximado, sin cargas parciales) |
-| Frío de diseño | 1.489 kW (diapositiva 12) | 1.987 kW (no se ve en la diapositiva) |
+| Frío de diseño | 1.489 kW (diapositiva 12) | 1.987 kW (lo aclara la sección 4.5) |
 
-No son errores de cuenta: son **dos modelos independientes** sobre el mismo edificio (una hora de diseño contra el año completo, otro diseño de B y otras cargas de diseño). Pero si no se aclara, el profesor pregunta «¿95 o 18?» y «¿tienen una simulación anual o no?». El guion de la 11 lo aclara **en voz alta** al principio: **no sale del informe entregado**. Ojo con decir «nuestra memoria de cálculo»: se confunde con la memoria de cálculo que el grupo entregó (la planilla de Excel); decí «un cálculo aparte». Una alternativa más segura es sumar **una línea en la diapositiva 11** que lo diga (por ejemplo: «Cálculo anual aparte, simple, mes a mes: no es comparable con las cifras de diseño de las diapositivas 10 y 12»).
+No son errores de cuenta: son **dos modelos independientes** sobre el mismo edificio (una hora de diseño contra el año completo, otro diseño de B y otras cargas de diseño). Pero si no se aclara, el profesor pregunta «¿95 o 18?» y «¿tienen una simulación anual o no?». La sección 4.5 del informe ya lo dice por escrito («sus porcentajes no son comparables con los de las secciones anteriores») y el guion de la 11 lo repite **en voz alta** al principio. Ojo con decir «nuestra memoria de cálculo»: se confunde con la planilla de Excel que el grupo entregó como memoria; decí «la sección 4.5» o «un cálculo aparte». Sigue siendo buena idea sumar **una línea en la diapositiva 11** que lo diga (por ejemplo: «Estimación anual aparte (sección 4.5): no es comparable con las cifras de diseño de las diapositivas 10 y 12»).
 
 Otras cosas a tener en cuenta:
 
@@ -29,12 +29,12 @@ Otras cosas a tener en cuenta:
    - Sección 4.3 (p. 12): dice que M2 «es la que más gas ahorra en invierno». La Tabla 14 muestra lo contrario: M3 ahorra 50,4 m³/h y M2, 29,3 (63,5 → 34,2). M2 es la que más **reduce la calefacción** (438 → 187 kW).
    - Sección 4.3 (p. 12): dice que M3 «cambia el orden de magnitud» de la eficiencia exergética. 43 % contra 16,3 % es un factor de 2,6, no de 10. Decí «más de dos veces y media».
 2. **Rótulos y numeración**: la 10 lleva «9 ·», la 11 «10 ·» y la 12 «11 ·», o sea un número menos que la posición en la presentación. Es una serie coherente, no es grave. Lo que sí se nota en tu captura es que la 11 **no muestra número de página** y la 10 y la 12 sí; se arregla con el número automático al pegarla.
-3. **La diapositiva 11 no sale del informe entregado.** Fotovoltaica, solar térmico, techos y fachadas verdes y ventiladores no aparecen en el informe; los quirófanos de noche aparecen en la sección 4.3 como «otra medida posible», sin cuantificar, y la 11 los cuantifica. Son de un cálculo anual aparte, simple: mensual, día y noche, no horario.
+3. **La diapositiva 11 resume la sección 4.5, que agregaron al informe** (Tabla 16): un cálculo anual aparte, simple (mensual, día y noche, no horario), con otras cargas de diseño que el resto del informe. Antes de exponer, chequeá que la 4.5 haya quedado como el borrador (mismas cifras que la diapositiva) y que el Resumen y la conclusión 5 la mencionen; si no, la 11 vuelve a quedar sin respaldo en esos puntos.
 4. **El pie de la 11 dice «Paquete B + M1 a M6»** con la numeración de nuestro cálculo (M2 es el solar térmico y M3 el recuperador), que no coincide con la del informe (M2 recuperador, M3 bomba de calor). No lo leas tal cual: decí «paquete con todas las medidas, salvo los 500 kilowatts y los techos verdes».
 
 ## Si solo recordás cinco cosas
 
-1. **¿La 11 es del informe?** No: es un cálculo anual aparte, simple, de orden de magnitud. El informe calcula tres estados de diseño.
+1. **¿De dónde sale la 11?** De la sección 4.5 del informe: un cálculo anual aparte, simple, de orden de magnitud. El resto del informe calcula tres estados de diseño.
 2. **¿B baja 95 % o 18 %?** Las dos: 95 % es el gas en la hora de V2; en el año baja 48 % del gas y, como techo, 18 % de la energía total.
 3. **¿El recuperador baja 46 % o 5 %?** Las dos: 46 % es el gas en una hora de invierno; 14 % del gas anual y 5 % de la energía total del año.
 4. **¿Los paneles son ahorro?** Cubren consumo, no lo reducen. Sin ellos el paquete queda en 38 % de energía y 27 % de CO₂.
@@ -56,7 +56,7 @@ La alternativa B usa ese calor: un condensador de agua en paralelo entrega agua 
 
 *(Empezá aclarando la base; es lo que evita la contradicción con la 10 y la 12.)*
 
-Esta diapositiva **no sale del informe entregado**: es un cálculo anual aparte, simple, mes a mes, para ver órdenes de magnitud sobre la energía de todo el año del sistema térmico, unos tres mil megavatios hora. Por eso **no es comparable** con la 10 y la 12: el recuperador de aire ahorra 46 % del gas en una hora de invierno, pero 5 % de la energía de todo el año. Evaluamos cada medida por separado y las agrupamos en tres familias.
+Esta diapositiva resume la **sección 4.5 del informe**: una estimación anual aparte, simple, mes a mes, para ver órdenes de magnitud sobre la energía de todo el año del sistema térmico, unos tres mil megavatios hora. Por eso **no es comparable** con la 10 y la 12: el recuperador de aire ahorra 46 % del gas en una hora de invierno, pero 5 % de la energía de todo el año. Evaluamos cada medida por separado y las agrupamos en tres familias.
 
 **Producir energía limpia:** paneles solares de 250 kilowatts pico, 11 % menos de energía y 14 % menos de CO₂, y solar térmico, 8 %. Ojo: los paneles no reducen el consumo, lo cubren. [Con 500 kilowatts serían 22 y medio por ciento, ocupando el 41 % de la azotea: es un escenario, porque supone que otras cargas usan el excedente de mediodía.]
 
@@ -81,9 +81,9 @@ Y **para un proyecto falta** una simulación anual con clima horario, datos medi
 - **¿B baja 95 % o 18 %?** Las dos, y miden cosas distintas. 95 % es el gas en la hora de V2, cuando hay más recalentamiento y la enfriadora trabaja con 1.178 kW de frío. En el año, B baja 48 % del gas y, sobre la energía total (que incluye la electricidad extra), 18 %: durante el año la enfriadora no siempre trabaja cuando hay recalentamiento. Con coincidencia de 75 % baja 13,5 %.
 - **¿Por qué agua a 35 °C en la 10 y a 45 °C en la 11?** En el informe, 35 °C alcanza para el recalentamiento de V2 y para el ACS. En el cálculo anual usamos 45 °C, un supuesto nuestro, para el recalentamiento y la calefacción del aire; por eso el compresor trabaja más (condensa a 50 °C).
 - **¿Y el recuperador, 46 % o 5 %?** También las dos: 46 % es el gas en una hora de invierno; en el año baja 14 % del gas y, neto de la electricidad de ventiladores, 5 % de la energía total (de todos los meses y de todos los usos).
-- **¿Tienen una simulación anual o no? ¿Con qué clima?** Tenemos una estimación anual simple, de orden de magnitud: medias mensuales aproximadas de Buenos Aires, partidas en día y noche, sin cargas parciales. No es una simulación con clima horario; eso es lo que la diapositiva 12 dice que falta. Ojo: el informe usa para sus estados de diseño los valores de ASHRAE para Ezeiza; el cálculo anual no.
-- **¿Dónde está el cálculo de la 11?** No está en el informe entregado ni en su planilla de Excel: es un cálculo aparte, de nuestro trabajo, de orden de magnitud. No lo presentes como parte del informe.
-- **¿Por qué las ideas verdes no están en el informe?** Porque el informe calcula tres estados de diseño, y estas ideas necesitan un cálculo anual. Solo la reducción de caudal en quirófanos aparece en el informe (sección 4.3), como medida posible y sin cuantificar. Las demás son estimaciones aparte.
+- **¿Tienen una simulación anual o no? ¿Con qué clima?** Tenemos una estimación anual simple, de orden de magnitud (sección 4.5): medias mensuales aproximadas de Buenos Aires, partidas en día y noche, sin cargas parciales. No es una simulación con clima horario; eso es lo que la diapositiva 12 dice que falta. Ojo: el informe usa para sus estados de diseño los valores de ASHRAE para Ezeiza; el cálculo anual no.
+- **¿Dónde está el cálculo de la 11?** El resultado está en la sección 4.5 del informe (Tabla 16). El cálculo completo está en un documento de trabajo aparte (unas 30 páginas), que no es la planilla de Excel del grupo; el informe lo presenta como estimación de orden de magnitud.
+- **¿Por qué las ideas verdes van en una sección aparte (la 4.5)?** Porque el resto del informe calcula tres estados de diseño, y estas ideas necesitan un cálculo anual. En la sección 4.3 solo se menciona la reducción de caudal en quirófanos, sin cuantificar; la 4.5 la cuantifica.
 - **Nombrá las medidas por su nombre** (fotovoltaica, solar térmico, recuperador, bomba de calor) y no por «M»: en el cálculo anual M2 es el solar térmico y M3 el recuperador, y en el informe M2 es el recuperador y M3 la bomba de calor.
 
 **Sobre B (diapositiva 10)**
@@ -115,3 +115,56 @@ Y **para un proyecto falta** una simulación anual con clima horario, datos medi
 - **¿Por qué los techos verdes ahorran poco?** Porque el consumo está en el aire (renovaciones y humedad) y no en la envolvente. Se justifican más por comodidad y menor isla de calor.
 - **¿Los paneles de 500 kilowatts son realistas?** Es un escenario: supone que el excedente de mediodía lo absorben otras cargas del hospital; por eso queda fuera del paquete, para no cambiar el resto de las cifras.
 - **¿B y el solar térmico se suman?** En nuestra estimación anual sí: B solo cubre el recalentamiento y la calefacción del aire (el B del informe, en cambio, también precalienta el ACS).
+
+## Glosario
+
+Siglas, unidades y símbolos que aparecen en las tres diapositivas y en el informe. La última columna de las siglas dice cómo conviene pronunciarlas.
+
+**Siglas**
+
+| Sigla | Significado | Cómo decirlo |
+|---|---|---|
+| A y B | Alternativas del informe. A es el sistema base; B agrega un condensador de agua que aprovecha el calor que hoy se tira al ambiente (sección 4.1) | «alternativa A», «alternativa B» |
+| ACS | Agua caliente sanitaria | «a-ce-ese» o «agua caliente sanitaria» |
+| AMBA | Área Metropolitana de Buenos Aires | «amba» |
+| ASHRAE | Sociedad estadounidense de ingenieros de calefacción, refrigeración y aire acondicionado. Su norma 170 fija las renovaciones de aire y la humedad de los establecimientos de salud | «ásh-rei» |
+| CO₂ | Dióxido de carbono (emisiones de la combustión del gas y de la generación eléctrica) | «ce-o-dos» o «dióxido de carbono» |
+| COP | Coeficiente de desempeño: frío (o calor) entregado por cada unidad de energía consumida. El COP eléctrico de la enfriadora usa la electricidad del compresor con su motor | «cop» o «coeficiente de desempeño» |
+| G1 a G5 | Zonas térmicas del hospital: G1 quirófanos, G2 terapia intensiva, G3 internación general, G4 guardia, imágenes y laboratorio, G5 consultorios y administración (tabla 4) | «zona uno», «el quirófano» |
+| HR | Humedad relativa del aire | «humedad relativa» |
+| I, V1 y V2 | Estados de diseño: I, invierno (1,1 °C); V1, pico de verano (33,9 °C y 12,0 g/kg); V2, verano húmedo (25,9 °C y 16,8 g/kg) | «el invierno», «el pico de verano», «el día húmedo de verano» |
+| M1, M2 y M3 | Medidas de mejora de la sección 4.3: M1 caldera de condensación, M2 recuperador de calor del aire expulsado, M3 bomba de calor. En la estimación anual de la sección 4.5 se nombran por su nombre | decí el nombre, no el número |
+| PCI y PCS | Poder calorífico inferior y superior del gas natural. El PCS cuenta además el calor latente del vapor de agua de los humos (PCS/PCI = 1,108) | «poder calorífico inferior» y «superior» |
+| R134a | Refrigerante de la enfriadora (tetrafluoroetano, un HFC) | «erre ciento treinta y cuatro a» |
+| SAMIC | Servicio de Atención Médica Integral para la Comunidad (tipo de hospital público del Favaloro) | «samic» |
+
+**Unidades**
+
+| Unidad | Significado |
+|---|---|
+| kW, kWh y MWh | Kilowatt (potencia); kilowatt-hora y megawatt-hora (energía; 1 MWh = 1.000 kWh) |
+| kWp | Kilowatt pico: potencia máxima de un panel solar en condiciones normalizadas |
+| t y t/MWh | Toneladas de CO₂; toneladas de CO₂ por MWh de electricidad (0,38 en la sección 4.5, un supuesto) |
+| m³/h y kg/h | Caudal de gas natural o de aire; masa de CO₂ emitida por hora |
+| g/kg | Gramos de vapor de agua por kilo de aire seco (humedad específica ω) |
+| °C y K | Grados Celsius y kelvin (K = °C + 273,15); una diferencia de 1 K equivale a una de 1 °C |
+| kPa | Kilopascal (presión) |
+
+**Símbolos de las fórmulas del informe**
+
+| Símbolo | Significado |
+|---|---|
+| ω | Humedad específica del aire (g de vapor por kg de aire seco) |
+| h | Entalpía específica (kJ/kg) |
+| T y p | Temperatura y presión |
+| Q_L | Capacidad frigorífica: calor que la enfriadora saca del agua helada (kW); q_L es el mismo calor por kg de refrigerante |
+| Q_cond | Calor que se cede en el condensador: Q_cond = Q_L + W_eje |
+| Q_serp, Q_lat y Q_rec | Calor de la serpentina de enfriamiento, su parte latente (condensación del vapor) y calor del recalentador |
+| W_eje, W_el y W_vent | Potencia en el eje del compresor, eléctrica del compresor (con su motor) y del ventilador |
+| ṁ_a y V̇ | Caudal de masa de aire seco y caudal de volumen |
+| η_is, η_mot y η_vent | Rendimientos isentrópico del compresor, del motor y del ventilador |
+| η | Rendimiento de la caldera: 89,9 % sobre PCI (81,2 % sobre PCS) |
+| T_0 | Temperatura del estado muerto, que es el aire exterior de cada estado: la referencia de la exergía |
+| X, X_Q y X_dest | Exergía; exergía del calor, X_Q = Q (1 − T_0/T); exergía destruida, X_dest = T_0 S_gen |
+| S_gen | Entropía generada |
+| ψ | Exergía específica del aire (por kg) |
