@@ -6,46 +6,46 @@
 - **Diapositiva 11** (la nuestra, `diapositiva_11_mejoras.pptx`): las tres medidas del informe, más tres ideas verdes rotuladas aparte.
 - **Diapositiva 12**: todavía no la vi. Mandame una captura y la sumo.
 
-Tiempo, a 130–150 palabras por minuto: la 10 dura unos 1:40 a 1:55 y la 11 unos 2:10 a 2:30 con todo (sin lo que está entre corchetes, unos 1:25 a 1:40 y 2:00 a 2:15). En total, unos 3:50 a 4:25 con todo y 3:25 a 3:55 sin corchetes. Lo que está entre corchetes se puede cortar. Una cifra clave por oración; el resto se ve en la diapositiva. Si les dieron menos tiempo, avisame cuánto y lo ajusto.
+Tiempo, contando las cifras como se dicen en voz alta y a 130–150 palabras por minuto: la 10 dura unos 1:50 a 2:10 y la 11 unos 2:30 a 2:50 con todo; sin lo que está entre corchetes, unos 1:40 a 1:55 y 2:15 a 2:35. En total, unos 4:20 a 5:00 con todo y 3:55 a 4:30 sin corchetes. Si les dieron menos tiempo, avisame cuánto y lo ajusto.
 
 ## Antes de exponer
 
 1. **Dos frases del informe que no conviene repetir** (son errores de redacción de ellos; vale la pena avisarles):
    - Sección 4.3 (p. 12): dice que M2 «es la que más gas ahorra en invierno». La Tabla 14 muestra lo contrario: M3 ahorra 50,4 m³/h y M2, 29,3 (63,5 → 34,2). M2 es la que más **reduce la calefacción** (438 → 187 kW). No digas que ahorra más gas que M3.
-   - Sección 4.3 (p. 12): dice que M3 «cambia el orden de magnitud» de la eficiencia exergética. 43 % contra 16,3 % es un factor de 2,6, no de 10. Decí «casi el triple».
+   - Sección 4.3 (p. 12): dice que M3 «cambia el orden de magnitud» de la eficiencia exergética. 43 % contra 16,3 % es un factor de 2,6, no de 10. Decí «más de dos veces y media».
 2. **Rótulos**: las diapositivas de tus compañeros muestran «9 ·» y «10 ·» en el rótulo, pero tienen número de página 10 y 11. La nuestra lleva «10 · MEDIDAS DE MEJORA» y número «11» para encajar. Si cambian la numeración, se cambia también.
 3. **Las ideas verdes no están en el informe.** Los porcentajes con asterisco salen de una estimación aparte (modelo anual simple de nuestra memoria; es energía final del sistema térmico, no del hospital completo). Si el grupo prefiere no mostrar números que no están en el informe, se sacan de la diapositiva y quedan solo las ideas.
 4. **Fuentes**: la diapositiva usa Space Grotesk e Inter y no las lleva embebidas. Exponé desde la misma PC o archivo donde se ven las de tus compañeros, y llevá un PDF de respaldo.
 
-## Diapositiva 10: la alternativa B (≈ 1:40)
+## Diapositiva 10: la alternativa B (≈ 2:00)
 
 *(Señalá las tres tarjetas; no leas el texto chico.)*
 
-[Hasta acá vimos el sistema base, la alternativa A, y dónde pierde.] Lo más llamativo pasa el día húmedo de verano, el estado que llamamos V2. Para sacarle humedad al aire hay que enfriarlo por debajo de su punto de rocío, hasta unos 13 °C, y después recalentarlo con la caldera: son **436 kW de recalentamiento**, el 91 % del calor que entrega la caldera ese día. Y mientras tanto el condensador de la enfriadora **tira 1.418 kW** al ambiente.
+[Hasta acá vimos el sistema base, la alternativa A, y dónde pierde.] Lo más llamativo pasa en el día húmedo de verano, el estado que llamamos V2. Para sacarle humedad al aire hay que enfriarlo por debajo de su punto de rocío, hasta unos 13 °C en los quirófanos. Después lo recalentamos con la caldera: son **436 kW**, el 91 % del calor que entrega ese día. Y mientras tanto el condensador de la enfriadora **tira 1.418 kW** al ambiente.
 
 La alternativa B usa ese calor. Le agregamos a la enfriadora un condensador de agua en paralelo con el de aire: entrega agua a 35 °C al recalentador y además precalienta el agua caliente sanitaria. [B no evita el doble paso de enfriar y recalentar, pero hace que el recalentamiento no gaste gas.]
 
-En V2 el gas baja de 55 a 3 m³ por hora: **95 % menos**. ¿Qué cuesta? **19 kW eléctricos más**, porque hay que condensar a 40 °C en lugar de 38, y el COP baja de 4,62 a 4,30. Por cada kW eléctrico de más movemos unos 23 kW de calor que antes se tiraba. Y la exergía que entra baja de 988 a 484 kW, la mitad: dejamos de quemar gas, de llama teórica a unos 1.850 °C, para calentar aire a 20 °C.
+En V2 el gas baja **95 %**: de 55 a 3 m³ por hora. ¿Qué cuesta? **19 kW eléctricos más**, porque hay que condensar a 40 °C en lugar de 38. Por cada kW eléctrico de más movemos unos 23 kW de calor que antes se tiraba. Y la exergía que entra baja a la mitad, de 988 a 484 kW: dejamos de quemar gas, con una llama teórica de unos 1.850 grados, para subir el aire unos pocos grados.
 
 Una aclaración: B solo ayuda cuando la enfriadora trabaja. En V1 hay poco recalentamiento para recuperar, y en invierno no aporta. Por eso, para el invierno, evaluamos otras medidas.
 
-## Diapositiva 11: mejoras (≈ 2:15)
+## Diapositiva 11: mejoras (≈ 2:30)
 
 *(Primero la fila de arriba, que es del informe; después la verde.)*
 
 Para el invierno calculamos tres medidas con el mismo modelo; están en la tabla 14 del informe.
 
-**M1, caldera de condensación.** Los humos salen bajo el punto de rocío y se recupera el calor latente. El rendimiento sube de 89,9 a 99,5 % sobre PCI y el gas baja 10 %. [Ojo: la eficiencia exergética no mejora, incluso baja de 16,3 a 14,2 %, porque la combustión sigue igual.]
+**M1, caldera de condensación.** Los humos salen bajo el punto de rocío y se recupera el calor latente: el gas baja **10 %**. El rendimiento sube a 99,5 %, pero sobre poder calorífico inferior, que no cuenta ese calor latente. [Ojo: la eficiencia exergética no mejora, incluso baja de 16,3 a 14,2 %, porque entrega el calor a menor temperatura y la combustión sigue igual.]
 
-**M2, recuperador de calor del aire expulsado.** Dos serpentinas y agua: el aire que sale precalienta al que entra, sin mezclarlos. La calefacción baja de 438 a 187 kW y el gas, **46 %**, a cambio de unos 10 kW más de ventiladores. Ataca la causa: el aire exterior que hay que calentar.
+**M2, recuperador de calor del aire expulsado.** Dos serpentinas y agua: el aire que sale precalienta al que entra, sin mezclarlos. El gas baja **46 %**, a cambio de unos 10 kW más de ventiladores. Ataca la causa: el aire exterior que hay que calentar.
 
-**M3, bomba de calor.** Es el ciclo de la enfriadora invertido. Con COP de 3,67 entrega los 438 kW con 119 kW eléctricos y ahorra 50 m³ de gas por hora. Su eficiencia exergética es de **43 %, contra 16 %** de la caldera: casi el triple. [Limitaciones: pierde capacidad con frío, necesita desescarche y no evaluamos las emisiones de la generación eléctrica.]
+**M3, bomba de calor.** Es el ciclo de la enfriadora invertido. Entrega los mismos 438 kW con solo 119 kW eléctricos, y ahorra 50 m³ de gas por hora. Su eficiencia exergética es de **43 %, contra 16 %** de la caldera: más de dos veces y media. [Limitaciones: pierde capacidad con frío, necesita desescarche y no evaluamos las emisiones de la generación eléctrica.]
 
 *(Pasá a la franja verde.)*
 
-Además sumamos tres ideas simples y verdes que **no están en el modelo del informe**. **Paneles solares** en la azotea: generan electricidad y evitan comprarla; no reducen la demanda, la reemplazan. **Solar térmico**: el sol cubre cerca de la mitad del agua caliente sanitaria y la caldera queda de respaldo. **Techos y fachadas verdes**: dan sombra y el agua que evaporan se lleva calor, así que entra menos calor al edificio.
+Además sumamos tres ideas simples y verdes que **no están en el modelo del informe**. **Paneles solares** en la azotea: generan electricidad propia; no reducen la demanda, la reemplazan. **Solar térmico**: el sol cubre cerca de la mitad del agua caliente sanitaria en el año y la caldera completa el resto. **Techos y fachadas verdes**: dan sombra y el agua que evaporan se lleva calor, así que entra menos calor al edificio.
 
-Los porcentajes con asterisco son una **estimación aparte** con un modelo anual simple y supuestos nuestros: unos 11 % de la energía anual del sistema térmico con 250 kWp, 8 % con solar térmico y, como máximo, 4 % con techos verdes. **No son comparables** con los de arriba, que son de invierno en un estado de diseño. Las tres buscan lo mismo: reemplazar gas o electricidad de la red por sol y sombra.
+Los porcentajes con asterisco son una **estimación aparte**, con un modelo anual simple y supuestos nuestros. Paneles: unos 11 % de la energía anual del sistema térmico. Solar térmico: 8 %. Techos verdes: como máximo, 4 %. **No son comparables** con los de arriba, que son de invierno en un estado de diseño. Las tres buscan lo mismo: gastar menos gas o menos electricidad de la red, con sol y sombra.
 
 ## Diapositiva 12
 
@@ -67,14 +67,14 @@ Los porcentajes con asterisco son una **estimación aparte** con un modelo anual
 
 - **¿Un rendimiento de 99,5 % no viola la primera ley?** Es sobre PCI, que no cuenta el calor latente del vapor; sobre PCS equivale a un 90 %. El rocío (56 °C) sale de la fracción de vapor en los humos; a 50 °C condensa cerca del 29 % del agua.
 - **¿Por qué la caldera de condensación no mejora la eficiencia exergética?** Porque entrega el calor a menor temperatura y la irreversibilidad de la combustión queda intacta (16,3 → 14,2 %).
-- **M2: ¿por qué la calefacción baja 57 % y el gas solo 46 %?** Porque el gas también humidifica (71 kW) y calienta el ACS (43 kW), y M2 no toca eso. También ayuda en verano: en V1 baja el frío de 1.489 a 1.362 kW.
+- **M2: ¿por qué la calefacción baja 57 % y el gas solo 46 %?** Explicación aproximada: el gas también humidifica (71 kW) y calienta el ACS (43 kW), y M2 no cambia eso. También ayuda en verano: en V1 baja el frío de 1.489 a 1.362 kW.
 - **M3: la electricidad también viene de quemar gas, ¿sigue ganando?** La comparación del informe usa la electricidad en el sitio. Si se contara la central (con un rendimiento supuesto del 50 %, que no está en el informe), el 43 % bajaría a cerca de 21 %: seguiría ganando, pero por menos.
-- **¿Se puede invertir la enfriadora?** Con válvula de cuatro vías, evaporando a −6,9 °C y entregando agua a 40/35 °C. El informe no dimensiona el cambio de serpentinas a esa temperatura ni los costos; son limitaciones declaradas.
+- **¿Se puede invertir la enfriadora?** Con válvula de cuatro vías, evaporando a −6,9 °C y entregando agua a 40/35 °C. El informe no evalúa los costos (lo declara en la conclusión 5), ni la pérdida de capacidad con frío ni el desescarche (Tabla 15). Tampoco dimensiona las serpentinas para agua a 40/35 °C; eso el informe no lo menciona.
 
 **Sobre las ideas verdes (franja de abajo)**
 
 - **¿Dónde está el cálculo?** En nuestra memoria, con un modelo anual simple (base de 3.021 MWh/año de electricidad y gas sumados, sin ponderar por energía primaria, y sin el consumo total del hospital). No es parte del informe entregado. Ese modelo parte de otras cargas de diseño (frío de 1.987 kW) que las del informe (1.489 kW); por eso no es comparable.
-- **¿Qué supuestos tienen?** Azotea de unos 6.100 m² si los tres niveles son iguales (18.352 ÷ 3; el informe no da la superficie del techo). Irradiación de 1.700 kWh/m² por año, que es una cota alta: con 1.500, los 250 kWp bajan de −11,3 % a −9,9 %. 300 m² de colectores, que cubren el 54 % del ACS en el año y el 29 % en junio. Y 20 % menos de calor por la envolvente, un orden de magnitud sin dato propio.
+- **¿Qué supuestos tienen?** Azotea de unos 6.100 m² si los tres niveles son iguales (18.352 ÷ 3; el informe no da la superficie del techo). Irradiación de 1.700 kWh/m² por año, que es una cota alta: con 1.500, los 250 kWp bajan de −11,3 % a −9,9 %. 300 m² de colectores, que cubren el 54 % del ACS en el año y el 29 % en junio. Y 20 % menos de calor por la envolvente, un supuesto de orden de magnitud, sin dato propio.
 - **¿Por qué los techos verdes ahorran poco?** Porque el consumo está en el aire (renovaciones y humedad) y no en la envolvente. Se justifican más por comodidad y menor isla de calor.
-- **¿B y el solar térmico se suman?** No: se solapan en verano, porque B también precalienta el ACS. Por eso los porcentajes no se suman.
+- **¿B y el solar térmico se suman?** En el B del informe se solapan en parte, porque precalienta el ACS (unos 18 kW de 43). En nuestro modelo anual, B solo cubre el recalentamiento y la calefacción del aire, así que ahí se suman. Y los porcentajes de la franja verde no se suman con los de arriba porque son de bases distintas.
 - **Si citás una medida de nuestra memoria**, nombrala por su nombre (fotovoltaica, solar térmico) y no por «M»: en nuestra memoria M2 es el solar térmico y M3 el recuperador, y en el informe M2 es el recuperador y M3 la bomba de calor.
