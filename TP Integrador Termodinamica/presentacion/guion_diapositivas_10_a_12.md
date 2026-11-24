@@ -6,6 +6,8 @@
 - **11**: «Mejoras de sustentabilidad, en tres familias» (la primera que armamos; en el informe es la **sección 4.5**, con la Tabla 16: una estimación anual aparte).
 - **12**: «Respuestas a la consigna 5» (la de tus compañeros, con las cifras del informe).
 
+> **Cómo usar esta guía.** Cada diapositiva tiene: el mensaje que tenés que lograr, un **guion hablado** (lo sombreado entre corchetes se puede cortar), tarjetas para **entender cada punto** con tus palabras y analogías para explicarlo. Al final están las preguntas probables, los conceptos en palabras simples y el glosario.
+
 El informe entregado calcula **tres estados de diseño** (V1 pico de verano, 33,9 °C; V2 día húmedo de verano, 25,9 °C y 16,8 g/kg; I invierno, 1,1 °C) y no un consumo anual; la sección 4.5 agrega una estimación anual aparte.
 
 ## Lo que se contradice entre tus tres diapositivas (leer antes de exponer)
@@ -42,7 +44,13 @@ Otras cosas a tener en cuenta:
 
 ## Tiempo
 
-A 130–150 palabras por minuto, contando las cifras como se dicen en voz alta. **Versión base** (sin lo que está entre corchetes): unos **3:10 a 3:40** en total; la 10 unos 1:00 a 1:10, la 11 unos 1:15 a 1:30 y la 12 unos 0:55 a 1:05. **Con todo** lo de los corchetes: unos 5:05 a 5:55. Si les dieron menos tiempo, avisame cuánto y lo ajusto; si les sobra, se agregan los corchetes de a uno, empezando por la exergía de la 10 y la bomba de calor de la 11.
+A 130–150 palabras por minuto, contando las cifras como se dicen en voz alta. **Versión base** (sin lo que está entre corchetes): unos **5:05 a 5:55** en total; la 10 unos 1:00 a 1:10, la 11 unos 2:20 a 2:45 y la 12 unos 1:45 a 2:00. **Con todo** lo de los corchetes: unos 7:15 a 8:20 (la 11 llega a 3:40 a 4:10). **Versión mínima**, más abajo: unos 1:30 a 1:45 las tres. Las tres son versiones del mismo guion: elegís según el tiempo que les den. Si les sobra, agregás los corchetes de a uno; si falta, usás la mínima. Avisame cuánto tiempo tienen y lo ajusto.
+
+**Versión mínima, si el tiempo es poco (unos 1:30 a 1:45 las tres).**
+
+- **Diapositiva 10:** «En el día húmedo de verano, la enfriadora tira 1.418 kW de calor al ambiente mientras la caldera quema gas para recalentar el aire. La alternativa B manda ese calor, con agua a 35 grados, al recalentador: el gas baja 95 % a cambio de 19 kW eléctricos más. Solo ayuda en verano, cuando la enfriadora trabaja.»
+- **Diapositiva 11:** «Los porcentajes de esta diapositiva son anuales. Hay tres caminos para gastar menos: producir, no desperdiciar y pedir menos. Los mayores ahorros están en dejar de tirar calor (la B, 18 %) y en producir energía (los paneles, 11 %); pedir menos suma poco, porque el consumo está en el aire y no en la envolvente. Todo junto llega a casi 50 %.»
+- **Diapositiva 12:** «Respondemos la consigna 5: el sistema cumple; lo que más pesa es la humedad, la temperatura de condensación y los caudales de aire de la norma; las pérdidas están sobre todo en la caldera, el compresor, los ventiladores y el recalentamiento; las mejoras atacan esas pérdidas; y para un proyecto falta una simulación anual, datos medidos y costos.»
 
 ## Diapositiva 10: la alternativa B
 
@@ -54,25 +62,128 @@ La alternativa B usa ese calor: un condensador de agua en paralelo entrega agua 
 
 ## Diapositiva 11: mejoras de sustentabilidad
 
-*(Arrancá con una sola frase: los porcentajes son anuales. El detalle queda para las preguntas.)*
+*(Qué señalar: recorré las tres columnas de izquierda a derecha, una por vez.)*
 
-En esta diapositiva los porcentajes están calculados **sobre todo el año** (sección 4.5 del informe), así que no se comparan con los de las anteriores. [Es una estimación simple, mes a mes, sobre los unos tres mil megavatios hora por año del sistema térmico: el recuperador, por ejemplo, ahorra 46 % del gas en una hora de invierno y 5 % de la energía del año.] Evaluamos cada medida por separado y las agrupamos en tres familias.
+### Qué tenés que lograr con esta diapositiva
 
-**Producir energía limpia:** paneles solares de 250 kilowatts pico, 11 % menos de energía y 14 % menos de CO₂, y solar térmico, 8 %. Ojo: los paneles no reducen el consumo, lo cubren. [Con 500 kilowatts serían 22 y medio por ciento, ocupando el 41 % de la azotea: es un escenario, porque supone que otras cargas usan el excedente de mediodía.]
+> **Mensaje en una frase:** hay tres caminos para gastar menos energía (producir, no desperdiciar y pedir menos), y los mayores ahorros están en los dos primeros.
 
-**No desperdiciar:** la B, medida sobre el año, baja 18 %. Es un techo: supone que el calor y la demanda coinciden siempre. [Es otro diseño que el de la 10, con agua a 45 grados.] Después, el recuperador de aire, 5 %, y la caldera de condensación, 3 %.
+- Las tres columnas no están ordenadas al azar: son **tres estrategias distintas**. *Producir* cambia de dónde viene la energía. *No desperdiciar* aprovecha calor que hoy se tira. *Pedir menos* hace que el edificio necesite menos.
+- No tenés que decir todas las cifras. Quedate con una por columna y con el paquete; el resto lo ve el público en la diapositiva. Las tarjetas de abajo te dicen qué significa cada número por si te preguntan.
+- Para que las cifras no suenen sueltas, agrupalas por tamaño: **las grandes** (la B, los paneles y el solar térmico, de 8 a 18 %), **las medianas** (el recuperador, los techos verdes y la caldera de condensación, de 3 a 5 %) y **las chicas** (ventiladores y quirófanos de noche, alrededor de 2 %).
 
-**Pedir menos:** techos y fachadas verdes, casi 4 % con un supuesto de 20 % menos de calor por la envolvente. Es poco porque el consumo está en el aire, no en la envolvente. [Bajar el caudal de los quirófanos a la mitad de noche, 2 %, y la presión de los ventiladores 20 %, 2 y medio por ciento.]
+### Guion hablado
 
-Todas juntas, el paquete llega hasta casi **50 % menos de energía y 41 % menos de CO₂**, sin contar los 500 kilowatts ni los techos verdes. [Sin los paneles baja a 38 % de energía y 27 % de CO₂.] [El informe evalúa además una bomba de calor para calefaccionar, que no modelamos en este cálculo anual: 43 % de eficiencia exergética, contra 16 % de la caldera.]
+En esta diapositiva los porcentajes están calculados **sobre todo el año** (sección 4.5 del informe), así que no se comparan con los de las anteriores. [Es una estimación simple, mes a mes, sobre los unos tres mil megavatios hora por año del sistema térmico: el recuperador, por ejemplo, ahorra 46 % del gas en una hora de invierno y 5 % de la energía del año.]
+
+Para gastar menos energía hay tres caminos: **producir** una parte con energía limpia, **no desperdiciar** la que ya generamos, o **pedir menos**.
+
+**Producir.** La azotea es grande y ahí hay sol, que se puede aprovechar de dos maneras. Con paneles fotovoltaicos, que lo convierten en electricidad: 250 kilowatts pico cubren cerca de uno de cada nueve kilowatts-hora que consume el sistema [y ocupan la quinta parte de la azotea]. Y con colectores solares térmicos, que calientan el agua sanitaria: como hay que llevarla a solo 60 grados, no hace falta quemar gas, y con 300 metros cuadrados el sol cubre más de la mitad del año. Ojo: los paneles no reducen lo que el hospital necesita, cambian de dónde viene la electricidad. [Con el doble de paneles el ahorro se duplica, pero ocupan el 41 % de la azotea y suponen que lo que sobra al mediodía lo usan otras cargas del hospital.]
+
+**No desperdiciar.** Es el corazón del trabajo: el hospital tira calor por varios lados. El más grande es el condensador de la enfriadora, que es la alternativa B: sobre el año ahorra 18 %, la medida que más ahorra, aunque es un techo porque supone que el calor y la demanda coinciden siempre. [Es otro diseño que el de la 10, con agua a 45 grados.] Después, el aire que el hospital expulsa sale tibio, a unos 22 grados: un recuperador lo usa para precalentar el aire exterior que entra, sin mezclarlos. [Y la caldera de condensación aprovecha el vapor de agua que hoy se va por la chimenea.]
+
+**Pedir menos.** Techos y fachadas verdes: las plantas dan sombra y evaporan agua, la superficie queda más fría y entra menos calor. El ahorro es chico, casi 4 %, y es un supuesto, porque el consumo grande del sistema no está en la envolvente sino en mover y tratar el aire, que la norma exige. [Pasa lo mismo con bajar el caudal de los quirófanos a la mitad de noche o la presión de los ventiladores: entre 2 y 2 y medio por ciento cada una.]
+
+Todas juntas, el paquete llega a casi **50 % menos de energía**. Lo que hay que llevarse: los mayores ahorros están en **dejar de tirar calor** y en **producir** parte de la energía; pedir menos suma, pero menos. [Sin los paneles, el paquete baja a 38 %.] [El informe evalúa además una bomba de calor para calefaccionar, que no modelamos en este cálculo anual.]
+
+### Entender cada medida (para explicarla con tus palabras)
+
+| Medida | Qué es, en una frase | Por qué ahorra | La cifra y qué significa |
+|---|---|---|---|
+| Paneles fotovoltaicos de 250 kWp | Paneles que convierten la radiación solar en electricidad. «kWp» es la potencia máxima del panel en condiciones normalizadas | Cada kWh que generan es un kWh que no se compra a la red. No reducen el consumo: lo cubren | 340 MWh por año = −11,3 % de la energía, casi seis semanas de consumo de todo el sistema. El CO₂ baja más (−14,4 %) porque la electricidad de la red emite más por kWh que el gas |
+| Paneles de 500 kWp (escenario) | El doble de paneles | La misma lógica: el ahorro se duplica | −22,5 %. Ocupan el 41 % de la azotea y al mediodía entregarían hasta unos 400 kW, cuando el sistema térmico consume en promedio unos 200: supone que otras cargas absorben el excedente. Por eso queda fuera del paquete |
+| Solar térmico de 300 m² | Colectores que calientan con el sol el agua caliente sanitaria | El ACS se lleva de 17 a 60 °C: es calor de baja temperatura, el sol alcanza y la caldera deja de quemar gas | −8,3 % (251 MWh de gas evitados). Cubre el 54 % del ACS en el año: 79 % en diciembre y 29 % en junio, porque en invierno hay menos sol. La caldera completa el resto |
+| B: calor del condensador | Usar el calor que la enfriadora tira para recalentar el aire y precalentar el ACS (agua a 45 °C en este cálculo) | El condensador tira unas ocho veces más calor del que hace falta para recalentar (4.198 contra 511 MWh por año): reemplaza gas, a cambio de algo más de electricidad del compresor | −18,0 %: el gas baja de 1.285 a 670 MWh y la electricidad sube 70 MWh. Es un techo (supone que calor y demanda coinciden); con 75 % de coincidencia, −13,5 %. Cómo funciona: lo explicás en la 10 |
+| Recuperador del aire de extracción | Dos serpentinas unidas por un circuito de agua, una en el aire que sale y otra en el que entra. El calor pasa de uno al otro sin que se mezclen | Hay que tratar un caudal enorme de aire exterior porque la norma obliga a renovarlo. Precalentarlo en invierno o preenfriarlo en verano con aire que ya se pagó sale casi gratis | −5,1 %: baja 182 MWh de gas y sube 28 MWh de electricidad (más pérdida de presión). Supone efectividad 0,5 y compuertas de bypass; sin ellas el ahorro cae a 0,4 % |
+| Caldera de condensación | Caldera que enfría los humos por debajo del punto de rocío (56 °C) para condensar el vapor de agua de la combustión | Al quemar gas natural se forma agua. En una caldera común ese vapor, con su calor latente, sale por la chimenea; recuperarlo sube el rendimiento de 81 a 92 % sobre PCS | −3,1 % (94 MWh de gas). Solo sirve donde el agua vuelve fría (calefacción y recalentamiento, 50/40 °C); el ACS, a 60 °C, no condensa |
+| Techos y fachadas verdes | Cubrir techos y paredes con vegetación | Sombra y evaporación (cada kg de agua que se evapora se lleva unos 2.400 kJ): la superficie queda más fría y entra menos calor | −3,7 % con un supuesto de 20 % menos de calor por la envolvente. No hay dato propio y es un techo del efecto. Baja el frío y también la calefacción (60 MWh de electricidad y 52 de gas). Suma confort y menos isla de calor |
+| Ventiladores con 20 % menos de presión | Diseñar filtros y conductos de menor pérdida para que el ventilador venza menos resistencia | La potencia del ventilador crece con la presión: baja la electricidad en 190 MWh. Pero el calor que el ventilador cedía al aire ahora hay que ponerlo con gas: 113 MWh más | −2,5 % neto (77 MWh). El CO₂ baja más (−5,8 %) porque se cambia electricidad, que emite más, por algo de gas |
+| Quirófanos al 50 % del caudal de noche | Bajar el caudal de aire de los quirófanos cuando no se usan | La potencia de un ventilador crece con el cubo del caudal: a la mitad queda 1/8. Además hay menos aire exterior que enfriar y recalentar | −2,0 % (59 MWh). Hay que evaluar el riesgo antes de aplicarlo; ASHRAE 170 admite reducir el caudal cuando no se usan [2] |
+| Paquete | Todas las medidas juntas, salvo los 500 kWp y los techos verdes | No se suman exacto: se pisan entre sí. Con B, la caldera de condensación ahorra 24 MWh y no 94 | −49,6 % de energía y −41,2 % de CO₂. Sin los paneles: −38,4 % y −26,7 %. Con 75 % de coincidencia: −45,5 % |
+
+### Analogías para explicarlo
+
+> **Paneles contra solar térmico.** Los paneles hacen electricidad, una energía de mucha calidad que sirve para todo. El solar térmico hace calor, de calidad baja, que solo sirve para calentar agua; por eso es más fácil de conseguir con poco sol.
+
+> **Recuperador.** El aire que sale del hospital sale «tibio» y se tira con todo su calor. El recuperador aprovecha esa tibieza para que el aire frío que entra llegue un poco menos frío, sin que los dos aires se toquen.
+
+> **Caldera de condensación.** Al quemar gas se forma agua; es como el vapor de una pava. Una caldera común deja que ese vapor se escape por la chimenea con su calor. La de condensación lo hace condensar contra una superficie fría y se queda con ese calor.
+
+> **Ventiladores y quirófanos de noche.** Es la misma ley que cuando manejás: la potencia que gastás contra el aire crece con el cubo de la velocidad. Con la mitad del caudal, el ventilador gasta una octava parte.
+
+> **Techos verdes.** Es como estar debajo de un árbol en verano: la sombra y la transpiración de las hojas enfrían.
+
+### Frases para pasar de una diapositiva a otra
+
+- **Desde la 10:** «B solo ayuda cuando la enfriadora trabaja, o sea en verano. Veamos qué más se puede hacer para gastar menos durante todo el año.»
+- **Hacia la 12:** «Con esto vemos cuánto se puede mejorar. Cerramos con las respuestas a la consigna 5.»
+
+### Si te quedás sin tiempo
+
+Quedate con cuatro cosas, en este orden: **1)** la frase de que los porcentajes son anuales; **2)** los tres caminos (producir, no desperdiciar, pedir menos); **3)** la B y los paneles, que son las dos más grandes; **4)** el paquete y la conclusión. Del resto podés decir «las demás suman entre 2 y 5 %».
+
+### Cuidado al hablar
+
+- No digas que los paneles «ahorran consumo»: **cubren** consumo.
+- No compares el 18 % de la B con el 95 % de la diapositiva 10: miden cosas distintas (el año contra una hora).
+- No nombres las medidas por M1, M2 o M3: en el pie de esta diapositiva la numeración es otra que la del informe. Decí el nombre, o «paquete con todas las medidas».
+- No presentes los techos verdes ni los 500 kWp como ahorros firmes: uno es un supuesto y el otro, un escenario.
 
 ## Diapositiva 12: respuestas a la consigna 5
 
-*(Una fila por vez; no leas la tabla entera.)*
+*(Una fila por vez; no leas la tabla entera. Tomate un segundo en cada pregunta.)*
 
-Para cerrar, las respuestas a la consigna 5. **Sí cumple los requerimientos**: 1.489 kW de frío y una caldera de 552 kW mantienen las consignas [, con humedad de 46 a 60 % en verano y 30 % en invierno]. **Mandan** la humedad exterior, la temperatura de condensación [(el COP es 3,57 a 46 °C y 4,62 a 38 °C)] y los caudales de aire que exige la norma. **Las pérdidas** están sobre todo en la caldera, que concentra el 51 % de la exergía destruida en verano húmedo. **Lo que mejora el sistema**: la alternativa B, el recuperador, la bomba de calor y la caldera de condensación [: 95 % menos de gas en verano húmedo, 46 % menos en invierno, 43 % de eficiencia exergética y 10 % menos de gas].
+### Qué tenés que lograr con esta diapositiva
 
-Y **para un proyecto falta** una simulación anual con clima horario, datos medidos del hospital, curvas de los equipos a carga parcial y costos. Nuestra estimación anual de la diapositiva anterior es simple y **no reemplaza** esa simulación.
+> **Mensaje en una frase:** el sistema cumple lo que se le pide, sabemos dónde pierde y qué lo mejora, y sabemos qué falta para convertir esto en un proyecto.
+
+- Es el **cierre**: cada fila resume una parte del informe. El hilo es *cumple → qué manda → dónde se pierde → cómo se mejora → qué falta*.
+- No hace falta decir todas las cifras de la tabla. Elegí la explicación de cada fila (qué significa) y dejá el número para quien lo quiera leer.
+
+### Guion hablado
+
+Cerramos con las respuestas a la consigna 5.
+
+**¿El sistema cumple?** Sí. Con una enfriadora para 1.489 kW de frío y una caldera de 552 kW de calor útil, todas las zonas mantienen sus consignas de temperatura y de humedad [: entre 46 y 60 % en verano y 30 % en invierno].
+
+**¿Qué es lo que más pesa?** Tres cosas: la humedad del aire exterior, que obliga a enfriar de más y después recalentar; la temperatura de condensación, porque cuanto más caliente se descarga el calor, más trabaja el compresor [(el COP es 3,57 a 46 °C y 4,62 a 38 °C)]; y los caudales de aire que exige la norma, que fijan los ventiladores.
+
+**¿Dónde se pierde?** Sobre todo en la caldera: quema gas a unos 1.850 grados para producir agua a 60, y por eso destruye más de la mitad de la exergía en el día húmedo. Después, el compresor, los ventiladores [(que funcionan las 24 horas porque el hospital renueva el aire todo el tiempo)] y el recalentamiento, que deshace el frío que acabamos de producir.
+
+**¿Qué lo mejora?** Las medidas que atacan justo esas pérdidas: la alternativa B usa el calor que tira el condensador; el recuperador aprovecha el aire que se expulsa; la bomba de calor reemplaza la quema de gas por electricidad; y la caldera de condensación aprovecha el vapor de los humos [: 95 % menos de gas en verano húmedo, 46 % menos en invierno, 43 % de eficiencia exergética y 10 % menos de gas, respectivamente].
+
+**¿Qué falta para un proyecto?** Una simulación anual con clima horario, datos medidos del hospital, el comportamiento de los equipos a carga parcial y los costos. Nuestra estimación anual de la diapositiva anterior es simple y **no reemplaza** esa simulación.
+
+### Entender cada respuesta (para explicarla con tus palabras)
+
+| Pregunta | Qué responde | Por qué (la explicación) | Dónde está en el informe |
+|---|---|---|---|
+| ¿Cumple los requerimientos? | Sí: 1.489 kW de frío y una caldera de 552 kW mantienen temperatura y humedad en todas las zonas | «Cumplir» es que cada zona llegue a su consigna (el quirófano, por ejemplo, 22 °C y 55 %). La caldera se dimensiona con el invierno y en verano húmedo trabaja casi igual (478 kW), de los cuales el 91 % es recalentamiento. Excepción: terapia intensiva en invierno queda en 28 % de humedad | Conclusión 1; tablas 4 y 11 |
+| ¿Qué variables mandan? | La humedad exterior, la temperatura de condensación y los caudales de aire de la norma | **Humedad:** en el día húmedo la carga latente es el 34 % del frío (en el pico seco, 18 %) y obliga a recalentar. **Condensación:** cada grado más caliente que se descarga el calor, el compresor trabaja más (COP 3,57 a 46 °C, 4,62 a 38 °C). **Norma:** 20 renovaciones por hora en quirófanos fijan unos 122 kW de ventiladores, las 24 horas. En la caldera pesan además el exceso de aire y la temperatura de los humos | Conclusión 2; secciones 3.1, 3.2 y 4.2 |
+| ¿Dónde están las pérdidas? | Caldera, compresor, ventiladores y recalentamiento | **Caldera:** convierte un combustible de exergía casi igual a su poder calorífico en agua a 60 °C (503 de 984 kW destruidos en V2, el 51 %). **Compresor:** 126 kW destruidos en el pico, por la compresión no isentrópica y el motor. **Ventiladores:** unos 124 kW en todos los estados, porque toda su electricidad termina como calor en el aire. **Recalentamiento:** destruye a la vez el frío ya producido y la exergía del gas | Conclusión 3; tabla 12; sección 4.2 |
+| ¿Qué mejora el sistema? | B, recuperador, bomba de calor y caldera de condensación | Cada una ataca una pérdida. **B** usa el calor del condensador (95 % menos de gas en V2, con el COP bajando de 4,62 a 4,30). El **recuperador** reduce el aire exterior que hay que calentar (calefacción de 438 a 187 kW). La **bomba de calor** invierte el ciclo de la enfriadora (COP 3,67; 43 % de eficiencia exergética contra 16,3 % de la caldera). La **caldera de condensación** sube el rendimiento de 89,9 a 99,5 % sobre PCI | Conclusión 4; sección 4.3 (tabla 14) |
+| ¿Qué falta para un proyecto? | Simulación anual con clima horario, datos medidos, carga parcial y costos | El informe calcula tres estados de diseño con los equipos a plena carga: no sabe cuántas horas del año ocurre cada estado, ni cómo rinden las máquinas a carga parcial, ni cuánto cuesta. Además hay supuestos (superficies, ganancias internas, envolvente, ACS, composición del gas) y no hay datos del hospital real | Conclusión 5 |
+
+### Analogías para explicarlo
+
+> **Recalentamiento.** Es como enfriar la casa con el aire acondicionado y, para que no quede helada, prender una estufa: pagás frío y pagás calor para volver al mismo lugar.
+
+> **Caldera y exergía.** Es como usar un soplete, con una llama a casi 1.850 grados, para calentar una taza de agua a 60: alcanza, pero estás usando una herramienta mucho más potente de la que hacía falta. Eso es «destruir exergía».
+
+> **Ventiladores.** Son como una luz que nunca se apaga: no son el equipo más grande, pero funcionan las 24 horas todos los días porque la norma obliga a renovar el aire.
+
+> **Temperatura de condensación y COP.** Es como bombear agua cuesta arriba: cuanto más alto hay que subirla, más trabaja la bomba. Descargar el calor a 46 °C es más «cuesta arriba» que a 38 °C.
+
+### Frase de cierre sugerida
+
+«Lo que nos llevamos: en un hospital lo caro no es el edificio sino mover y acondicionar el aire. Por eso las mejores oportunidades están en no tirar el calor que ya producimos.»
+
+### Preguntas que puede provocar esta diapositiva
+
+- **¿Cómo puede la caldera rendir 90 % y destruir tanta exergía?** Son dos medidas distintas. El rendimiento (89,9 %) cuenta cuánto calor del gas llega al agua. La eficiencia exergética (8,9 % en el día húmedo) mide la *calidad*: el calor sale de una llama a unos 1.850 grados y se entrega a 60, y ese salto es lo que se destruye.
+- **¿Por qué la eficiencia exergética global es tan baja (0,4 % en el día húmedo)?** Porque los locales están cerca del estado muerto, que es el exterior: lo que se entrega tiene poca exergía, pero para lograrlo se usan electricidad y gas, que son exergía casi pura. Esa diferencia es el margen de mejora.
+- **¿Cumple en terapia intensiva?** En invierno la humedad queda en 28 %, un poco por debajo del rango; es la única excepción que el informe declara.
+- **¿Qué sería lo primero que harían con más tiempo?** La simulación anual con clima horario y las curvas de los equipos a carga parcial, porque con eso se sabe cuántas horas ocurre cada estado y cuánto ahorra realmente cada medida.
 
 ## Si te preguntan
 
@@ -123,6 +234,24 @@ Y **para un proyecto falta** una simulación anual con clima horario, datos medi
 - **¿Por qué los techos verdes ahorran poco?** Porque el consumo está en el aire (renovaciones y humedad) y no en la envolvente. Se justifican más por comodidad y menor isla de calor.
 - **¿Los paneles de 500 kilowatts son realistas?** Es un escenario: supone que el excedente de mediodía lo absorben otras cargas del hospital; por eso queda fuera del paquete, para no cambiar el resto de las cifras.
 - **¿B y el solar térmico se suman?** En nuestra estimación anual sí: B solo cubre el recalentamiento y la calefacción del aire (el B del informe, en cambio, también precalienta el ACS).
+
+## Conceptos en palabras simples
+
+Para cuando haya que explicar «qué es eso» sin leer. Cada concepto dice cómo aparece en tus diapositivas.
+
+| Concepto | En palabras simples | Cómo aparece en tus diapositivas |
+|---|---|---|
+| Calor sensible y calor latente | El sensible cambia la temperatura. El latente es el que se absorbe o se libera al evaporar o condensar agua, sin cambiar la temperatura | Deshumidificar es sacar calor latente: la serpentina tiene que condensar vapor. En el día húmedo es el 34 % del frío |
+| Punto de rocío | La temperatura a la que el aire, al enfriarse, ya no puede tener todo su vapor y empieza a condensarlo | El aire del día húmedo (16,8 g/kg) condensa por debajo de unos 22 °C, por eso la serpentina lo lleva a unos 13 °C |
+| Recalentamiento | Calentar el aire después de enfriarlo para quitarle humedad, para que no entre helado al local | Son 436 kW en el día húmedo, y es la pérdida que ataca la alternativa B |
+| Exergía | La parte de la energía que se puede convertir en trabajo útil: su «calidad». La electricidad y el gas tienen mucha; el calor tibio, poca | «Destruir exergía» es usar energía de mucha calidad para algo que no la necesita, como la caldera para recalentar |
+| Estado muerto | El ambiente exterior, que se usa como referencia: con algo que ya está igual que el exterior no se puede obtener trabajo | En el informe es el aire exterior de cada estado |
+| Eficiencia exergética | Qué parte de la exergía que entra a un equipo sale como exergía útil | Caldera: 8,9 % en el día húmedo. Enfriadora: 30,8 %. No es lo mismo que el rendimiento (89,9 % de la caldera) |
+| Rendimiento y COP | El rendimiento es lo útil sobre lo que entra y no pasa de 100 %. El COP es el frío o el calor útil por unidad de electricidad: puede ser mayor que 1 porque *mueve* calor en vez de producirlo | COP 3,57 en la enfriadora; 3,67 en la bomba de calor |
+| kWp y kWh | El kWp es la potencia máxima de un panel; el kWh, la energía en el tiempo. Los 250 kWp generan 340 MWh por año porque equivalen a unas 1.360 horas a potencia máxima | Dato de la diapositiva 11 |
+| PCI y PCS | El poder calorífico inferior no cuenta el calor del vapor de agua que se forma al quemar el gas; el superior sí | Por eso una caldera de condensación puede dar 99,5 % sobre PCI y, sobre PCS, alrededor de 90 % |
+| Carga parcial y simulación horaria | Un equipo casi nunca trabaja a plena carga: depende de la hora y del clima. Una simulación horaria calcula las 8.760 horas del año | Es lo que la diapositiva 12 dice que falta |
+| Techo (del efecto) | El máximo que se podría ahorrar con los supuestos hechos; en la práctica será menos | Lo decís de la B y de los techos verdes |
 
 ## Glosario
 

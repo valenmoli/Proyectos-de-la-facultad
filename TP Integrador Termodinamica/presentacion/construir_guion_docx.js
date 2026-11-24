@@ -20,15 +20,15 @@ const CONTENT_W = PAGE_W - 2 * MARGIN;                      // 9638 DXA
 // --- tiempos medidos (palabras habladas a 130-150 por minuto)
 const TIEMPOS = {
   10: "Versión base ≈ 1:00 a 1:10  ·  con todo ≈ 1:20 a 1:35",
-  11: "Versión base ≈ 1:15 a 1:30  ·  con todo ≈ 2:25 a 2:50",
-  12: "Versión base ≈ 0:55 a 1:05  ·  con todo ≈ 1:20 a 1:30",
+  11: "Versión base ≈ 2:20 a 2:45  ·  con todo ≈ 3:40 a 4:10",
+  12: "Versión base ≈ 1:45 a 2:00  ·  con todo ≈ 2:15 a 2:35",
 };
 
 // --- inline: **negrita**, [corte opcional], resto texto
 function runs(text, o = {}) {
   const base = { font: FONT, size: o.size || 22, color: o.color || INK, bold: !!o.bold, italics: !!o.italics };
   const out = [];
-  const re = /(\*\*[^*]+\*\*|\[[^\]]{4,}\])/g;
+  const re = /(\*\*[^*]+\*\*|\*[^*\s(][^*]*\*|\[[^\]]{4,}\])/g;
   let last = 0, m;
   const push = (t, extra = {}) => {
     if (!t) return;
@@ -48,6 +48,8 @@ function runs(text, o = {}) {
     const tok = m[0];
     if (tok.startsWith("**")) {
       push(tok.slice(2, -2), { bold: true, color: o.boldColor || (o.color ? o.color : NAVY) });
+    } else if (tok.startsWith("*")) {
+      push(tok.slice(1, -1), { italics: true });
     } else {
       // corte opcional: se muestra entre corchetes y sombreado
       const inner = tok.slice(1, -1);
@@ -207,6 +209,7 @@ const resumenTbl = new Table({
 });
 
 let section = "";
+let sub = null;
 let i = 0;
 let titulo = "";
 
@@ -227,7 +230,7 @@ while (i < lines.length) {
   if (l.startsWith("# ")) { titulo = l.slice(2).trim(); portada(); i++; continue; }
   if (l.startsWith("## ")) {
     const h = l.slice(3).trim();
-    section = h;
+    section = h; sub = null;
     const ms = /^Diapositiva (\d+): (.*)$/.exec(h);
     if (ms) {
       const t = ms[2].charAt(0).toUpperCase() + ms[2].slice(1);
@@ -236,6 +239,8 @@ while (i < lines.length) {
       if (ms[1] === "10") children.push(callout("**Cómo leerlo.** El texto grande es lo que se dice en voz alta. Lo **[sombreado entre corchetes]** se puede cortar si falta tiempo. En negrita van las cifras clave.", { bar: GREEN, fill: "E6F2EC" }));
     } else if (h === "Si te preguntan") {
       children.push(h1("Si te preguntan", true));
+    } else if (h === "Conceptos en palabras simples") {
+      children.push(h1(h, false));
     } else if (h === "Glosario") {
       children.push(h1("Glosario", true));
     } else if (h === "Diapositiva 12") {
@@ -251,6 +256,8 @@ while (i < lines.length) {
     i++; continue;
   }
   if (!l.trim()) { i++; continue; }
+  if (l.startsWith("### ")) { sub = l.slice(4).trim(); children.push(h2(sub)); i++; continue; }
+  if (l.startsWith("> ")) { children.push(callout(l.slice(2).trim())); i++; continue; }
 
   // tabla markdown
   if (l.trim().startsWith("|")) {
@@ -262,6 +269,9 @@ while (i < lines.length) {
     }
     let widths, fills;
     if (rows[0][0] === "Tema") { widths = [2300, 3669, 3669]; fills = [NAVY, NAVY, ORANGE_D]; }
+    else if (rows[0][0] === "Medida") { widths = [1650, 2500, 2800, 2688]; fills = [NAVY, NAVY, NAVY, NAVY]; }
+    else if (rows[0][0] === "Pregunta") { widths = [1700, 2300, 3500, 2138]; fills = [NAVY, NAVY, NAVY, NAVY]; }
+    else if (rows[0][0] === "Concepto") { widths = [1900, 4100, 3638]; fills = [NAVY, NAVY, NAVY]; }
     else if (rows[0].length === 3) { widths = [1500, 5538, 2600]; fills = [NAVY, NAVY, NAVY]; }
     else { widths = [2300, 7338]; fills = [NAVY, NAVY]; }
     children.push(mdTable(rows, widths, fills));
@@ -302,7 +312,7 @@ while (i < lines.length) {
   }
 
   // párrafo
-  if (inSlide) children.push(pSpeech(l));
+  if (inSlide && (sub === null || /^Guion/.test(sub))) children.push(pSpeech(l));
   else children.push(pBody(l, { size: 22, keepNext: /:\s*$/.test(l) }));
   i++;
 }
