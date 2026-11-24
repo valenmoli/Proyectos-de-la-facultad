@@ -358,6 +358,8 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 - **M4, ventiladores:** la presión de diseño de cada zona se multiplica por 0,8; el calor que el ventilador ya no cede al aire lo repone la caldera.
 - **M5, fotovoltaica:** energía anual $= kWp \cdot GHI \cdot PR = {{kWp_m}} \cdot {{GHI_m}} \cdot {{mx_PR_m}}$ = {{mx_fv_MWh}} MWh ({{fv_yield}} kWh por kWp), descontada de la electricidad del sistema; con 1.500 kWh/m² serían {{mx_fv_MWh1500}} MWh.
 - **M6, quirófanos al 50 % de noche:** el caudal de G1 en la mitad nocturna se multiplica por 0,5 y la potencia del ventilador, por $0\text{,}5^3$ (leyes de los ventiladores).
+- **M7, techos y fachadas verdes (fuera del paquete):** la conductancia de la envolvente y las ganancias solares de todas las zonas se multiplican por $1 - {{r_env_pct_m}}/100$.
+- **M5b, fotovoltaica ampliada (fuera del paquete):** la misma ecuación de M5 con {{kWp_amp}} kWp.
 - **Emisiones:** CO₂ del gas = energía de PCI por el factor de la reacción ({{co2_gas_kg}} kg/kWh de PCI, {{mx_co2_gas_pcs}} kg/kWh de PCS); CO₂ de la electricidad = energía por el factor de la red ({{ef_elec}} t/MWh, meta de CAMMESA para 2023 {{R_cammesa}}; con 0,29 y 0,40 t/MWh el paquete reduce las emisiones {{dC_P_lo}} y {{dC_P_hi}} %). En el caso base: {{mx_Epci_anual}} MWh de PCI · {{mx_co2_gas_kg4}} = {{mx_co2_gas_t}} t del gas y {{mx_Eelec}} MWh · {{ef_elec}} = {{mx_co2_elec_t}} t de la electricidad, {{mx_co2_tot_t}} t en total.
 
 ## 8.2 Resultados

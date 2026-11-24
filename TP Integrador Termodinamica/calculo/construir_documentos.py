@@ -99,7 +99,7 @@ def valores_nuevos(V, T):
     # ---- mejoras y emisiones
     base, filas = mj.comparar(c)
     por = {f["clave"]: f for f in filas}
-    for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "P"):
+    for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M5b", "P"):
         V["dE_" + k] = pm(por[k]["d_E"])
         V["dC_" + k] = pm(por[k]["d_co2"])
     bdet = por["B"]["detalle"]
@@ -127,6 +127,10 @@ def valores_nuevos(V, T):
         r = mj.anual_variante(c, {"rec_cond": {"f": f_}})
         V["dE_" + k] = pm(r["E_total"] / base["E_total"] - 1)
     V["T_agua_rec"] = n(mj.parametro("T_agua_rec"))
+    V["r_env_pct"] = n(mj.parametro("r_env_verde") * 100)
+    V["kWp_amp"] = n(mj.parametro("kWp_fv_amp"))
+    V["fv_amp_MWh"] = n(por["M5b"]["detalle"]["fv_kWh"] / 1e3)
+    V["fv_amp_azotea"] = n(mj.parametro("kWp_fv_amp") * 5.0 / (P["A_cub"] / 3.0) * 100)
     V["T_cond_rec"] = n(mj.parametro("T_agua_rec") + mj.parametro("pinch_rec"))
     V["co2_t"] = n(base["co2_t"])
     V["co2_gas_t"] = n(base["co2_gas_t"])
@@ -238,10 +242,10 @@ def valores_nuevos(V, T):
                       f"−{n(-f['d_E'] * 100, 1)} % ({n((base['E_total'] - f['E_total']) / 1e3)} MWh)",
                       f"−{n(-f['d_co2'] * 100, 1)} % ({n(base['co2_t'] - f['co2_t'])} t)"))
     T["tabla_mejoras"] = tabla(["Medida", "Por qué ahorra", "Energía final", "CO₂"], filas, (20, 48, 16, 16))
-    det = [base_fila(base)] + [por[k] for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "P")]
+    det = [base_fila(base)] + [por[k] for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M5b", "P")]
     nom_det = {"A": "A. Caso base", "B": "B. Recuperación del condensador", "M1": "M1. Caldera de condensación", "M2": "M2. Solar térmico para el ACS",
-               "M3": "M3. Recuperador del aire de extracción", "M4": "M4. Ventiladores, 20 % menos de presión", "M5": "M5. Fotovoltaica", "M6": "M6. Quirófanos al 50 % de noche",
-               "P": "Paquete B + M1 a M6"}
+               "M3": "M3. Recuperador del aire de extracción", "M4": "M4. Ventiladores, 20 % menos de presión", "M5": "M5. Fotovoltaica", "M6": "M6. Quirófanos al 50 % de noche", "M7": "M7. Techos y fachadas verdes (fuera del paquete)",
+               "M5b": "M5b. Fotovoltaica de 500 kWp (fuera del paquete)", "P": "Paquete B + M1 a M6"}
     T["tabla_mejoras_detalle"] = tabla(
         ["Variante", "Energía final [MWh]", "Electricidad [MWh]", "Gas (PCS) [MWh]", "CO₂ [t]", "Energía", "CO₂"],
         [(nom_det[f["clave"]], n(f["E_total"] / 1e3), n(f["E_elec"] / 1e3), n(f["E_PCS"] / 1e3), n(f["co2_t"]),

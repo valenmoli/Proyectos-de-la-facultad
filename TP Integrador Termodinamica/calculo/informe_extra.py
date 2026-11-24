@@ -191,7 +191,7 @@ def tablas_informe(c, V, T):
         fila_m("B", "B. Recuperar el calor del condensador",
                f"El calor que rechaza el condensador ({V['T_cond_min']} a {V['T_cond_anual_max']} °C en los estados medios del año; 46 °C en el pico) vale poco como exergía y alcanza para agua a {V['T_agua_rec']} °C: sustituye gas que se quema con una llama teórica de {V['T_llama']} °C. Cuesta trabajo del compresor (condensa a {V['T_cond_rec']} °C). Valores con calor y demanda coincidentes"),
         fila_m("M5", f"M5. Fotovoltaica de {V['kWp']} kWp",
-               f"Convierte radiación en electricidad (exergía pura) y desplaza la de la red: {V['fv_MWh']} MWh por año = {V['kWp']} kWp × {V['fv_yield']} kWh/(kWp·año), que sale de {V['GHI']} kWh/m²·año de irradiación y {n(mj.parametro('PR_fv'), 1)} de rendimiento global (supuesto). La irradiación es de un punto a unos 300 km {M('gsa')} y es una cota alta: con 1.500 kWh/m²·año, −{V['inf_fv1500_pct']} %. Cubre consumo, no lo reduce"),
+               f"Convierte radiación en electricidad (exergía pura) y desplaza la de la red: {V['fv_MWh']} MWh por año = {V['kWp']} kWp × {V['fv_yield']} kWh/(kWp·año), que sale de {V['GHI']} kWh/m²·año de irradiación y {n(mj.parametro('PR_fv'), 1)} de rendimiento global (supuesto). La irradiación es de un punto a unos 300 km {M('gsa')} y es una cota alta: con 1.500 kWh/m²·año, −{V['inf_fv1500_pct']} %. Cubre consumo, no lo reduce. Con {V['kWp_amp']} kWp ({n(mj.parametro('kWp_fv_amp') * 5.0)} m², el {V['fv_amp_azotea']} % de la azotea): {V['fv_amp_MWh']} MWh, −{V['dE_M5b']} % de energía y −{V['dC_M5b']} % de CO₂ (fuera del paquete; supone que otras cargas del hospital absorben el excedente de mediodía)"),
         fila_m("M2", f"M2. Solar térmico de {V['A_solar']} m² para el ACS",
                f"El agua a {n(P['T_acs'])} °C es calor de baja exergía: el sol lo entrega sin quemar gas. Con colectores de rendimiento {n(mj.parametro('eta_solar'), 2)} (supuesto) y la misma irradiación {M('gsa')} cubre el {V['solar_frac']} % de la demanda del ACS"),
         fila_m("M3", "M3. Recuperador del aire de extracción",
@@ -202,6 +202,8 @@ def tablas_informe(c, V, T):
                "A caudal constante la potencia es proporcional a la presión, pero el calor del ventilador que ya no calienta el aire hay que reponerlo con gas: el ahorro neto de energía es chico y el de CO₂ mayor"),
         fila_m("M6", "M6. Quirófanos al 50 % del caudal de noche",
                "La potencia de un ventilador crece con el cubo del caudal: a la mitad queda 12,5 %, y además hay menos aire que enfriar y recalentar. Requiere evaluar el riesgo antes de bajar el caudal (ASHRAE 170)"),
+        fila_m("M7", "M7. Techos y fachadas verdes",
+               f"Las plantas dan sombra y evaporan agua (unos 2.400 kJ por kg): la superficie queda más fría y entra menos calor. Con {V['r_env_pct']} % menos de calor por la envolvente (supuesto, techo del efecto: depende de cuánta superficie se cubra) el efecto es chico, pero baja la temperatura interior; fuera del paquete"),
         fila_m("P", "Paquete B + M1 a M6",
                f"No es la suma: el aporte de cada medida depende de las demás. Con coincidencia del 75 %: −{V['inf_P75_E']} % de energía y −{V['inf_P75_C']} % de CO₂. Sin la fotovoltaica, que cubre consumo y no lo baja: −{V['inf_PsFV_E']} % y −{V['inf_PsFV_C']} %"),
     ], (20, 52, 14, 14))

@@ -126,3 +126,21 @@ def test_recuperador_sin_bypass_ahorra_menos_que_con_bypass():
     con = mj.anual_variante(C, {"rec_extraccion": True})["E_total"]
     sin = mj.anual_variante(C, {"rec_extraccion": True, "bypass": False})["E_total"]
     assert sin > con
+
+
+def test_techos_verdes_ahorran_poco_y_no_cambian_con_cero():
+    r = mj.anual_variante(C, {"env_verde": 0.2})
+    assert r["E_total"] < BASE["E_total"] and r["co2_t"] < BASE["co2_t"]
+    assert (BASE["E_total"] - r["E_total"]) / BASE["E_total"] < 0.06                 # la envolvente pesa poco frente al aire
+    assert mj.anual_variante(C, {"env_verde": 0.0})["E_total"] == pytest.approx(BASE["E_total"], rel=1e-12)
+
+
+def test_fotovoltaica_ampliada_es_lineal_y_queda_fuera_del_paquete():
+    chico = mj.anual_variante(C, {"fv": True})
+    grande = mj.anual_variante(C, {"fv": True, "kWp": mj.parametro("kWp_fv_amp")})
+    assert grande["fv_kWh"] == pytest.approx(chico["fv_kWh"] * mj.parametro("kWp_fv_amp") / mj.parametro("kWp_fv"))
+    assert grande["E_total"] < chico["E_total"]
+    claves = [v[0] for v in mj.VARIANTES]
+    assert "M7" in claves and "M5b" in claves
+    opc_p = dict(mj.VARIANTES[claves.index("P")][2])
+    assert "env_verde" not in opc_p and "kWp" not in opc_p                            # el paquete no cambia

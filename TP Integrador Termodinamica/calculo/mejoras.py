@@ -56,6 +56,11 @@ PARAMETROS = [
      "La Secretaria de Energia publica la serie oficial en datos.gob.ar: reemplazar"),
     ("PM14", "desrec_min_T", "Temperatura minima de descarga del compresor para recuperar calor sin subir la condensacion", 50.0, "C", "SUPUESTO",
      "Agua a 45 C mas 5 K de aproximacion"),
+    ("PM15", "r_env_verde", "Reduccion del calor que entra por la envolvente (conduccion y sol) con techo y fachadas verdes", 0.20, "-", "SUPUESTO",
+     "Las plantas dan sombra y evaporan agua (unos 2.400 kJ por kg), con lo que la superficie queda mas fria; valor de orden de magnitud sin "
+     "dato propio, que depende de cuanta superficie se cubra. Se aplica a toda la envolvente: es un techo del efecto"),
+    ("PM16", "kWp_fv_amp", "Potencia fotovoltaica del escenario ampliado", 500.0, "kWp", "SUPUESTO",
+     "Unos 2.500 m2 de paneles (5 m2/kWp), el 41 % de la azotea de 6.117 m2; el modelo supone que el excedente de mediodia lo absorben otras cargas del hospital"),
 ]
 
 MESES_N = [17, 47, 75, 105, 135, 162, 198, 228, 258, 288, 318, 344]    # dia tipico de cada mes (Duffie y Beckman)
@@ -131,6 +136,9 @@ def anual_variante(c0, opc=None):
     if opc.get("dp_vent"):
         for z in Z.values():
             z["dp_vent"] *= opc["dp_vent"]
+    if opc.get("env_verde"):                       # techo y fachadas verdes: menos conduccion y menos sol sobre la envolvente
+        for k_ in ("UA_m2", "q_sol_pico", "q_sol_dia"):
+            P[k_] *= (1.0 - opc["env_verde"])
     caud = ed.caudales(c)
     dis_acs = es.acs(c)
     cal = cb.caldera(P)
@@ -250,7 +258,7 @@ def anual_variante(c0, opc=None):
                 ventiladores=sum(zon[g]["vent"] for g in Z) + extra_vent)
     fv_kWh = 0.0
     if opc.get("fv"):
-        fv_kWh = parametro("kWp_fv") * parametro("GHI_anual") * parametro("PR_fv")
+        fv_kWh = opc.get("kWp", parametro("kWp_fv")) * parametro("GHI_anual") * parametro("PR_fv")
         fv_kWh = min(fv_kWh, sum(elec.values()))
     elec["total"] = sum(elec.values()) - fv_kWh
     E_total = elec["total"] + E_pcs
@@ -273,6 +281,8 @@ VARIANTES = [
     ("M4", "Ventiladores con 20 % menos de presión", {"dp_vent": 0.8}),
     ("M5", "Paneles fotovoltaicos", {"fv": True}),
     ("M6", "Quirófanos con el caudal al 50 % de noche", {"or_setback": 0.5}),
+    ("M7", "Techos y fachadas verdes (fuera del paquete)", {"env_verde": parametro("r_env_verde")}),
+    ("M5b", "Fotovoltaica ampliada (fuera del paquete)", {"fv": True, "kWp": parametro("kWp_fv_amp")}),
     ("P", "Paquete: B + M1 a M6",
      {"rec_cond": True, "caldera_cond": True, "solar_acs": True, "rec_extraccion": True, "dp_vent": 0.8, "fv": True, "or_setback": 0.5}),
 ]

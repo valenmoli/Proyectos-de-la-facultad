@@ -429,6 +429,10 @@ _PM = {
     "PM13": ("Factor de emisión de la electricidad de la red", "t CO₂/MWh",
              "{cammesa} meta de 380 kg CO₂e/MWh para 2023: es una meta y no un dato medido; otras citas dan 0,29 y 0,40 t/MWh (se prueba el rango en la sección 8)"),
     "PM14": ("Temperatura mínima de descarga del compresor para recuperar calor sin subir la condensación", "°C", "supuesto: agua a 45 °C más 5 K de aproximación"),
+    "PM15": ("Reducción del calor que entra por la envolvente (conducción y sol) con techo y fachadas verdes", "–",
+             "supuesto: orden de magnitud sin dato propio; las plantas dan sombra y evaporan agua (unos 2.400 kJ por kg); depende de cuánta superficie se cubra y se aplica a toda la envolvente, así que es un techo del efecto"),
+    "PM16": ("Potencia fotovoltaica del escenario ampliado", "kWp",
+             "supuesto: unos 2.500 m² de paneles (5 m²/kWp), el 41 % de la azotea de 6.117 m²; el modelo supone que el excedente de mediodía lo absorben otras cargas del hospital"),
 }
 
 
@@ -640,7 +644,27 @@ def texto_lectura_mejoras(c):
     p4 = (f"**Qué no conviene priorizar.** Reducir un 30 % la conductancia de la envolvente cambia la energía {_txt_sens(d_ua)} y reducir un 30 % las ganancias internas (por ejemplo, con iluminación LED), {_txt_sens(d_gi)}"
           f"{': con menos calor interno el aire se recalienta más' if d_gi > 0 else ''}. El consumo está en el aire (renovaciones, humedad y ventiladores), no en la envolvente. "
           f"Las medidas que ahorran gas bajan más la energía que las emisiones; las que ahorran electricidad (fotovoltaica, ventiladores) bajan más las emisiones.")
-    return "\n\n".join([p1, p2, p3, p4])
+    r_env = mj.parametro("r_env_verde")
+    kamp = mj.parametro("kWp_fv_amp")
+    d_ua20 = _sens_c(c, lambda c2: c2["P"].__setitem__("UA_m2", c2["P"]["UA_m2"] * (1 - r_env)))
+    d_sol20 = _sens_c(c, lambda c2: (c2["P"].__setitem__("q_sol_pico", c2["P"]["q_sol_pico"] * (1 - r_env)), c2["P"].__setitem__("q_sol_dia", c2["P"]["q_sol_dia"] * (1 - r_env))))
+    c40 = copy.deepcopy(c)
+    for k_ in ("UA_m2", "q_sol_pico", "q_sol_dia"):
+        c40["P"][k_] *= 0.6
+    d40 = _E(c40) / _E(c) - 1.0
+    fv = por["M5b"]["detalle"]
+    prom_kW = base["E_elec"] / 8760.0
+    p5 = (f"**M7, techos y fachadas verdes (fuera del paquete).** Las plantas dan sombra y el agua que evaporan se lleva unos 2.400 kJ por kg: la superficie queda más fría y entra menos calor. "
+          f"En el modelo se aplica una reducción de {n(r_env * 100)} % a la conductancia de la envolvente y a la ganancia solar de todas las zonas (supuesto de orden de magnitud, sin dato propio): "
+          f"la energía final baja {n(por['M7']['d_E'] * -100, 1)} % ({M(base['E_total'] - por['M7']['E_total'])} MWh) y las emisiones, {n(por['M7']['d_co2'] * -100, 1)} %. "
+          f"Solo la conductancia ({n(r_env * 100)} %) cambia la energía {_txt_sens(d_ua20)} y solo el sol, {_txt_sens(d_sol20)}; con {n(40)} % en ambas, {_txt_sens(d40)}: el efecto sube poco porque menos sol también quita calor gratis en invierno. "
+          f"Es un techo, porque supone que toda la envolvente se cubre; como la envolvente pesa poco frente al aire (renovaciones y humedad), no se incluye en el paquete. "
+          f"Sus otros beneficios (temperatura interior, isla de calor, agua de lluvia) no entran en el cálculo, y la carga del techo verde sobre la azotea, que ya lleva las enfriadoras, la verifica el calculista.")
+    p6 = (f"**M5b, fotovoltaica ampliada a {n(kamp)} kWp (fuera del paquete).** Ocupa {n(kamp * 5)} m² ({n(kamp * 5 / (c['P']['A_cub'] / 3.0) * 100)} % de la azotea de {n(c['P']['A_cub'] / 3.0)} m²) "
+          f"y produce {M(fv['fv_kWh'])} MWh por año: la energía final baja {n(por['M5b']['d_E'] * -100, 1)} % y las emisiones, {n(por['M5b']['d_co2'] * -100, 1)} %; cubre el {n(fv['fv_kWh'] / base['E_elec'] * 100)} % de la electricidad del sistema térmico. "
+          f"El sistema térmico consume en promedio {n(prom_kW)} kW y esta potencia entrega hasta unos {n(0.8 * kamp)} kW al mediodía: el modelo supone que el excedente lo absorben otras cargas del hospital (iluminación, equipos), que están fuera de la frontera; si no, habría que exportarlo o acumularlo. "
+          f"Con 1.500 kWh/m² de irradiación en vez de {n(mj.parametro('GHI_anual'))}, la producción sería {n(min(kamp * 1500.0 * mj.parametro('PR_fv'), base['E_elec']) / 1e3)} MWh.")
+    return "\n\n".join([p1, p2, p3, p5, p6, p4])
 
 
 def _sens_c(c, f):

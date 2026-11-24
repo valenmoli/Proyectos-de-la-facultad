@@ -507,6 +507,8 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 - **M4, ventiladores:** la presión de diseño de cada zona se multiplica por 0,8; el calor que el ventilador ya no cede al aire lo repone la caldera.
 - **M5, fotovoltaica:** energía anual $= kWp \cdot GHI \cdot PR = 250 \cdot 1\,700 \cdot 0\text{,}80$ = 340 MWh (1.360 kWh por kWp), descontada de la electricidad del sistema; con 1.500 kWh/m² serían 300 MWh.
 - **M6, quirófanos al 50 % de noche:** el caudal de G1 en la mitad nocturna se multiplica por 0,5 y la potencia del ventilador, por $0\text{,}5^3$ (leyes de los ventiladores).
+- **M7, techos y fachadas verdes (fuera del paquete):** la conductancia de la envolvente y las ganancias solares de todas las zonas se multiplican por $1 - 20/100$.
+- **M5b, fotovoltaica ampliada (fuera del paquete):** la misma ecuación de M5 con 500 kWp.
 - **Emisiones:** CO₂ del gas = energía de PCI por el factor de la reacción (0,202 kg/kWh de PCI, 0,183 kg/kWh de PCS); CO₂ de la electricidad = energía por el factor de la red (0,38 t/MWh, meta de CAMMESA para 2023 [12]\*; con 0,29 y 0,40 t/MWh el paquete reduce las emisiones 44,0 y 40,6 %). En el caso base: 1.160 MWh de PCI · 0,2024 = 235 t del gas y 1.736 MWh · 0,38 = 660 t de la electricidad, 895 t en total.
 
 ## 8.2 Resultados
@@ -521,6 +523,8 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 | M4. Ventiladores, 20 % menos de presión | 2.944 | 1.547 | 1.398 | 843 | −2,5 % | −5,8 % |
 | M5. Fotovoltaica | 2.681 | 1.396 | 1.285 | 765 | −11,3 % | −14,4 % |
 | M6. Quirófanos al 50 % de noche | 2.962 | 1.680 | 1.282 | 873 | −2,0 % | −2,4 % |
+| M7. Techos y fachadas verdes (fuera del paquete) | 2.909 | 1.676 | 1.233 | 862 | −3,7 % | −3,6 % |
+| M5b. Fotovoltaica de 500 kWp (fuera del paquete) | 2.341 | 1.056 | 1.285 | 636 | −22,5 % | −28,9 % |
 | Paquete B + M1 a M6 | 1.522 | 1.259 | 263 | 526 | −49,6 % | −41,2 % |
 
 Table: Tabla M14. Resultados de cada variante respecto de la alternativa A.
@@ -536,6 +540,10 @@ Table: Tabla M14. Resultados de cada variante respecto de la alternativa A.
 **M4, ventiladores con 20 % menos de presión.** A caudal constante la potencia $\dot W = \dot V\,\Delta p/\eta$ es proporcional a la presión: los ventiladores consumen 169 MWh menos y el compresor y los ventiladores del condensador, 20 MWh menos (donde la serpentina solo enfría hasta $T_{obj}$, que ahora es más alta, hay menos carga). Pero toda esa potencia se disipaba como calor en el aire de impulsión, y ahora el recalentador y la calefacción deben aportarlo: la caldera usa 113 MWh más de gas (PCS). La energía final baja solo 2,5 %, porque se cambia trabajo por calor que se paga con gas; las emisiones bajan 5,8 %, porque el gas emite menos CO₂ por kWh que la electricidad de la red (0,202 kg por kWh de PCI contra 0,38 kg por kWh). Desde la Segunda Ley, la potencia de un ventilador es trabajo puro que se degrada a calor a baja temperatura dentro del aire: evitarla es ganar exergía, aunque la energía neta cambie poco.
 
 **M6, quirófanos al 50 % de noche.** De noche el quirófano no tiene actividad ($f_{act}$ = 0) y se baja el caudal de G1 a la mitad. La potencia del ventilador sigue las leyes de los ventiladores, $\dot W \propto \dot V^3$ para un mismo sistema de conductos: a la mitad del caudal queda en $0{,}5^3$ = 12,5 % y se ahorra el 87,5 % de la potencia de G1 en esas horas (48 MWh por año); además hay menos aire exterior que enfriar o calentar (8 MWh menos de electricidad en el compresor y los ventiladores del condensador y 3 MWh menos de gas). El ahorro es chico (energía 2,0 %, emisiones 2,4 %) porque G1 ocupa 252 m² y el ajuste vale solo 12 h por día. El adendo de ASHRAE 170 recomienda una evaluación de riesgo antes de ajustar la ventilación de un quirófano [6]\*; el modelo no calcula la presurización de la sala.
+
+**M7, techos y fachadas verdes (fuera del paquete).** Las plantas dan sombra y el agua que evaporan se lleva unos 2.400 kJ por kg: la superficie queda más fría y entra menos calor. En el modelo se aplica una reducción de 20 % a la conductancia de la envolvente y a la ganancia solar de todas las zonas (supuesto de orden de magnitud, sin dato propio): la energía final baja 3,7 % (112 MWh) y las emisiones, 3,6 %. Solo la conductancia (20 %) cambia la energía −1,7 % y solo el sol, −2,0 %; con 40 % en ambas, −4,7 %: el efecto sube poco porque menos sol también quita calor gratis en invierno. Es un techo, porque supone que toda la envolvente se cubre; como la envolvente pesa poco frente al aire (renovaciones y humedad), no se incluye en el paquete. Sus otros beneficios (temperatura interior, isla de calor, agua de lluvia) no entran en el cálculo, y la carga del techo verde sobre la azotea, que ya lleva las enfriadoras, la verifica el calculista.
+
+**M5b, fotovoltaica ampliada a 500 kWp (fuera del paquete).** Ocupa 2.500 m² (41 % de la azotea de 6.117 m²) y produce 680 MWh por año: la energía final baja 22,5 % y las emisiones, 28,9 %; cubre el 39 % de la electricidad del sistema térmico. El sistema térmico consume en promedio 198 kW y esta potencia entrega hasta unos 400 kW al mediodía: el modelo supone que el excedente lo absorben otras cargas del hospital (iluminación, equipos), que están fuera de la frontera; si no, habría que exportarlo o acumularlo. Con 1.500 kWh/m² de irradiación en vez de 1.700, la producción sería 600 MWh.
 
 **Qué no conviene priorizar.** Reducir un 30 % la conductancia de la envolvente cambia la energía −2,5 % y reducir un 30 % las ganancias internas (por ejemplo, con iluminación LED), +0,7 %: con menos calor interno el aire se recalienta más. El consumo está en el aire (renovaciones, humedad y ventiladores), no en la envolvente. Las medidas que ahorran gas bajan más la energía que las emisiones; las que ahorran electricidad (fotovoltaica, ventiladores) bajan más las emisiones.
 
@@ -562,6 +570,8 @@ El R134a tiene un PCA de 1.430 y la Enmienda de Kigali obliga a reducir los HFC 
 | PM12 | Factor sobre la presión de los ventiladores en la mejora M4 | 0,8 | – | supuesto: filtros y conductos de menor pérdida, ventiladores de velocidad variable |
 | PM13 | Factor de emisión de la electricidad de la red | 0,38 | t CO₂/MWh | [12]\* meta de 380 kg CO₂e/MWh para 2023: es una meta y no un dato medido; otras citas dan 0,29 y 0,40 t/MWh (se prueba el rango en la sección 8) |
 | PM14 | Temperatura mínima de descarga del compresor para recuperar calor sin subir la condensación | 50 | °C | supuesto: agua a 45 °C más 5 K de aproximación |
+| PM15 | Reducción del calor que entra por la envolvente (conducción y sol) con techo y fachadas verdes | 0,2 | – | supuesto: orden de magnitud sin dato propio; las plantas dan sombra y evaporan agua (unos 2.400 kJ por kg); depende de cuánta superficie se cubra y se aplica a toda la envolvente, así que es un techo del efecto |
+| PM16 | Potencia fotovoltaica del escenario ampliado | 500 | kWp | supuesto: unos 2.500 m² de paneles (5 m²/kWp), el 41 % de la azotea de 6.117 m²; el modelo supone que el excedente de mediodía lo absorben otras cargas del hospital |
 
 Table: Tabla M15. Parámetros de las mejoras y su respaldo.
 :::
