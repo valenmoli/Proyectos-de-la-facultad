@@ -1,3 +1,5 @@
+> **Versión superada.** Usa las cifras de nuestro modelo anual (por ejemplo B: −18 % de energía por año), que **no coinciden con el informe que entregó el grupo** (tres estados de diseño: B = −95 % de gas en V2). Para la exposición usá `../guion_diapositivas_10_a_12.md` y `../diapositiva_11_mejoras.pptx`. Se conserva como respaldo de las estimaciones anuales.
+
 # Guion de la parte de propuestas (diapositivas 9 y 10)
 
 Unos 3 minutos y medio. Lo que está entre corchetes se puede cortar si falta tiempo. Las cifras son las del informe técnico (anuales).

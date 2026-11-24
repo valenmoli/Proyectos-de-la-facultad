@@ -21,7 +21,13 @@ La consigna pide «énfasis en la metodología, los resultados y la justificaci�
 
 ## Diapositivas de propuestas ya armadas
 
-`propuestas_diapositivas.pptx` tiene las dos diapositivas de la parte de propuestas (la alternativa B y las mejoras en tres familias: producir energía limpia, no desperdiciar y pedir menos), con el formato azul noche y beige del equipo y el guion en las notas del orador. Las cifras son las del informe (anuales); si el equipo usa otras de una hora de diseño, hay que unificarlas antes de la exposición.
+El grupo entregó un informe que calcula **tres estados de diseño** (V1 verano pico, V2 verano húmedo, I invierno), no un consumo anual; las diapositivas 10 y 11 de los compañeros (alternativa B y medidas M1 a M3) coinciden con ese informe. Para la parte de propuestas (diapositivas 10 a 12) se usa:
+
+- la diapositiva 10 de los compañeros (alternativa B en V2);
+- `diapositiva_11_mejoras.pptx`: reemplaza su 11 y muestra las tres medidas del informe con sus cifras de invierno, más tres ideas verdes rotuladas como estimación aparte;
+- `guion_diapositivas_10_a_12.md`: guion con las cifras del informe, lo que conviene no repetir de él y las preguntas probables.
+
+La primera versión, con cifras del modelo anual propio, quedó en `version_modelo_anual/` como respaldo.
 
 ## Preguntas probables y de dónde sale la respuesta
 
