@@ -89,7 +89,7 @@ Los estados del aire húmedo (A a F) están en la tabla M4 y los del refrigerant
 | Agua helada | 7 (impulsión) y 12 (retorno) | no se calcula (solo $\Delta p$ = 250 kPa de las bombas) | $c_p$ = 4,186 kJ/(kg K); $h$ = 29,3 y 50,2 kJ/kg | supuesto: agua 7/12 °C (salto de 5 K); $\dot m_w$ = 94,9 kg/s para 1.987 kW de frío |
 | Agua caliente | 80 (impulsión) y 60 (retorno) | idem | $c_p$ = 4,186 kJ/(kg K); $h$ = 334,9 y 251,2 kJ/kg | supuesto: circuito de recalentamiento, calefacción y ACS que el modelo base no fija; $\dot m$ = 8,8 kg/s para 734 kW |
 | ACS | 17 (entrada) y 60 (salida) | idem | $c_p$ = 4,186 kJ/(kg K); $h$ = 71,2 y 251,2 kJ/kg | 100 L por cama y día (supuesto); $\dot m$ = 0,183 kg/s; $\dot Q$ = 42,8 kW con $f_{perd}$ = 1,3 |
-| Aire exterior de invierno (diseño) | 2 | 101,3 | $\omega$ = 3,49 g/kg; $h$ = 10,7 kJ/kg | supuesto (valor de uso corriente; a contrastar con la fuente): 80 % de humedad relativa |
+| Aire exterior de invierno (diseño) | 2 | 101,3 | $\omega$ = 3,49 g/kg; $h$ = 10,7 kJ/kg | supuesto (valor de uso corriente): 80 % de humedad relativa |
 
 Table: Tabla M2. Estados de las corrientes de combustible, aire de combustión, gases de escape, agua helada, agua caliente, ACS y aire exterior de invierno. En los circuitos cerrados la presión absoluta no interviene en el cálculo.
 
@@ -98,16 +98,16 @@ Table: Tabla M2. Estados de las corrientes de combustible, aire de combustión, 
 | Sustancia | Propiedades | Fuente | Dónde se usa |
 |--------------|------------------------------|-------------------------------|-------------------------|
 | Aire húmedo | $\omega$, $h$, humedad relativa, temperatura de rocío y de bulbo húmedo a 101,325 kPa; $c_{p,a}$ = 1,006 y $c_{p,v}$ = 1,86 kJ/(kg K); $h_{fg}$ = 2.501 kJ/kg | psychrolib 2.5.0 [17] (psicrometría de ASHRAE en unidades SI); las tres constantes son las de su ecuación de entalpía | Estados del aire, cargas de serpentina y recalentador (sección 3) |
-| Agua líquida y vapor | $c_p$ = 4,186 kJ/(kg K); $h_g$ = 2.676 kJ/kg (vapor saturado a 101,3 kPa); calor latente a 25 °C: 44.010 kJ/kmol; presión de saturación | constantes del modelo: supuesto (valor de uso corriente; a contrastar con la fuente); presión de saturación de CoolProp 8.0.0 [17] | ACS, humidificación, agua helada y caliente, rocío y caldera de condensación |
+| Agua líquida y vapor | $c_p$ = 4,186 kJ/(kg K); $h_g$ = 2.676 kJ/kg (vapor saturado a 101,3 kPa); calor latente a 25 °C: 44.010 kJ/kmol; presión de saturación | constantes del modelo: supuesto (valor de uso corriente); presión de saturación de CoolProp 8.0.0 [17] | ACS, humidificación, agua helada y caliente, rocío y caldera de condensación |
 | R134a | presión de saturación, $h$, $s$, $T$ a partir de ($P$, $h$), título y densidad | CoolProp 8.0.0 [17] | Ciclo de la enfriadora (sección 4); comparación con R1234ze(E) y R1234yf (sección 8) |
 | CO₂, H₂O, N₂ y O₂ (aire y gases de combustión) | $c_p$ de gas ideal (término ideal de CoolProp), integrado desde 25 °C hasta $T$ | CoolProp 8.0.0 [17] | Pérdida por gases, temperatura de llama, caldera de condensación (sección 5) |
-| CH₄, C₂H₆, C₃H₈, CO₂, H₂O | entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido) | tablas de termodinámica: supuesto (valor de uso corriente; a contrastar con la fuente) | PCI, PCS y temperatura de llama (sección 5) |
-| Gas natural | composición 91/5/1/2/1 % molar (CH₄, C₂H₆, C₃H₈, N₂, CO₂); PCS y PCI se calculan | supuesto: composición típica; a contrastar con la fuente | Combustión y consumo de gas (sección 5) |
-| Exergía química estándar | valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9) | supuesto (valor de uso corriente; a contrastar con la fuente): los atribuidos a Szargut | Exergía del combustible (sección 9) |
+| CH₄, C₂H₆, C₃H₈, CO₂, H₂O | entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido) | tablas de termodinámica: supuesto (valor de uso corriente) | PCI, PCS y temperatura de llama (sección 5) |
+| Gas natural | composición 91/5/1/2/1 % molar (CH₄, C₂H₆, C₃H₈, N₂, CO₂); PCS y PCI se calculan | supuesto: composición típica del gas de red | Combustión y consumo de gas (sección 5) |
+| Exergía química estándar | valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9) | supuesto (valor de uso corriente): los atribuidos a Szargut | Exergía del combustible (sección 9) |
 
 Table: Tabla M3. Propiedades termodinámicas usadas, su fuente y dónde se aplican.
 
-**Contraste del R134a.** En dos puntos de saturación, a 0 °C, 292,8 kPa y $h_{fg}$ = 198,6 kJ/kg (CoolProp) contra 293 kPa y 198,6 kJ/kg de la tabla; a 40 °C, 1.016,6 kPa y $h_{fg}$ = 163,0 kJ/kg (CoolProp) contra 1.017 kPa y 163,0 kJ/kg de la tabla (diferencias menores que 0,1 %); los valores de tabla son los de uso corriente y están sin contrastar con el texto (supuesto: a contrastar con la fuente).
+**Contraste del R134a.** En dos puntos de saturación, a 0 °C, 292,8 kPa y $h_{fg}$ = 198,6 kJ/kg (CoolProp) contra 293 kPa y 198,6 kJ/kg de la tabla; a 40 °C, 1.016,6 kPa y $h_{fg}$ = 163,0 kJ/kg (CoolProp) contra 1.017 kPa y 163,0 kJ/kg de la tabla (diferencias menores que 0,1 %); los valores de tabla son los de uso corriente y están sin contrastar con el texto (supuesto).
 
 # 3. Aire húmedo {#sec-aire}
 
@@ -541,7 +541,7 @@ Table: Tabla M14. Resultados de cada variante respecto de la alternativa A.
 
 ## 8.4 Refrigerante
 
-El R134a tiene un PCA de 1.430 y la Enmienda de Kigali obliga a reducir los HFC [16]\* (Argentina la ratificó en 2019 y puso los HFC bajo licencia de importación en 2020). Con el modelo de ciclo y el mismo rendimiento isentrópico supuesto, a las mismas temperaturas de evaporación y condensación (3 y 46 °C), el R1234ze(E) (PCA menor que 1) da el mismo COP (3,55 contra 3,56; en una máquina real puede ser algo menor) pero 26 % menos capacidad volumétrica, o sea un compresor 35 % más grande, y es ligeramente inflamable (clase A2L), lo que pesa en un hospital. El R513A (PCA 631) no está en la biblioteca de propiedades que se usó, así que no se calculó. Los PCA y la clasificación de seguridad son supuestos (valores de uso corriente; a contrastar con la fuente).
+El R134a tiene un PCA de 1.430 y la Enmienda de Kigali obliga a reducir los HFC [16]\* (Argentina la ratificó en 2019 y puso los HFC bajo licencia de importación en 2020). Con el modelo de ciclo y el mismo rendimiento isentrópico supuesto, a las mismas temperaturas de evaporación y condensación (3 y 46 °C), el R1234ze(E) (PCA menor que 1) da el mismo COP (3,55 contra 3,56; en una máquina real puede ser algo menor) pero 26 % menos capacidad volumétrica, o sea un compresor 35 % más grande, y es ligeramente inflamable (clase A2L), lo que pesa en un hospital. El R513A (PCA 631) no está en la biblioteca de propiedades que se usó, así que no se calculó. Los PCA y la clasificación de seguridad son supuestos (valores de uso corriente).
 
 ## 8.5 Parámetros de las mejoras
 
@@ -553,11 +553,11 @@ El R134a tiene un PCA de 1.430 y la Enmienda de Kigali obliga a reducir los HFC 
 | PM3 | Temperatura de los gases de escape de la caldera de condensación | 45 | °C | supuesto: agua de retorno a 40 °C y 5 K de aproximación; por debajo del rocío de los gases (unos 56 °C) |
 | PM4 | Superficie de colectores solares para el ACS | 300 | m² | supuesto: unos 5 % de la azotea (6.117 m² por nivel); tamaño que no produce excedentes en verano |
 | PM5 | Rendimiento medio anual de los colectores (sobre irradiación horizontal) | 0,4 | – | supuesto: colector plano a 40-60 °C con pérdidas ópticas y térmicas, sin dato de catálogo |
-| PM6 | Irradiación global horizontal anual | 1.700 | kWh/(m² año) | [11]\* informe de un punto de la provincia de Buenos Aires a unos 300 km: es una cota alta para la ciudad; a contrastar con la fuente para las coordenadas del hospital |
+| PM6 | Irradiación global horizontal anual | 1.700 | kWh/(m² año) | [11]\* informe de un punto de la provincia de Buenos Aires a unos 300 km: es una cota alta para la ciudad |
 | PM7 | Latitud del hospital | -34,7 | ° | supuesto: La Matanza, Buenos Aires |
 | PM8 | Potencia fotovoltaica instalada | 250 | kWp | supuesto: unos 1.250 m² de paneles (5 m²/kWp) sobre una azotea de 6.117 m² con equipos |
 | PM9 | Relación de rendimiento (performance ratio) de la instalación fotovoltaica | 0,8 | – | supuesto: valor habitual de instalaciones nuevas (0,75 a 0,85) |
-| PM10 | Efectividad del recuperador del aire de extracción con circuito de agua | 0,5 | – | supuesto: valor de uso corriente (45 a 55 % con aislación total entre corrientes); a contrastar con la fuente |
+| PM10 | Efectividad del recuperador del aire de extracción con circuito de agua | 0,5 | – | supuesto: valor de uso corriente (45 a 55 % con aislación total entre corrientes) |
 | PM11 | Caída de presión adicional del recuperador (cada lado) | 250 | Pa | supuesto: serpentina de 4 filas en cada corriente |
 | PM12 | Factor sobre la presión de los ventiladores en la mejora M4 | 0,8 | – | supuesto: filtros y conductos de menor pérdida, ventiladores de velocidad variable |
 | PM13 | Factor de emisión de la electricidad de la red | 0,38 | t CO₂/MWh | [12]\* meta de 380 kg CO₂e/MWh para 2023: es una meta y no un dato medido; otras citas dan 0,29 y 0,40 t/MWh (se prueba el rango en la sección 8) |
@@ -574,7 +574,7 @@ Para cada equipo se plantea el esquema combustible–producto–pérdida, $\dot 
 
 $$\dot X = \dot m\,[(h - h_0) - T_0\,(s - s_0)], \qquad \dot X_Q = \dot Q\,\left(1 - \frac{T_0}{T}\right), \qquad \dot X_D = T_0\,\dot S_{gen}$$
 
-Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría un 50 % (de 62 a 93 kW)). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **supuesto** (valores de uso corriente; a contrastar con la fuente).
+Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría un 50 % (de 62 a 93 kW)). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **supuesto** (valores de uso corriente).
 
 **Eficiencias.** Enfriadora: producto = exergía del frío, $\dot Q_L\,(T_0/T_{cw} - 1)$ con $T_{cw}$ la temperatura media logarítmica del agua helada (9,5 °C); caldera: producto = exergía del calor entregado al agua a 80/60 °C. Para el recalentador y el aire el producto puede ser negativo (se calienta aire que está por debajo del estado muerto): ahí solo se informa la destrucción.
 
@@ -722,7 +722,7 @@ Table: Tabla M22. Shafts de aire (impulsión a 6 m/s y retorno a 5 m/s; para las
 
 ## 10.5 Azotea y ubicación
 
-Huella de 14 × 3,5 = 49 m² por unidad, 4 unidades (196 m² en total, 3,2 % de la cubierta de 6.117 m²). Carga media $q = 12 \cdot 9{,}81 / 49$ = 2,40 kN/m² contra 2,0 kN/m² de sobrecarga de referencia de una azotea de uso corriente (supuesto: valor de uso corriente, entre 1 y 5 kN/m² según el acceso; a contrastar con la fuente), es decir 1,20 veces. La carga bajo los apoyos es mayor: hace falta plataforma o vigas y la verificación del calculista, y el peso de 12 t por unidad es supuesto.
+Huella de 14 × 3,5 = 49 m² por unidad, 4 unidades (196 m² en total, 3,2 % de la cubierta de 6.117 m²). Carga media $q = 12 \cdot 9{,}81 / 49$ = 2,40 kN/m² contra 2,0 kN/m² de sobrecarga de referencia de una azotea de uso corriente (supuesto: valor de uso corriente, entre 1 y 5 kN/m² según el acceso), es decir 1,20 veces. La carga bajo los apoyos es mayor: hace falta plataforma o vigas y la verificación del calculista, y el peso de 12 t por unidad es supuesto.
 
 El núcleo técnico (918 m², de 30,8 × 29,8 m) ocupa la esquina sudeste, del lado de la calle y en el mismo lugar en cada nivel: los shafts se apilan, el agua helada baja por ellos desde la azotea y las enfriadoras se izan desde la calle. En el 2.º piso, quirófanos y terapia intensiva quedan contiguos al núcleo, donde están sus 7 UTAs (conductos cortos); la internación va en dos alas y la guardia y los consultorios, en el 1.er piso, con acceso desde la calle. Las calderas van en un anexo a nivel de calle (acceso, medidor y regulador de gas, ventilación permanente y chimenea por fuera del edificio).
 
@@ -754,7 +754,7 @@ Table: Tabla M23. Matriz de decisión entre azotea y patio a nivel (puntajes de 
 | Q12–Q19 | Enfriadora de ejemplo: Carrier AquaForce 30XA 1002 | 988 kW; 288,2 kW; R-134a | kW | [13]\* capacidad nominal con aire exterior a 35 °C y agua 12/7 °C y potencia de los compresores solos; la familia va de 267 a 1.682 kW |
 | Q20 | Margen de diseño sobre la carga pico (solo informativo) | 0,1 | – | supuesto: práctica habitual de selección; no cambia la selección |
 | Q21–Q23 | Huella en azotea y peso operativo por enfriadora | 14 × 3,5 m; 12 t | – | supuesto: sin dimensiones de catálogo; la huella es el área reservada por unidad con espacios de servicio |
-| Q24 | Sobrecarga de referencia de una azotea de uso corriente | 2 | kN/m² | supuesto (valor de uso corriente, entre 1 y 5 kN/m² según el acceso a la azotea; a contrastar con la fuente) |
+| Q24 | Sobrecarga de referencia de una azotea de uso corriente | 2 | kN/m² | supuesto (valor de uso corriente, entre 1 y 5 kN/m² según el acceso a la azotea) |
 | Q25 | Aceleración de la gravedad | 9,81 | m/s² | constante |
 | Q30 | Punta de ACS / ACS media | 2 | – | supuesto: el modelo da solo el ACS medio; se suma al punto de diseño de invierno (coincidencia conservadora) |
 | Q31–Q32 | Calderas de agua caliente en servicio / de reserva | 1 / 1 | unidades | supuesto: configuración 2 × 100 % (N+1) |
@@ -841,10 +841,10 @@ La tabla M26 da todos los parámetros escalares del modelo con su unidad y su re
 | E12 | Ganancia solar media de las 12 h diurnas | 8 | W/m² | supuesto: promedio diurno anual; 0 de noche |
 | E13 | Densidad del aire para convertir caudales | 1,2 | kg/m³ | supuesto: convención (aire a unos 20 °C) |
 | E14 | Fracción de las áreas generales que funciona las 24 h | 0,35 | – | supuesto: la guardia atiende las 24 h [2]; el resto (consultorios, administración y docencia) funciona de día |
-| C1 | Temperatura de bulbo seco de diseño, verano | 34 | °C | supuesto (valor de uso corriente; a contrastar con la fuente) |
-| C2 | Temperatura de bulbo húmedo coincidente, verano | 25 | °C | supuesto (valor de uso corriente; a contrastar con la fuente) |
-| C3 | Temperatura de bulbo seco de diseño, invierno | 2 | °C | supuesto (valor de uso corriente; a contrastar con la fuente) |
-| C4 | Humedad relativa de diseño, invierno | 0,8 | – | supuesto (valor de uso corriente; a contrastar con la fuente) |
+| C1 | Temperatura de bulbo seco de diseño, verano | 34 | °C | supuesto (valor de uso corriente) |
+| C2 | Temperatura de bulbo húmedo coincidente, verano | 25 | °C | supuesto (valor de uso corriente) |
+| C3 | Temperatura de bulbo seco de diseño, invierno | 2 | °C | supuesto (valor de uso corriente) |
+| C4 | Humedad relativa de diseño, invierno | 0,8 | – | supuesto (valor de uso corriente) |
 | C5 | Presión atmosférica | 101,325 | kPa | supuesto: nivel del mar (Buenos Aires está a unos 25 m: diferencia de 0,3 %) |
 | C6 | Amplitud diaria de temperatura (máxima menos mínima) | 9 | K | supuesto: aproximada; parte cada mes en mitad diurna y nocturna |
 | A1 | Temperatura mínima del aire de impulsión | 13 | °C | supuesto: límite de confort y de condensación en difusores |
@@ -857,21 +857,21 @@ La tabla M26 da todos los parámetros escalares del modelo con su unidad y su re
 | A8 | Fracción de la potencia del ventilador que se disipa como calor en el aire | 1 | – | supuesto: el ventilador aspira después de la serpentina; con el motor fuera de la corriente sería 0,85 a 0,95 (sin calor de ventilador la energía sube +18,3 %) |
 | R1 | Refrigerante de la enfriadora | R134a | – | supuesto: HFC habitual en enfriadoras de tornillo; propiedades de [17] |
 | R2 | Temperatura de evaporación | 3 | °C | supuesto: agua helada 7/12 °C con aproximación del evaporador |
-| R3 | Sobrecalentamiento a la salida del evaporador | 5 | K | supuesto (valor de uso corriente; a contrastar con la fuente) |
-| R4 | Subenfriamiento a la salida del condensador | 4 | K | supuesto (valor de uso corriente; a contrastar con la fuente) |
+| R3 | Sobrecalentamiento a la salida del evaporador | 5 | K | supuesto (valor de uso corriente) |
+| R4 | Subenfriamiento a la salida del condensador | 4 | K | supuesto (valor de uso corriente) |
 | R5 | Rendimiento isentrópico del compresor | 0,72 | – | supuesto: compresor de tornillo (con 0,65 y 0,78 la energía cambia +2,6 % y −1,9 %) |
-| R6 | Rendimiento del motor eléctrico del compresor | 0,94 | – | supuesto (valor de uso corriente; a contrastar con la fuente) |
+| R6 | Rendimiento del motor eléctrico del compresor | 0,94 | – | supuesto (valor de uso corriente) |
 | R7 | Diferencia entre condensación y temperatura exterior | 12 | K | supuesto: condensador enfriado por aire |
 | R8 | Temperatura mínima de condensación | 32 | °C | supuesto: el control de presión de descarga del compresor de tornillo exige una diferencia de presión mínima |
-| R9 | Potencia de ventiladores del condensador / calor rechazado | 0,025 | – | supuesto (valor de uso corriente; a contrastar con la fuente) |
+| R9 | Potencia de ventiladores del condensador / calor rechazado | 0,025 | – | supuesto (valor de uso corriente) |
 | R10 | Salto de temperatura del agua helada | 5 | K | supuesto: agua helada 7/12 °C |
 | R11 | Diferencia de presión de las bombas de agua helada | 250 | kPa | supuesto: circuitos primario y secundario en conjunto (unos 25 m de columna de agua) |
-| R12 | Rendimiento total de las bombas | 0,6 | – | supuesto (valor de uso corriente; a contrastar con la fuente) |
-| B1–B5 | Gas natural: CH₄, C₂H₆, C₃H₈, N₂ y CO₂ (fracción molar) | 0,91 / 0,05 / 0,01 / 0,02 / 0,01 | – | supuesto: composición típica del gas natural; a contrastar con la fuente |
+| R12 | Rendimiento total de las bombas | 0,6 | – | supuesto (valor de uso corriente) |
+| B1–B5 | Gas natural: CH₄, C₂H₆, C₃H₈, N₂ y CO₂ (fracción molar) | 0,91 / 0,05 / 0,01 / 0,02 / 0,01 | – | supuesto: composición típica del gas natural |
 | B6 | Relación de aire (1 = estequiométrico) | 1,15 | – | supuesto: 15 % de exceso de aire |
 | B7 | Temperatura de los gases de escape | 190 | °C | supuesto: caldera sin condensación |
 | B8 | Temperatura del aire de combustión | 15 | °C | supuesto: aire de la sala de calderas; el gas entra a 25 °C (referencia de las entalpías) y no aporta calor sensible |
-| B9 | Pérdidas por radiación y funcionamiento / calor liberado | 0,02 | – | supuesto (valor de uso corriente; a contrastar con la fuente) |
+| B9 | Pérdidas por radiación y funcionamiento / calor liberado | 0,02 | – | supuesto (valor de uso corriente) |
 | B10 | Temperatura de referencia del volumen de gas | 15 | °C | constante: m³ estándar a 15 °C y 101,325 kPa |
 | S1 | Consumo de ACS por cama y día | 100 | L/(cama día) | supuesto: entre los casos medidos (50 a 55) y los ratios de diseño (200 a 300) de [3] |
 | S2 | Temperatura del ACS | 60 | °C | [3] 55 L por cama y día a 60 °C |
@@ -891,7 +891,7 @@ Table: Tabla M26. Parámetros escalares del modelo.
 
 Table: Tabla M27. Zonas, consignas de verano, renovaciones mínimas (totales / de aire exterior), caudales y funcionamiento.
 
-Respaldo: renovaciones de G1 y G3 y rango de las consignas de G1 a G3 según [6]\* (la humedad de consigna de 55 % es el máximo de 60 % menos 5 puntos de margen de control: supuesto); renovaciones de G2, G4 (promedio ponderado de sala de espera y triage, shock, imágenes y laboratorio) y G5, consignas de G4 y G5 (24 °C y 60 %, dentro de la zona de confort de [9]\*) y funcionamiento de cada zona: supuesto (valor de uso corriente; a contrastar con la fuente).
+Respaldo: renovaciones de G1 y G3 y rango de las consignas de G1 a G3 según [6]\* (la humedad de consigna de 55 % es el máximo de 60 % menos 5 puntos de margen de control: supuesto); renovaciones de G2, G4 (promedio ponderado de sala de espera y triage, shock, imágenes y laboratorio) y G5, consignas de G4 y G5 (24 °C y 60 %, dentro de la zona de confort de [9]\*) y funcionamiento de cada zona: supuesto (valor de uso corriente).
 
 | Zona | Ganancias internas sensible / latente [W/m²] | Actividad de día / de noche | Consigna de invierno (T; HR mínima) | Fracción de envolvente expuesta | Presión del ventilador [Pa] | Días por semana |
 |--------------------------|----------------|------------|----------------|----------|----------|----------|
@@ -953,4 +953,4 @@ Contraste con las normales 1991-2020 de Buenos Aires [10]\*: enero 24,9 °C, ju
 
 [17] CoolProp y psychrolib: propiedades del refrigerante, de los gases y del aire húmedo (código).
 
-\* Fuente conocida por un extracto de búsqueda: se usó el dato citado y no se abrió el documento original; el dato está a contrastar con la fuente.
+\* Fuente conocida por un extracto de búsqueda: se usó el dato citado y no se abrió el documento original; el dato citado se tomó de ese extracto.

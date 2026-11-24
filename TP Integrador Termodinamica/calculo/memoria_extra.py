@@ -44,7 +44,7 @@ def R(clave):
     return referencias.marca(clave)
 
 
-SUP_CORRIENTE = "supuesto (valor de uso corriente; a contrastar con la fuente)"
+SUP_CORRIENTE = "supuesto (valor de uso corriente)"
 
 
 # ====================================================================================================================
@@ -364,7 +364,7 @@ def _params_modelo(S):
         (("R10",), "Salto de temperatura del agua helada", "K", "supuesto: agua helada 7/12 °C"),
         (("R11",), "Diferencia de presión de las bombas de agua helada", "kPa", "supuesto: circuitos primario y secundario en conjunto (unos 25 m de columna de agua)"),
         (("R12",), "Rendimiento total de las bombas", "–", sup),
-        (("B1", "B2", "B3", "B4", "B5"), "Gas natural: CH₄, C₂H₆, C₃H₈, N₂ y CO₂ (fracción molar)", "–", "supuesto: composición típica del gas natural; a contrastar con la fuente"),
+        (("B1", "B2", "B3", "B4", "B5"), "Gas natural: CH₄, C₂H₆, C₃H₈, N₂ y CO₂ (fracción molar)", "–", "supuesto: composición típica del gas natural"),
         (("B6",), "Relación de aire (1 = estequiométrico)", "–", "supuesto: 15 % de exceso de aire"),
         (("B7",), "Temperatura de los gases de escape", "°C", "supuesto: caldera sin condensación"),
         (("B8",), "Temperatura del aire de combustión", "°C", "supuesto: aire de la sala de calderas; el gas entra a 25 °C (referencia de las entalpías) y no aporta calor sensible"),
@@ -418,11 +418,11 @@ _PM = {
     "PM4": ("Superficie de colectores solares para el ACS", "m²", "supuesto: unos 5 % de la azotea (6.117 m² por nivel); tamaño que no produce excedentes en verano"),
     "PM5": ("Rendimiento medio anual de los colectores (sobre irradiación horizontal)", "–", "supuesto: colector plano a 40-60 °C con pérdidas ópticas y térmicas, sin dato de catálogo"),
     "PM6": ("Irradiación global horizontal anual", "kWh/(m² año)",
-            "{gsa} informe de un punto de la provincia de Buenos Aires a unos 300 km: es una cota alta para la ciudad; a contrastar con la fuente para las coordenadas del hospital"),
+            "{gsa} informe de un punto de la provincia de Buenos Aires a unos 300 km: es una cota alta para la ciudad"),
     "PM7": ("Latitud del hospital", "°", "supuesto: La Matanza, Buenos Aires"),
     "PM8": ("Potencia fotovoltaica instalada", "kWp", "supuesto: unos 1.250 m² de paneles (5 m²/kWp) sobre una azotea de 6.117 m² con equipos"),
     "PM9": ("Relación de rendimiento (performance ratio) de la instalación fotovoltaica", "–", "supuesto: valor habitual de instalaciones nuevas (0,75 a 0,85)"),
-    "PM10": ("Efectividad del recuperador del aire de extracción con circuito de agua", "–", "supuesto: valor de uso corriente (45 a 55 % con aislación total entre corrientes); a contrastar con la fuente"),
+    "PM10": ("Efectividad del recuperador del aire de extracción con circuito de agua", "–", "supuesto: valor de uso corriente (45 a 55 % con aislación total entre corrientes)"),
     "PM11": ("Caída de presión adicional del recuperador (cada lado)", "Pa", "supuesto: serpentina de 4 filas en cada corriente"),
     "PM12": ("Factor sobre la presión de los ventiladores en la mejora M4", "–", "supuesto: filtros y conductos de menor pérdida, ventiladores de velocidad variable"),
     "PM13": ("Factor de emisión de la electricidad de la red", "t CO₂/MWh",
@@ -514,7 +514,7 @@ def tabla_estados_corrientes(c):
          "%s L por cama y día (supuesto); $\\dot m$ = %s kg/s; $\\dot Q$ = %s kW con $f_{perd}$ = %s" % (n(k["L"]), n(k["m_acs"], 3), n(k["Q_acs"], 1), n(k["f_perd"], 1))),
         ("Aire exterior de invierno (diseño)",
          n(k["Ti"]), "101,3", "$\\omega$ = %s g/kg; $h$ = %s kJ/kg" % (n(k["Wi"] * 1000, 2), n(k["hi"], 1)),
-         "supuesto (valor de uso corriente; a contrastar con la fuente): %s %% de humedad relativa" % n(k["HRi"] * 100)),
+         "supuesto (valor de uso corriente): %s %% de humedad relativa" % n(k["HRi"] * 100)),
     ]
     return tabla(["Corriente", "T [°C]", "P [kPa]", "$h$ o $c_p$", "Observaciones y respaldo"], f, (13, 14, 12, 26, 35))
 
@@ -535,7 +535,7 @@ def tabla_propiedades(c):
         ("CH₄, C₂H₆, C₃H₈, CO₂, H₂O", "entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido)",
          f"tablas de termodinámica: {SUP_CORRIENTE}", "PCI, PCS y temperatura de llama (sección 5)"),
         ("Gas natural", f"composición {n(c['P']['gas_CH4'] * 100)}/{n(c['P']['gas_C2H6'] * 100)}/{n(c['P']['gas_C3H8'] * 100)}/{n(c['P']['gas_N2'] * 100)}/{n(c['P']['gas_CO2'] * 100)} % molar (CH₄, C₂H₆, C₃H₈, N₂, CO₂); PCS y PCI se calculan",
-         "supuesto: composición típica; a contrastar con la fuente", "Combustión y consumo de gas (sección 5)"),
+         "supuesto: composición típica del gas de red", "Combustión y consumo de gas (sección 5)"),
         ("Exergía química estándar", "valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9)",
          f"{SUP_CORRIENTE}: los atribuidos a Szargut", "Exergía del combustible (sección 9)"),
     ]
@@ -547,7 +547,7 @@ def linea_r134a():
     partes = [f"a {n(f['T'])} °C, {n(f['p'], 1)} kPa y $h_{{fg}}$ = {n(f['hfg'], 1)} kJ/kg (CoolProp) contra {n(f['p_tab'])} kPa y {n(f['hfg_tab'], 1)} kJ/kg de la tabla" for f in cont]
     dif = max(max(abs(f["dp"]), abs(f["dh"])) for f in cont) * 100
     return ("**Contraste del R134a.** En dos puntos de saturación, " + "; ".join(partes) + f" (diferencias menores que {n(max(dif, 0.1) + 0.0, 1)} %); "
-            "los valores de tabla son los de uso corriente y están sin contrastar con el texto (supuesto: a contrastar con la fuente).")
+            "los valores de tabla son los de uso corriente y están sin contrastar con el texto (supuesto).")
 
 
 # ====================================================================================================================
@@ -655,7 +655,7 @@ def texto_refrigerante(c):
             f"Con el modelo de ciclo y el mismo rendimiento isentrópico supuesto, a las mismas temperaturas de evaporación y condensación ({n(c['P']['T_ev'])} y 46 °C), el R1234ze(E) (PCA menor que 1) da el mismo COP "
             f"({n(ze['cop_elec'], 2)} contra {n(r134['cop_elec'], 2)}; en una máquina real puede ser algo menor) pero {n(caida)} % menos capacidad volumétrica, "
             f"o sea un compresor {n(mas)} % más grande, y es ligeramente inflamable (clase A2L), lo que pesa en un hospital. El R513A (PCA 631) no está en la biblioteca de propiedades "
-            f"que se usó, así que no se calculó. Los PCA y la clasificación de seguridad son supuestos (valores de uso corriente; a contrastar con la fuente).")
+            f"que se usó, así que no se calculó. Los PCA y la clasificación de seguridad son supuestos (valores de uso corriente).")
 
 
 def texto_atomos(c):
@@ -678,7 +678,7 @@ def texto_nota_m2(c):
 def texto_resp_zonas():
     return (f"Respaldo: renovaciones de G1 y G3 y rango de las consignas de G1 a G3 según {R('ashrae170')} (la humedad de consigna de 55 % es el máximo de 60 % menos 5 puntos de margen de control: supuesto); "
             f"renovaciones de G2, G4 (promedio ponderado de sala de espera y triage, shock, imágenes y laboratorio) y G5, consignas de G4 y G5 (24 °C y 60 %, dentro de la zona de confort de {R('givoni')}) "
-            f"y funcionamiento de cada zona: supuesto (valor de uso corriente; a contrastar con la fuente).")
+            f"y funcionamiento de cada zona: supuesto (valor de uso corriente).")
 
 
 # ====================================================================================================================
@@ -720,7 +720,7 @@ def memoria_exergia(c, V, T):
     from . import texto_exergia
     _inf, mem, _v = texto_exergia.redactar(c, dict(V), dict(T))
     mem = re.sub(r"(?m)^## 8\.(\d)", r"## 9.\1", mem)
-    mem = re.sub(r"\*\*recordadas?,? a (?:cotejar|verificar) con el libro de la c[aá]tedra\*\*", "**supuesto** (valores de uso corriente; a contrastar con la fuente)", mem)
+    mem = re.sub(r"\*\*recordadas?,? a (?:cotejar|verificar) con el libro de la c[aá]tedra\*\*", "**supuesto** (valores de uso corriente)", mem)
     mem = re.sub(r"\*\*A confirmar con la c[aá]tedra\*\*:\s*otra convenci[oó]n la llamar[ií]a p[eé]rdida\.", "Convención adoptada (supuesto): otra la llamaría pérdida.", mem)
     extra = _extra_exergia(c)
     mem, k = re.subn(r"(?m)^(## 9\.3 )", lambda m: extra + "\n\n" + m.group(1), mem, count=1)
@@ -746,7 +746,7 @@ _EQ_FILAS = [
     (("Q20",), "Margen de diseño sobre la carga pico (solo informativo)", "0,1", "–", "supuesto: práctica habitual de selección; no cambia la selección"),
     (("Q21", "Q22", "Q23"), "Huella en azotea y peso operativo por enfriadora", "{huella_L} × {huella_W} m; {peso} t", "–",
      "supuesto: sin dimensiones de catálogo; la huella es el área reservada por unidad con espacios de servicio"),
-    (("Q24",), "Sobrecarga de referencia de una azotea de uso corriente", "{q_ref}", "kN/m²", "supuesto (valor de uso corriente, entre 1 y 5 kN/m² según el acceso a la azotea; a contrastar con la fuente)"),
+    (("Q24",), "Sobrecarga de referencia de una azotea de uso corriente", "{q_ref}", "kN/m²", "supuesto (valor de uso corriente, entre 1 y 5 kN/m² según el acceso a la azotea)"),
     (("Q25",), "Aceleración de la gravedad", "9,81", "m/s²", "constante"),
     (("Q30",), "Punta de ACS / ACS media", "{f_punta}", "–", "supuesto: el modelo da solo el ACS medio; se suma al punto de diseño de invierno (coincidencia conservadora)"),
     (("Q31", "Q32"), "Calderas de agua caliente en servicio / de reserva", "1 / 1", "unidades", "supuesto: configuración 2 × 100 % (N+1)"),
@@ -860,7 +860,7 @@ G1 y G2 comparten un shaft ({n(a12, 2)} m² juntos, menos de los {n(p['area_shaf
 
 Huella de {n(p['huella_L'])} × {n(p['huella_W'], 1)} = {n(az['A_unidad'])} m² por unidad, {n(az['n_unidades'])} unidades ({n(az['A_total'])} m² en total, {k1(az['fraccion_cubierta'] * 100)} % de la cubierta de {n(az['A_cubierta'])} m²). \
 Carga media $q = {n(p['peso_op_t'])} \\cdot {n(p['g'], 2).replace(',', '{,}')} / {n(az['A_unidad'])}$ = {n(az['q_kN_m2'], 2)} kN/m² contra {n(az['q_ref'], 1)} kN/m² de sobrecarga de referencia de una azotea de uso corriente \
-(supuesto: valor de uso corriente, entre 1 y 5 kN/m² según el acceso; a contrastar con la fuente), es decir {n(az['q_sobre_ref'], 2)} veces. La carga bajo los apoyos es mayor: hace falta plataforma o vigas y la verificación \
+(supuesto: valor de uso corriente, entre 1 y 5 kN/m² según el acceso), es decir {n(az['q_sobre_ref'], 2)} veces. La carga bajo los apoyos es mayor: hace falta plataforma o vigas y la verificación \
 del calculista, y el peso de {n(p['peso_op_t'])} t por unidad es supuesto.
 
 El núcleo técnico ({n(pt['nucleo']['area'])} m², de {n(pt['nucleo']['ancho'], 1)} × {n(pt['nucleo']['prof'], 1)} m) ocupa la esquina sudeste, del lado de la calle y en el mismo lugar en cada nivel: los shafts se apilan, el agua helada \
@@ -893,7 +893,7 @@ def lista_referencias():
     lineas = []
     for i, (cl, texto, sec) in enumerate(referencias.REFERENCIAS, start=1):
         lineas.append(f"[{i}]{chr(92) + '*' if sec else ''} {texto}")
-    pie = ("\\* Fuente conocida por un extracto de búsqueda: se usó el dato citado y no se abrió el documento original; el dato está a contrastar con la fuente.")
+    pie = ("\\* Fuente conocida por un extracto de búsqueda: se usó el dato citado y no se abrió el documento original; el dato citado se tomó de ese extracto.")
     return "\n\n".join(lineas) + "\n\n" + pie
 
 

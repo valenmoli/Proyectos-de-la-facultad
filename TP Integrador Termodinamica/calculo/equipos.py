@@ -71,7 +71,7 @@ _FILAS = [
      "1 de reserva, 4 unidades iguales. Con una parada quedan 3 x 988 = 2.964 kW para 1.987 kW de diseño (margen +49 %). El margen cubre el calor de las bombas de agua helada "
      "(que la carga de diseño no incluye) y la diferencia entre los 34 °C de diseño y los 35 °C del catálogo"),
     ("Q12", "modelo_enf", "Enfriadora de ejemplo", "Carrier AquaForce 30XA 1002", "-", "FUENTE SECUNDARIA",
-     "Busqueda web sobre catalogos de Carrier; no se pudo abrir el catalogo. Enfriadora de tornillo condensada por aire"),
+     "Dato de catalogo conocido por un extracto. Enfriadora de tornillo condensada por aire"),
     ("Q13", "cap_enf", "Capacidad nominal de la enfriadora de ejemplo", 988.0, "kW", "FUENTE SECUNDARIA",
      "Idem Q12. Con aire exterior a 35 C y agua helada 12/7 C"),
     ("Q14", "pot_enf", "Potencia absorbida por los compresores de la enfriadora de ejemplo", 288.2, "kW", "FUENTE SECUNDARIA",
@@ -98,7 +98,7 @@ _FILAS = [
     ("Q31", "cald_n_serv", "Calderas de agua caliente en servicio (pirotubulares a gas, 100 % cada una)", 1, "unidades", "SUPUESTO", "Configuracion 2 x 100 %"),
     ("Q32", "cald_n_res", "Calderas de agua caliente de reserva", 1, "unidades", "SUPUESTO", "Configuracion 2 x 100 % (N+1), sin marca"),
     ("Q33", "cap_cond", "Capacidad maxima por unidad de la caldera de condensacion de ejemplo (Viessmann Vitocrossal 300 CM3C)", 311.0, "kW", "FUENTE SECUNDARIA",
-     "Busqueda web; no se pudo abrir el catalogo"),
+     "Dato de catalogo conocido por un extracto"),
     ("Q34", "cap_cond_min", "Capacidad minima por unidad de la caldera de ejemplo", 87.0, "kW", "FUENTE SECUNDARIA", "Idem Q33; las unidades se pueden poner en cascada"),
     ("Q35", "eta_cond_PCS", "Rendimiento maximo de la caldera de condensacion", 0.98, "-", "FUENTE SECUNDARIA",
      "Idem Q33; sobre PCS y con retorno frio (maximo, no valor de operacion)"),

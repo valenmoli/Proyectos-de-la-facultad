@@ -276,8 +276,8 @@ def test_valores_de_uso_corriente_pasan_a_supuesto(t):
     tab = t[0]["tabla_parametros_m"]
     for i in ("C1", "C2", "C3", "C4"):
         fila = [f for f in tab.splitlines() if f.startswith(f"| {i} ")][0]
-        assert "supuesto (valor de uso corriente; a contrastar con la fuente)" in fila
-    assert "**supuesto** (valores de uso corriente; a contrastar con la fuente)" in t[0]["memoria_exergia"]
+        assert "supuesto (valor de uso corriente)" in fila
+    assert "**supuesto** (valores de uso corriente)" in t[0]["memoria_exergia"]
     assert "supuesto (valor de uso corriente, entre 1 y 5 kN/m" in t[0]["memoria_equipos"]
 
 

@@ -39,7 +39,7 @@ PARAMETROS = [
      "Colector plano a 40-60 C con perdidas opticas y termicas; sin dato de catalogo"),
     ("PM6", "GHI_anual", "Irradiacion global horizontal anual", 1700.0, "kWh/m2 anio", "FUENTE SECUNDARIA",
      "Global Solar Atlas, informe de un punto de la provincia de Buenos Aires a unos 300 km (coordenadas -37,16 -59,06), via busqueda web: "
-     "es una cota alta para la ciudad; a confirmar con globalsolaratlas.info para las coordenadas del hospital"),
+     "es una cota alta para la ciudad (la irradiación del hospital puede ser menor)"),
     ("PM7", "lat", "Latitud del hospital", -34.7, "grados", "SUPUESTO", "La Matanza, Buenos Aires"),
     ("PM8", "kWp_fv", "Potencia fotovoltaica instalada", 250.0, "kWp", "SUPUESTO",
      "Unos 1.250 m2 de paneles (5 m2/kWp) sobre una azotea de 6.117 m2 con equipos"),
