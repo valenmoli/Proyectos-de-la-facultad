@@ -19,6 +19,10 @@ La consigna pide «énfasis en la metodología, los resultados y la justificaci�
 
 **Reserva:** sensibilidad completa (memoria), planta tipo a escala (memoria), matriz azotea contra patio (memoria), exergía por equipo (memoria).
 
+## Diapositivas de propuestas ya armadas
+
+`propuestas_diapositivas.pptx` tiene las dos diapositivas de la parte de propuestas (la alternativa B y las mejoras en tres familias: producir energía limpia, no desperdiciar y pedir menos), con el formato azul noche y beige del equipo y el guion en las notas del orador. Las cifras son las del informe (anuales); si el equipo usa otras de una hora de diseño, hay que unificarlas antes de la exposición.
+
 ## Preguntas probables y de dónde sale la respuesta
 
 - *¿Por qué 3+1 y no 2+1?* Con 2+1 y la misma unidad faltan 11 kW (0,6 %); 3+1 cumple con una unidad parada pero queda sobredimensionada (informe, sección 6.1).
