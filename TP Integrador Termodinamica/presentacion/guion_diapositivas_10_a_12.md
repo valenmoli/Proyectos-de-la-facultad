@@ -21,7 +21,7 @@ La 11 usa **otra base** que la 10 y la 12, y puestas una al lado de la otra pare
 | Qué falta | «Una simulación anual con clima horario» | Cifras anuales (clima mensual aproximado, sin cargas parciales) |
 | Frío de diseño | 1.489 kW (diapositiva 12) | 1.987 kW (lo aclara la sección 4.5) |
 
-No son errores de cuenta: son **dos modelos independientes** sobre el mismo edificio (una hora de diseño contra el año completo, otro diseño de B y otras cargas de diseño). Pero si no se aclara, el profesor pregunta «¿95 o 18?» y «¿tienen una simulación anual o no?». La sección 4.5 del informe ya lo dice por escrito («sus porcentajes no son comparables con los de las secciones anteriores») y el guion de la 11 lo repite **en voz alta** al principio. Ojo con decir «nuestra memoria de cálculo»: se confunde con la planilla de Excel que el grupo entregó como memoria; decí «la sección 4.5» o «un cálculo aparte». Sigue siendo buena idea sumar **una línea en la diapositiva 11** que lo diga (por ejemplo: «Estimación anual aparte (sección 4.5): no es comparable con las cifras de diseño de las diapositivas 10 y 12»).
+No son errores de cuenta: son **dos modelos independientes** sobre el mismo edificio (una hora de diseño contra el año completo, otro diseño de B y otras cargas de diseño). Pero si no se aclara, el profesor pregunta «¿95 o 18?» y «¿tienen una simulación anual o no?». La sección 4.5 del informe ya lo dice por escrito («sus porcentajes no son comparables con los de las secciones anteriores») y el guion de la 11 lo dice **en una sola frase** al principio; el detalle queda para las preguntas. Ojo con decir «nuestra memoria de cálculo»: se confunde con la planilla de Excel que el grupo entregó como memoria; decí «la sección 4.5» o «un cálculo aparte». Sigue siendo buena idea sumar **una línea en la diapositiva 11** que lo diga (por ejemplo: «Estimación anual aparte (sección 4.5): no es comparable con las cifras de diseño de las diapositivas 10 y 12»).
 
 Otras cosas a tener en cuenta:
 
@@ -42,7 +42,7 @@ Otras cosas a tener en cuenta:
 
 ## Tiempo
 
-A 130–150 palabras por minuto, contando las cifras como se dicen en voz alta. **Versión base** (sin lo que está entre corchetes): unos **3:45 a 4:20** en total; la 10 unos 1:00 a 1:10, la 11 unos 1:45 a 2:00 y la 12 unos 1:00 a 1:10. **Con todo** lo de los corchetes: unos 5:15 a 6:05. Si les dieron menos tiempo, avisame cuánto y lo ajusto; si les sobra, se agregan los corchetes de a uno, empezando por la exergía de la 10 y la bomba de calor de la 11.
+A 130–150 palabras por minuto, contando las cifras como se dicen en voz alta. **Versión base** (sin lo que está entre corchetes): unos **3:10 a 3:40** en total; la 10 unos 1:00 a 1:10, la 11 unos 1:15 a 1:30 y la 12 unos 0:55 a 1:05. **Con todo** lo de los corchetes: unos 5:05 a 5:55. Si les dieron menos tiempo, avisame cuánto y lo ajusto; si les sobra, se agregan los corchetes de a uno, empezando por la exergía de la 10 y la bomba de calor de la 11.
 
 ## Diapositiva 10: la alternativa B
 
@@ -54,13 +54,13 @@ La alternativa B usa ese calor: un condensador de agua en paralelo entrega agua 
 
 ## Diapositiva 11: mejoras de sustentabilidad
 
-*(Empezá aclarando la base; es lo que evita la contradicción con la 10 y la 12.)*
+*(Arrancá con una sola frase: los porcentajes son anuales. El detalle queda para las preguntas.)*
 
-Esta diapositiva resume la **sección 4.5 del informe**: una estimación anual aparte, simple, mes a mes, para ver órdenes de magnitud sobre la energía de todo el año del sistema térmico, unos tres mil megavatios hora. Por eso **no es comparable** con la 10 y la 12: el recuperador de aire ahorra 46 % del gas en una hora de invierno, pero 5 % de la energía de todo el año. Evaluamos cada medida por separado y las agrupamos en tres familias.
+En esta diapositiva los porcentajes están calculados **sobre todo el año** (sección 4.5 del informe), así que no se comparan con los de las anteriores. [Es una estimación simple, mes a mes, sobre los unos tres mil megavatios hora por año del sistema térmico: el recuperador, por ejemplo, ahorra 46 % del gas en una hora de invierno y 5 % de la energía del año.] Evaluamos cada medida por separado y las agrupamos en tres familias.
 
 **Producir energía limpia:** paneles solares de 250 kilowatts pico, 11 % menos de energía y 14 % menos de CO₂, y solar térmico, 8 %. Ojo: los paneles no reducen el consumo, lo cubren. [Con 500 kilowatts serían 22 y medio por ciento, ocupando el 41 % de la azotea: es un escenario, porque supone que otras cargas usan el excedente de mediodía.]
 
-**No desperdiciar:** la B, medida sobre el año, baja 18 %. Es otro diseño que el de la 10, con agua a 45 grados, y es un techo: supone que el calor y la demanda coinciden siempre. Después, el recuperador de aire, 5 %, y la caldera de condensación, 3 %.
+**No desperdiciar:** la B, medida sobre el año, baja 18 %. Es un techo: supone que el calor y la demanda coinciden siempre. [Es otro diseño que el de la 10, con agua a 45 grados.] Después, el recuperador de aire, 5 %, y la caldera de condensación, 3 %.
 
 **Pedir menos:** techos y fachadas verdes, casi 4 % con un supuesto de 20 % menos de calor por la envolvente. Es poco porque el consumo está en el aire, no en la envolvente. [Bajar el caudal de los quirófanos a la mitad de noche, 2 %, y la presión de los ventiladores 20 %, 2 y medio por ciento.]
 
@@ -72,7 +72,7 @@ Todas juntas, el paquete llega hasta casi **50 % menos de energía y 41 % menos 
 
 Para cerrar, las respuestas a la consigna 5. **Sí cumple los requerimientos**: 1.489 kW de frío y una caldera de 552 kW mantienen las consignas [, con humedad de 46 a 60 % en verano y 30 % en invierno]. **Mandan** la humedad exterior, la temperatura de condensación [(el COP es 3,57 a 46 °C y 4,62 a 38 °C)] y los caudales de aire que exige la norma. **Las pérdidas** están sobre todo en la caldera, que concentra el 51 % de la exergía destruida en verano húmedo. **Lo que mejora el sistema**: la alternativa B, el recuperador, la bomba de calor y la caldera de condensación [: 95 % menos de gas en verano húmedo, 46 % menos en invierno, 43 % de eficiencia exergética y 10 % menos de gas].
 
-Y **para un proyecto falta** una simulación anual con clima horario, datos medidos del hospital, curvas de los equipos a carga parcial y costos. Eso conecta con la diapositiva anterior: el cálculo anual aparte usa clima mensual aproximado y no tiene cargas parciales; sirve para dar órdenes de magnitud, pero **no reemplaza** esa simulación.
+Y **para un proyecto falta** una simulación anual con clima horario, datos medidos del hospital, curvas de los equipos a carga parcial y costos. Nuestra estimación anual de la diapositiva anterior es simple y **no reemplaza** esa simulación.
 
 ## Si te preguntan
 

@@ -20,8 +20,8 @@ const CONTENT_W = PAGE_W - 2 * MARGIN;                      // 9638 DXA
 // --- tiempos medidos (palabras habladas a 130-150 por minuto)
 const TIEMPOS = {
   10: "Versión base ≈ 1:00 a 1:10  ·  con todo ≈ 1:20 a 1:35",
-  11: "Versión base ≈ 1:45 a 2:00  ·  con todo ≈ 2:30 a 2:50",
-  12: "Versión base ≈ 1:00 a 1:10  ·  con todo ≈ 1:25 a 1:40",
+  11: "Versión base ≈ 1:15 a 1:30  ·  con todo ≈ 2:25 a 2:50",
+  12: "Versión base ≈ 0:55 a 1:05  ·  con todo ≈ 1:20 a 1:30",
 };
 
 // --- inline: **negrita**, [corte opcional], resto texto
