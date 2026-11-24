@@ -119,17 +119,25 @@ $$\omega = 0\text{,}622\,\frac{p_v}{P - p_v}, \qquad h = 1\text{,}006\,T + \omeg
 
 con $T$ en °C y $h$ en kJ/kg. La mezcla de aire exterior y de retorno conserva la masa de aire seco, la masa de agua y la entalpía: $\dot m_a = \dot m_{ae} + \dot m_{ar}$, $\dot m_a\,\omega_{mez} = \dot m_{ae}\,\omega_{ext} + \dot m_{ar}\,\omega_{ret}$ y $\dot m_a\,h_{mez} = \dot m_{ae}\,h_{ext} + \dot m_{ar}\,h_{ret}$. La serpentina enfría hasta $T_c$ y deshumidifica hasta $\omega_c$, con el aire a la salida al 95 % de humedad relativa, y retira el condensado $\dot m_{cond} = \dot m_a\,(\omega_{mez} - \omega_c)$:
 
-$$\dot Q_{serp} = \dot m_a\left[(h_{mez} - h_c) - (\omega_{mez} - \omega_c)\,h_f\right], \qquad \dot Q_{lat} = \dot m_a\,(\omega_{mez} - \omega_c)\,h_{fg}$$
+$$\dot Q_{serp} = \dot m_a\left[(h_{mez} - h_c) - (\omega_{mez} - \omega_c)\,h_f\right]$$
+
+$$\dot Q_{lat} = \dot m_a\,(\omega_{mez} - \omega_c)\,h_{fg}$$
 
 donde $h_f = 4\text{,}186\,T_c$ es la entalpía del condensado y la parte sensible es la diferencia. El recalentador lleva el aire a $T_{obj}$, que es la temperatura de impulsión menos el calentamiento que producirá el ventilador:
 
-$$\dot Q_{rec} = \dot m_a\,c_{p,ah}\,(T_{obj} - T_c), \qquad T_{obj} = T_{imp} - \frac{\dot W_{vent}}{\dot m_a\,c_{p,ah}}, \qquad c_{p,ah} = 1\text{,}006 + 1\text{,}86\,\omega$$
+$$\dot Q_{rec} = \dot m_a\,c_{p,ah}\,(T_{obj} - T_c)\qquad T_{obj} = T_{imp} - \frac{\dot W_{vent}}{\dot m_a\,c_{p,ah}}$$
+
+$$c_{p,ah} = 1\text{,}006 + 1\text{,}86\,\omega$$
 
 El estado de impulsión sale del balance de la zona. Con la actividad $f_{act}$, la fracción de envolvente expuesta $f_{env}$, la conductancia $U$ por m² de piso expuesto (0,6 W/(m² K)) y la ganancia solar $q_{sol}$ (en W/m², como las ganancias internas de plena actividad $q_s$ y $q_l$):
 
-$$\dot Q_s = A\left[q_s\,f_{act} + f_{env}\,\big(U\,(T_{ext} - T_r) + q_{sol}\big)\right], \qquad \dot Q_l = A\,q_l\,f_{act}$$
+$$\dot Q_s = A\left[q_s\,f_{act} + f_{env}\,\big(U\,(T_{ext} - T_r) + q_{sol}\big)\right]$$
 
-$$T_{imp} = T_r - \frac{\dot Q_s}{\dot m_a\,c_{p,ah}}, \qquad \omega_{imp} = \omega_r - \frac{\dot Q_l}{\dot m_a\,h_{fg}}, \qquad \dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}}$$
+$$\dot Q_l = A\,q_l\,f_{act}$$
+
+$$T_{imp} = T_r - \frac{\dot Q_s}{\dot m_a\,c_{p,ah}}\qquad \omega_{imp} = \omega_r - \frac{\dot Q_l}{\dot m_a\,h_{fg}}$$
+
+$$\dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}}$$
 
 con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la zona (el retorno está en ese estado), $\dot V = \dot m_a/\rho$ y las cargas pasadas a kW al dividir por $\dot m_a\,c_{p,ah}$; $T_{imp}$ queda limitada entre 13 y 35 °C, $h_{fg} = 2501$ kJ/kg, $\eta_{vent} = 0\text{,}60$ y $\rho = 1\text{,}2$ kg/m³. La serpentina lleva el aire a $\omega_c = \omega_{imp}$ con la temperatura de salida que corresponde a la saturación parcial indicada; si esa temperatura supera $T_{obj}$, enfría hasta $T_{obj}$. El caudal de impulsión es el mayor entre el que fijan las renovaciones y el que pide la carga sensible, $\dot m_{sens} = \dot Q_s/[c_{p,ah}\,(T_r - 13)]$, y el de aire exterior se fija en valor absoluto. En invierno, si el aire sale más seco que la humedad mínima de la zona, se humidifica con vapor.
 
@@ -141,7 +149,9 @@ con $T_r$ y $\omega_r$ la temperatura y la humedad específica de consigna de la
 
 **1. Caudales.** El caudal de impulsión lo fijan las renovaciones:
 
-$$\dot V = 20 \cdot 252 \cdot 3 = 15\,120\ \text{m}^3/\text{h} = 4\text{,}200\ \text{m}^3/\text{s}, \qquad \dot m_a = \rho\,\dot V = 1\text{,}2 \cdot 4\text{,}200 = 5\text{,}04\ \text{kg/s}$$
+$$\dot V = 20 \cdot 252 \cdot 3 = 15\,120\ \text{m}^3/\text{h} = 4\text{,}200\ \text{m}^3/\text{s}$$
+
+$$\dot m_a = \rho\,\dot V = 1\text{,}2 \cdot 4\text{,}200 = 5\text{,}04\ \text{kg/s}$$
 
 El aire exterior son 4 de las 20 renovaciones: $\dot m_{ae}$ = 1,008 kg/s y $x_{ae} = \dot m_{ae}/\dot m_a$ = 0,20. El caudal que pediría solo la carga sensible es $\dot m_{sens} = \dot Q_s/[c_{p,ah}\,(T_r - 13)] = 15\text{,}12/[1\text{,}0228\,(22 - 13)] = 1\text{,}64\ \text{kg/s}$ (4.927 m³/h, 6,5 renovaciones por hora), 3,1 veces menos que las 20 de la norma: **en el quirófano manda la norma, no la carga térmica**.
 
@@ -149,19 +159,25 @@ El aire exterior son 4 de las 20 renovaciones: $\dot m_{ae}$ = 1,008 kg/s y $x_
 
 $$h_{mez} = x_{ae}\,h_{ext} + (1 - x_{ae})\,h_{ret} = 0\text{,}20 \cdot 75\text{,}91 + 0\text{,}80 \cdot 45\text{,}16 = 51\text{,}31\ \text{kJ/kg}$$
 
-$$\omega_{mez} = 0\text{,}20 \cdot 16\text{,}263 + 0\text{,}80 \cdot 9\text{,}059 = 10\text{,}500\ \text{g/kg}, \qquad T_{mez} = 24\text{,}43\ °\text{C}$$
+$$\omega_{mez} = 0\text{,}20 \cdot 16\text{,}263 + 0\text{,}80 \cdot 9\text{,}059 = 10\text{,}500\ \text{g/kg}$$
+
+$$T_{mez} = 24\text{,}43\ °\text{C}$$
 
 **3. Cargas de la zona y estado de impulsión.** Con $f_{env}$ = 0:
 
 $$\dot Q_s = A\,q_s\,f_{act} = 252 \cdot 60 \cdot 1 = 15\text{,}12\ \text{kW}, \qquad \dot Q_l = 252 \cdot 10 \cdot 1 = 2\text{,}52\ \text{kW}$$
 
-$$c_{p,ah} = 1\text{,}006 + 1\text{,}86 \cdot 0\text{,}009059 = 1\text{,}0228\ \text{kJ/(kg K)}, \qquad T_{imp} = 22 - \frac{ 15\text{,}12 }{ 5\text{,}04 \cdot 1\text{,}0228 } = 19\text{,}07\ °\text{C}$$
+$$c_{p,ah} = 1\text{,}006 + 1\text{,}86 \cdot 0\text{,}009059 = 1\text{,}0228\ \text{kJ/(kg K)}$$
+
+$$T_{imp} = 22 - \frac{ 15\text{,}12 }{ 5\text{,}04 \cdot 1\text{,}0228 } = 19\text{,}07\ °\text{C}$$
 
 $$\omega_{imp} = 9\text{,}059 - \frac{ 2\text{,}52 }{ 5\text{,}04 \cdot 2501 } \cdot 10^3 = 8\text{,}859\ \text{g/kg}$$
 
 **4. Ventilador y temperatura objetivo del recalentador.**
 
-$$\dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}} = \frac{ 4\text{,}200 \cdot 1\text{,}8 }{ 0\text{,}60 } = 12\text{,}6\ \text{kW}, \qquad \Delta T_{vent} = \frac{ 12\text{,}6 }{ 5\text{,}04 \cdot 1\text{,}0228 } = 2\text{,}444\ \text{K}$$
+$$\dot W_{vent} = \frac{\dot V\,\Delta p}{\eta_{vent}} = \frac{ 4\text{,}200 \cdot 1\text{,}8 }{ 0\text{,}60 } = 12\text{,}6\ \text{kW}$$
+
+$$\Delta T_{vent} = \frac{ 12\text{,}6 }{ 5\text{,}04 \cdot 1\text{,}0228 } = 2\text{,}444\ \text{K}$$
 
 $$T_{obj} = T_{imp} - \Delta T_{vent} = 19\text{,}067 - 2\text{,}444 = 16\text{,}623\ °\text{C}$$
 
@@ -169,7 +185,9 @@ $$T_{obj} = T_{imp} - \Delta T_{vent} = 19\text{,}067 - 2\text{,}444 = 16\text{,
 
 $$\dot Q_{serp} = 5\text{,}04\,\big[(51\text{,}31 - 35\text{,}45) - 0\text{,}001641 \cdot 54\text{,}42\big] = 5\text{,}04 \cdot 15\text{,}77 = 79\text{,}5\ \text{kW}$$
 
-$$\dot Q_{lat} = 5\text{,}04 \cdot 0\text{,}001641 \cdot 2501 = 20\text{,}7\ \text{kW}, \qquad \dot Q_{sens} = 79\text{,}5 - 20\text{,}7 = 58\text{,}8\ \text{kW}$$
+$$\dot Q_{lat} = 5\text{,}04 \cdot 0\text{,}001641 \cdot 2501 = 20\text{,}7\ \text{kW}$$
+
+$$\dot Q_{sens} = 79\text{,}5 - 20\text{,}7 = 58\text{,}8\ \text{kW}$$
 
 **6. Recalentador.** Con $c_{p,ah} = 1\text{,}006 + 1\text{,}86 \cdot 0\text{,}008859 = 1\text{,}0225$ kJ/(kg K):
 
@@ -217,7 +235,7 @@ $$q_L = h_1 - h_4, \qquad w = h_2 - h_1 = \frac{h_{2s} - h_1}{\eta_{is}}, \qquad
 
 $$COP_{eje} = \frac{q_L}{w}, \qquad COP_{el} = \frac{q_L}{w/\eta_{mot}}, \qquad COP_{Carnot} = \frac{T_{ev}}{T_{cond} - T_{ev}}$$
 
-$$\dot W_{comp} = \frac{\dot Q_L}{COP_{el}}, \qquad \dot m_{ref} = \frac{\dot Q_L}{q_L}, \qquad \dot Q_{cond} = \dot Q_L + \eta_{mot}\,\dot W_{comp} = \dot m_{ref}\,q_H$$
+$$\dot W_{comp} = \frac{\dot Q_L}{COP_{el}}\qquad \dot m_{ref} = \frac{\dot Q_L}{q_L}\qquad \dot Q_{cond} = \dot Q_L + \eta_{mot}\,\dot W_{comp} = \dot m_{ref}\,q_H$$
 
 El rendimiento del motor es $\eta_{mot} = 0\text{,}94$ y el COP de Carnot usa temperaturas absolutas (K). La temperatura de condensación sigue al clima: $T_{cond} = \max(T_{ext} + 12\ \text{K},\ 32\ °C)$. Los ventiladores del condensador consumen el 2,5 % del calor rechazado, $\dot W_{cond} = 0\text{,}025\,\dot Q_{cond}$, y las bombas se calculan con el caudal de agua helada (salto de 5 K), 250 kPa de presión y 0,60 de rendimiento total:
 
@@ -237,21 +255,31 @@ Con $\dot Q_L$ = 1.987,2 kW, $T_{ev}$ = 3 °C (326,0 kPa) y $T_{cond}$ = máx
 
 Table: Tabla M6. Estados del ciclo de refrigeración al punto de diseño de verano (R134a).
 
-$$q_L = h_1 - h_4 = 404\text{,}88 - 259\text{,}38 = 145\text{,}50\ \text{kJ/kg}, \qquad w = h_2 - h_1 = 443\text{,}33 - 404\text{,}88 = 38\text{,}45\ \text{kJ/kg}$$
+$$q_L = h_1 - h_4 = 404\text{,}88 - 259\text{,}38 = 145\text{,}50\ \text{kJ/kg}$$
+
+$$w = h_2 - h_1 = 443\text{,}33 - 404\text{,}88 = 38\text{,}45\ \text{kJ/kg}$$
 
 $$q_H = h_2 - h_3 = 443\text{,}33 - 259\text{,}38 = 183\text{,}95\ \text{kJ/kg}$$
 
-$$COP_{eje} = \frac{ 145\text{,}50 }{ 38\text{,}45 } = 3\text{,}784, \qquad COP_{el} = 3\text{,}784 \cdot 0\text{,}94 = 3\text{,}557, \qquad COP_{Carnot} = \frac{ 276\text{,}15 }{ 319\text{,}15 - 276\text{,}15 } = 6\text{,}422$$
+$$COP_{eje} = \frac{ 145\text{,}50 }{ 38\text{,}45 } = 3\text{,}784\qquad COP_{el} = 3\text{,}784 \cdot 0\text{,}94 = 3\text{,}557$$
+
+$$COP_{Carnot} = \frac{ 276\text{,}15 }{ 319\text{,}15 - 276\text{,}15 } = 6\text{,}422$$
 
 El COP eléctrico es el 55,4 % del de Carnot. Con ellos:
 
-$$\dot W_{comp} = \frac{ 1\,987\text{,}2 }{ 3\text{,}557 } = 558\text{,}7\ \text{kW}, \qquad \dot m_{ref} = \frac{ 1\,987\text{,}2 }{ 145\text{,}50 } = 13\text{,}658\ \text{kg/s}$$
+$$\dot W_{comp} = \frac{ 1\,987\text{,}2 }{ 3\text{,}557 } = 558\text{,}7\ \text{kW}$$
+
+$$\dot m_{ref} = \frac{ 1\,987\text{,}2 }{ 145\text{,}50 } = 13\text{,}658\ \text{kg/s}$$
 
 $$\dot Q_{cond} = 1\,987\text{,}2 + 0\text{,}94 \cdot 558\text{,}7 = 2\,512\text{,}4\ \text{kW} \quad (= 13\text{,}658 \cdot 183\text{,}95\ \text{kW})$$
 
 Auxiliares:
 
-$$\dot W_{cond} = 0\text{,}025 \cdot 2\,512\text{,}4 = 62\text{,}8\ \text{kW}, \qquad \dot m_w = \frac{ 1\,987\text{,}2 }{4\text{,}186 \cdot 5 } = 94\text{,}95\ \text{kg/s}, \qquad \dot W_{bomba} = \frac{ 94\text{,}95 }{1.000} \cdot \frac{ 250 }{ 0\text{,}60 } = 39\text{,}6\ \text{kW}$$
+$$\dot W_{cond} = 0\text{,}025 \cdot 2\,512\text{,}4 = 62\text{,}8\ \text{kW}$$
+
+$$\dot m_w = \frac{ 1\,987\text{,}2 }{4\text{,}186 \cdot 5 } = 94\text{,}95\ \text{kg/s}$$
+
+$$\dot W_{bomba} = \frac{ 94\text{,}95 }{1.000} \cdot \frac{ 250 }{ 0\text{,}60 } = 39\text{,}6\ \text{kW}$$
 
 ![Figura M3. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=9.5cm}
 
@@ -261,7 +289,7 @@ $$\dot W_{cond} = 0\text{,}025 \cdot 2\,512\text{,}4 = 62\text{,}8\ \text{kW}, \
 
 La reacción por kmol de gas natural, con relación de aire $\lambda$ = 1,15 (el oxígeno estequiométrico es $a_{st}$ = 2,045 kmol y el real, $\lambda\,a_{st}$; coeficientes en kmol, redondeados a tres decimales), es
 
-$$0\text{,}91\,\text{CH}_4 + 0\text{,}05\,\text{C}_2\text{H}_6 + 0\text{,}01\,\text{C}_3\text{H}_8 + 0\text{,}02\,\text{N}_2 + 0\text{,}01\,\text{CO}_2 + 2\text{,}352\left(\text{O}_2 + \tfrac{79}{21}\,\text{N}_2\right) \rightarrow 1\text{,}050\,\text{CO}_2 + 2\text{,}010\,\text{H}_2\text{O} + 8\text{,}867\,\text{N}_2 + 0\text{,}307\,\text{O}_2$$
+$$\begin{aligned}0\text{,}91\,\text{CH}_4 + 0\text{,}05\,\text{C}_2\text{H}_6 + 0\text{,}01\,\text{C}_3\text{H}_8 + 0\text{,}02\,\text{N}_2 + 0\text{,}01\,\text{CO}_2 + 2\text{,}352\left(\text{O}_2 + \tfrac{79}{21}\,\text{N}_2\right) \\ {}\rightarrow 1\text{,}050\,\text{CO}_2 + 2\text{,}010\,\text{H}_2\text{O} + 8\text{,}867\,\text{N}_2 + 0\text{,}307\,\text{O}_2\end{aligned}$$
 
 **Control de la reacción:** el balance de átomos cierra (C 1,050; H 4,020; O 4,723; N 17,734 kmol de átomos por kmol de gas, iguales a la entrada y a la salida); el aire estequiométrico es 9,738 kmol por kmol de gas.
 
@@ -281,19 +309,27 @@ Table: Tabla M7. Poder calorífico inferior y superior de la mezcla: $PCI_i$ y $
 
 El volumen molar a 15 °C y 101,325 kPa es $v = R\,T/P = 8\text{,}3145 \cdot 288\text{,}15/101\text{,}325 = 23\text{,}645$ m³/kmol, de modo que
 
-$$PCI = \frac{ 821\,933 }{ 23\text{,}645 } = 34\,762\ \text{kJ/m}^3 = 9\text{,}656\ \text{kWh/m}^3, \qquad PCS = \frac{ 910\,393 }{ 23\text{,}645 } = 38\,503\ \text{kJ/m}^3 = 10\text{,}695\ \text{kWh/m}^3 = 9\,196\ \text{kcal/m}^3$$
+$$PCI = \frac{ 821\,933 }{ 23\text{,}645 } = 34\,762\ \text{kJ/m}^3 = 9\text{,}656\ \text{kWh/m}^3$$
+
+$$PCS = \frac{ 910\,393 }{ 23\text{,}645 } = 38\,503\ \text{kJ/m}^3 = 10\text{,}695\ \text{kWh/m}^3 = 9\,196\ \text{kcal/m}^3$$
 
 ## 5.2 Pérdida por gases, rendimiento y consumo de gas
 
 El rendimiento de la caldera se calcula por el balance de los gases de escape, y el combustible necesario para entregar un calor útil $Q_{util}$ es
 
-$$\eta = 1 - q_{gases} - f_{rad}, \qquad q_{gases} = \frac{H_{prod}(T_{gases}) - H_{reac}(T_{aire})}{PCI}, \qquad E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI}$$
+$$\eta = 1 - q_{gases} - f_{rad}\qquad q_{gases} = \frac{H_{prod}(T_{gases}) - H_{reac}(T_{aire})}{PCI}$$
+
+$$E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI}$$
 
 donde $H$ son las entalpías sensibles respecto de 25 °C (calores específicos de gas ideal de CoolProp), $T_{aire}$ = 15 °C y $f_{rad}$ = 2,0 % del PCI son las pérdidas por radiación y funcionamiento (supuesto). Con los productos a 190 °C (tabla M8):
 
-$$H_{prod} = \sum_i n_i\,\Delta h_i(190\ °\text{C}) = 62\,631\ \text{kJ/kmol}, \qquad H_{reac} = 2\text{,}352 \cdot (−293\text{,}5) + 8\text{,}847 \cdot (−291\text{,}2) = −3\,267\ \text{kJ/kmol}$$
+$$H_{prod} = \sum_i n_i\,\Delta h_i(190\ °\text{C}) = 62\,631\ \text{kJ/kmol}$$
 
-$$q_{gases} = \frac{ 62\,631 - (−3\,267) }{ 821\,933 } = 0\text{,}0802, \qquad \eta = 1 - 0\text{,}0802 - 0\text{,}02 = 0\text{,}8998$$
+$$H_{reac} = 2\text{,}352 \cdot (−293\text{,}5) + 8\text{,}847 \cdot (−291\text{,}2) = −3\,267\ \text{kJ/kmol}$$
+
+$$q_{gases} = \frac{ 62\,631 - (−3\,267) }{ 821\,933 } = 0\text{,}0802$$
+
+$$\eta = 1 - 0\text{,}0802 - 0\text{,}02 = 0\text{,}8998$$
 
 | Especie | $n_i$ [kmol/kmol de gas] | $\Delta h_i$ [kJ/kmol] | $n_i\,\Delta h_i$ [kJ/kmol de gas] |
 |------------------------------|----------------------|--------------------|----------------------------|
@@ -310,7 +346,9 @@ Table: Tabla M8. Entalpía sensible de los gases de escape a 190 °C respecto d
 
 El **consumo de gas de diseño** se calcula con la carga de la planta de calor, que es la de invierno más la punta de ACS (el doble de la media, supuesto):
 
-$$\dot Q_{cal} = 648\text{,}8 + 2 \cdot 42\text{,}8 = 648\text{,}8 + 85\text{,}6 = 734\text{,}4\ \text{kW}, \qquad \dot E_{PCI} = \frac{ 734\text{,}4 }{ 0\text{,}8998 } = 816\text{,}2\ \text{kW}$$
+$$\dot Q_{cal} = 648\text{,}8 + 2 \cdot 42\text{,}8 = 648\text{,}8 + 85\text{,}6 = 734\text{,}4\ \text{kW}$$
+
+$$\dot E_{PCI} = \frac{ 734\text{,}4 }{ 0\text{,}8998 } = 816\text{,}2\ \text{kW}$$
 
 $$\dot V_{gas} = \frac{\dot E_{PCI}}{PCI} = \frac{ 816\text{,}2\ \text{kW} }{ 9\text{,}656\ \text{kWh/m}^3 } = 84\text{,}5\ \text{m}^3/\text{h estándar}$$
 
@@ -334,7 +372,9 @@ Table: Tabla M9. Combustión del gas natural y rendimiento de la caldera. El roc
 
 Si los gases salen por debajo del punto de rocío, condensa parte del agua formada y se recupera su calor latente. Por kmol de combustible, con entalpías de formación:
 
-$$Q_{util} = PCI + n_{cond}\,L - \sum_i n_i\,\Delta h_i(T_{gases}) + H_{reac} - f_{rad}\,PCI, \qquad n_{cond} = n_{H_2O} - n_{seco}\,\frac{p_{sat}(T_{gases})/P}{1 - p_{sat}(T_{gases})/P}$$
+$$Q_{util} = PCI + n_{cond}\,L - \sum_i n_i\,\Delta h_i(T_{gases}) + H_{reac} - f_{rad}\,PCI$$
+
+$$n_{cond} = n_{H_2O} - n_{seco}\,\frac{p_{sat}(T_{gases})/P}{1 - p_{sat}(T_{gases})/P}$$
 
 con $L$ = 44.010 kJ/kmol el calor latente del agua a 25 °C. A 45 °C condensan 47 % del agua y el rendimiento sube a 101,6 % sobre PCI (91,8 % sobre PCS).
 
@@ -377,7 +417,9 @@ $$Q_{util} = Q_{rec} + Q_{cal} + Q_{hum} + Q_{ACS} = 511 + 158 + 0 + 375 = 1\,04
 
 El recalentamiento es el 49 % del calor útil de la caldera. El gas y la electricidad son
 
-$$E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI} = \frac{ 1\,044 }{ 0\text{,}8998 } \cdot 1\text{,}1076 = 1\,285\ \text{MWh} = 120\,148\ \text{m}^3, \qquad E_{elec} = 714 + 105 + 70 + 847 = 1\,736\ \text{MWh}$$
+$$E_{PCS} = \frac{Q_{util}}{\eta}\cdot\frac{PCS}{PCI} = \frac{ 1\,044 }{ 0\text{,}8998 } \cdot 1\text{,}1076 = 1\,285\ \text{MWh} = 120\,148\ \text{m}^3$$
+
+$$E_{elec} = 714 + 105 + 70 + 847 = 1\,736\ \text{MWh}$$
 
 con los usos finales de la tabla M10 (compresor, ventiladores del condensador, bombas y ventiladores de las unidades). La energía final es $E$ = 1.736 + 1.285 = 3.021 MWh, que sobre los 18.352 m² cubiertos son 164,6 kWh/m².
 
@@ -389,7 +431,9 @@ $$Q_{cond} = \sum_i \big(\dot Q_{L,i} + \eta_{mot}\,\dot W_{comp,i}\big)\,h_i = 
 
 Son unos 4.198 MWh, 8,2 veces el calor de recalentamiento: hoy se tira al ambiente. Los COP anuales son
 
-$$COP_{compresor} = \frac{Q_L}{W_{comp}} = \frac{ 3\,526\text{,}40 }{ 714\text{,}25 } = 4\text{,}94, \qquad COP_{planta} = \frac{Q_L}{W_{comp} + W_{cond} + W_{bomba}} = \frac{ 3\,526\text{,}40 }{ 714\text{,}25 + 104\text{,}94 + 70\text{,}20 } = 3\text{,}96$$
+$$COP_{compresor} = \frac{Q_L}{W_{comp}} = \frac{ 3\,526\text{,}40 }{ 714\text{,}25 } = 4\text{,}94$$
+
+$$COP_{planta} = \frac{Q_L}{W_{comp} + W_{cond} + W_{bomba}} = \frac{ 3\,526\text{,}40 }{ 714\text{,}25 + 104\text{,}94 + 70\text{,}20 } = 3\text{,}96$$
 
 El COP anual del compresor es mayor que el de diseño (3,56) porque la mayor parte del año se condensa a menos de 46 °C: entre 32 y 41 °C en los estados medios del año.
 
@@ -875,15 +919,15 @@ Contraste con las normales 1991-2020 de Buenos Aires [10]\*: enero 24,9 °C, ju
 
 # Anexo D. Referencias {#anexo-d-referencias}
 
-[1] Presidencia de la Nación, presentación del Hospital SAMIC «Dr. René Favaloro» (documento recibido).
+[1] Presidencia de la Nación, presentación *Inicio de la puesta en marcha. Hospital SAMIC «Dr. René Favaloro»*, 25 diapositivas (sin fecha explícita).
 
-[2] Gobierno de la Provincia de Buenos Aires, gacetilla del 28/07/2020 sobre el Hospital Favaloro (documento recibido).
+[2] Gobierno de la Provincia de Buenos Aires, gacetilla *Kicillof participó de la inauguración del Hospital Doctor René Favaloro en La Matanza*, 28/07/2020.
 
-[3] Gallostra Isern, Sánchez-Vaqué y Túnica Buira, *Caracterización de consumos energéticos y suministros en hospitales*, Hospitecnia, 2022 (hospitales españoles: sirve para órdenes de magnitud, no como valor de diseño; documento recibido).
+[3] Gallostra Isern, Sánchez-Vaqué y Túnica Buira, *Caracterización de consumos energéticos y suministros en hospitales*, Hospitecnia, octubre de 2022 (hospitales españoles: sirve para órdenes de magnitud, no como valor de diseño).
 
-[4] HCWH y K-CEP, *Energy efficiency and cooling audits in health care facilities in Argentina, China, and the Philippines*, 2021 (documento recibido).
+[4] HCWH y K-CEP, *Energy efficiency and cooling audits in health care facilities in Argentina, China, and the Philippines. Final project report*, marzo de 2021.
 
-[5] Medina y Marini, Hospital de Alta Complejidad El Cruce, 2010 (documento recibido).
+[5] Medina y Marini, *Hospital El Cruce «Dr. Néstor Carlos Kirchner»: alta complejidad en red*, Revista Argentina de Salud Pública, vol. 1, n.º 5, diciembre de 2010, págs. 46 a 48.
 
 [6]\* ASHRAE Standard 170 (adendo de 2025) y ASHRAE Handbook, capítulo de hospitales: renovaciones, temperaturas y humedades.
 

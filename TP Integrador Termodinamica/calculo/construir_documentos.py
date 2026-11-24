@@ -276,6 +276,56 @@ def renumerar_memoria(texto):
     return texto
 
 
+def _largo_visible(tex):
+    """Cantidad aproximada de simbolos visibles de una ecuacion TeX (para decidir si cabe en una linea)."""
+    t = tex.replace("\\text{,}", ",")
+    t = re.sub(r"\\(mathrm|text|left|right|dot|frac|quad|qquad|cdot|tfrac|,|;|!| )", " ", t)
+    return len(re.sub(r"\s+", " ", re.sub(r"[{}\\^_]", "", t)).strip())
+
+
+def _separar_nivel0(tex, sep=r"\\qquad"):
+    """Parte una ecuacion en los \\qquad que estan fuera de llaves."""
+    partes, nivel, ini, i = [], 0, 0, 0
+    while i < len(tex):
+        c = tex[i]
+        if c == "{":
+            nivel += 1
+        elif c == "}":
+            nivel -= 1
+        elif nivel == 0 and tex.startswith("\\qquad", i):
+            partes.append(tex[ini:i])
+            i += len("\\qquad")
+            ini = i
+            continue
+        i += 1
+    partes.append(tex[ini:])
+    return [re.sub(r",\s*$", "", p.strip()) for p in partes if p.strip()]
+
+
+def partir_ecuaciones(texto, limite=64):
+    """Si una ecuacion en bloque es mas ancha que la columna, Chromium achica TODA la pagina. Se parte en lineas."""
+    def f(m):
+        tex = m.group(1).strip()
+        if _largo_visible(tex) <= limite:
+            return m.group(0)
+        partes = _separar_nivel0(tex)
+        if len(partes) > 1:
+            grupos, actual = [], ""
+            for p in partes:
+                if actual and _largo_visible(actual + p) > limite:
+                    grupos.append(actual)
+                    actual = p
+                else:
+                    actual = (actual + r"\qquad " + p) if actual else p
+            grupos.append(actual)
+            return "\n\n".join("$$" + g.strip() + "$$" for g in grupos)
+        if r"\rightarrow" in tex and _largo_visible(tex) > 100:
+            izq, der = tex.split(r"\rightarrow", 1)
+            return "$$\\begin{aligned}" + izq.strip() + r" \\ {}\rightarrow " + der.strip() + "\\end{aligned}$$"
+        return m.group(0)
+    return re.sub(r"\$\$(.*?)\$\$", f, texto, flags=re.S)
+
+
 def render(plantilla, salida, V, T, extra=None):
     with open(os.path.join(INFORME, plantilla), encoding="utf-8") as f:
         s = f.read()
@@ -297,6 +347,7 @@ def render(plantilla, salida, V, T, extra=None):
         return v
 
     out = re.sub(r"\{\{(\w+)\}\}", sub, s)
+    out = partir_ecuaciones(out)
     pend = re.findall(r"<<[A-Z0-9_]+>>", out)
     if pend:
         print("aviso: quedan marcadores sin reemplazar en", plantilla, ":", sorted(set(pend)))

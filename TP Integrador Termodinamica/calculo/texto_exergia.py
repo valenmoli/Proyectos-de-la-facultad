@@ -1,5 +1,6 @@
 """Redaccion de la seccion de exergia (informe y memoria) desde calculo/exergia.py."""
 from . import exergia as ex
+from . import mejoras as _mj
 from .construir_borrador import n, tabla
 
 
@@ -15,6 +16,7 @@ def _pct(x, tot):
 
 
 def redactar(c, V, T):
+    V_AGUA_REC = _mj.parametro("T_agua_rec")
     E = ex.estados_de_analisis(c)
     a, b = E["verano_pico"]["resultado"], E["max_recalentamiento"]["resultado"]
     ga, gb = a["global"], b["global"]
@@ -48,6 +50,8 @@ def redactar(c, V, T):
         "ex_cal_comb_a": n(ca["D_combustion"] / ca["X_comb"] * 100, 1), "ex_cal_transf_a": n(ca["D_transferencia"] / ca["X_comb"] * 100, 1),
         "ex_cal_comb_b": n(cbb["D_combustion"] / cbb["X_comb"] * 100, 1), "ex_cal_transf_b": n(cbb["D_transferencia"] / cbb["X_comb"] * 100, 1),
         "ex_recal_D_b": n(tb["recalentador"]["X_dest"], 1),
+        "ex_Tagua": n(V_AGUA_REC),
+        "ex_q45": n((1 - (cond_b["T_out"] + 273.15) / (V_AGUA_REC + 273.15)) * 100),
         "ex_sens_D": n(max(abs(s["D_total"] - sens[0]["D_total"]) / sens[0]["D_total"] for s in sens) * 100, 1),
     }
     V.update(v)
@@ -69,15 +73,15 @@ def redactar(c, V, T):
 
     inf = f"""# 7. Exergía: dónde se pierde la capacidad de hacer trabajo
 
-Para cada equipo se plantea la exergía que entra (F), la exergía útil que entrega (P), la pérdida al ambiente (L) y la exergía destruida (D): $F = P + L + D$, con eficiencia $\\psi = P/F$. Tomamos como **estado muerto el aire exterior** de cada caso y analizamos dos: el **verano pico** (exterior a {v['ex_T0_a']} °C, el que dimensiona la enfriadora) y el **máximo recalentamiento** ({v['ex_mes_b']}, de noche, exterior a {v['ex_T0_b']} °C, con {v['ex_recal_b']} kW de recalentamiento). La exergía química del gas es {v['ex_comb_pci']} veces su PCI: usamos valores de uso corriente que hay que cotejar con el libro de la cátedra (supuesto).
+Para cada equipo se plantea $F = P + L + D$ (exergía que entra, útil, pérdida al ambiente y destruida) y $\\psi = P/F$. El **estado muerto es el aire exterior** de cada caso: el **verano pico** ({v['ex_T0_a']} °C, que dimensiona la enfriadora) y el **máximo recalentamiento** ({v['ex_mes_b']}, de noche, {v['ex_T0_b']} °C, con {v['ex_recal_b']} kW de recalentamiento). La exergía química del gas es {v['ex_comb_pci']} veces su PCI (valor de uso corriente; supuesto).
 
-![Figura 7. Reparto de la exergía que entra a cada caso entre exergía útil, pérdidas al ambiente y destrucción por grupo de equipos (% de la entrada). El detalle por equipo está en la memoria.](../figuras/fig07b_exergia_resumen.png){{width=12.5cm}}
+![Figura 7. Reparto de la exergía que entra a cada caso entre exergía útil, pérdidas al ambiente y destrucción por grupo de equipos (% de la entrada). El detalle por equipo está en la memoria.](../figuras/fig07b_exergia_resumen.png){{width=11cm}}
 
-- **Casi toda la exergía se destruye:** {v['ex_D_a']} % en el verano pico y {v['ex_D_b']} % en el recalentamiento. Es lo esperable: el sistema trabaja con calor y frío a temperaturas cercanas a la ambiente, que valen poco en exergía.
-- **En el verano pico manda la enfriadora y su entorno:** el compresor con su motor ({v['ex_comp_a']} %) y el condensador, la válvula y el evaporador ({v['ex_cvev_a']} %) destruyen el {v['ex_enf_a']} % de lo que entra, y los ventiladores y bombas, otro {v['ex_vent_a']} %. La eficiencia exergética de la enfriadora es de **{v['ex_eta_enf_comp']} %** (contando el compresor) aunque su COP de {V['cop_elec']} sea alto: el frío de agua a {v['ex_Tcw']} °C con exterior a {v['ex_T0_a']} °C vale solo el {v['ex_fcarnot']} % de su energía en exergía.
-- **En el recalentamiento manda la caldera,** con una eficiencia exergética de **{v['ex_eta_cal_b']} %**: el {v['ex_cal_comb_b']} % del combustible se destruye en la combustión (llama adiabática teórica de {V['T_llama']} °C, calculada sin disociación) y el {v['ex_cal_transf_b']} % al pasar el calor al agua a 80/60 °C, **todo para subir el aire unos kelvin**. El calor de 32 a 46 °C que rechaza el condensador vale poco en exergía, igual que el que pide el recalentamiento: por eso la alternativa B es buena también desde la Segunda Ley.
+- **Casi toda se destruye:** {v['ex_D_a']} % en el verano pico y {v['ex_D_b']} % en el recalentamiento, porque el sistema trabaja con calor y frío cerca de la temperatura ambiente, que valen poco en exergía.
+- **Verano pico: manda la enfriadora y su entorno.** El compresor con su motor ({v['ex_comp_a']} %) y el condensador, la válvula y el evaporador ({v['ex_cvev_a']} %) destruyen el {v['ex_enf_a']} % de lo que entra; los ventiladores y bombas, otro {v['ex_vent_a']} %. La enfriadora tiene una eficiencia exergética de **{v['ex_eta_enf_comp']} %** aunque su COP sea {V['cop_elec']}: el frío de agua a {v['ex_Tcw']} °C con exterior a {v['ex_T0_a']} °C vale solo el {v['ex_fcarnot']} % de su energía.
+- **Recalentamiento: manda la caldera,** con una eficiencia exergética de **{v['ex_eta_cal_b']} %**: el {v['ex_cal_comb_b']} % del combustible se destruye en la combustión (llama adiabática teórica de {V['T_llama']} °C) y el {v['ex_cal_transf_b']} % al pasar el calor al agua a 80/60 °C, **todo para subir el aire unos kelvin**. El calor del condensador (32 a 46 °C en el pico, hasta 41 °C en los estados medios) vale poco en exergía: un kWh de calor a {v['ex_Tagua']} °C vale {v['ex_q45']} % de un kWh de exergía (exterior a {v['ex_T0_b']} °C) y un kWh de PCI del gas, {v['ex_comb_pci']}. Por eso B es buena también desde la Segunda Ley.
 
-La eficiencia exergética global del verano pico es de {v['ex_eta_a']} %; en el recalentamiento no se puede definir (el aire sale casi con la exergía con que entra). Con otro estado muerto la destrucción total varía menos de {v['ex_sens_D']} % (memoria).
+La eficiencia global del verano pico es {v['ex_eta_a']} % y en el recalentamiento no se define. Con otro estado muerto la destrucción total varía menos de {v['ex_sens_D']} %, pero las eficiencias cambian mucho (la global baja a 3,0 % con el exterior supuesto a 25 °C): valen para estos estados muertos (memoria).
 """
 
     # ---------------------------------------------------------- memoria
@@ -141,9 +145,7 @@ Table: Tabla M17. Sensibilidad al estado muerto. Con $T_0$ menor que el aire tra
     v["_resumen"] = (f"El análisis exergético muestra que se destruye casi toda la exergía que entra: sobre todo en la enfriadora y su entorno en el verano pico ({v['ex_enf_a']} % de lo que entra) "
                      f"y en la caldera en el máximo recalentamiento (eficiencia exergética de {v['ex_eta_cal_b']} %), donde se quema gas con una llama adiabática teórica de {V['T_llama']} °C para subir el aire unos kelvin.")
     v["_concl3"] = (f"**En energía:** los ventiladores ({V['pct_vent']} % de la energía final), el compresor ({V['pct_comp']} %) y el gas del recalentamiento ({V['pct_recal_gas']} %) son los mayores consumos "
-                    f"(el orden de los dos primeros depende de la presión y el rendimiento supuestos de los ventiladores); las pérdidas son el calor que el condensador rechaza "
-                    f"({V['Q_cond_MWh']} MWh por año, {V['Q_cond_sobre_recal']} veces el de recalentamiento), los gases de escape ({V['q_gases']} % del PCI) y la irreversibilidad del compresor. "
+                    f"(el orden de los dos primeros depende de supuestos); las pérdidas son el calor que rechaza el condensador ({V['Q_cond_MWh']} MWh por año) y los gases de escape ({V['q_gases']} % del PCI). "
                     f"**En exergía:** en el verano pico se destruye el {v['ex_D_a']} % de lo que entra, sobre todo en la enfriadora y su entorno ({v['ex_enf_a']} %) y en ventiladores y bombas ({v['ex_vent_a']} %); "
-                    f"en el máximo recalentamiento la caldera destruye el {v['ex_calD_b']} % del total destruido (eficiencia exergética de {v['ex_eta_cal_b']} %), "
-                    f"porque calienta aire unos kelvin con una llama adiabática teórica de {V['T_llama']} °C.")
+                    f"en el máximo recalentamiento la caldera destruye el {v['ex_calD_b']} % del total destruido (eficiencia exergética de {v['ex_eta_cal_b']} %).")
     return inf, mem, v

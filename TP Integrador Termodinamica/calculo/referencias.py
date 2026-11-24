@@ -7,11 +7,11 @@ de entregar. Se usa asi en las plantillas: {{R_ashrae170}} da "[6]*".
 
 # (clave, texto de la referencia, secundaria)
 REFERENCIAS = [
-    ("presidencia", "Presidencia de la Nación, presentación del Hospital SAMIC «Dr. René Favaloro» (documento recibido).", False),
-    ("gacetilla", "Gobierno de la Provincia de Buenos Aires, gacetilla del 28/07/2020 sobre el Hospital Favaloro (documento recibido).", False),
-    ("hospitecnia", "Gallostra Isern, Sánchez-Vaqué y Túnica Buira, *Caracterización de consumos energéticos y suministros en hospitales*, Hospitecnia, 2022 (hospitales españoles: sirve para órdenes de magnitud, no como valor de diseño; documento recibido).", False),
-    ("hcwh", "HCWH y K-CEP, *Energy efficiency and cooling audits in health care facilities in Argentina, China, and the Philippines*, 2021 (documento recibido).", False),
-    ("elcruce", "Medina y Marini, Hospital de Alta Complejidad El Cruce, 2010 (documento recibido).", False),
+    ("presidencia", "Presidencia de la Nación, presentación *Inicio de la puesta en marcha. Hospital SAMIC «Dr. René Favaloro»*, 25 diapositivas (sin fecha explícita).", False),
+    ("gacetilla", "Gobierno de la Provincia de Buenos Aires, gacetilla *Kicillof participó de la inauguración del Hospital Doctor René Favaloro en La Matanza*, 28/07/2020.", False),
+    ("hospitecnia", "Gallostra Isern, Sánchez-Vaqué y Túnica Buira, *Caracterización de consumos energéticos y suministros en hospitales*, Hospitecnia, octubre de 2022 (hospitales españoles: sirve para órdenes de magnitud, no como valor de diseño).", False),
+    ("hcwh", "HCWH y K-CEP, *Energy efficiency and cooling audits in health care facilities in Argentina, China, and the Philippines. Final project report*, marzo de 2021.", False),
+    ("elcruce", "Medina y Marini, *Hospital El Cruce «Dr. Néstor Carlos Kirchner»: alta complejidad en red*, Revista Argentina de Salud Pública, vol. 1, n.º 5, diciembre de 2010, págs. 46 a 48.", False),
     ("ashrae170", "ASHRAE Standard 170 (adendo de 2025) y ASHRAE Handbook, capítulo de hospitales: renovaciones, temperaturas y humedades.", True),
     ("fgi", "FGI Guidelines for Design and Construction of Hospitals: quirófano de 400 pie².", True),
     ("res748", "Resolución 748/2014 (Argentina), requisitos de terapia intensiva: 9 m² por cama (emisor y texto no verificados).", True),

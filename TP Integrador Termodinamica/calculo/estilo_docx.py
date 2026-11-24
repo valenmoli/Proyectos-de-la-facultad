@@ -55,7 +55,7 @@ def _estilos(doc):
     st = {s.name: s for s in doc.styles}
     for nom in ("Normal", "Body Text", "First Paragraph", "Compact", "Block Text"):
         if nom in st:
-            _fuente(st[nom], 10.5, color=TINTA)
+            _fuente(st[nom], 10, color=TINTA)
             pf = st[nom].paragraph_format
             pf.space_before = Pt(0)
             pf.space_after = Pt(6)
@@ -104,6 +104,9 @@ def _estilos(doc):
         _sombra_y_borde(st["Pendiente"], "FDEFE3", "EB6834")
         st["Pendiente"].paragraph_format.space_after = Pt(6)
         st["Pendiente"].paragraph_format.left_indent = Cm(0.25)
+    if "Referencias" in st:
+        _fuente(st["Referencias"], 8.5, color=TINTA)
+        st["Referencias"].paragraph_format.space_after = Pt(2)
     if "Nota" in st:
         _fuente(st["Nota"], 9.5, color=TINTA)
         _sombra_y_borde(st["Nota"], "E8F1FC", "2A78D6")
@@ -193,8 +196,8 @@ def aplicar(ruta):
     doc = Document(ruta)
     for s in doc.sections:
         s.page_width, s.page_height = Cm(21.0), Cm(29.7)
-        s.left_margin = s.right_margin = Cm(2.2)
-        s.top_margin, s.bottom_margin = Cm(2.0), Cm(2.0)
+        s.left_margin = s.right_margin = Cm(1.9)
+        s.top_margin, s.bottom_margin = Cm(1.7), Cm(1.9)
     _estilos(doc)
     for p in doc.paragraphs:
         if p.style.name == "Heading 1" and p.text.startswith("Anexo A"):
