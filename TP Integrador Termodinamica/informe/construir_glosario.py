@@ -36,6 +36,11 @@ SIGLAS = [
     ("SAMIC", "Servicio de Atención Médica Integral para la Comunidad (tipo de hospital público del Favaloro)", "«samic»"),
 ]
 
+# siglas que se agregan solo al glosario del guion (en el informe aparecen escritas completas)
+SIGLAS_GUION_EXTRA = [
+    ("UTA", "Unidad de tratamiento de aire: caja con filtros, serpentinas de frío y de calor y ventilador que prepara el aire de cada zona", "«uta» o «unidad de tratamiento de aire»"),
+]
+
 # (unidad, significado)
 UNIDADES = [
     ("kW, kWh y MWh", "Kilowatt (potencia); kilowatt-hora y megawatt-hora (energía; 1 MWh = 1.000 kWh)"),
@@ -79,7 +84,7 @@ def para_guion():
     s = ["## Glosario", "",
          "Siglas, unidades y símbolos que aparecen en las tres diapositivas y en el informe. La última columna de las siglas dice cómo conviene pronunciarlas.", "",
          "**Siglas**", "",
-         tabla([list(f) for f in SIGLAS], ["Sigla", "Significado", "Cómo decirlo"]), "",
+         tabla([list(f) for f in sorted(SIGLAS + SIGLAS_GUION_EXTRA, key=lambda x: x[0].lower())], ["Sigla", "Significado", "Cómo decirlo"]), "",
          "**Unidades**", "",
          tabla([list(f) for f in UNIDADES], ["Unidad", "Significado"]), "",
          "**Símbolos de las fórmulas del informe**", "",

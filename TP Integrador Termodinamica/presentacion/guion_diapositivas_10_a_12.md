@@ -86,6 +86,14 @@ Y **para un proyecto falta** una simulación anual con clima horario, datos medi
 - **¿Por qué las ideas verdes van en una sección aparte (la 4.5)?** Porque el resto del informe calcula tres estados de diseño, y estas ideas necesitan un cálculo anual. En la sección 4.3 solo se menciona la reducción de caudal en quirófanos, sin cuantificar; la 4.5 la cuantifica.
 - **Nombrá las medidas por su nombre** (fotovoltaica, solar térmico, recuperador, bomba de calor) y no por «M»: en el cálculo anual M2 es el solar térmico y M3 el recuperador, y en el informe M2 es el recuperador y M3 la bomba de calor.
 
+**Sobre el sistema elegido (los «aires acondicionados»)**
+
+- **¿Por qué no usaron aires acondicionados, tipo split?** Porque los locales críticos de un hospital exigen aire exterior filtrado, presión positiva y humedad controlada (ASHRAE 170 [2]): en un quirófano, 20 renovaciones por hora, 4 de ellas de aire exterior. Un split recircula el aire del local: lo enfría, pero no lo renueva ni lo filtra como pide la norma ni controla la humedad con precisión. Por eso el sistema es central y de todo aire: unidades de tratamiento de aire (UTA) con serpentina de agua helada, recalentador y ventilador, y una enfriadora que produce el agua helada.
+- **Entonces, ¿calcularon «aires acondicionados» o no?** Sí, el aire acondicionado central: la serpentina (frío sensible y latente), el recalentador, el ventilador y la enfriadora (ciclo de R134a, COP 3,57 en el pico de verano). Lo que no hay son equipos individuales.
+- **¿Qué equipo usarían?** El informe calcula las cargas (1.489 kW de frío y una caldera de 552 kW), pero no elige modelos: ese paso necesita catálogos, y la conclusión 5 lo declara. En nuestro trabajo aparte, como ejemplo, elegimos una enfriadora por aire de unos 1.000 kW por unidad (Carrier 30XA 1002, que conocemos por un extracto del catálogo), con una unidad de reserva, en la azotea. Con las cargas del informe habría que recalcular cuántas hacen falta.
+- **¿Por qué agua helada y no expansión directa en cada local?** Es un criterio general, no un cálculo del informe: una planta central permite una unidad de reserva (importante en un hospital que funciona las 24 horas) y reparte el frío a muchas UTA con cañerías de agua, en lugar de llevar refrigerante por todo el edificio.
+- **¿Y el diseño de conductos, cañerías y los costos?** No se hizo: la conclusión 5 lo declara («planos y relevamiento de las instalaciones, catálogos de equipos», y no se evaluaron los costos). Solo se usó un supuesto de presión del ventilador por zona, de 900 a 1.800 Pa (tabla 4).
+
 **Sobre B (diapositiva 10)**
 
 - **¿Recuperan todo el calor del condensador?** No: 454 kW de 1.418, alrededor de un tercio, que es lo que piden el recalentamiento y el precalentamiento del ACS. El resto sigue yendo al ambiente porque no hay demanda que lo use.
@@ -128,8 +136,8 @@ Siglas, unidades y símbolos que aparecen en las tres diapositivas y en el infor
 | ACS | Agua caliente sanitaria | «a-ce-ese» o «agua caliente sanitaria» |
 | AMBA | Área Metropolitana de Buenos Aires | «amba» |
 | ASHRAE | Sociedad estadounidense de ingenieros de calefacción, refrigeración y aire acondicionado. Su norma 170 fija las renovaciones de aire y la humedad de los establecimientos de salud | «ásh-rei» |
-| CO₂ | Dióxido de carbono (emisiones de la combustión del gas y de la generación eléctrica) | «ce-o-dos» o «dióxido de carbono» |
 | COP | Coeficiente de desempeño: frío (o calor) entregado por cada unidad de energía consumida. El COP eléctrico de la enfriadora usa la electricidad del compresor con su motor | «cop» o «coeficiente de desempeño» |
+| CO₂ | Dióxido de carbono (emisiones de la combustión del gas y de la generación eléctrica) | «ce-o-dos» o «dióxido de carbono» |
 | G1 a G5 | Zonas térmicas del hospital: G1 quirófanos, G2 terapia intensiva, G3 internación general, G4 guardia, imágenes y laboratorio, G5 consultorios y administración (tabla 4) | «zona uno», «el quirófano» |
 | HR | Humedad relativa del aire | «humedad relativa» |
 | I, V1 y V2 | Estados de diseño: I, invierno (1,1 °C); V1, pico de verano (33,9 °C y 12,0 g/kg); V2, verano húmedo (25,9 °C y 16,8 g/kg) | «el invierno», «el pico de verano», «el día húmedo de verano» |
@@ -137,6 +145,7 @@ Siglas, unidades y símbolos que aparecen en las tres diapositivas y en el infor
 | PCI y PCS | Poder calorífico inferior y superior del gas natural. El PCS cuenta además el calor latente del vapor de agua de los humos (PCS/PCI = 1,108) | «poder calorífico inferior» y «superior» |
 | R134a | Refrigerante de la enfriadora (tetrafluoroetano, un HFC) | «erre ciento treinta y cuatro a» |
 | SAMIC | Servicio de Atención Médica Integral para la Comunidad (tipo de hospital público del Favaloro) | «samic» |
+| UTA | Unidad de tratamiento de aire: caja con filtros, serpentinas de frío y de calor y ventilador que prepara el aire de cada zona | «uta» o «unidad de tratamiento de aire» |
 
 **Unidades**
 
