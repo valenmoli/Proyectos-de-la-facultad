@@ -7,7 +7,7 @@ lang: es-AR
 ---
 
 ::: {custom-style="Nota"}
-**Cómo se lee esta memoria.** El informe técnico explica las decisiones y sus motivos; acá están el desarrollo ordenado de las ecuaciones, los datos, las hipótesis, las unidades y los resultados. Los cálculos principales se resuelven con números (secciones 3 a 6) para poder seguirlos a mano: las diferencias de una unidad en la última cifra se deben al redondeo y, donde la cuenta lo exige, se imprimen más cifras. **Respaldo de cada dato:** [n] indica una fuente de la lista del anexo D (con asterisco, [n]\*, la fuente se conoce solo por un extracto de búsqueda y no se abrió el original); «supuesto» marca toda decisión o valor propio, con su motivo al lado; lo que calcula el modelo no lleva marca. **Unidades:** SI; potencias en kW, energías anuales en MWh, temperaturas en °C (diferencias en K), presiones en kPa y humedad específica ω en g de vapor por kg de aire seco en las tablas (kg/kg en las ecuaciones).
+**Cómo se lee esta memoria.** El informe técnico explica las decisiones y sus motivos; acá están el desarrollo ordenado de las ecuaciones, los datos, las hipótesis, las unidades y los resultados. Los cálculos principales se resuelven con números (secciones 3 a 6) para poder seguirlos a mano: las diferencias de una unidad en la última cifra se deben al redondeo y, donde la cuenta lo exige, se imprimen más cifras. **Respaldo de cada dato:** [n] indica una fuente de la lista del anexo D (con asterisco, [n]\*, la fuente se conoce solo por un extracto de búsqueda y no se abrió el original); «supuesto» marca toda decisión o valor propio, con su motivo al lado; «constante» marca una constante física o un valor de tabla; lo que calcula el modelo no lleva marca. **Unidades:** SI; potencias en kW, energías anuales en MWh, temperaturas en °C (diferencias en K), presiones en kPa y humedad específica ω en g de vapor por kg de aire seco en las tablas (kg/kg en las ecuaciones).
 :::
 
 **Contenido.**
@@ -48,7 +48,7 @@ Anexos: A, cifras del informe y dónde se calculan; B, verificación del cálcul
 
 El sistema térmico se divide en cuatro sistemas de estudio, cada uno un volumen de control en régimen permanente en cada estado considerado. La tabla M1 da sus límites y los flujos que los cruzan; la figura M1 los muestra en conjunto (las letras A a F son los estados del aire de la tabla M4).
 
-![Figura M1. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=11.5cm}
+![Figura M1. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=14cm}
 
 | Sistema | Límite del volumen de control | Entra | Sale |
 |--------------|--------------------------|------------------------------|------------------------------|
@@ -98,12 +98,12 @@ Table: Tabla M2. Estados de las corrientes de combustible, aire de combustión, 
 | Sustancia | Propiedades | Fuente | Dónde se usa |
 |--------------|------------------------------|-------------------------------|-------------------------|
 | Aire húmedo | $\omega$, $h$, humedad relativa, temperatura de rocío y de bulbo húmedo a 101,325 kPa; $c_{p,a}$ = 1,006 y $c_{p,v}$ = 1,86 kJ/(kg K); $h_{fg}$ = 2.501 kJ/kg | psychrolib 2.5.0 [17] (psicrometría de ASHRAE en unidades SI); las tres constantes son las de su ecuación de entalpía | Estados del aire, cargas de serpentina y recalentador (sección 3) |
-| Agua líquida y vapor | $c_p$ = 4,186 kJ/(kg K); $h_g$ = 2.676 kJ/kg (vapor saturado a 101,3 kPa); calor latente a 25 °C: 44.010 kJ/kmol; presión de saturación | constantes del modelo: supuesto (valor de uso corriente); presión de saturación de CoolProp 8.0.0 [17] | ACS, humidificación, agua helada y caliente, rocío y caldera de condensación |
+| Agua líquida y vapor | $c_p$ = 4,186 kJ/(kg K); $h_g$ = 2.676 kJ/kg (vapor saturado a 101,3 kPa); calor latente a 25 °C: 44.010 kJ/kmol; presión de saturación | constantes del modelo: constante (valor de tabla); presión de saturación de CoolProp 8.0.0 [17] | ACS, humidificación, agua helada y caliente, rocío y caldera de condensación |
 | R134a | presión de saturación, $h$, $s$, $T$ a partir de ($P$, $h$), título y densidad | CoolProp 8.0.0 [17] | Ciclo de la enfriadora (sección 4); comparación con R1234ze(E) y R1234yf (sección 8) |
 | CO₂, H₂O, N₂ y O₂ (aire y gases de combustión) | $c_p$ de gas ideal (término ideal de CoolProp), integrado desde 25 °C hasta $T$ | CoolProp 8.0.0 [17] | Pérdida por gases, temperatura de llama, caldera de condensación (sección 5) |
-| CH₄, C₂H₆, C₃H₈, CO₂, H₂O | entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido) | tablas de termodinámica: supuesto (valor de uso corriente) | PCI, PCS y temperatura de llama (sección 5) |
+| CH₄, C₂H₆, C₃H₈, CO₂, H₂O | entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido) | tablas de termodinámica: constante (valor de tabla) | PCI, PCS y temperatura de llama (sección 5) |
 | Gas natural | composición 91/5/1/2/1 % molar (CH₄, C₂H₆, C₃H₈, N₂, CO₂); PCS y PCI se calculan | supuesto: composición típica del gas de red | Combustión y consumo de gas (sección 5) |
-| Exergía química estándar | valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9) | supuesto (valor de uso corriente): los atribuidos a Szargut | Exergía del combustible (sección 9) |
+| Exergía química estándar | valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9) | supuesto: valores de tabla que atribuimos a Szargut, sin haber consultado el libro | Exergía del combustible (sección 9) |
 
 Table: Tabla M3. Propiedades termodinámicas usadas, su fuente y dónde se aplican.
 
@@ -206,7 +206,7 @@ El aire sale del recalentador a 16,62 °C, el ventilador lo calienta 2,44 K y 
 
 Table: Tabla M4. Estados del aire en el quirófano (A a F), verano pico, con las cifras necesarias para repetir a mano las cuentas de este apartado.
 
-![Figura M2. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=9.5cm}
+![Figura M2. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=12cm}
 
 ## 3.3 Cargas de diseño de verano por zona
 
@@ -219,8 +219,8 @@ $$\dot Q_L = \sum_{zona} \dot Q_{serp} = 79\text{,}5 + 46\text{,}8 + 526\text{,}
 | G1 Quirófanos | 79,5 | 58,8 | 20,7 | 18,7 | 7,9 | 3,7 |
 | G2 Terapia intensiva | 46,8 | 29,7 | 17,1 | 0,0 | 12,2 | 3,0 |
 | G3 Internación general | 526,8 | 310,7 | 216,1 | 0,0 | 188,7 | 29,9 |
-| G4 Guardia, imágenes y laboratorio | 524,6 | 355,0 | 169,6 | 0,0 | 159,0 | 28,5 |
-| G5 Consultorios y administración | 809,5 | 475,4 | 334,2 | 0,0 | 189,4 | 26,4 |
+| G4 Guardia, diagnóstico y laboratorio | 524,6 | 355,0 | 169,6 | 0,0 | 159,0 | 28,5 |
+| G5 Consultorios, administración y docencia | 809,5 | 475,4 | 334,2 | 0,0 | 189,4 | 26,4 |
 | **Total** | **1.987,2** | **1.229,5** | **757,7** | **18,7** | **557,2** | **91,6** |
 
 Table: Tabla M5. Cargas de diseño por zona: serpentina en verano pico (sensible y latente) y recalentador; calefacción y humidificación en el punto de diseño de invierno. Los totales pueden diferir en 1 kW de la suma de las filas por redondeo.
@@ -281,7 +281,7 @@ $$\dot m_w = \frac{ 1\,987\text{,}2 }{4\text{,}186 \cdot 5 } = 94\text{,}95\ \te
 
 $$\dot W_{bomba} = \frac{ 94\text{,}95 }{1.000} \cdot \frac{ 250 }{ 0\text{,}60 } = 39\text{,}6\ \text{kW}$$
 
-![Figura M3. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=9.5cm}
+![Figura M3. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=11cm}
 
 # 5. Combustión: reacción, poder calorífico, rendimiento y consumo de gas {#sec-combustion}
 
@@ -392,7 +392,7 @@ con $L$ = 100 L/(cama día), $N_{camas}$ = 158, $T_{ACS}$ = 60 °C, $T_{red}$ 
 
 Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + 4\text{,}5\,\text{K})$ y uno nocturno $(T_i - 4\text{,}5\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ 18 °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral. En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
 
-![Figura M4. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=11cm}
+![Figura M4. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=13cm}
 
 | Uso final | Energético | MWh/año | % del total | kWh/m² y año |
 |--------------------------------------------|--------------|------------|------------|------------|
@@ -458,7 +458,7 @@ El COP anual del compresor es mayor que el de diseño (3,56) porque la mayor par
 
 Table: Tabla M11. Las 12 variaciones que más mueven la energía final (caso base: 3.021 MWh). Cada una cambia un supuesto y deja los demás en su valor base; con todas las variaciones del modelo, la intensidad queda entre 141 y 202 kWh/m² y año, que no es un intervalo de confianza.
 
-![Figura M5. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=11cm}
+![Figura M5. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=15cm}
 
 ## 7.2 Qué pasa si nos equivocamos con los m²
 
@@ -525,7 +525,7 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 
 Table: Tabla M14. Resultados de cada variante respecto de la alternativa A.
 
-![Figura M6. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=10cm}
+![Figura M6. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=14cm}
 
 **Alternativa B.** Recupera 499 MWh por año de calor del condensador, en 5.460 h; ahorra 615 MWh de gas (PCS) y gasta 70 MWh más de electricidad (81 más en el compresor, que condensa más caliente cuando recupera, y 11 menos en los ventiladores del condensador): la energía baja 18,0 % y las emisiones, 9,6 %. El modelo supone que calor y demanda coinciden dentro de cada estado; con coincidencia de 75 % o 50 % el ahorro baja a 13,5 % y 8,5 %, que es el rango realista.
 
@@ -574,7 +574,7 @@ Para cada equipo se plantea el esquema combustible–producto–pérdida, $\dot 
 
 $$\dot X = \dot m\,[(h - h_0) - T_0\,(s - s_0)], \qquad \dot X_Q = \dot Q\,\left(1 - \frac{T_0}{T}\right), \qquad \dot X_D = T_0\,\dot S_{gen}$$
 
-Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría un 50 % (de 62 a 93 kW)). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **supuesto** (valores de uso corriente).
+Para el aire húmedo se usa la expresión por kg de aire seco como mezcla de gases ideales, con término térmico $(c_{p,a} + \omega\,c_{p,v})\,T_0\,(T/T_0 - 1 - \ln T/T_0)$ y término de mezcla en función de $\omega$ y $\omega_0$; vale 0 en el estado muerto y es no negativa. La exergía del condensado incluye el término químico respecto del vapor ambiente, $R_v T_0 \ln(p_{sat}(T_0)/p_{v0})$, unos 102 kJ/kg a 34 °C y 48 % de humedad (sin él la destrucción de la serpentina se sobreestimaría un 50 % (de 62 a 93 kW)). La exergía química del gas natural es la de la mezcla ideal, $\sum y_i\,ex_i + R\,T_0 \sum y_i \ln y_i$, con las exergías químicas estándar de Szargut (CH₄ 831.650; C₂H₆ 1.495.840; C₃H₈ 2.154.000; N₂ 720; CO₂ 19.870; O₂ 3.970; H₂O gas 9.500 kJ/kmol): **supuesto** (valores de tabla que atribuimos a Szargut, sin consultar el libro).
 
 **Eficiencias.** Enfriadora: producto = exergía del frío, $\dot Q_L\,(T_0/T_{cw} - 1)$ con $T_{cw}$ la temperatura media logarítmica del agua helada (9,5 °C); caldera: producto = exergía del calor entregado al agua a 80/60 °C. Para el recalentador y el aire el producto puede ser negativo (se calienta aire que está por debajo del estado muerto): ahí solo se informa la destrucción.
 
@@ -642,6 +642,8 @@ Table: Tabla M17. Balance exergético por equipo, verano pico.
 Table: Tabla M18. Balance exergético por equipo, máximo recalentamiento.
 
 **Eficiencia exergética de la enfriadora (verano pico).** El producto es la exergía del frío, $\dot X_{frío} = \dot Q_L\,(T_0/T_{cw} - 1)$ = 1.987,2 · (307,15/282,64 − 1) = 172,3 kW, con $T_{cw}$ = 9,5 °C la temperatura media logarítmica del agua helada (7 y 12 °C). Contra la electricidad del compresor (558,7 kW) da $\eta$ = 30,8 %; con los ventiladores del condensador y las bombas (62,8 y 39,6 kW), 26,1 %. El frío a 9,5 °C con exterior a 34 °C vale solo el 8,7 % de su energía en exergía: por eso la eficiencia exergética es tan baja aunque el COP (3,56) sea alto.
+
+**Un caso resuelto: destrucción en el compresor y en la válvula (verano pico).** Con $T_0$ = 307,15 K y un caudal de refrigerante $\dot m$ = 13,658 kg/s, la destrucción es $D = T_0\,\dot S_{gen}$: en el compresor, $D = \dot m\,T_0\,(s_2 - s_1)$ = 13,658 · 307,15 · (1,7741 − 1,7417) = 135,6 kW (con el motor, que pierde 33,5 kW, el grupo «compresor y motor» destruye 169,1 kW); en la válvula, $D = \dot m\,T_0\,(s_4 - s_3)$ = 13,658 · 307,15 · (1,2150 − 1,1994) = 65,3 kW. Las entropías $s$ están en kJ/(kg K).
 
 **Cómo leer las dos cifras de la caldera en el máximo recalentamiento.** La fila «Caldera» de la tabla por equipo es la caldera sola: destruye 300,0 kW (= 109,5 + 190,5, tabla siguiente), el 57,1 % de lo destruido en total (524,9 kW) y el 54,5 % de la entrada (550,4 kW). El grupo «Caldera y ACS» del reparto por grupos suma además el calentamiento del ACS (3,1 kW): 303,1 kW, el 57,7 % de lo destruido y el 55,1 % de la entrada. La eficiencia exergética de la caldera es $\dot X_P/\dot X_F$ = 46,8/362,7 = 12,9 %, con una llama adiabática teórica de 1.848 °C.
 
@@ -726,7 +728,7 @@ Huella de 14 × 3,5 = 49 m² por unidad, 4 unidades (196 m² en total, 3,2 % 
 
 El núcleo técnico (918 m², de 30,8 × 29,8 m) ocupa la esquina sudeste, del lado de la calle y en el mismo lugar en cada nivel: los shafts se apilan, el agua helada baja por ellos desde la azotea y las enfriadoras se izan desde la calle. En el 2.º piso, quirófanos y terapia intensiva quedan contiguos al núcleo, donde están sus 7 UTAs (conductos cortos); la internación va en dos alas y la guardia y los consultorios, en el 1.er piso, con acceso desde la calle. Las calderas van en un anexo a nivel de calle (acceso, medidor y regulador de gas, ventilación permanente y chimenea por fuera del edificio).
 
-![Figura M7. Planta tipo a escala del 1.er y 2.º piso (rectángulo equivalente de 90,3 × 67,7 m): la superficie dibujada de cada zona es proporcional a sus m² del modelo; la distribución en franjas, la calle al sur y el núcleo técnico en la esquina sudeste son supuestos, sin planos del edificio real.](../figuras/fig11_planta_tipo.png){width=11.5cm}
+![Figura M7. Planta tipo a escala del 1.er y 2.º piso (rectángulo equivalente de 90,3 × 67,7 m): la superficie dibujada de cada zona es proporcional a sus m² del modelo; la distribución en franjas, la calle al sur y el núcleo técnico en la esquina sudeste son supuestos, sin planos del edificio real.](../figuras/fig11_planta_tipo.png){width=16.5cm}
 
 | Criterio | Peso | Azotea (1 a 5) | Patio (1 a 5) | Razón |
 |--------------------|-------|---------|---------|-------------------------------------------------------|
@@ -812,13 +814,18 @@ Cada fila es un indicador que cita el informe técnico, con su valor, la ecuaci�
 | Calderas y chimenea | 734,4 kW; DN 300 | $\dot Q_{inv} + 2\,\dot Q_{ACS}$; $D = \sqrt{4\dot V/(\pi v)}$ | 10.2 |
 | UTAs, agua helada y shafts | 18 UTAs (11 en cubierta); DN 250; 14 shafts | caudal / velocidad de diseño | Tabla M21; tabla M22; 10.3 y 10.4 |
 | Azotea: carga media y puntaje de la matriz | 2,40 kN/m²; azotea 3,25 contra patio 3,05 | peso / huella; promedio ponderado | Tabla M23; 10.5 |
+| Recalentamiento máximo del año | 272 kW (dic, de noche) | máximo de $\dot Q_{rec}$ sobre los 24 estados medios | 6.3 |
+| Calor de caldera para el aire, enero y julio | 129 y 46 MWh | recalentamiento más calefacción de cada mes (enero: todo recalentamiento; julio: todo calefacción) | 6.3 |
+| Alternativa B: energía final, intensidad y gas | 2.477 MWh; 135,0 kWh/m²; gas 670 MWh (unos 63 mil m³) | variante B del modelo con recuperación | Tabla M14; 8.2 |
+| Alternativa B: COP anual del compresor y calor que se tira | 4,43; 3.775 MWh | $Q_L/W_{comp,B}$; $Q_{cond,B}$ neto de lo recuperado (frío + 0,94 · trabajo − calor recuperado) | 8.2 |
+| Ahorros absolutos de la tabla de mejoras | B 544 MWh; M1 94 MWh; M2 251 MWh; M3 154 MWh; M4 77 MWh; M5 340 MWh; M6 59 MWh; P 1.500 MWh | $E_A - E_{variante}$ | Tabla M14 |
 
 Table: Tabla M25. Cifras del informe técnico y dónde se calculan.
 :::
 
 # Anexo B. Verificación del cálculo {#anexo-b-verificacion}
 
-**182 chequeos automáticos** comprueban: primera ley (la carga de diseño es la suma de las serpentinas; el calor rechazado es el frío entregado más el trabajo en el eje), segunda ley (COP menor que el de Carnot, destrucción de exergía no negativa), balance de átomos de la combustión, psicrometría contra CoolProp (dentro de 1,2 %), reproducción de la tabla de supuestos, que las mejoras den el caso base cuando no se activan y que las cuentas resueltas de esta memoria se reproduzcan a mano con los números impresos. El cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Los chequeos comprueban la coherencia interna, no que la física sea correcta. El núcleo del modelo se reimplementó de forma independiente a partir de una especificación escrita (coincidencia dentro de 0,24 %), lo que comprueba la transcripción del método y no su validez; las mejoras, la exergía y los equipos recibieron revisiones internas independientes pero **no** se reimplementaron. **No están contrastados con fuentes** los valores marcados «supuesto» (su peso se mide en la sección 7) ni las fuentes con asterisco.
+El modelo se comprueba con la termodinámica misma: **primera ley** (la carga de diseño es la suma de las serpentinas; el calor rechazado es el frío entregado más el trabajo en el eje), **segunda ley** (el COP es menor que el de Carnot y la destrucción de exergía no es negativa), **balance de átomos** de la combustión, **psicrometría** contra CoolProp (dentro de 1,2 %) y que las mejoras den el caso base cuando no se activan. Las cuentas resueltas de esta memoria se pueden repetir a mano con los números impresos, y el cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Estas comprobaciones muestran la coherencia interna del modelo, no que la física elegida sea la única posible. No están contrastados con fuentes los valores marcados «supuesto» (su peso se mide en la sección 7) ni las fuentes con asterisco.
 
 # Anexo C. Datos de entrada {#anexo-c-datos}
 
@@ -841,10 +848,10 @@ La tabla M26 da todos los parámetros escalares del modelo con su unidad y su re
 | E12 | Ganancia solar media de las 12 h diurnas | 8 | W/m² | supuesto: promedio diurno anual; 0 de noche |
 | E13 | Densidad del aire para convertir caudales | 1,2 | kg/m³ | supuesto: convención (aire a unos 20 °C) |
 | E14 | Fracción de las áreas generales que funciona las 24 h | 0,35 | – | supuesto: la guardia atiende las 24 h [2]; el resto (consultorios, administración y docencia) funciona de día |
-| C1 | Temperatura de bulbo seco de diseño, verano | 34 | °C | supuesto (valor de uso corriente) |
-| C2 | Temperatura de bulbo húmedo coincidente, verano | 25 | °C | supuesto (valor de uso corriente) |
-| C3 | Temperatura de bulbo seco de diseño, invierno | 2 | °C | supuesto (valor de uso corriente) |
-| C4 | Humedad relativa de diseño, invierno | 0,8 | – | supuesto (valor de uso corriente) |
+| C1 | Temperatura de bulbo seco de diseño, verano | 34 | °C | supuesto (valor habitual de diseño, sin fuente numerada) |
+| C2 | Temperatura de bulbo húmedo coincidente, verano | 25 | °C | supuesto (valor habitual de diseño, sin fuente numerada) |
+| C3 | Temperatura de bulbo seco de diseño, invierno | 2 | °C | supuesto (valor habitual de diseño, sin fuente numerada) |
+| C4 | Humedad relativa de diseño, invierno | 0,8 | – | supuesto (valor habitual de diseño, sin fuente numerada) |
 | C5 | Presión atmosférica | 101,325 | kPa | supuesto: nivel del mar (Buenos Aires está a unos 25 m: diferencia de 0,3 %) |
 | C6 | Amplitud diaria de temperatura (máxima menos mínima) | 9 | K | supuesto: aproximada; parte cada mes en mitad diurna y nocturna |
 | A1 | Temperatura mínima del aire de impulsión | 13 | °C | supuesto: límite de confort y de condensación en difusores |
@@ -857,21 +864,21 @@ La tabla M26 da todos los parámetros escalares del modelo con su unidad y su re
 | A8 | Fracción de la potencia del ventilador que se disipa como calor en el aire | 1 | – | supuesto: el ventilador aspira después de la serpentina; con el motor fuera de la corriente sería 0,85 a 0,95 (sin calor de ventilador la energía sube +18,3 %) |
 | R1 | Refrigerante de la enfriadora | R134a | – | supuesto: HFC habitual en enfriadoras de tornillo; propiedades de [17] |
 | R2 | Temperatura de evaporación | 3 | °C | supuesto: agua helada 7/12 °C con aproximación del evaporador |
-| R3 | Sobrecalentamiento a la salida del evaporador | 5 | K | supuesto (valor de uso corriente) |
-| R4 | Subenfriamiento a la salida del condensador | 4 | K | supuesto (valor de uso corriente) |
+| R3 | Sobrecalentamiento a la salida del evaporador | 5 | K | supuesto (valor habitual de diseño, sin fuente numerada) |
+| R4 | Subenfriamiento a la salida del condensador | 4 | K | supuesto (valor habitual de diseño, sin fuente numerada) |
 | R5 | Rendimiento isentrópico del compresor | 0,72 | – | supuesto: compresor de tornillo (con 0,65 y 0,78 la energía cambia +2,6 % y −1,9 %) |
-| R6 | Rendimiento del motor eléctrico del compresor | 0,94 | – | supuesto (valor de uso corriente) |
+| R6 | Rendimiento del motor eléctrico del compresor | 0,94 | – | supuesto (valor habitual de diseño, sin fuente numerada) |
 | R7 | Diferencia entre condensación y temperatura exterior | 12 | K | supuesto: condensador enfriado por aire |
 | R8 | Temperatura mínima de condensación | 32 | °C | supuesto: el control de presión de descarga del compresor de tornillo exige una diferencia de presión mínima |
-| R9 | Potencia de ventiladores del condensador / calor rechazado | 0,025 | – | supuesto (valor de uso corriente) |
+| R9 | Potencia de ventiladores del condensador / calor rechazado | 0,025 | – | supuesto (valor habitual de diseño, sin fuente numerada) |
 | R10 | Salto de temperatura del agua helada | 5 | K | supuesto: agua helada 7/12 °C |
 | R11 | Diferencia de presión de las bombas de agua helada | 250 | kPa | supuesto: circuitos primario y secundario en conjunto (unos 25 m de columna de agua) |
-| R12 | Rendimiento total de las bombas | 0,6 | – | supuesto (valor de uso corriente) |
+| R12 | Rendimiento total de las bombas | 0,6 | – | supuesto (valor habitual de diseño, sin fuente numerada) |
 | B1–B5 | Gas natural: CH₄, C₂H₆, C₃H₈, N₂ y CO₂ (fracción molar) | 0,91 / 0,05 / 0,01 / 0,02 / 0,01 | – | supuesto: composición típica del gas natural |
 | B6 | Relación de aire (1 = estequiométrico) | 1,15 | – | supuesto: 15 % de exceso de aire |
 | B7 | Temperatura de los gases de escape | 190 | °C | supuesto: caldera sin condensación |
 | B8 | Temperatura del aire de combustión | 15 | °C | supuesto: aire de la sala de calderas; el gas entra a 25 °C (referencia de las entalpías) y no aporta calor sensible |
-| B9 | Pérdidas por radiación y funcionamiento / calor liberado | 0,02 | – | supuesto (valor de uso corriente) |
+| B9 | Pérdidas por radiación y funcionamiento / calor liberado | 0,02 | – | supuesto (valor habitual de diseño, sin fuente numerada) |
 | B10 | Temperatura de referencia del volumen de gas | 15 | °C | constante: m³ estándar a 15 °C y 101,325 kPa |
 | S1 | Consumo de ACS por cama y día | 100 | L/(cama día) | supuesto: entre los casos medidos (50 a 55) y los ratios de diseño (200 a 300) de [3] |
 | S2 | Temperatura del ACS | 60 | °C | [3] 55 L por cama y día a 60 °C |

@@ -55,3 +55,7 @@ math { font-family: "Caladea", "STIX Two Math", "Latin Modern Math", "DejaVu Ser
 math[display="block"] { font-size: 0.95em; display: block; margin: 7pt 0; break-inside: avoid; }
 
 /* anexos de la memoria: sin salto de pagina forzado */
+
+/* pandoc trae @media print { body { font-size: 12pt } }: se fuerza el tamano del cuerpo */
+@media print { body { font-size: 10pt !important; } }
+a { text-decoration: none; }

@@ -85,6 +85,8 @@ def valores_informe(c, V, T):
         "inf_fv1500_pct": pm(fv1500 / base["E_total"]),
         "inf_ex45": n((1 - (T0b + 273.15) / (mj.parametro("T_agua_rec") + 273.15)) * 100),
         "inf_T0b": n(T0b, 1), "T_inv_exp": n(P["T_inv"]),
+        "inf_PCIk": n(pc["PCI_kJ_kmol"]), "inf_vmol": n(pc["v_molar"], 3), "inf_gas_pct_B": n((1 - B["E_PCS"] / base["E_PCS"]) * 100),
+        "inf_dEB50": pm(por["B"]["d_E"] * 0 + (mj.anual_variante(c, {"rec_cond": {"f": 0.5}})["E_total"] / base["E_total"] - 1)),
     }
     return v
 
@@ -113,7 +115,7 @@ def tablas_informe(c, V, T):
 
     # ---------------------------------------------------------------- datos del edificio
     t["tabla_datos_inf"] = tabla(["Dato", "Valor", "Cómo lo obtuvimos"], [
-        ("Superficie cubierta", f"{V['A_cub']} m²", f"Cifra de programa de Presidencia {M('presidencia')}; la gacetilla {M('gacetilla')} y el intendente hablan de «más de 20.000 m²» sin aclarar si es cubierta"),
+        ("Superficie cubierta", f"{V['A_cub']} m²", f"Cifra de programa de Presidencia {M('presidencia')}; la gacetilla {M('gacetilla')}, citando al intendente, habla de «más de 20.000 m²» sin aclarar si es cubierta"),
         ("Camas", f"{V['camas_gen']} + {V['camas_uti']} = {V['camas_tot']}", f"La gacetilla {M('gacetilla')} las atribuye a cuidados progresivos y las tomamos como el total (Presidencia {M('presidencia')} prevé 160 de internación)"),
         ("Quirófanos", V["n_or"], f"Cifra de programa {M('presidencia')}"),
         ("Niveles", f"3 de {V['A_nivel']} m²", f"Presidencia {M('presidencia')} lista tres pisos (guardia y consultorios; internación y áreas críticas; administración); suponemos tres iguales (supuesto)"),
@@ -126,14 +128,14 @@ def tablas_informe(c, V, T):
     filas_z = [
         ("G1 Quirófanos", f"{n(A['G1'])} = {V['n_or']} × {V['a_or']}: la FGI {M('fgi')} exige al menos 37,2 m² libres; sumamos equipamiento fijo (supuesto)",
          f"{n(Z['G1']['t_ver'])} °C; {n(Z['G1']['hr_ver'] * 100)} %", f"{Z['G1']['ach_tot']} / {Z['G1']['ach_oa']}", f"ASHRAE 170 {M('ashrae170')}", "Continuo"),
-        ("G2 Terapia intensiva", f"{n(A['G2'])} = {V['camas_uti']} camas × {V['a_uti']} m²: 9 m² por cama {M('res748')} × 2,7 por apoyo y circulación (supuesto)",
+        ("G2 Terapia intensiva", f"{n(A['G2'])} = {V['camas_uti']} camas × {V['a_uti']} m²: 9 m² por cama {M('res748')} × unos 2,7 por apoyo y circulación (supuesto)",
          f"{n(Z['G2']['t_ver'])} °C; {n(Z['G2']['hr_ver'] * 100)} %", f"{Z['G2']['ach_tot']} / {Z['G2']['ach_oa']}", "Supuesto: valor que adoptamos para terapia, sin contrastar con la norma", "Continuo"),
         ("G3 Internación", f"{n(A['G3'])} = {V['camas_gen']} camas × {V['a_gen']} m² (supuesto: habitación con baño, office y circulaciones)",
          f"{n(Z['G3']['t_ver'])} °C; {n(Z['G3']['hr_ver'] * 100)} %", f"{Z['G3']['ach_tot']} / {Z['G3']['ach_oa']} (resulta {n(ach('G3'), 1)})", f"ASHRAE 170, habitación de pacientes {M('ashrae170')}", "Continuo"),
-        ("G4 Guardia, imágenes, laboratorio", f"{n(A['G4'])} = {V['f_g4_pct']} % de las áreas generales (supuesto sin referencia: con 20 o 50 % la energía cambia ±{V['sens_g4']} %); la gacetilla {M('gacetilla')} da guardia 24 h",
+        ("G4 Guardia, diagnóstico y laboratorio", f"{n(A['G4'])} = {V['f_g4_pct']} % de las áreas generales, que son la superficie climatizada menos G1, G2 y G3 (supuesto sin referencia: con 20 o 50 % la energía cambia ±{V['sens_g4']} %); la gacetilla {M('gacetilla')} da guardia 24 h",
          f"{n(Z['G4']['t_ver'])} °C; {n(Z['G4']['hr_ver'] * 100)} %", f"{Z['G4']['ach_tot']} / {Z['G4']['ach_oa']}",
          "Promedio ponderado (supuesto): 0,25·12 espera y triage + 0,05·15 shock + 0,70·6 imágenes y laboratorio ≈ 8", "24 h"),
-        ("G5 Consultorios y administración", f"{n(A['G5'])}: el resto de la superficie climatizada",
+        ("G5 Consultorios, administración y docencia", f"{n(A['G5'])}: el resto de la superficie climatizada",
          f"{n(Z['G5']['t_ver'])} °C; {n(Z['G5']['hr_ver'] * 100)} %", f"{Z['G5']['ach_tot']} / {Z['G5']['ach_oa']} (resulta {n(ach('G5'), 1)})", "Supuesto, sin contrastar con la norma", "12 h, lunes a viernes"),
     ]
     t["tabla_zonas_inf"] = tabla(["Zona", "Superficie [m²] y cómo se obtiene", "Consigna de verano", "Renovaciones totales / de aire exterior [1/h]", "De dónde salen", "Horario"],
@@ -169,9 +171,9 @@ def tablas_informe(c, V, T):
         ("COP anual del compresor", V["COP_est_comp"], V["inf_COP_B"]),
         ("Calor que se tira al ambiente", f"{V['Q_cond_MWh']} MWh", f"{V['inf_Qcond_B']} MWh"),
         ("Eficiencia: ventajas y limitaciones", f"Simple y probada; COP más alto, pero quema gas para recalentar mientras tira {V['Q_cond_MWh']} MWh de calor",
-         f"Baja la energía hasta {V['dE_B']} % ({V['dE_B75']} % si calor y demanda coinciden el 75 % del tiempo); el compresor trabaja más caliente (condensa a {V['T_cond_rec']} °C) y su COP baja"),
+         f"Baja la energía hasta {V['dE_B']} % ({V['dE_B75']} % si solo el 75 % de la demanda coincide con el calor del condensador, {V['inf_dEB50']} % con el 50 %); el compresor trabaja más caliente (condensa a {V['T_cond_rec']} °C) y su COP baja"),
         ("Recursos: ventajas y limitaciones", f"Gas: {V['E_gas_MWh']} MWh (unos {V['inf_m3_A']} mil m³); sin torre ni consumo de agua",
-         f"Gas: −{V['inf_gas_ahorro_MWh']} MWh (unos {V['inf_m3_B']} mil m³); electricidad: +{V['extra_elec_B']} MWh; sin torre ni consumo de agua"),
+         f"Gas: {V['inf_gasB']} MWh (unos {V['inf_m3_B']} mil m³), {V['inf_gas_ahorro_MWh']} MWh menos que A; electricidad: +{V['extra_elec_B']} MWh; sin torre ni consumo de agua"),
         ("Ambiente: ventajas y limitaciones", f"{V['co2_t']} t de CO₂; R134a, de potencial de calentamiento global 1.430 (supuesto)",
          f"{V['inf_co2B']} t: baja menos que la energía porque la electricidad emite más por kWh que el gas; mismo refrigerante"),
         ("Qué exige", "Nada especial", f"Enfriadora con condensador de recuperación y un circuito de agua a {V['T_agua_rec']} °C hacia los recalentadores (el ejemplo de la sección 6 no lo incluye)"),
@@ -187,9 +189,9 @@ def tablas_informe(c, V, T):
 
     t["tabla_mejoras_inf"] = tabla(["Medida", "Por qué mejora (principio termodinámico)", "Energía", "CO₂"], [
         fila_m("B", "B. Recuperar el calor del condensador",
-               f"El calor que rechaza el condensador a {V['T_cond_min']} a {V['T_cond_anual_max']} °C vale poco como exergía y alcanza para agua a {V['T_agua_rec']} °C: sustituye gas que se quema con una llama teórica de {V['T_llama']} °C. Cuesta trabajo del compresor (condensa a {V['T_cond_rec']} °C). Valores con calor y demanda coincidentes"),
+               f"El calor que rechaza el condensador ({V['T_cond_min']} a {V['T_cond_anual_max']} °C en los estados medios del año; 46 °C en el pico) vale poco como exergía y alcanza para agua a {V['T_agua_rec']} °C: sustituye gas que se quema con una llama teórica de {V['T_llama']} °C. Cuesta trabajo del compresor (condensa a {V['T_cond_rec']} °C). Valores con calor y demanda coincidentes"),
         fila_m("M5", f"M5. Fotovoltaica de {V['kWp']} kWp",
-               f"Convierte radiación en electricidad (exergía pura) y desplaza la de la red: {V['fv_MWh']} MWh por año = {V['kWp']} kWp × {V['GHI']} kWh/m²·año × {n(mj.parametro('PR_fv'), 1)} de rendimiento global (supuesto). La irradiación es de un punto a unos 300 km {M('gsa')} y es una cota alta: con 1.500 kWh/m²·año, −{V['inf_fv1500_pct']} %. Cubre consumo, no lo reduce"),
+               f"Convierte radiación en electricidad (exergía pura) y desplaza la de la red: {V['fv_MWh']} MWh por año = {V['kWp']} kWp × {V['fv_yield']} kWh/(kWp·año), que sale de {V['GHI']} kWh/m²·año de irradiación y {n(mj.parametro('PR_fv'), 1)} de rendimiento global (supuesto). La irradiación es de un punto a unos 300 km {M('gsa')} y es una cota alta: con 1.500 kWh/m²·año, −{V['inf_fv1500_pct']} %. Cubre consumo, no lo reduce"),
         fila_m("M2", f"M2. Solar térmico de {V['A_solar']} m² para el ACS",
                f"El agua a {n(P['T_acs'])} °C es calor de baja exergía: el sol lo entrega sin quemar gas. Con colectores de rendimiento {n(mj.parametro('eta_solar'), 2)} (supuesto) y la misma irradiación {M('gsa')} cubre el {V['solar_frac']} % de la demanda del ACS"),
         fila_m("M3", "M3. Recuperador del aire de extracción",

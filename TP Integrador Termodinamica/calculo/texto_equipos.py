@@ -56,18 +56,18 @@ def redactar(c, V, T):
 Es un ejemplo para mostrar que los equipos existen y cumplen lo calculado, no un proyecto ejecutivo.
 
 - **Enfriadoras:** {v['enf_n_total']} unidades de tornillo con condensador por aire ({v['enf_n_serv']} en servicio y {v['enf_n_res']} de reserva). Ejemplo: Carrier AquaForce 30XA 1002 {{{{R_carrier}}}}, R-134a, {v['enf_unidad']} kW nominales a 35 °C. Cada unidad en servicio debe dar al menos {v['enf_req']} kW (un tercio de {v['enf_QL']} kW) y con una parada quedan **{v['enf_cap_parada']} kW (+{v['enf_margen_pct']} %)**. Con 2+1 la misma unidad no alcanza (faltan {v['enf_2m1_falta']} kW, {v['enf_2m1_pct']} %): por eso 3+1, sobredimensionada; el margen cubre el calor de las bombas y la diferencia entre los 34 °C de diseño y los 35 °C del catálogo.
-- **Calderas:** 2 de agua caliente de {v['cal_diseno']} kW, al 100 % cada una ({v['cal_inv1']} kW de invierno, que incluyen los {v['cal_vapor']} kW de humidificación con vapor que cubriría un generador aparte, más {v['cal_acs1']} kW de punta de ACS). Ejemplo para la mejora M1: {v['cal_cond_n']} Viessmann Vitocrossal 300 CM3C de {v['cal_cond_cap']} kW {{{{R_viessmann}}}}.
+- **Calderas:** 2 de agua caliente de {v['cal_diseno']} kW, al 100 % cada una ({v['cal_inv1']} kW de invierno, que incluyen como margen los {v['cal_vapor']} kW de humidificación con vapor que cubriría un generador aparte, más {v['cal_acs1']} kW de punta de ACS, el doble de la media: supuesto). Ejemplo para la mejora M1: {v['cal_cond_n']} Viessmann Vitocrossal 300 CM3C de {v['cal_cond_cap']} kW {{{{R_viessmann}}}}.
 - **UTAs:** {v['uta_n']} en total; las {v['uta_crit']} críticas (una por quirófano y una para terapia) junto a su zona y las {v['uta_cub']} restantes en cubierta.
 
 ## 6.2 Dónde ponerlos
 
-Como ingenieros civiles pesan el aire, el ruido, la estructura, el izaje y las cañerías. Armamos un esquema de tres niveles iguales de {v['niv_bruta']} m² brutos ({v['niv_clim']} climatizados) con las zonas según {{{{R_presidencia}}}} (figura 6).
+Como ingenieros civiles pesamos el aire, el ruido, la estructura, el izaje y las cañerías. Armamos un esquema de tres niveles iguales de {v['niv_bruta']} m² brutos ({v['niv_clim']} climatizados) con las zonas según {{{{R_presidencia}}}} (figura 6).
 
 - **Enfriadoras en la azotea**, junto al núcleo técnico: necesitan aire libre (en un patio recirculan el aire caliente) y el ruido queda por encima del 3.er piso. Las {v['az_n']} unidades ocupan {v['az_A']} m², el {v['az_pct']} % de la cubierta. Las tomas de aire exterior deben quedar lejos de las descargas de extracción y de la chimenea (distancia que fija la norma).
 - **Carga estructural:** con un peso supuesto de {v['az_peso']} t por unidad, {v['az_q']} kN/m², {v['az_rel']} veces una sobrecarga de referencia de azotea de {v['az_ref']} kN/m² (supuesta): hace falta plataforma o vigas y el calculista. **Izaje:** unidades de 14 m y 12 t exigen grúa móvil grande y corte de calle.
 - **Aire y agua:** las UTAs críticas van en el cuarto técnico del 2.º piso, con conductos cortos; los {v['uta_V']} m³/h necesitan {v['sh_vert']} m² netos de shafts verticales ({v['sh_n']} de unos 2 m²) en un núcleo técnico apilado en los tres niveles. Las calderas, en un anexo a nivel de calle con acceso y regulador de gas y chimenea (DN {v['cal_dn']}).
 
-![Figura 6. Corte esquemático con zonas, superficies y equipos, y planta de cubierta con las enfriadoras. Las zonas siguen la presentación del hospital; la distribución en niveles y la planta de cubierta son supuestos nuestros, sin planos.](../figuras/fig08_plano_zonas.png){{width=10.2cm}}
+![Figura 6. Corte esquemático con zonas, superficies y equipos, y planta de cubierta con las enfriadoras. Las zonas siguen la presentación del hospital; la distribución en niveles y la planta de cubierta son supuestos nuestros, sin planos.](../figuras/fig08_plano_zonas.png){{width=14cm}}
 
 Evaluamos también el patio a nivel y el puntaje es parejo (matriz y planta tipo a escala en la memoria); elegimos la azotea por el aire libre. **No dimensionamos las UTAs ni la sala de calderas.**
 """

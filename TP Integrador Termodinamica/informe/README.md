@@ -10,7 +10,7 @@ Informe técnico y memoria de cálculo (hito **M6**).
 Markdown con ecuaciones, convertido con pandoc a DOCX (ecuaciones nativas de Word) y a PDF vía HTML con MathML impreso con Chromium. Los números se toman de `calculo/` y las figuras de `figuras/`.
 
 ## Pendiente de confirmar
-Si la memoria de cálculo cuenta dentro de las 8 a 12 páginas (pregunta 9 del [PRD](../PRD.md)). El informe tiene hoy unas 9 páginas con las referencias, así que entra en cualquiera de las dos lecturas.
+Si la memoria de cálculo cuenta dentro de las 8 a 12 páginas (pregunta 9 del [PRD](../PRD.md)). El informe tiene hoy 12 páginas con las referencias (cuerpo de unas 11), así que entra en cualquiera de las dos lecturas.
 
 ## Estado
 - `informe.plantilla.md` y `memoria_calculo.plantilla.md` son el texto del **informe técnico** (decisiones, motivos y respaldo de cada dato) y de la **memoria de cálculo** (ecuaciones, estados, supuestos), con marcadores `{{valor}}`. `python -m calculo.construir_documentos` los completa con los números del modelo y escribe `informe_tecnico.*` y `memoria_calculo.*` (`.md`, `.docx` y `.pdf`). **No editar los `.md` generados: se editan las plantillas** (y `calculo/texto_equipos.py` y `calculo/texto_exergia.py` para esas secciones).

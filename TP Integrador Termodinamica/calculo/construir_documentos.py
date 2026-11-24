@@ -207,7 +207,7 @@ def valores_nuevos(V, T):
         ("Combustible y base", "Gas, electricidad o gasoil; caldera o recuperación de calor", "Gas natural (hay red en el AMBA y es el combustible dominante en el artículo [H]); caldera como base (A) y recuperación como alternativa B para medir cuánto se gana", "Propio; [H] visto"),
     ], (16, 22, 46, 16))
     cz = c["Z"]
-    nom = {"G1": "G1 Quirófanos", "G2": "G2 Terapia intensiva", "G3": "G3 Internación", "G4": "G4 Guardia, imágenes, laboratorio", "G5": "G5 Consultorios y administración"}
+    nom = {"G1": "G1 Quirófanos", "G2": "G2 Terapia intensiva", "G3": "G3 Internación", "G4": "G4 Guardia, diagnóstico y laboratorio", "G5": "G5 Consultorios, administración y docencia"}
     oper = {"G1": "Continuo", "G2": "Continuo", "G3": "Continuo", "G4": "24 h", "G5": "12 h, lunes a viernes"}
     filas_z = []
     for g in ("G1", "G2", "G3", "G4", "G5"):

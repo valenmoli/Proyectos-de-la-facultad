@@ -7,7 +7,7 @@ lang: es-AR
 ---
 
 ::: {custom-style="Nota"}
-**Cómo se lee esta memoria.** El informe técnico explica las decisiones y sus motivos; acá están el desarrollo ordenado de las ecuaciones, los datos, las hipótesis, las unidades y los resultados. Los cálculos principales se resuelven con números (secciones 3 a 6) para poder seguirlos a mano: las diferencias de una unidad en la última cifra se deben al redondeo y, donde la cuenta lo exige, se imprimen más cifras. **Respaldo de cada dato:** [n] indica una fuente de la lista del anexo D (con asterisco, [n]\*, la fuente se conoce solo por un extracto de búsqueda y no se abrió el original); «supuesto» marca toda decisión o valor propio, con su motivo al lado; lo que calcula el modelo no lleva marca. **Unidades:** SI; potencias en kW, energías anuales en MWh, temperaturas en °C (diferencias en K), presiones en kPa y humedad específica ω en g de vapor por kg de aire seco en las tablas (kg/kg en las ecuaciones).
+**Cómo se lee esta memoria.** El informe técnico explica las decisiones y sus motivos; acá están el desarrollo ordenado de las ecuaciones, los datos, las hipótesis, las unidades y los resultados. Los cálculos principales se resuelven con números (secciones 3 a 6) para poder seguirlos a mano: las diferencias de una unidad en la última cifra se deben al redondeo y, donde la cuenta lo exige, se imprimen más cifras. **Respaldo de cada dato:** [n] indica una fuente de la lista del anexo D (con asterisco, [n]\*, la fuente se conoce solo por un extracto de búsqueda y no se abrió el original); «supuesto» marca toda decisión o valor propio, con su motivo al lado; «constante» marca una constante física o un valor de tabla; lo que calcula el modelo no lleva marca. **Unidades:** SI; potencias en kW, energías anuales en MWh, temperaturas en °C (diferencias en K), presiones en kPa y humedad específica ω en g de vapor por kg de aire seco en las tablas (kg/kg en las ecuaciones).
 :::
 
 **Contenido.**
@@ -37,7 +37,7 @@ Anexos: A, cifras del informe y dónde se calculan; B, verificación del cálcul
 
 El sistema térmico se divide en cuatro sistemas de estudio, cada uno un volumen de control en régimen permanente en cada estado considerado. La tabla Msist da sus límites y los flujos que los cruzan; la figura Mesq los muestra en conjunto (las letras A a F son los estados del aire de la tabla Mpsicro).
 
-![Figura Mesq. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=11.5cm}
+![Figura Mesq. Esquema del sistema: cadena de aire (mezcla, serpentina, recalentador, ventilador y zona), enfriadora, caldera y agua caliente sanitaria. En azul, circuito de frío y electricidad; en naranja, circuito de calor y gas; en verde, la recuperación del condensador (alternativa B).](../figuras/fig01_esquema_sistema.png){width=14cm}
 
 {{tabla_sistemas}}
 
@@ -149,7 +149,7 @@ El aire sale del recalentador a {{mx_g1_Tobj2}} °C, el ventilador lo calienta {
 
 Table: Tabla Mpsicro. Estados del aire en el quirófano (A a F), verano pico, con las cifras necesarias para repetir a mano las cuentas de este apartado.
 
-![Figura Mpsicro. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=9.5cm}
+![Figura Mpsicro. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=12cm}
 
 ## 3.3 Cargas de diseño de verano por zona
 
@@ -201,7 +201,7 @@ Auxiliares:
 
 $$\dot W_{cond} = 0\text{,}025 \cdot {{mx_cic_Qcond_m}} = {{mx_cic_Wcond_m}}\ \text{kW}, \qquad \dot m_w = \frac{ {{mx_QL_m}} }{4\text{,}186 \cdot {{dT_ah_m}} } = {{mx_cic_mw_m}}\ \text{kg/s}, \qquad \dot W_{bomba} = \frac{ {{mx_cic_mw_m}} }{1.000} \cdot \frac{ {{dP_bomba_m}} }{ {{eta_bomba_m}} } = {{mx_cic_Wbomba_m}}\ \text{kW}$$
 
-![Figura Mph. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=9.5cm}
+![Figura Mph. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=11cm}
 
 # 5. Combustión: reacción, poder calorífico, rendimiento y consumo de gas {#sec-combustion}
 
@@ -285,7 +285,7 @@ con $L$ = {{L_cama}} L/(cama día), $N_{camas}$ = {{camas_tot}}, $T_{ACS}$ = {{T
 
 Cada mes se representa con dos estados de $12\,d_i$ horas ($d_i$ son los días del mes): uno diurno $(T_i + {{dT_dia_m}}\,\text{K})$ y uno nocturno $(T_i - {{dT_dia_m}}\,\text{K})$, con la humedad específica media del mes limitada a la saturación. La estación de cada estado se decide por su temperatura exterior: verano (consignas de verano, con deshumidificación y recalentamiento) si $T \geq$ {{T_cambio}} °C e invierno (consignas de invierno, con calefacción y humidificación) si no, sin histéresis; el resultado es sensible a ese umbral. En cada estado se calculan las cargas de las cinco zonas, la planta de frío con la temperatura exterior del estado y el calor de la caldera, y se multiplican por las horas. Se prefirió este método a las horas equivalentes a plena carga porque la ventilación es continua y un número de horas la representa mal.
 
-![Figura Mmes. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=11cm}
+![Figura Mmes. Frío y calor del aire entregados por mes.](../figuras/fig05_perfil_mensual.png){width=13cm}
 
 {{tabla_usos}}
 
@@ -325,7 +325,7 @@ El COP anual del compresor es mayor que el de diseño ({{mx_cic_copel2}}) porque
 
 Table: Tabla Msens. Las 12 variaciones que más mueven la energía final (caso base: {{E_total_MWh}} MWh). Cada una cambia un supuesto y deja los demás en su valor base; con todas las variaciones del modelo, la intensidad queda entre {{sens_min}} y {{sens_max}} kWh/m² y año, que no es un intervalo de confianza.
 
-![Figura Msens. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=11cm}
+![Figura Msens. Sensibilidad de la energía final anual.](../figuras/fig06_sensibilidad.png){width=15cm}
 
 ## 7.2 Qué pasa si nos equivocamos con los m²
 
@@ -366,7 +366,7 @@ Todas las variantes se calculan con el mismo modelo, que repite el cálculo anua
 
 Table: Tabla Mmejoras. Resultados de cada variante respecto de la alternativa A.
 
-![Figura Mmej. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=10cm}
+![Figura Mmej. Reducción de energía final y de emisiones de CO₂ de cada mejora y del paquete respecto de la alternativa A.](../figuras/fig09_mejoras.png){width=14cm}
 
 **Alternativa B.** Recupera {{rec_MWh}} MWh por año de calor del condensador, en {{rec_horas}} h; ahorra {{ahorro_gas_B}} MWh de gas (PCS) y gasta {{extra_elec_B}} MWh más de electricidad ({{d_comp_B}} más en el compresor, que condensa más caliente cuando recupera, y {{d_vcond_B}} menos en los ventiladores del condensador): la energía baja {{dE_B}} % y las emisiones, {{dC_B}} %. El modelo supone que calor y demanda coinciden dentro de cada estado; con coincidencia de 75 % o 50 % el ahorro baja a {{dE_B75}} % y {{dE_B50}} %, que es el rango realista.
 
@@ -406,7 +406,7 @@ Table: Tabla Mcifras. Cifras del informe técnico y dónde se calculan.
 
 # Anexo B. Verificación del cálculo {#anexo-b-verificacion}
 
-**{{n_tests}} chequeos automáticos** comprueban: primera ley (la carga de diseño es la suma de las serpentinas; el calor rechazado es el frío entregado más el trabajo en el eje), segunda ley (COP menor que el de Carnot, destrucción de exergía no negativa), balance de átomos de la combustión, psicrometría contra CoolProp (dentro de 1,2 %), reproducción de la tabla de supuestos, que las mejoras den el caso base cuando no se activan y que las cuentas resueltas de esta memoria se reproduzcan a mano con los números impresos. El cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Los chequeos comprueban la coherencia interna, no que la física sea correcta. El núcleo del modelo se reimplementó de forma independiente a partir de una especificación escrita (coincidencia dentro de 0,24 %), lo que comprueba la transcripción del método y no su validez; las mejoras, la exergía y los equipos recibieron revisiones internas independientes pero **no** se reimplementaron. **No están contrastados con fuentes** los valores marcados «supuesto» (su peso se mide en la sección 7) ni las fuentes con asterisco.
+El modelo se comprueba con la termodinámica misma: **primera ley** (la carga de diseño es la suma de las serpentinas; el calor rechazado es el frío entregado más el trabajo en el eje), **segunda ley** (el COP es menor que el de Carnot y la destrucción de exergía no es negativa), **balance de átomos** de la combustión, **psicrometría** contra CoolProp (dentro de 1,2 %) y que las mejoras den el caso base cuando no se activan. Las cuentas resueltas de esta memoria se pueden repetir a mano con los números impresos, y el cierre del balance exergético es contable; la verificación física es $D = T_0 \dot S_{gen}$ en serpentina, compresor y válvula. Estas comprobaciones muestran la coherencia interna del modelo, no que la física elegida sea la única posible. No están contrastados con fuentes los valores marcados «supuesto» (su peso se mide en la sección 7) ni las fuentes con asterisco.
 
 # Anexo C. Datos de entrada {#anexo-c-datos}
 

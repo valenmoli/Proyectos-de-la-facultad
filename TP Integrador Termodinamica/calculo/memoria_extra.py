@@ -44,7 +44,8 @@ def R(clave):
     return referencias.marca(clave)
 
 
-SUP_CORRIENTE = "supuesto (valor de uso corriente)"
+SUP_CORRIENTE = "supuesto (valor habitual de diseño, sin fuente numerada)"
+CONST_TABLA = "constante (valor de tabla)"
 
 
 # ====================================================================================================================
@@ -527,17 +528,17 @@ def tabla_propiedades(c):
         ("Aire húmedo", "$\\omega$, $h$, humedad relativa, temperatura de rocío y de bulbo húmedo a 101,325 kPa; $c_{p,a}$ = 1,006 y $c_{p,v}$ = 1,86 kJ/(kg K); $h_{fg}$ = 2.501 kJ/kg",
          f"psychrolib {ver_ps} {r['coolprop']} (psicrometría de ASHRAE en unidades SI); las tres constantes son las de su ecuación de entalpía", "Estados del aire, cargas de serpentina y recalentador (sección 3)"),
         ("Agua líquida y vapor", "$c_p$ = 4,186 kJ/(kg K); $h_g$ = 2.676 kJ/kg (vapor saturado a 101,3 kPa); calor latente a 25 °C: 44.010 kJ/kmol; presión de saturación",
-         f"constantes del modelo: {SUP_CORRIENTE}; presión de saturación de CoolProp {ver_cp} {r['coolprop']}", "ACS, humidificación, agua helada y caliente, rocío y caldera de condensación"),
+         f"constantes del modelo: {CONST_TABLA}; presión de saturación de CoolProp {ver_cp} {r['coolprop']}", "ACS, humidificación, agua helada y caliente, rocío y caldera de condensación"),
         ("R134a", "presión de saturación, $h$, $s$, $T$ a partir de ($P$, $h$), título y densidad",
          f"CoolProp {ver_cp} {r['coolprop']}", "Ciclo de la enfriadora (sección 4); comparación con R1234ze(E) y R1234yf (sección 8)"),
         ("CO₂, H₂O, N₂ y O₂ (aire y gases de combustión)", "$c_p$ de gas ideal (término ideal de CoolProp), integrado desde 25 °C hasta $T$",
          f"CoolProp {ver_cp} {r['coolprop']}", "Pérdida por gases, temperatura de llama, caldera de condensación (sección 5)"),
         ("CH₄, C₂H₆, C₃H₈, CO₂, H₂O", "entalpías de formación a 25 °C [kJ/kmol]: −74.850; −84.680; −103.850; −393.520; −241.820 (vapor) y −285.830 (líquido)",
-         f"tablas de termodinámica: {SUP_CORRIENTE}", "PCI, PCS y temperatura de llama (sección 5)"),
+         f"tablas de termodinámica: {CONST_TABLA}", "PCI, PCS y temperatura de llama (sección 5)"),
         ("Gas natural", f"composición {n(c['P']['gas_CH4'] * 100)}/{n(c['P']['gas_C2H6'] * 100)}/{n(c['P']['gas_C3H8'] * 100)}/{n(c['P']['gas_N2'] * 100)}/{n(c['P']['gas_CO2'] * 100)} % molar (CH₄, C₂H₆, C₃H₈, N₂, CO₂); PCS y PCI se calculan",
          "supuesto: composición típica del gas de red", "Combustión y consumo de gas (sección 5)"),
         ("Exergía química estándar", "valores por kmol de cada componente del gas natural, del aire y de los gases (sección 9)",
-         f"{SUP_CORRIENTE}: los atribuidos a Szargut", "Exergía del combustible (sección 9)"),
+         f"supuesto: valores de tabla que atribuimos a Szargut, sin haber consultado el libro", "Exergía del combustible (sección 9)"),
     ]
     return tabla(["Sustancia", "Propiedades", "Fuente", "Dónde se usa"], f, (14, 30, 31, 25))
 
@@ -570,7 +571,7 @@ def tabla_psicro(c):
 
 def tabla_cargas(c):
     cz = _ctx(c)["cargas"]
-    nom = {"G1": "G1 Quirófanos", "G2": "G2 Terapia intensiva", "G3": "G3 Internación general", "G4": "G4 Guardia, imágenes y laboratorio", "G5": "G5 Consultorios y administración"}
+    nom = {"G1": "G1 Quirófanos", "G2": "G2 Terapia intensiva", "G3": "G3 Internación general", "G4": "G4 Guardia, diagnóstico y laboratorio", "G5": "G5 Consultorios, administración y docencia"}
     filas = [(nom[f["zona"]], n(f["serp"], 1), n(f["sens"], 1), n(f["lat"], 1), n(f["rec"], 1), n(f["cal"], 1), n(f["hum"], 1)) for f in cz["filas"]]
     t = cz["total"]
     filas.append(("**Total**", f"**{n(t['serp'], 1)}**", f"**{n(t['sens'], 1)}**", f"**{n(t['lat'], 1)}**", f"**{n(t['rec'], 1)}**", f"**{n(t['cal'], 1)}**", f"**{n(t['hum'], 1)}**"))
@@ -712,15 +713,24 @@ def _extra_exergia(c):
             f"El grupo «Caldera y ACS» del reparto por grupos suma además el calentamiento del ACS ({sp(x['D_acs'])} kW): {sp(x['D_cal_acs'])} kW, el {sp(x['D_cal_acs'] / x['D_total'] * 100)} % de lo destruido y el "
             f"{sp(x['D_cal_acs'] / x['X_in'] * 100)} % de la entrada. La eficiencia exergética de la caldera es $\\dot X_P/\\dot X_F$ = {sp(x['X_calor'])}/{sp(x['X_comb'])} = {sp(x['eta'] * 100)} %, "
             f"con una llama adiabática teórica de {n(x['T_llama'])} °C.")
+    s1_, s2_, s3_, s4_ = ea["s"]
+    Dc = ea["m_r"] * T0a * (s2_ - s1_)
+    Dv = ea["m_r"] * T0a * (s4_ - s3_)
+    assert abs(Dc - ea["D_gs_compresor"]) < 0.05 and abs(Dv - ea["D_gs_valvula"]) < 0.05, "el caso resuelto no reproduce el modelo exergetico"
+    par3 = (f"**Un caso resuelto: destrucción en el compresor y en la válvula (verano pico).** Con $T_0$ = {n(T0a, 2)} K y un caudal de refrigerante $\\dot m$ = {n(ea['m_r'], 3)} kg/s, "
+            f"la destrucción es $D = T_0\\,\\dot S_{{gen}}$: en el compresor, $D = \\dot m\\,T_0\\,(s_2 - s_1)$ = {n(ea['m_r'], 3)} · {n(T0a, 2)} · ({n(s2_, 4)} − {n(s1_, 4)}) = {sp(Dc)} kW "
+            f"(con el motor, que pierde {sp((1 - c['P']['eta_motor']) * ea['W_comp'])} kW, el grupo «compresor y motor» destruye {sp(Dc + (1 - c['P']['eta_motor']) * ea['W_comp'])} kW); "
+            f"en la válvula, $D = \\dot m\\,T_0\\,(s_4 - s_3)$ = {n(ea['m_r'], 3)} · {n(T0a, 2)} · ({n(s4_, 4)} − {n(s3_, 4)}) = {sp(Dv)} kW. "
+            f"Las entropías $s$ están en kJ/(kg K).")
     cap = "Table: Tabla Mexcal. Balance de exergía de la caldera en el máximo recalentamiento (diciembre, noche). El aire de combustión aporta una fracción mínima; los porcentajes suman 100,2 % con él."
-    return "\n\n".join([par1, par2, t, cap])
+    return "\n\n".join([par1, par3, par2, t, cap])
 
 
 def memoria_exergia(c, V, T):
     from . import texto_exergia
     _inf, mem, _v = texto_exergia.redactar(c, dict(V), dict(T))
     mem = re.sub(r"(?m)^## 8\.(\d)", r"## 9.\1", mem)
-    mem = re.sub(r"\*\*recordadas?,? a (?:cotejar|verificar) con el libro de la c[aá]tedra\*\*", "**supuesto** (valores de uso corriente)", mem)
+    mem = re.sub(r"\*\*recordadas?,? a (?:cotejar|verificar) con el libro de la c[aá]tedra\*\*", "**supuesto** (valores de tabla que atribuimos a Szargut, sin consultar el libro)", mem)
     mem = re.sub(r"\*\*A confirmar con la c[aá]tedra\*\*:\s*otra convenci[oó]n la llamar[ií]a p[eé]rdida\.", "Convención adoptada (supuesto): otra la llamaría pérdida.", mem)
     extra = _extra_exergia(c)
     mem, k = re.subn(r"(?m)^(## 9\.3 )", lambda m: extra + "\n\n" + m.group(1), mem, count=1)
@@ -869,7 +879,7 @@ la internación va en dos alas y la guardia y los consultorios, en el 1.er piso,
 y chimenea por fuera del edificio).
 
 ![Figura Mplanta. Planta tipo a escala del 1.er y 2.º piso (rectángulo equivalente de {n(pt['W'], 1)} × {n(pt['H'], 1)} m): la superficie dibujada de cada zona es proporcional a sus m² del modelo; \
-la distribución en franjas, la calle al sur y el núcleo técnico en la esquina sudeste son supuestos, sin planos del edificio real.](../figuras/fig11_planta_tipo.png){{width=11.5cm}}
+la distribución en franjas, la calle al sur y el núcleo técnico en la esquina sudeste son supuestos, sin planos del edificio real.](../figuras/fig11_planta_tipo.png){{width=16.5cm}}
 
 {t_mz}
 
@@ -914,7 +924,7 @@ def exergia_resumen(c):
                 calD_b=[t for t in b["tabla"] if t["clave"] == "caldera"][0]["X_dest"] / gb["D_total"])
 
 
-def tabla_cifras(c):
+def tabla_cifras(c, V=None):
     x = _ctx(c)
     P = c["P"]
     g, cc, cm, an, cz, mj_, eqp = x["g1"], x["ciclo"], x["comb"], x["anual"], x["cargas"], x["mej"], x["eqp"]
@@ -972,6 +982,15 @@ def tabla_cifras(c):
     add("Calderas y chimenea", f"{k1(eqp['calderas']['Q_diseno'])} kW; DN {n(eqp['calderas']['DN_chimenea'])}", "$\\dot Q_{inv} + 2\\,\\dot Q_{ACS}$; $D = \\sqrt{4\\dot V/(\\pi v)}$", "10.2")
     add("UTAs, agua helada y shafts", f"{n(eqp['utas']['n_total'])} UTAs ({n(eqp['utas']['n_cubierta'])} en cubierta); DN {n(eqp['hidraulica']['principal']['DN'])}; {n(eqp['shafts']['n_shafts_agrupados'])} shafts", "caudal / velocidad de diseño", "Tabla Muta; tabla Mshafts; 10.3 y 10.4")
     add("Azotea: carga media y puntaje de la matriz", f"{n(eqp['azotea']['q_kN_m2'], 2)} kN/m²; azotea {n(eqp['matriz']['base']['azotea'], 2)} contra patio {n(eqp['matriz']['base']['patio'], 2)}", "peso / huella; promedio ponderado", "Tabla Mmatriz; 10.5")
+    # cifras del informe que antes no tenian fila
+    Bd = B["detalle"]
+    xg_b = ex.estados_de_analisis(c)["max_recalentamiento"]["condiciones"]
+    add("Recalentamiento máximo del año", f"{n(xg_b['Q_recal_kW'])} kW ({xg_b['mes']}, de noche)", "máximo de $\\dot Q_{rec}$ sobre los 24 estados medios", "6.3")
+    if V is not None and "calor_ene" in V:
+        add("Calor de caldera para el aire, enero y julio", f"{V['calor_ene']} y {V['calor_jul']} MWh", "recalentamiento más calefacción de cada mes (enero: todo recalentamiento; julio: todo calefacción)", "6.3")
+    add("Alternativa B: energía final, intensidad y gas", f"{M(Bd['E_total'])} MWh; {k1(Bd['E_total'] / A_cub)} kWh/m²; gas {M(Bd['E_PCS'])} MWh (unos {n(round(Bd['V_gas_m3'], -3) / 1e3)} mil m³)", "variante B del modelo con recuperación", "Tabla Mmejoras; 8.2")
+    add("Alternativa B: COP anual del compresor y calor que se tira", f"{n(an['frio'] / Bd['elec']['compresor'], 2)}; {M(Bd['planta']['Q_cond'])} MWh", "$Q_L/W_{comp,B}$; $Q_{cond,B}$ neto de lo recuperado (frío + 0,94 · trabajo − calor recuperado)", "8.2")
+    add("Ahorros absolutos de la tabla de mejoras", "; ".join(f"{k} {M(base['E_total'] - por[k]['E_total'])} MWh" for k in ("B", "M1", "M2", "M3", "M4", "M5", "M6", "P")), "$E_A - E_{variante}$", "Tabla Mmejoras")
     return tabla(["Cifra del informe", "Valor", "Ecuación o cálculo", "Dónde"], f, (20, 33, 29, 18))
 
 
@@ -1091,7 +1110,7 @@ def tablas_memoria(c, V, T):
         "tabla_gases": tabla_gases(c),
         "tabla_params_mejoras_m": tabla_params_mejoras(),
         "tabla_parametros_m": tabla_parametros(c),
-        "tabla_cifras": tabla_cifras(c),
+        "tabla_cifras": tabla_cifras(c, V),
         "tabla_otras_variaciones": tabla_otras_variaciones(c),
         "lista_referencias_m": lista_referencias(),
         "memoria_exergia": memoria_exergia(c, V, T),

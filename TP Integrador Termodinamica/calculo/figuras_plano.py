@@ -377,7 +377,7 @@ def fig_plano(c=None, R=None, ruta=None):
               ("rect", COLOR_RESERVA, GRIS, "....", "Reserva solar y FV (sin dimensionar)")]
     y_leg = _leyenda(ax, fig, items, 0.06, W - 0.04, 0.90)
     ax.text(0.06, y_leg - 0.20, "Los locales técnicos son la superficie no climatizada de cada nivel (bruta menos climatizada).\n"
-            "Superficies de zona: modelo. Distribución en niveles y planta de cubierta: supuesto (tabla de supuestos Q1 a Q4).",
+            "Superficies de zona: modelo. Distribución en niveles y planta de cubierta: supuesto (ver la memoria, supuestos Q1 a Q4).",
             fontsize=FS_CHICO - 0.4, color=INK2, va="top", ha="left", linespacing=1.3)
 
     fig.canvas.draw()
@@ -599,7 +599,7 @@ def fig_planta_tipo(c=None, R=None, ruta=None):
         f"{nuc['n_shafts']} shafts de {coma(nuc['area_shaft'], 1)} m² ({coma(nuc['area_shafts'])} m² en total, dentro del núcleo; área neta vertical calculada {coma(nuc['area_vertical_neta'], 1)} m²). "
         "La circulación (pasillos y halls) está dentro de la superficie climatizada de cada zona, sin m² propios; la morgue y los depósitos están dentro del núcleo.",
         pl["nota_3er_piso"] + f" ({coma(niv['niveles'][2]['clim'])} m² climatizados.)",
-        "Supuestos Q5 a Q9: norte arriba, calle al sur, núcleo técnico en la esquina sudeste y zonas por franjas. Los m² de cada zona son del modelo; "
+        "Supuestos Q4 a Q9: norte arriba, calle al sur, núcleo técnico en la esquina sudeste y zonas por franjas. Los m² de cada zona son del modelo; "
         "la distribución en planta no sale de planos del edificio real.",
     ]
     cuerpo = "\n".join(textwrap.fill(t, 132, subsequent_indent="  ") for t in notas)

@@ -8,7 +8,7 @@ lang: es-AR
 
 # Resumen
 
-Se diseña y evalúa el sistema térmico de un hospital de alta complejidad del AMBA, con el tamaño y el programa del Hospital Favaloro ({{A_cub}} m², {{camas_tot}} camas, {{n_or}} quirófanos): aire tratado con enfriadora y caldera de gas. Consume **{{E_total_MWh}} MWh de energía final por año ({{i_cub}} kWh/m²)**. El hallazgo central es que el aire se enfría para quitarle humedad y se recalienta con gas, mientras el condensador de la enfriadora tira {{Q_cond_MWh}} MWh de calor por año. Aprovecharlo (alternativa B) baja la energía hasta {{dE_B}} % ({{dE_B75}} % si calor y demanda coinciden el 75 % del tiempo) y las emisiones hasta {{dC_B}} %; sumando las demás mejoras, hasta {{dE_P}} % y {{dC_P}} %. <<RESUMEN_EXERGIA>>
+Se diseña y evalúa el sistema térmico de un hospital de alta complejidad del AMBA, con el tamaño y el programa del Hospital Favaloro ({{A_cub}} m², {{camas_tot}} camas, {{n_or}} quirófanos): aire tratado con enfriadora y caldera de gas. Consume **{{E_total_MWh}} MWh de energía final por año ({{i_cub}} kWh/m²)**. El hallazgo central es que el aire se enfría para quitarle humedad y se recalienta con gas, mientras el condensador de la enfriadora tira {{Q_cond_MWh}} MWh de calor por año. Aprovecharlo (alternativa B) baja la energía hasta {{dE_B}} % ({{dE_B75}} % si solo el 75 % de la demanda coincide con el calor del condensador, {{inf_dEB50}} % con el 50 %) y las emisiones hasta {{dC_B}} %; sumando las demás mejoras, hasta {{dE_P}} % y {{dC_P}} %. <<RESUMEN_EXERGIA>>
 
 # 1. Introducción y objetivos
 
@@ -20,17 +20,17 @@ Un hospital funciona todo el año y todo el día, y su climatización es de **pr
 
 Table: Tabla 1. Los cuatro temas y cómo se conectan en este sistema.
 
-El **hilo conductor**: el aire húmedo fija cuánto frío y cuánto recalentamiento hacen falta; la enfriadora paga ese frío con electricidad y tira calor; la caldera paga el recalentamiento con gas; la exergía muestra que el calor que se tira es justo el que haría falta para recalentar, y de ahí sale la alternativa B. Con esos resultados se eligen y ubican los equipos (sección 6). En el texto, [n] remite a la lista de referencias, el asterisco indica una fuente que solo conocemos por un extracto y «supuesto» marca una decisión nuestra, con su motivo. **Siglas:** AMBA (Área Metropolitana de Buenos Aires), ACS (agua caliente sanitaria), UTA (unidad de tratamiento de aire), COP (coeficiente de desempeño), PCS y PCI (poder calorífico superior e inferior del gas), HCWH (Health Care Without Harm).
+El **hilo conductor**: el aire húmedo fija cuánto frío y cuánto recalentamiento hacen falta; la enfriadora paga ese frío con electricidad y tira calor; la caldera paga el recalentamiento con gas; la exergía muestra que el calor que se tira es justo el que haría falta para recalentar, y de ahí sale la alternativa B. Con esos resultados se eligen y ubican los equipos (sección 6). En el texto, [n] remite a la lista de referencias, el asterisco indica una fuente que solo conocemos por un extracto y «supuesto» marca una decisión nuestra, con su motivo. **Siglas:** AMBA (Área Metropolitana de Buenos Aires), SAMIC (Servicio de Atención Médica Integral para la Comunidad), ACS (agua caliente sanitaria), UTA (unidad de tratamiento de aire), HR (humedad relativa), COP (coeficiente de desempeño), PCS y PCI (poder calorífico superior e inferior del gas), HFC (hidrofluorocarbonos), kWp (kW pico), FGI (Facility Guidelines Institute), SMN (Servicio Meteorológico Nacional), HCWH (Health Care Without Harm).
 
 # 2. El edificio y sus datos
 
-Elegimos el **Hospital Dr. René Favaloro (SAMIC, La Matanza)** porque, entre los dos candidatos (el Favaloro y el sanatorio de Nordelta), es el único con la superficie cubierta documentada {{R_presidencia}}; El Cruce {{R_elcruce}} sirve de contraste de tamaño. Ningún documento trae datos de climatización ni de consumo del edificio real: replicamos su **tamaño y programa**, no sus instalaciones.
+Elegimos el **Hospital Dr. René Favaloro (SAMIC, La Matanza)** porque, entre los dos candidatos (el Favaloro y el sanatorio de Nordelta), es el único con la superficie cubierta en las fuentes consultadas {{R_presidencia}}; El Cruce {{R_elcruce}} sirve de contraste de tamaño. Ningún documento trae datos de climatización ni de consumo del edificio real: replicamos su **tamaño y programa**, no sus instalaciones.
 
 {{tabla_datos_inf}}
 
 Table: Tabla 2. Datos del edificio y cómo los obtuvimos.
 
-El Favaloro tiene {{gross_per_bed}} m² cubiertos por cama, contra {{ref_bed_hospitecnia}} del artículo de Hospitecnia {{R_hospitecnia}} (hospitales españoles) y {{ref_bed_cruce}} de El Cruce {{R_elcruce}}: es algo más compacto, una señal para vigilar. Dividimos el edificio en cinco zonas térmicas según su uso:
+El Favaloro tiene {{gross_per_bed}} m² cubiertos por cama, contra {{ref_bed_hospitecnia}} del artículo de Hospitecnia {{R_hospitecnia}} (hospitales españoles) y {{ref_bed_cruce}} de El Cruce {{R_elcruce}}: es algo más compacto, lo que podría subestimar las áreas por cama. Dividimos el edificio en cinco zonas térmicas según su uso:
 
 {{tabla_zonas_inf}}
 
@@ -42,11 +42,11 @@ Las áreas de cada zona pesan poco (±6 m² por cama de internación cambian la 
 
 ## 3.1 El sistema y por qué lo elegimos
 
-![Figura 1. Esquema del sistema: cadena de aire (A a F son los estados del aire de la figura 3), enfriadora, caldera, agua caliente sanitaria (ACS) y, en verde, la alternativa B.](../figuras/fig01_esquema_sistema.png){width=10.5cm}
+![Figura 1. Esquema del sistema: cadena de aire (A a F son los estados del aire de la figura 3), enfriadora, caldera, agua caliente sanitaria (ACS) y, en verde, la alternativa B.](../figuras/fig01_esquema_sistema.png){width=13cm}
 
 Cada zona tiene una unidad de tratamiento de aire de caudal constante: el aire exterior (A) se mezcla con el de retorno (B) y queda en el estado C, la serpentina de agua helada lo enfría y le quita vapor (D), el recalentador lo lleva a la temperatura de impulsión (E) y el ventilador lo impulsa a la zona (F). El agua helada la produce una **enfriadora de R134a** con condensador por aire ($\dot Q_L$ de frío, $\dot W_{comp}$ eléctrico, $\dot Q_{cond}$ rechazado al ambiente). Una **caldera de gas natural** da el recalentamiento, la calefacción de invierno y el ACS. La alternativa B manda el calor del condensador, a 45 °C, al recalentador en lugar de la caldera.
 
-- **Todo aire de caudal constante**: quirófanos y terapia necesitan filtrado, muchas renovaciones y control de humedad y de presiones, que un split no da; en hospitales argentinos, HCWH {{R_hcwh}} encontró equipos de refrigeración de emergencia porque el aire central no alcanzaba.
+- **Todo aire de caudal constante**: quirófanos y terapia necesitan filtrado, muchas renovaciones y control de humedad y de presiones, que un split no da; en los tres hospitales argentinos auditados por HCWH {{R_hcwh}} hay equipos de refrigeración de emergencia porque el aire central no alcanzaba.
 - **Enfriadora condensada por aire**: sin torre no hay consumo de agua ni riesgo de legionela; el COP es algo menor.
 - **Con reserva**: 3+1 enfriadoras y 2 calderas al 100 %, porque un hospital no puede parar quirófanos y terapia (las UTAs críticas no tienen reserva: queda abierto).
 - **Gas natural**: hay red en el AMBA y es el combustible dominante en {{R_hospitecnia}}; caldera de base (A) y recuperación de calor (B).
@@ -59,7 +59,7 @@ Table: Tabla 4. Lo que el sistema tiene que dar: potencia de diseño y energía 
 
 **Quirófano y terapia (G1, G2).** ASHRAE 170 {{R_ashrae170}} pide de 20 a 24 °C y hasta 60 % de humedad relativa en quirófano. Elegimos {{T_G1}} °C para el quirófano y {{T_G2}} °C para la terapia, con humedad de **55 %**: el máximo de 60 % menos 5 puntos de margen de control (supuesto). **Resto (G3, G4, G5).** 24 °C y 55 a 60 %. Lo respaldamos con la **carta bioclimática de Givoni** {{R_givoni}}, una carta psicrométrica (eje horizontal: temperatura de bulbo seco; vertical: humedad específica) con la zona donde la mayoría de la gente está cómoda sin equipos: de 18 a 29 °C, de 20 a 80 % y de 4 a 17 g/kg. Nuestras cinco consignas caen dentro (figura 2); elegimos 24 °C y no 22 °C por estar en su parte media-alta (menos frío que producir).
 
-![Figura 2. Carta psicrométrica con la zona de confort de Givoni, el clima de cada mes, el estado exterior de diseño y las consignas de verano.](../figuras/fig10_carta_givoni.png){width=8.5cm}
+![Figura 2. Carta psicrométrica con la zona de confort de Givoni, el clima de cada mes, el estado exterior de diseño y las consignas de verano.](../figuras/fig10_carta_givoni.png){width=11cm}
 
 La carta muestra además el problema: el clima medio de octubre a abril cae dentro de la zona o muy cerca, pero el **estado exterior de diseño de verano** ({{T_ext_ver}} °C y {{W_ext_ver}} g/kg) queda fuera: hay que enfriarlo, quitarle vapor y recalentarlo.
 
@@ -67,7 +67,7 @@ La carta muestra además el problema: el clima medio de octubre a abril cae dent
 
 Los quirófanos llevan **20 renovaciones totales por hora, de las cuales 4 son de aire exterior** (ASHRAE 170 {{R_ashrae170}}). Las 20 mueven el aire por filtros de alta eficiencia, diluyen contaminantes y mantienen la sobrepresión; las 4 de aire exterior aportan el aire fresco mínimo (olores, gases anestésicos, CO₂); esa explicación es nuestra. La relación 20/4 = **5** significa que el 20 % del aire que se mueve es exterior y el 80 % se recircula filtrado: solo hay que tratar un quinto del aire con las condiciones exteriores.
 
-**Comprobación.** Con {{qs_G1}} W/m² de ganancia sensible (supuesto) y aire de impulsión a 13 °C (9 K bajo la consigna), por carga térmica bastarían {{ach_load_G1}} renovaciones por hora; la norma pide 20, {{ratio_norm_load}} veces más: **en el quirófano manda la norma, no la carga térmica**, y por eso consume mucho por m². Un extracto de un adendo de ASHRAE 170 {{R_ashrae170}} admite que el 20 no tiene una justificación científica definitiva y recomienda evaluar el riesgo antes de cambiarlo; lo mantenemos y mostramos su peso: con 15 o 25 renovaciones la energía cambia {{s_ach15}} % y {{s_ach25}} %.
+**Comprobación.** Con {{qs_G1}} W/m² de ganancia sensible (supuesto) y aire a 13 °C, la temperatura más baja que admite el modelo a la salida de la serpentina (9 K bajo la consigna), por carga térmica bastarían {{ach_load_G1}} renovaciones por hora; la norma pide 20, {{ratio_norm_load}} veces más: **en el quirófano manda la norma, no la carga térmica**, y por eso consume mucho por m². Un extracto de un adendo de ASHRAE 170 {{R_ashrae170}} admite que el 20 no tiene una justificación científica definitiva y recomienda evaluar el riesgo antes de cambiarlo; lo mantenemos y mostramos su peso: con 15 o 25 renovaciones la energía cambia {{s_ach15}} % y {{s_ach25}} %.
 
 ## 3.4 Clima y agua caliente
 
@@ -87,7 +87,7 @@ Para cada zona y cada mes (partido en una mitad diurna y una nocturna) se encade
 
 ## 5.1 Aire húmedo: el quirófano en verano pico
 
-Con el exterior a {{T_ext_ver}} °C y {{Tbh_ver}} °C de bulbo húmedo, el aire exterior (A) se mezcla con el de retorno (B) y queda a {{T_mix_G1}} °C (C); la serpentina lo enfría hasta {{T_c_G1}} °C y le quita vapor (D); el recalentador lo sube a {{T_obj_G1}} °C (E) y el ventilador, que le agrega {{dT_vent_G1}} K, lo deja a {{T_sup_G1}} °C (F). «Quirófano» son aquí los {{n_or}} quirófanos juntos (zona G1, {{m3h_G1}} m³/h, {{inf_m}} kg/s de aire seco). La carga de la serpentina es el balance de energía del aire más la entalpía del agua que condensa ($h_f = 4{,}186\,T_D$):
+Con el exterior a {{T_ext_ver}} °C y {{Tbh_ver}} °C de bulbo húmedo, el aire exterior (A) se mezcla con el de retorno (B) y queda a {{T_mix_G1}} °C (C); la serpentina lo enfría hasta {{T_c_G1}} °C y le quita vapor (D); el recalentador lo sube a {{T_obj_G1}} °C (E) y el ventilador, que le agrega {{dT_vent_G1}} K, lo deja a {{T_sup_G1}} °C (F). «Quirófano» son aquí los {{n_or}} quirófanos juntos (zona G1, {{m3h_G1}} m³/h, {{inf_m}} kg/s de aire seco). La carga de la serpentina es el balance de energía del aire menos la entalpía del agua que condensa y se va ($h_f = 4{,}186\,T_D$):
 
 $$\dot Q_{serp}=\dot m_a\left[(h_C-h_D)-(\omega_C-\omega_D)\,h_f\right]$$
 
@@ -97,7 +97,7 @@ $$\dot Q_{lat}=\dot m_a\,(\omega_C-\omega_D)\,h_{fg}={{inf_m_m}}\cdot {{inf_dw_m
 
 La carga sensible es entonces {{Q_sens_G1}} kW y el recalentador entrega {{Q_recal_G1}} kW. Las propiedades del aire húmedo salen de psychrolib {{R_coolprop}}.
 
-![Figura 3. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=7.5cm}
+![Figura 3. Proceso del aire en el quirófano, verano pico.](../figuras/fig02_psicrometrica_quirofano.png){width=11cm}
 
 {{tabla_psicro}}
 
@@ -121,7 +121,7 @@ $$\dot Q_{cond}=\dot Q_L+\eta_{mot}\,\dot W={{Q_L_dis_m}}+{{eta_motor_m}}\cdot {
 
 El COP es el {{eta_carnot}} % del de Carnot ({{cop_carnot}}) y el catálogo de la enfriadora del ejemplo da {{cop_catalogo}} contando solo los compresores a 35 °C: del mismo orden.
 
-![Figura 4. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=7.5cm}
+![Figura 4. Ciclo de compresión de R134a al punto de diseño de verano.](../figuras/fig03_diagrama_ph_r134a.png){width=10cm}
 
 ## 5.3 Combustión: la caldera de gas
 
@@ -129,19 +129,19 @@ El gas de red tiene una composición que suponemos (fracciones molares: metano {
 
 $$\mathrm{CH_4}+2{,}30\,(\mathrm{O_2}+3{,}76\,\mathrm{N_2})\;\to\;\mathrm{CO_2}+2\,\mathrm{H_2O}+0{,}30\,\mathrm{O_2}+8{,}65\,\mathrm{N_2}$$
 
-y la memoria balancea la mezcla completa. El gas tiene un poder calorífico superior de {{PCS_kWh}} kWh/m³ ({{PCS_kcal}} kcal/m³) y uno inferior de {{PCI_kWh}} kWh/m³. Los gases salen a {{T_gases}} °C, por encima de su rocío ({{T_rocio}} °C), con una pérdida de {{q_gases}} % del PCI; sumando {{f_rad}} % de pérdidas de la caldera (supuesto):
+y la memoria balancea la mezcla completa. Sumando el poder calorífico de cada componente, $PCI=\sum_i y_i\,PCI_i={{inf_PCIk_m}}\ \text{kJ/kmol}$, que con {{inf_vmol_m}} m³/kmol da {{PCI_kWh}} kWh/m³ de poder calorífico inferior y {{PCS_kWh}} kWh/m³ ({{PCS_kcal}} kcal/m³) de superior. Los gases salen a {{T_gases}} °C, por encima de su rocío ({{T_rocio}} °C), con una pérdida de {{q_gases}} % del PCI; sumando {{f_rad}} % de pérdidas de la caldera (supuesto):
 
 $$\eta_{PCI}=1-q_{gases}-f_{rad}=1-{{inf_qg4_m}}-{{inf_frad4_m}}={{inf_etaPCI4_m}}\qquad \eta_{PCS}={{eta_PCS_m}}\ \%$$
 
-$$E_{gas}=\frac{Q_{util}}{\eta_{PCS}}=\frac{ {{q_total_MWh_m}} }{ {{inf_etaPCS_m}} }={{E_gas_MWh_m}}\ \mathrm{MWh\ por\ a\tilde{n}o}$$
+$$E_{gas}=\frac{Q_{util}}{\eta_{PCS}}=\frac{ {{q_total_MWh_m}} }{ {{inf_etaPCS_m}} }={{E_gas_MWh_m}}\ \text{MWh por año}$$
 
 Son unos {{V_gas_mil}} m³ de gas por año, y cada kWh de PCS emite {{co2_gas_pcs}} kg de CO₂. Hospitecnia {{R_hospitecnia}} usa un rendimiento de 90 % sin aclarar la base: la coincidencia es de resultado.
 
 ## 5.4 Consumo anual
 
-La energía final es **{{E_total_MWh}} MWh por año**: {{E_elec_MWh}} de electricidad y {{E_gas_MWh}} de gas (PCS), {{i_cub}} kWh/m² (se suman kWh sin ponderar por energía primaria). Las emisiones son {{co2_t}} t de CO₂ por año ({{co2_gas_t}} del gas y {{co2_elec_t}} de la electricidad, con {{ef_elec}} t/MWh {{R_cammesa}}). Contraste: los {{Q_L_dis_wm2}} W/m² de frío están en el orden de los 100 a 115 W/m² de {{R_hospitecnia}}; los {{i_cub}} kWh/m² del sistema térmico equivalen a 226 a 361 kWh/m² del hospital completo (memoria), por encima de los 163 a 259 kWh/m² estimados para tres hospitales argentinos {{R_hcwh}}: una señal para vigilar, porque el nuestro es todo aire y funciona 24 h.
+La energía final es **{{E_total_MWh}} MWh por año**: {{E_elec_MWh}} de electricidad y {{E_gas_MWh}} de gas (PCS), {{i_cub}} kWh/m² (se suman kWh sin ponderar por energía primaria). Las emisiones son {{co2_t}} t de CO₂ por año ({{co2_gas_t}} del gas y {{co2_elec_t}} de la electricidad, con {{ef_elec}} t/MWh {{R_cammesa}}, una meta y no una medición: con 0,29 y 0,40 el paquete baja {{dC_P_lo}} % y {{dC_P_hi}} % de CO₂). Contraste: los {{Q_L_dis_wm2}} W/m² de frío están en el orden de los 100 a 115 W/m² de {{R_hospitecnia}}; los {{i_cub}} kWh/m² del sistema térmico equivalen a 226 a 361 kWh/m² del hospital completo (memoria): el extremo bajo cae dentro de los 163 a 259 kWh/m² estimados para tres hospitales argentinos {{R_hcwh}} y el alto los supera, así que el contraste no alcanza para juzgar si sobreestimamos, y el nuestro es todo aire y funciona 24 h.
 
-![Figura 5. Consumo anual por uso final.](../figuras/fig04_consumo_por_uso.png){width=8.5cm}
+![Figura 5. Consumo anual por uso final.](../figuras/fig04_consumo_por_uso.png){width=13cm}
 
 <<EQUIPOS>>
 
@@ -151,7 +151,7 @@ La energía final es **{{E_total_MWh}} MWh por año**: {{E_elec_MWh}} de electri
 
 ## 8.1 Alternativas A y B
 
-**A** es la base: enfriadora, caldera de gas y recalentamiento. **B** cubre el recalentamiento y la calefacción del aire con el **calor del condensador**, que hoy se tira: ese calor existe ({{Q_cond_MWh}} MWh por año, {{Q_cond_sobre_recal}} veces el de recalentamiento) y alcanza con agua tibia a {{T_agua_rec}} °C. **Cuesta trabajo:** entregar agua a {{T_agua_rec}} °C exige condensar a {{T_cond_rec}} °C, más caliente que los {{T_cond_min}} a {{T_cond_anual_max}} °C de un condensador por aire; por eso en cada estado del año se elige el mejor entre no recuperar, recuperar solo el sobrecalentamiento de la descarga o condensar en el recuperador. B recupera {{rec_MWh}} MWh de calor, ahorra {{ahorro_gas_B}} MWh de gas y gasta {{extra_elec_B}} MWh más de electricidad. Hay antecedentes: un hospital de Texas calienta con agua a 46 °C de enfriadoras de recuperación de calor en lugar de agua de caldera a 82 °C, y el fabricante informa 80 % menos de gas {{R_trane}}. **Qué proponemos:** dimensionar los equipos con A, porque la planta tiene que cubrir la carga aunque el calor del condensador no coincida con la demanda, y proponer B como primera mejora y, después, las de la tabla 8.
+**A** es la base: enfriadora, caldera de gas y recalentamiento. **B** cubre el recalentamiento y la calefacción del aire con el **calor del condensador**, que hoy se tira: ese calor existe ({{Q_cond_MWh}} MWh por año, {{Q_cond_sobre_recal}} veces el de recalentamiento) y alcanza con agua tibia a {{T_agua_rec}} °C. **Cuesta trabajo:** entregar agua a {{T_agua_rec}} °C exige condensar a {{T_cond_rec}} °C, más caliente que los {{T_cond_min}} a {{T_cond_anual_max}} °C de un condensador por aire en los estados medios del año (46 °C en el pico); por eso en cada estado del año se elige el mejor entre no recuperar, recuperar solo el sobrecalentamiento de la descarga o condensar en el recuperador. B recupera {{rec_MWh}} MWh de calor, ahorra {{ahorro_gas_B}} MWh de gas y gasta {{extra_elec_B}} MWh más de electricidad. Hay antecedentes: un hospital de Texas calienta con agua a 46 °C de enfriadoras de recuperación de calor en lugar de agua de caldera a 82 °C, y el fabricante informa 80 % menos de gas {{R_trane}} (nuestro modelo da {{inf_gas_pct_B}} % menos de gas, porque no todo el recalentamiento coincide con calor disponible). **Qué proponemos:** dimensionar los equipos con A, porque la planta tiene que cubrir la carga aunque el calor del condensador no coincida con la demanda, y proponer B como primera mejora y, después, las de la tabla 8.
 
 ::: {custom-style="Largo"}
 {{tabla_ab_inf}}
@@ -169,18 +169,18 @@ Cada mejora se evaluó con el mismo modelo, una por vez, y se ordenan por ahorro
 Table: Tabla 8. Mejoras respecto de A ({{E_total_MWh}} MWh y {{co2_t}} t de CO₂ por año).
 :::
 
-Las medidas casi se suman (sueltas ahorran {{sum_ind_MWh}} MWh y el paquete {{pkg_MWh}} MWh), pero el aporte de cada una **depende de las demás**: con B, la caldera de condensación ahorra {{m1_con_b}} MWh y no {{m1_solo}}. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 (valor de uso corriente; supuesto) y la Enmienda de Kigali obliga a reducir los HFC {{R_kigali}}; con el mismo ciclo y el mismo rendimiento isentrópico supuesto, el R1234ze(E) da el mismo COP ({{cop_ze}} contra {{cop_134}}) con un compresor {{mas_compresor}} % más grande y es ligeramente inflamable (clase A2L; supuesto), lo que pesa en un hospital. Aislar la envolvente 30 % baja la energía solo {{s_ua30}} %, y reducir las ganancias internas 30 % no ahorra: la sube {{s_gi30}} %, porque hay más recalentamiento: el consumo está en el aire, no en la envolvente.
+Las medidas casi se suman (sueltas ahorran {{sum_ind_MWh}} MWh y el paquete {{pkg_MWh}} MWh), pero el aporte de cada una **depende de las demás**: con B, la caldera de condensación ahorra {{m1_con_b}} MWh y no {{m1_solo}}. **Refrigerante:** el R134a tiene un potencial de calentamiento global de 1.430 (supuesto) y la Enmienda de Kigali obliga a reducir los HFC {{R_kigali}}; con el mismo ciclo y el mismo rendimiento isentrópico supuesto, el R1234ze(E) da el mismo COP ({{cop_ze}} contra {{cop_134}}) con un compresor {{mas_compresor}} % más grande y es ligeramente inflamable (supuesto), lo que pesa en un hospital. Aislar la envolvente 30 % baja la energía solo {{s_ua30}} %, y reducir las ganancias internas 30 % no ahorra: la sube {{s_gi30}} %, porque hay más recalentamiento: el consumo está en el aire, no en la envolvente.
 
 ## 8.3 Discusión
 
 - **Qué mueve el resultado.** Cambiando un supuesto por vez, la intensidad queda entre {{sens_min}} y {{sens_max}} kWh/m² por año: la humedad de consigna (5 puntos menos: {{s_hr5}} %), los horarios (consultorios 24 h: {{s_g5_24h}} %), que el ventilador no caliente el aire ({{s_fan}} %), el ACS por cama (200 L: {{s_acs200}} %), la temperatura media (±2 K: {{s_tp2}} % y {{s_tm2}} %) y el cambio de estación a 21 °C ({{s_est21}} %). Es un rango, no un intervalo de confianza.
 - **Ventiladores contra compresor.** Los ventiladores consumen más que el compresor ({{pct_vent}} % contra {{pct_comp}} %) por ser un sistema todo aire con muchas renovaciones; el orden depende de la presión y el rendimiento supuestos.
-- **El recalentamiento** es casi la mitad del calor útil de la caldera ({{q_recal_MWh}} de {{q_total_MWh}} MWh) y es mayor en verano que en invierno ({{calor_ene}} MWh de calor del aire en enero contra {{calor_jul}} en julio).
+- **El recalentamiento** es casi la mitad del calor útil de la caldera ({{q_recal_MWh}} de {{q_total_MWh}} MWh) y es mayor en verano que en invierno ({{calor_ene}} MWh de calor del aire en enero, todo recalentamiento, contra {{calor_jul}} en julio, todo calefacción).
 - **COP.** El del compresor es {{cop_elec}} al diseño y {{COP_est_comp}} como media anual, porque casi siempre el aire está más frío que a 34 °C; con ventiladores del condensador y bombas, la planta da {{COP_planta}}.
 
 # 9. Conclusiones
 
-1. **¿La alternativa seleccionada satisface los requerimientos?** Seleccionamos A como base de dimensionamiento, con B propuesta como mejora. Sí: la serpentina alcanza las consignas de las cinco zonas, cada zona recibe al menos sus renovaciones mínimas y los equipos de ejemplo cubren {{Q_L_dis}} kW de frío con redundancia (<<CUMPLE_ENF>>, con la capacidad nominal del catálogo {{R_carrier}}; la selección final la confirma el fabricante), {{Q_cal_inv_aire}} kW de calefacción del aire (más {{Q_hum_inv}} kW de vapor) y {{acs_kW}} kW medios de ACS. Lo que no satisface bien es la eficiencia: consume {{E_total_MWh}} MWh y tira {{Q_cond_MWh}} MWh de calor; B cumple lo mismo con hasta {{dE_B}} % menos de energía.
+1. **¿La alternativa seleccionada satisface los requerimientos?** Seleccionamos A como base de dimensionamiento, con B propuesta como mejora. Sí: la serpentina alcanza las consignas de las cinco zonas, cada zona recibe al menos sus renovaciones mínimas y los equipos de ejemplo cubren {{Q_L_dis}} kW de frío con redundancia (<<CUMPLE_ENF>>, con la capacidad nominal del catálogo {{R_carrier}}; la selección final la confirma el fabricante), {{Q_cal_inv_aire}} kW de calefacción del aire (más {{Q_hum_inv}} kW de vapor) y {{acs_kW}} kW medios de ACS. Lo que no satisface bien es la eficiencia: consume {{E_total_MWh}} MWh y tira {{Q_cond_MWh}} MWh de calor; B cumple lo mismo con hasta {{dE_B}} % menos de energía ({{dE_B75}} % si coincide el 75 % de la demanda).
 2. **¿Cuáles son las principales variables que condicionan su desempeño?** La humedad de consigna ({{s_hr5}} %), los horarios ({{s_g5_24h}} %), que el ventilador no caliente el aire ({{s_fan}} %), el ACS por cama ({{s_acs200}} %) y la temperatura media ({{s_tp2}} % y {{s_tm2}} %). Termodinámicamente, la humedad del aire exterior ({{W_ext_ver}} g/kg) obliga a deshumidificar y recalentar, y el COP depende de la temperatura de condensación ({{cop_elec}} al diseño y {{COP_est_comp}} como media anual).
 3. **¿Qué procesos presentan mayores pérdidas de energía o destrucción de exergía?** <<CONCL3>>
 4. **¿Qué modificaciones permitirían mejorar el aprovechamiento de los recursos?** Recuperar el calor del condensador (B: hasta {{dE_B}} % de energía y {{dC_B}} % de CO₂), fotovoltaica ({{dE_M5}} % de energía), solar térmico ({{dE_M2}} %), recuperador del aire de extracción ({{dE_M3}} %) y caldera de condensación ({{dE_M1}} %); el paquete, hasta {{dE_P}} % de energía y {{dC_P}} % de emisiones ({{inf_P75_E}} % y {{inf_P75_C}} % con coincidencia del 75 %; {{inf_PsFV_E}} % y {{inf_PsFV_C}} % sin la fotovoltaica, que cubre consumo y no lo reduce). Sin costos no se puede ordenar por retorno.

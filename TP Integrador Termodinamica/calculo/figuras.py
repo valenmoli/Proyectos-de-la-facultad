@@ -74,7 +74,7 @@ def fig_esquema():
     caja(3.30, y0, 1.30, h, "Serpentina\nagua helada", AZUL_CLARO)
     caja(5.05, y0, 1.15, h, "Recalen-\ntador", NARANJA_CLARO)
     caja(6.65, y0, 1.30, h, "Ventilador", "#f4f3f0")
-    caja(8.40, y0, 1.90, h, "Zona\n(quirófano, UTI,\ninternación...)", "#f4f3f0", fs=7.5)
+    caja(8.40, y0, 1.90, h, "Zona\n(quirófano, terapia,\ninternación...)", "#f4f3f0", fs=7.5)
     for a, b in ((1.25, 1.70), (2.85, 3.30), (4.60, 5.05), (6.20, 6.65), (7.95, 8.40)):
         flecha((a, cm), (b, cm))
     # retorno
@@ -107,6 +107,9 @@ def fig_esquema():
     caja(8.00, 1.45, 1.35, 1.15, "ACS\n60 °C", NARANJA_CLARO)
     flecha((7.20, 2.0), (8.00, 2.0), color=NARANJA)
     rotulo(7.60, 2.12, "$Q_{ACS}$", color=NARANJA, va="bottom", fs=8.5)
+    # trabajo electrico del ventilador
+    flecha((7.30, 3.05), (7.30, y0), color=AZUL, lw=1.3)
+    rotulo(7.40, 3.40, "$W_{vent}$", color=AZUL, ha="left", fs=8.5)
     # estados del aire (los mismos A a F de la carta psicrometrica del quirofano)
     for letra, x in (("A", 0.675), ("C", 2.275), ("D", 3.95), ("E", 5.625), ("F", 7.3), ("B", 9.35)):
         yy = y0 + h + 0.20 if letra != "B" else 5.45
@@ -115,7 +118,7 @@ def fig_esquema():
     # alternativa B: el calor del condensador, a 45 C, hacia el recalentador en lugar de la caldera
     ax.plot([5.05, 5.38], [2.30, 2.30], color=AQUA, lw=1.6, ls=(0, (4, 2)))
     flecha((5.38, 2.30), (5.38, y0), color=AQUA, lw=1.6)
-    ax.text(5.43, 3.05, "B", fontsize=9, fontweight="bold", color=AQUA, ha="left", va="center")
+    ax.text(5.43, 3.05, "alt. B", fontsize=8, fontweight="bold", color=AQUA, ha="left", va="center")
     rotulo(5.2, 0.28, "Azul: circuito de frío y electricidad.   Naranja: circuito de calor y gas.   Verde discontinuo: alternativa B (calor del condensador a 45 °C).", fs=7)
     return _guardar(fig, "fig01_esquema_sistema.png")
 
@@ -165,8 +168,8 @@ def fig_psicrometrica(c, resumen):
     ax.text(0.015, 0.985, clave, transform=ax.transAxes, ha="left", va="top", fontsize=7.2, color=INK, linespacing=1.35,
             bbox=dict(boxstyle="round,pad=0.35", fc="white", ec=GRID, alpha=0.95), zorder=7)
     ax.text(0.99, 0.03,
-            f"Quirófano, verano pico\nSerpentina: {coma(r['Q_coil'])} kW  (sensible {coma(r['Q_coil_sens'])}, latente {coma(r['Q_coil_lat'])})\n"
-            f"Recalentamiento: {coma(r['Q_recal'])} kW",
+            f"Quirófano, verano pico\nSerpentina: {coma(r['Q_coil'], 1)} kW  (sensible {coma(r['Q_coil_sens'], 1)}, latente {coma(r['Q_coil_lat'], 1)})\n"
+            f"Recalentamiento: {coma(r['Q_recal'], 1)} kW",
             transform=ax.transAxes, ha="right", va="bottom", fontsize=7.5, color=INK2,
             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="none", alpha=0.9), zorder=7)
     ax.set_xlim(x0, x1)
