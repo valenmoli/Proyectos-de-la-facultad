@@ -9,6 +9,7 @@ Exposición oral (hito **M6**).
 
 ## Estado
 - `estructura.md`: esquema de 12 diapositivas y preguntas probables.
-- `diapositiva_11_mejoras.pptx` y `guion_diapositivas_10_a_12.md`: parte de propuestas (diapositivas 10 a 12), con las cifras del informe entregado.
-- `version_modelo_anual/`: primera versión con cifras del modelo anual propio (respaldo).
+- `guion_diapositivas_10_a_12.md`: guion de la parte de propuestas (diapositivas 10 a 12 del PowerPoint del equipo: B, mejoras en tres familias y respuestas a la consigna 5).
+- `diapositiva_11_mejoras.pptx`: alternativa descartada para la 11 (medidas del informe más ideas verdes).
+- `version_modelo_anual/`: primera versión con cifras del modelo anual propio; su segunda diapositiva es la 11 que se presenta.
 - Las cifras con asterisco de la diapositiva 11 salen de `calculo/` (modelo anual); el resto, del informe entregado.

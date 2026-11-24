@@ -21,13 +21,13 @@ La consigna pide «énfasis en la metodología, los resultados y la justificaci�
 
 ## Diapositivas de propuestas ya armadas
 
-El grupo entregó un informe que calcula **tres estados de diseño** (V1 verano pico, V2 verano húmedo, I invierno), no un consumo anual; las diapositivas 10 y 11 de los compañeros (alternativa B y medidas M1 a M3) coinciden con ese informe. Para la parte de propuestas (diapositivas 10 a 12) se usa:
+Quien presenta las propuestas expone las diapositivas **10 a 12** del PowerPoint del equipo:
 
-- la diapositiva 10 de los compañeros (alternativa B en V2);
-- `diapositiva_11_mejoras.pptx`: reemplaza su 11 y muestra las tres medidas del informe con sus cifras de invierno, más tres ideas verdes rotuladas como estimación aparte;
-- `guion_diapositivas_10_a_12.md`: guion con las cifras del informe, lo que conviene no repetir de él y las preguntas probables.
+- **10**, alternativa B (compañeros): cifras del informe entregado, que calcula tres estados de diseño (V1, V2, I), no un consumo anual.
+- **11**, «Mejoras de sustentabilidad, en tres familias»: la segunda diapositiva de `version_modelo_anual/propuestas_diapositivas.pptx`, con cifras de nuestro modelo anual (3.021 MWh/año). **Es otra base que la 10 y la 12**; el guion lo aclara en voz alta.
+- **12**, respuestas a la consigna 5 (compañeros): cifras del informe entregado.
 
-La primera versión, con cifras del modelo anual propio, quedó en `version_modelo_anual/` como respaldo.
+`guion_diapositivas_10_a_12.md` tiene el guion de esas tres (versión base y versión con todo), la tabla de contradicciones entre bases y las preguntas probables. `diapositiva_11_mejoras.pptx` es una alternativa que mezcla las medidas del informe con las ideas verdes; se descartó, se conserva por si hace falta.
 
 ## Preguntas probables y de dónde sale la respuesta
 
